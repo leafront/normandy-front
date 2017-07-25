@@ -1,0 +1,96 @@
+@import '../modules/reset.scss';
+@import '../modules/common.scss';
+
+@import '../layui/index.scss';
+
+.login_bg{
+	background:url(/images/login_bg.jpg) no-repeat;
+}
+.login-container{
+	width:420px;
+	margin:7% auto 0;
+
+}
+.login-logo{
+	text-align:center;
+	padding-bottom:36px;
+	img{
+		width:164px;
+		height:49px;
+	}
+}
+
+.login-form{
+
+	@include borderRadius(12);
+	padding:5px 40px 0;
+	background:#eceef1;
+	h3{
+		font-size:26px;
+		color:#53cac3;
+		margin:40px 0;
+		text-align:center;
+	}
+
+}
+
+.login-form-item{
+	margin-bottom:22px;
+	position:relative;
+	.login-verify{
+		position:absolute;
+		right:1px;
+		top:1px;
+		width:100px;
+		height:44px;
+		background:#fff;
+	}
+}
+.login-input{
+	width:100%;
+	height:46px;
+ 	@include borderRadius(5);
+  background:#dde3ec;
+	padding:6px 0 6px 16px;
+	font-size:16px;
+	border:1px solid #dde3ec;
+	color:#8593a5;
+	&:focus{
+		border:1px solid #b9c5d7;
+	}
+	&:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0 1000px white inset;
+	}
+}
+
+.login-input::-webkit-input-placeholder{
+	color:#8593a5;
+}
+.login-submit{
+	height:46px;
+	background:#53cac3;
+	text-align:center;
+	margin-top:20px;
+	@include borderRadius(5);
+	font-size:16px;
+	line-height:46px;
+	cursor: pointer;
+	button{
+		background:#53cac3;
+		color:#fff;
+
+	}
+}
+.user-action{
+	padding:20px 0;
+	margin-bottom:34px;
+	a{
+		font-size:14px;
+		float:left;
+		color:#53cac3;
+	}
+	.user-forget{
+		color:#4a88bd;
+		float:right;
+	}
+}

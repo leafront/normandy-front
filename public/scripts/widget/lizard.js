@@ -280,9 +280,11 @@ define([
 					obj.success(data);
 
 				},
-				error: function(){
+				error: function(error){
+					var msg = JSON.parse(error.responseText);
 
-					Lizard.showToast('网络服务器错误');
+					Lizard.showToast(msg.error.message);
+
 				}
 			})
 		},

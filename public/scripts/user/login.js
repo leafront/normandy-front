@@ -19,7 +19,7 @@ require([
 		function startLogin (){
 
 
-			$('.user-submit').click(function(){
+			$('.login-submit').click(function(){
 
 				actionLogin()
 
@@ -27,7 +27,7 @@ require([
 
 		}
 
-		function actionLogin (){
+		function actionLogin (){ //开始登录
 
 			var mobile = $.trim($('#mobile').val());
 
@@ -49,18 +49,18 @@ require([
 
 					Lizard.showToast('登陆成功');
 
-					local.set('jwt',data.jwt)
+					local.set('jwt',data.jwt);
 					setTimeout(function(){
 
-						//location.href ='/';
+						location.href ='/';
 
-					},2000)
+					},500)
 
 				}
 			})
 		}
 
-		function getVerify() {
+		function getVerify() { //获取验证码
 
 			$('#captcha-img').click(function(){
 
@@ -80,8 +80,8 @@ require([
 		}
 
 		getVerify();
+
 		startLogin();
 
 	})
-
 })

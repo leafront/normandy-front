@@ -16,6 +16,8 @@ var index = require('./router/index');
 
 var user = require('./router/user/index');
 
+var borrowers = require('./router/borrowers/index');
+
 app.use(gzip());
 
 
@@ -33,9 +35,9 @@ app.use(views(__dirname + '/views',{
 
 router.use('/',index.routes());
 
-router.use('/user',user.routes());
+router.use('/borrowers',borrowers.routes());
 
 app.use(router.routes());
 
 
-app.listen(3001);
+app.listen(3000);

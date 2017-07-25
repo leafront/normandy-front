@@ -16,5 +16,8 @@
     "koa-gzip": "^0.1.0",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13"
   }
 }
