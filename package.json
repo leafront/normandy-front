@@ -1,0 +1,20 @@
+{
+  "name": "normandy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "production": "NODE_ENV=production pm2 start server.js",
+    "start": "./node_modules/.bin/nodemon server",
+    "watch": "browser-sync start --proxy '127.0.0.1:3000' --files 'public, views, routes,server.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-ejs": "^4.1.0",
+    "koa-gzip": "^0.1.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1"
+  }
+}
