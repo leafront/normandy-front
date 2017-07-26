@@ -7,8 +7,8 @@ router.get('/', async (ctx,next) => {
 
 
 	await ctx.render('borrowers',{
+		pathName: ctx.path
 	})
-
 
 })
 

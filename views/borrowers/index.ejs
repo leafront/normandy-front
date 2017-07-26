@@ -3,9 +3,68 @@
 <head>
 	<meta charset="utf-8">
 	<title>百渊金服 • 借款人列表</title>
+    <link rel="stylesheet" href="/styles/borrowers/index.css"/>
 </head>
 <body>
-sdfd
+   <% include ../common/header.ejs %>
+
+  <div class="container clearfix">
+   <% include ../common/aside_menu.ejs %>
+   <div class="right-container fr">
+     <div class="navigation">
+       <a href="/" class="home_ico"></a>
+       <em class="navigation_ico"></em>
+       <span>借款人列表</span>
+     </div>
+     <div class="content">
+       <div class="cont-title">
+         <i></i>
+         <span>借款人列表</span>
+         <button class="title-btn2">邦定借款人</button>
+         <button class="title-btn1">新增借款人</button>
+       </div>
+       <div class="search">
+          <div class="search_wraper clearfix">
+              <div class="search_item">
+                <label>手机号</label>
+                 <input type="text" class="user-ui-input" placeholder="请输入手机号"/>
+               </div>
+               <div class="search_item">
+                   <label>姓名</label>
+                   <input type="text" class="user-ui-input" placeholder="请输入姓名"/>
+               </div>
+               <div class="search_item">
+                   <label>注册时间</label>
+                   <div class="user-ui-calendar">
+                     <input type="text" class="user-ui-input" placeholder="请输入开始时间"/>
+                     <em>至</em>
+                     <input type="text" class="user-ui-input" placeholder="请输入开始时间"/>
+                   </div>
+               </div>
+          </div>
+          <div class="search_submit clearfix">
+            <button>查询</button>
+            <button>重置</button>
+          </div>
+       </div>
+
+       <div class="list_container">
+         <dl class="cont_list">
+           <dt>
+             <span></span>
+             <span></span>
+             <span></span>
+             <span></span>
+             <span></span>
+             <span></span>
+             <span></span>
+           </dt>
+         </dl>
+       </div>
+     </div>
+   </div>
+  </div>
+   <script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/borrowers/index"></script>
 </body>
 </html>
 

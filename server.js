@@ -35,6 +35,7 @@ app.use(views(__dirname + '/views',{
 
 router.use('/',index.routes());
 
+router.use('/user',user.routes());
 router.use('/borrowers',borrowers.routes());
 
 app.use(router.routes());

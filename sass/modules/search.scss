@@ -1,0 +1,60 @@
+@import 'common.scss';
+.search{
+	padding-top:26px;
+	padding-bottom:50px;
+}
+.search_item{
+	float:left;
+	padding:0 30px;
+	label{
+		font-size:14px;
+		color:#333;
+		padding-right:15px;
+	}
+}
+.search_submit{
+	width:280px;
+	margin:45px auto 0;
+	button{
+		width:118px;
+		height:38px;
+		line-height:38px;
+
+		@include borderRadius(5);
+		font-size: 14px;
+		padding-left:20px;
+		color:#fefefe;
+		float:left;
+		position:relative;
+		cursor: pointer;
+		&:first-child{
+			background:#53cac3;
+			margin-right:42px;
+			&:before{
+				width:17px;
+				height:17px;
+				content:'';
+				display:block;
+				position:absolute;
+				left:28px;
+				top:10px;
+				background:url(/images/ico_sprite.png) no-repeat -182px -68px;
+
+			}
+		}
+		&:last-child{
+			background:#84c0eb;
+			&:before{
+				width:14px;
+				height:17px;
+				content:'';
+				display:block;
+				position:absolute;
+				left:28px;
+				top:10px;
+				background:url(/images/ico_sprite.png) no-repeat -147px -91px;
+			}
+		}
+	}
+
+}

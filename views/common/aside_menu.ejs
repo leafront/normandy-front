@@ -1,0 +1,45 @@
+<div class="aside-menu fl">
+    <% var menuList = [{
+        name:'主页',
+        link:'/',
+        isValidate:'',
+    },{
+        name:'客户',
+        link:'/borrowers',
+        isValidate:'BORROWER_READ'
+    },{
+        name:'资产',
+        link:'/vehicles',
+        isValidate:'VEHICLE_READ'
+    },{
+        name:'业务',
+        link:'/borrowings',
+        isValidate:'BORROWER_READ'
+    },{
+        name:'预约',
+        link:'/appointments',
+        isValidate:'APPOINTMENT_MANAGE'
+    },{
+        name:'员工',
+        link:'/system',
+        isValidate:'STUFF_MANAGE'
+    },{
+        name:'账户',
+        link:'/account'
+    }]%>
+    <ul class="aside_list">
+        <% menuList.forEach(function(item,index){%>
+        <li <%if(item.link == pathName){%>class="active"<%}%>>
+            <a href="<%-item.link%>">
+                <i class="ico<%-index + 1 %>"></i>
+                <span class="js_nav_link"><%-item.name%></span>
+            </a>
+        </li>
+        <%})%>
+
+    </ul>
+</div>
+<script>
+    var asideMenu = document.querySelector('.aside-menu');
+    asideMenu.style.height = document.documentElement.clientHeight - 68  + 'px';
+</script>

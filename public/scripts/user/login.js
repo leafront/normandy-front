@@ -50,6 +50,7 @@ require([
 					Lizard.showToast('登陆成功');
 
 					local.set('jwt',data.jwt);
+
 					setTimeout(function(){
 
 						location.href ='/';
