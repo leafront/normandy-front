@@ -1,0 +1,22 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/search.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/pagination.scss';
+
+
+
+@import '../modules/dropMenu.scss';
+
+
+.drop-menu-loan{
+	width:260rem/$rem;
+	.drop_menu_list{
+		width:260rem/$rem;
+	}
+}
+

@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>登录</title>
-    <link rel="stylesheet" href="/styles/user/login.css"/>
+    <link rel="stylesheet" href="/styles/user/index.css"/>
+    <script type="text/javascript">
+     document.documentElement.style.fontSize = document.documentElement.clientWidth / 19.2 + 'px';
+    </script>
   </head>
   <body class="login_bg">
     <div class="login-container">
@@ -13,8 +16,8 @@
       <div class="login-form clearfix">
         <h3>登录</h3>
         <input id="captcha_key" value="<%-captcha.key%>" type="hidden"/>
-        <p class="login-form-item"><input type="text" id="mobile" class="login-input" placeholder="手机号"/> </p>
-        <p class="login-form-item"><input type="password" id="password" class="login-input" placeholder="密码"/> </p>
+        <p class="login-form-item"><input type="text" autocomplete="off" id="mobile" name="mobile" class="login-input" placeholder="手机号"/> </p>
+        <p class="login-form-item"><input type="password" autocomplete="off" id="password" name="password" class="login-input" placeholder="密码"/> </p>
         <p class="login-form-item">
             <input type="text" class="login-input" id="captcha_code" placeholder="验证码"/>
             <img class="login-verify" id="captcha-img" src="<%-captcha.img_url%>"/>
@@ -23,8 +26,8 @@
           <button>登录</button>
         </div>
         <div class="user-action">
-          <a href="#" class="user-create">创建帐户</a>
-          <a href="#" class="user-forget">忘记密码？</a>
+          <a href="/user/register" class="user-create">创建帐户</a>
+          <a href="/user/forget" class="user-forget">忘记密码？</a>
         </div>
       </div>
     </div>

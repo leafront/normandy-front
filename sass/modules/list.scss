@@ -1,11 +1,68 @@
+@import 'common.scss';
+
 .list_container{
 	padding-left:14px;
 }
+
+.list_item{
+
+	margin-bottom:22rem/$rem;
+
+	height:34px;
+}
 .cont_list{
+
+	.list_number{
+		width:430rem/$rem;
+	}
+	.list_name{
+
+		width:250rem/$rem;
+	}
+	.list_car{
+		width:494rem/$rem;
+	}
+	.list_vin{
+		width:332rem/$rem;
+	}
+	.list_phone{
+		width:340rem/$rem;
+	}
+	.list_regTime{
+		width:415rem/$rem;
+	}
+	.list_action{
+		color:#248ad4;
+		font-size:16px;
+	}
+	.list_color{
+		width:280rem/$rem;
+	}
+	dt{
+		background:#53cac3;
+	}
 	dt,dd{
-		height:58px;
-		line-height:58px;
+		height:58rem/$rem;
+		line-height:58rem/$rem;
 		font-size:16px;
 		color:#fff;
+		padding-left:60rem/$rem;
+		span{
+			height:58rem/$rem;
+			font-size:16px;
+			color:#fff;
+			float:left;
+		}
+
+
+	}
+	dd{
+		span{
+			color:#333;
+			font-size:14px;
+		}
+		&:nth-child(odd){
+			background:#f9f9f9;
+		}
 	}
 }

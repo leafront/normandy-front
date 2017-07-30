@@ -9,7 +9,9 @@ define([
 ){
 	var Lizard = {
 
-		url:'http://user.qgqg.me',
+		userUrl:'http://user.qgqg.me',
+
+		shopUrl:'http://shop.qgqg.me',
 
 		prompt: function (obj,determine,cancel){
 
@@ -129,37 +131,6 @@ define([
 
 			return pattern.test(text);
 		},
-		isLogin: function  () {
-
-			var getTime = new Date().getTime();
-
-			var expires = Lizard.getCookie('expires');
-
-			var loginTime = Lizard.getCookie('loginTime');
-
-			if (expires) {
-
-				if (getTime < expires && loginTime == '1') {
-
-					return true;
-
-				}
-			}
-			return false;
-		},
-		checkLogin: function(){
-
-			if (!this.isLogin()) {
-
-				location.href= '/users/login?returnurl=' + Lizard.getPathName();
-
-				return false;
-
-			} else {
-
-				return true;
-			}
-		},
 		isEmail: function (text) {
 
 			var pattern = /^([a-zA-Z0-9]+[-_.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[-_.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/;
@@ -168,7 +139,7 @@ define([
 		},
 		isPass: function(text){
 
-			var pattern = /((?=.*[a-z])(?=.*\d)|(?=[a-z])(?=.*[#@!~%^&*])|(?=.*\d)(?=.*[#@!~%^&*]))[a-z\d#@!~%^&*]{6,20}/i;
+			var pattern = /((?=.*[a-z])(?=.*\d)|(?=[a-z])(?=.*[#@!~%^&*])|(?=.*\d)(?=.*[#@!~%^&*]))[a-z\d#@!~%^&*]{8,20}/i;
 
 			return pattern.test(text)
 
@@ -188,6 +159,13 @@ define([
 				return false;
 
 			}
+		},
+		isVerify: function(text){
+
+			var pattern = /^[0-9a-zA-Z]{4}$/;
+
+			return pattern.test(text);
+
 		},
 		isIdCard: function(text) {
 			//身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X。
@@ -262,7 +240,7 @@ define([
 
 		ajax: function(obj) {
 
-			var url = this.url;
+			var url = obj.gateway == 'gatewayExt' ? this.userUrl : this.shopUrl;
 
 			var type = obj.type;
 
@@ -270,21 +248,38 @@ define([
 
 			var resData = obj.data;
 
+			var jwt = Lizard.getCookie('jwt');
+
+			var org_id = Lizard.getCookie('org_id');
+
 			$.ajax({
 				type:obj.type,
 				dataType: 'json',
 				url: url,
 				data:resData,
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("Authorization", 'Bearer ' + jwt);
+					xhr.setRequestHeader('X-Org',org_id)
+				},
 				success:function(data){
 
 					obj.success(data);
 
 				},
 				error: function(error){
-					var msg = JSON.parse(error.responseText);
 
-					Lizard.showToast(msg.error.message);
+					if (error.status == 400) {
 
+						var msg = JSON.parse(error.responseText);
+
+						Lizard.showToast(msg.error.message);
+
+						obj.error && obj.error();
+
+					} else {
+
+						Lizard.showToast('网络错误，请稍后重试');
+					}
 				}
 			})
 		},
@@ -318,7 +313,7 @@ define([
 		},
 		getDateDiff: function (dateTimeStamp){
 
-			dateTimeStamp = Date.parse(dateStr.replace(/-/gi,"/"));
+			dateTimeStamp = Date.parse(dateTimeStamp.replace(/-/gi,"/"));
 			var minute = 1000 * 60;
 			var hour = minute * 60;
 			var day = hour * 24;
@@ -416,7 +411,7 @@ define([
 		},
 		//读取cookies
 		getCookie: function (name){
-			var arr,reg=RegExp
+			var arr,reg = new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 			if(arr = document.cookie.match(reg)){
 				return unescape(arr[2]);
 
@@ -426,11 +421,19 @@ define([
 		},
 
 		//删除cookies
-		delCookie:function (name){
+		removeCookie:function (name){
 			var exp = new Date();
 			exp.setTime(exp.getTime() - 1);
 			var cval = this.getCookie(name);
       if(cval!== null) document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path=/";
+		},
+
+		clearCookie:function (){
+			var keys=document.cookie.match(/[^ =;]+(?=\=)/g);
+			if (keys) {
+				for (var i = keys.length; i--;)
+					document.cookie=keys[i]+'=0;expires=' + new Date().toGMTString()+";path=/";
+			}
 		},
 		throttle: function (func, wait, mustRun) {
 			var timeout,

@@ -1,0 +1,27 @@
+@import 'common.scss';
+
+.pagination{
+	padding:46rem/$rem 0;
+	overflow:hidden;
+}
+.pagination_list{
+	float:right;
+	height:32px;
+	li{
+		float:left;
+
+		background:#f9f9f9;
+		height:32px;
+		line-height:32px;
+		margin-right:2px;
+		a{
+			display:block;
+			color:#6d7f84;
+			padding:0 14px;
+			&:hover{
+				background:#53cac3;
+				color:#fff;
+			}
+		}
+	}
+}

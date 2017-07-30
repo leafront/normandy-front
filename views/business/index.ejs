@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>百渊金服 • 借款人列表</title>
+    <link rel="stylesheet" href="/styles/business/index.css"/>
+</head>
+<body>
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>借款人列表</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>车辆列表</span>
+            </div>
+            <div class="search">
+                <div class="search_wraper clearfix">
+                  <div class="list_item">
+                    <div class="search_item">
+                        <label>借款编号</label>
+                        <input type="text" class="user-ui-input" placeholder="请输入借款编号"/>
+                    </div>
+                    <div class="search_item">
+                        <label>借款人</label>
+                        <input type="text" class="user-ui-input" placeholder="请输入借款人姓名"/>
+                    </div>
+                    <div class="search_item">
+                        <label>借款金额</label>
+                        <input type="text" class="user-ui-input" placeholder="请输入借款金额"/>
+                    </div>
+                    <div class="search_item">
+                        <label>借款金额</label>
+                        <input type="text" class="time-ui-input" placeholder=""/>
+                        <div class="drop_menu active">
+                          <span>请选择</span>
+                          <ul class="drop_menu_list">
+                            <li><a href="javascript:;">天</a></li>
+                            <li><a href="javascript:;">月</a></li>
+                          </ul>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="list_item">
+                  <div class="search_item">
+                    <label>借款类型</label>
+                    <div class="drop_menu drop-menu-loan active">
+                      <span>请选择</span>
+                      <ul class="drop_menu_list">
+                          <li><a href="javascript:;">抵押借款</a></li>
+                          <li><a href="javascript:;">质押借款</a></li>
+                          <li><a href="javascript:;">库存融资</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="search_submit clearfix">
+                    <button>查询</button>
+                    <button>重置</button>
+                </div>
+            </div>
+
+            <div class="list_container">
+                <dl class="cont_list">
+                    <dt>
+                        <span class="list_name">借款人</span>
+                        <span class="list_car">车型</span>
+                        <span class="list_vin">车架号</span>
+                        <span class="list_color">颜色</span>
+                        <span>添加时间</span>
+                    </dt>
+                    <% if(vehiclesList){%>
+                    <%vehiclesList.forEach(function(item){%>
+                    <dd>
+                        <span class="list_name"><%-item.borrower.name%></span>
+                        <span class="list_car"><%-item.model%></span>
+                        <span class="list_vin"><%-item.vin%></span>
+
+                        <span class="list_color"><%-colorList[item.color] && colorList[item.color].name%></span>
+                        <span>2017-07-04 10:05:34</span>
+                    </dd>
+                    <%})%>
+                    <%}%>
+                </dl>
+            </div>
+            <div class="pagination">
+                <ul class="pagination_list">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">上一页</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">下一页</a></li>
+                    <li><a href="#">尾页</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <span>2016  上海百渊金融信息服务有限公司</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/business/index"></script>
+</body>
+</html>
+

@@ -1,20 +1,22 @@
 @import 'common.scss';
 .search{
-	padding-top:26px;
-	padding-bottom:50px;
+	padding-top:26rem/$rem;
+	padding-bottom:50rem/$rem;
 }
 .search_item{
 	float:left;
-	padding:0 30px;
+	padding:0 26rem/$rem;
+	&:last-child{
+		padding-right:0;
+	}
 	label{
 		font-size:14px;
 		color:#333;
-		padding-right:15px;
 	}
 }
 .search_submit{
 	width:280px;
-	margin:45px auto 0;
+	margin:45rem/$rem auto 0;
 	button{
 		width:118px;
 		height:38px;

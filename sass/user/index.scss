@@ -7,28 +7,29 @@
 	background:url(/images/login_bg.jpg) no-repeat;
 }
 .login-container{
-	width:420px;
-	margin:7% auto 0;
+	width:380rem/$rem;
+	min-width:350px;
+	margin:170rem/$rem auto 0;
 
 }
 .login-logo{
 	text-align:center;
 	padding-bottom:36px;
 	img{
-		width:164px;
-		height:49px;
+		width:164rem/$rem;
+		height:49rem/$rem;
 	}
 }
 
 .login-form{
 
 	@include borderRadius(12);
-	padding:5px 40px 0;
+	padding:5px 40rem/$rem 0;
 	background:#eceef1;
 	h3{
-		font-size:26px;
+		font-size:26rem/$rem;
 		color:#53cac3;
-		margin:40px 0;
+		margin:30rem/$rem 0;
 		text-align:center;
 	}
 
@@ -52,14 +53,14 @@
  	@include borderRadius(5);
   background:#dde3ec;
 	padding:6px 0 6px 16px;
-	font-size:16px;
+	font-size:14px;
 	border:1px solid #dde3ec;
 	color:#8593a5;
 	&:focus{
 		border:1px solid #b9c5d7;
 	}
 	&:-webkit-autofill {
-		-webkit-box-shadow: 0 0 0 1000px white inset;
+		-webkit-box-shadow: 0 0 0 1000px #dde3ec inset;
 	}
 }
 
@@ -70,7 +71,7 @@
 	height:46px;
 	background:#53cac3;
 	text-align:center;
-	margin-top:20px;
+	margin-top:40rem/$rem;
 	@include borderRadius(5);
 	font-size:16px;
 	line-height:46px;
@@ -81,6 +82,7 @@
 
 	}
 }
+
 .user-action{
 	padding:20px 0;
 	margin-bottom:34px;
@@ -92,5 +94,28 @@
 	.user-forget{
 		color:#4a88bd;
 		float:right;
+	}
+}
+
+.login_bottom{
+	padding-bottom:65rem/$rem;
+}
+.login-msg{
+	font-size:16px;
+	color:#666;
+	margin-bottom:18px;
+}
+.login_back{
+	margin-top:20px;
+	.login_back_btn{
+		width:80px;
+		height:40px;
+		line-height:40px;
+		text-align:center;
+		@include borderRadius(3);
+		background:#53cac3;
+		font-size:16px;
+		color:#fff;
+		display:block;
 	}
 }

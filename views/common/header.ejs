@@ -8,13 +8,20 @@
   </div>
   <div class="header-top fr">
     <div class="header-shop fl">
-     <i class="location_ico"></i><span>北京昌盛门店</span>
+     <i class="location_ico"></i><span><%-shop.name%></span>
     </div>
-    <div class="header_user fr">
+    <div class="header_user js_user fr">
       <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="fl"/>
       <div class="header_user_txt fl">
-        <span>淘小桃</span>
-        <i></i>
+        <span><%-authority.name%></span>
+        <i class="user_arrowDown"></i>
+        <div class="user_info">
+          <ul class="user_info_list">
+            <li><a href="/"><i class="ico1"></i><span>个人页面</span></a></li>
+            <li><a href="/borrowers/modify/password"><i class="ico2"></i><span>修改密码</span></a></li>
+            <li class="js_logout"><a href="javascript:;"><i class="ico3"></i><span>退出</span></a></li>
+            </ul>
+        </div>
       </div>
     </div>
     <div class="header-message fr">
@@ -22,19 +29,34 @@
         <li>
           <a href="javascript:;">
             <i class="ico1"></i>
-            <span>9</span>
+            <em>9</em>
           </a>
+          <div class="header_notice">
+           <div class="notice_title"><span>您有<b>10条消息</b></span><a class="notice_link" href="#">查看所有</a></div>
+            <dl class="notice_list">
+                <dd>
+                    <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>
+                    <div class="notice_cont fr">
+                        <div class="notice_txt">
+                            <strong>黄丽莎</strong>
+                            <time>刚刚</time>
+                        </div>
+                        <p>当前无通知内容</p>
+                    </div>
+                </dd>
+            </dl>
+          </div>
         </li>
         <li>
           <a href="javascript:;">
             <i class="ico2"></i>
-            <span>18</span>
+            <em>18</em>
           </a>
         </li>
         <li>
           <a href="javascript:;">
             <i class="ico3"></i>
-            <span>6</span>
+            <em>6</em>
           </a>
         </li>
       </ul>

@@ -1,0 +1,76 @@
+@import "common.scss";
+
+.drop_menu{
+
+	width: 125rem/$rem;
+	height:34px;
+	display:inline-block;
+
+	position:relative;
+
+	border:1px solid #ccc;
+
+	padding-left:15rem/$rem;
+
+	margin-left:15rem/$rem;
+
+	position:relative;
+
+	&.active{
+
+		border:1px solid #53cac3;
+
+		border-bottom:0;
+	}
+
+	&:after{
+		position:absolute;
+		content:'';
+		right:12rem/$rem;
+		top:14px;
+		width: 0;
+		height: 0;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-bottom: 5px solid #d6d6d6;
+	}
+
+	span{
+		display:block;
+		line-height:34px;
+		color:#999;
+
+		font-size:14px;
+		cursor:pointer;
+	}
+
+}
+.drop_menu_list{
+	width: 125rem/$rem;
+	position:absolute;
+	z-index:100;
+	left:-1px;
+	top:32px;
+	border:1px solid #53cac3;
+	border-top:0;
+	padding:10rem/$rem 5rem/$rem 10rem/$rem;
+	li{
+		height:28px;
+		line-height:28px;
+		font-size:14px;
+
+		padding-left:14px;
+
+		&:hover{
+			background:#53cac3;
+			a{
+				color:#fff;
+			}
+		}
+		a{
+
+			color:#666;
+		}
+
+	}
+}
