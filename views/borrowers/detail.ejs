@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/styles/borrowers/detail.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers" class="navigation_link">借款人列表</a>
+            <em class="navigation_ico"></em>
+            <span>用户详情</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>用户详情</span>
+            </div>
+            <div class="borrower_detail">
+              <div class="borrower_item">
+                <label>姓名：</label>
+                <p>柏尔阳</p>
+              </div>
+              <div class="borrower_item">
+                <label>手机号：</label>
+                <p>13764833941</p>
+              </div>
+              <div class="borrower_item">
+                <label>身份证：</label>
+                <p>340604198508242522</p>
+              </div>
+              <div class="borrower_item">
+                <label>注册时间：</label>
+                <p>2017-07-06 13:21:49</p>
+              </div>
+            </div>
+            <div class="cont-title">
+                <i></i>
+                <span>车辆</span>
+            </div>
+            <div class="list_container list_borrowers">
+                <dl class="cont_list">
+                    <dt>
+                        <span class="borrowers_num">款式</span>
+                        <span class="borrowers_gps">GPS设备</span>
+                        <span class="borrowers_color">颜色</span>
+                        <span class="borrowers_time">添加时间</span>
+                        <span>操作</span>
+                    </dt>
+                <%if(borrowersList){%>
+                    <% borrowersList.forEach(function(item){%>
+                     <dd>
+                        <span class="borrowers_num"><%-item.model%></span>
+                        <a href="/" class="borrowers_gps borrowers_gps_action">添加 GPS 设备</a>
+                        <span class="borrowers_color"><%-colorList[item.color].name%></span>
+                        <span class="borrowers_time"><%-item.created_at%></span>
+                        <div class="borrowers_action">
+                            <a href="/borrowers/vehicle/<%-item.id%>?id=<%-detailId%>" class="list_action">查看详情</a>
+                            <a href="/borrowers/car/<%-item.id%>" class="list_action"> / 车况信息</a>
+                        </div>
+                      </dd>
+                    <%})%>
+                <%}%>
+                </dl>
+            </div>
+        </div>
+        <div class="footer">
+            <span>2016  上海百渊金融信息服务有限公司</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/borrowers/index"></script>
+</body>
+</html>
+

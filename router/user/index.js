@@ -63,5 +63,170 @@ router.get('/forget/:key', async (ctx,next) => {
 	})
 })
 
+router.post('/login',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		gateway:'gatewayExt',
+		url:'/api/login',
+		data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/register/mobile',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		gateway:'gatewayExt',
+		url:'/api/signup/mobile',
+		data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+
+})
+
+router.post('/register',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	await baseModel.post(ctx,{
+			gateway:'gatewayExt',
+			url:'/api/signup',
+			data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/auth/jwt',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+
+	const authorization = ctx.request.header.authorization;
+
+	await baseModel.get(ctx,{
+		url:'/api/auth/jwt',
+		data:data,
+		header:{
+			authorization
+		}
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+
+})
+
+
+router.post('/verify',async (ctx,next) => {
+
+	await baseModel.post(ctx,{
+		gateway:'gatewayExt',
+		url:'/api/captcha'
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+router.post('/message',async (ctx,next) => {
+
+	await baseModel.get(ctx,{
+		url:'/api/current-user/unread-msgs'
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+router.post('/read',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	const userId = data.userId;
+
+	await baseModel.post(ctx,{
+		url:`/api/${userId}/msgs`,
+		data
+	}).then((body) => {
+
+		console.log(body)
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		console.log(err)
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+
+
+
 
 module.exports = router;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/styles/borrowers/vehicle.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers" class="navigation_link">借款人列表</a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers/detail/<%-detailId%>" class="navigation_link">用户详情</a>
+            <em class="navigation_ico"></em>
+            <span>车辆详情</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>车辆详情</span>
+            </div>
+            <div class="vehicle_detail">
+              <div class="vehicle_item">
+               <p>
+                  <label>车辆类型：</label>
+                  <span>小型汽车</span>
+               </p>
+               <p>
+                  <label>车辆类型：</label>
+                  <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+               </p>
+              </div>
+                <div class="vehicle_item">
+                    <p>
+                        <label>车牌号：</label>
+                        <span>小型汽车</span>
+                    </p>
+                    <p>
+                        <label>车架号：</label>
+                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                    </p>
+                </div>
+                <div class="vehicle_item">
+                    <p>
+                        <label>发动机号：</label>
+                        <span>小型汽车</span>
+                    </p>
+                    <p>
+                        <label>出厂日期：</label>
+                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                    </p>
+                </div>
+                <div class="vehicle_item">
+                    <p>
+                        <label>颜色：</label>
+                        <span>小型汽车</span>
+                    </p>
+                    <p>
+                        <label>排量：</label>
+                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                    </p>
+                </div>
+                <div class="vehicle_item">
+                    <p>
+                        <label>变速：</label>
+                        <span>小型汽车</span>
+                    </p>
+                    <p>
+                        <label>驱动类型：</label>
+                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>2016  上海百渊金融信息服务有限公司</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/borrowers/vehicle"></script>
+</body>
+</html>

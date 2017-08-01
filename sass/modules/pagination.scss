@@ -1,5 +1,4 @@
 @import 'common.scss';
-
 .pagination{
 	padding:46rem/$rem 0;
 	overflow:hidden;
@@ -14,6 +13,12 @@
 		height:32px;
 		line-height:32px;
 		margin-right:2px;
+		&.active{
+			background:#53cac3;
+			a{
+				color:#fff;
+			}
+		}
 		a{
 			display:block;
 			color:#6d7f84;

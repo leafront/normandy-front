@@ -33,7 +33,7 @@
         isValidate:'SUPER_ADMIN'
     }]%>
     <ul class="aside_list">
-        <li <%if('/' == pathName){%>class="active"<%}%>>
+        <li <%if('/' == pathName || pathName.indexOf('/message')>  -1){%>class="active"<%}%>>
             <a href="/">
                 <i class="ico1"></i>
                 <span class="js_nav_link">主页</span>
@@ -56,4 +56,5 @@
 <script>
     var asideMenu = document.querySelector('.aside-menu');
     asideMenu.style.height = document.documentElement.clientHeight - 68  + 'px';
+
 </script>

@@ -10,7 +10,7 @@
 
 	border:1px solid #ccc;
 
-	padding-left:15rem/$rem;
+	padding-left:18rem/$rem;
 
 	margin-left:15rem/$rem;
 
@@ -21,6 +21,14 @@
 		border:1px solid #53cac3;
 
 		border-bottom:0;
+
+		.drop_menu_list{
+			display:block;
+		}
+		&:after{
+			transform: rotate(-180deg);
+			border-bottom-color: #53cac3;
+		}
 	}
 
 	&:after{
@@ -46,6 +54,7 @@
 
 }
 .drop_menu_list{
+	background: #fff;
 	width: 125rem/$rem;
 	position:absolute;
 	z-index:100;
@@ -54,12 +63,13 @@
 	border:1px solid #53cac3;
 	border-top:0;
 	padding:10rem/$rem 5rem/$rem 10rem/$rem;
+	display:none;
 	li{
 		height:28px;
 		line-height:28px;
 		font-size:14px;
 
-		padding-left:14px;
+		padding-left:15rem/$rem;
 
 		&:hover{
 			background:#53cac3;

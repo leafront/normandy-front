@@ -40,21 +40,30 @@
 	}
 	dt{
 		background:#53cac3;
-	}
-	dt,dd{
 		height:58rem/$rem;
+		overflow:hidden;
 		line-height:58rem/$rem;
 		font-size:16px;
 		color:#fff;
 		padding-left:60rem/$rem;
 		span{
-			height:58rem/$rem;
 			font-size:16px;
 			color:#fff;
 			float:left;
 		}
 
-
+	}
+	dd{
+		overflow:hidden;
+		line-height:58px;
+		font-size:16px;
+		color:#fff;
+		padding-left:60rem/$rem;
+		span{
+			font-size:16px;
+			color:#fff;
+			float:left;
+		}
 	}
 	dd{
 		span{

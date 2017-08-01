@@ -1,1 +1,51 @@
-500
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/styles/error/empty.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="error-wrap">
+    <span class="errorpic500"></span>
+    <p class="error-info">抱歉，该页面无法显示。</p>
+    <div class="error-link"><a id="refresh" href="javascript:;">刷新一下</a><a href="/" class="error_home">返回首页</a></div>
+</div>
+</body>
+
+<script type="text/javascript">
+    function query(strParame){
+
+        var args = new Object();
+
+        var query = location.search.substring(1).toLowerCase(); // Get query string
+
+        var pairs = query.split("&"); // Break at ampersand
+
+        for (var i = 0; i < pairs.length; i++) {
+
+            var pos = pairs[i].indexOf('='); // Look for "name=value"
+
+            if (pos == -1) continue; // If not found, skip
+
+            var argname = pairs[i].substring(0, pos); // Extract the name
+
+            var value = pairs[i].substring(pos + 1); // Extract the value
+
+            value=decodeURIComponent(value); // Decode it, if needed
+
+            args[argname] = value; // Store as a property
+        }
+        return args[strParame.toLowerCase()]; // Return the object
+    }
+
+    var url = query('path');
+
+    document.getElementById('refresh').onclick = function(){
+        location.href = url;
+    }
+
+</script>
+</html>

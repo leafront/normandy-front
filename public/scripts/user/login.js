@@ -39,8 +39,8 @@ require([
 
 			if (returnurl) {
 				$.ajax({
-					url:Lizard.shopUrl + '/api/auth/jwt',
-					type:'GET',
+					url:'/user/auth/jwt',
+					type:'POST',
 					dataType:'json',
 					headers: {
 						Authorization: 'Bearer ' + jwt
@@ -50,6 +50,7 @@ require([
 							local.set('jwt', jwt);
 							Lizard.setCookie('jwt',jwt,1000 * 60 * 60 * 24 * 360 );
 							Lizard.showToast('登录成功');
+							local.set('user_id')
 							setTimeout(function(){
 								window.location.href = returnurl;
 							},1000)
@@ -70,7 +71,11 @@ require([
 				})
 			} else {
 
-				location.href = '/';
+				Lizard.showToast('登录成功');
+
+				setTimeout(function(){
+					window.location.href = '/';
+				},1000)
 			}
 
 
@@ -123,7 +128,7 @@ require([
 
 			Lizard.ajax({
 				type: 'POST',
-				url: '/api/login',
+				url: '/user/login',
 				gateway:'gatewayExt',
 				data: {
 					mobile: mobile,

@@ -240,12 +240,6 @@ define([
 
 		ajax: function(obj) {
 
-			var url = obj.gateway == 'gatewayExt' ? this.userUrl : this.shopUrl;
-
-			var type = obj.type;
-
-		  url = url + obj.url;
-
 			var resData = obj.data;
 
 			var jwt = Lizard.getCookie('jwt');
@@ -255,7 +249,7 @@ define([
 			$.ajax({
 				type:obj.type,
 				dataType: 'json',
-				url: url,
+				url: obj.url,
 				data:resData,
 				beforeSend: function(xhr) {
 					xhr.setRequestHeader("Authorization", 'Bearer ' + jwt);

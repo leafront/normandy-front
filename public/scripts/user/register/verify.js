@@ -39,8 +39,6 @@ require([
 
 			var mobile_code = $.trim($('#mobile_code').val());
 
-			var returnurl = Lizard.query('returnurl') || '/user';
-
 			if (!mobile_code) {
 
 				Lizard.showToast('请输入验证码');
@@ -57,7 +55,7 @@ require([
 
 			Lizard.ajax({
 				type: 'POST',
-				url: '/api/signup',
+				url: '/user/register',
 				gateway:'gatewayExt',
 				data: {
 					mobile: mobile,
@@ -73,7 +71,7 @@ require([
 
 					setTimeout(function(){
 
-						location.href = returnurl;
+						location.href = '/user/login';
 
 					},1000)
 

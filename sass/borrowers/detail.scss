@@ -1,0 +1,54 @@
+@import '../modules/reset.scss';
+@import '../modules/common.scss';
+
+@import '../modules/list.scss';
+
+@import '../layui/index.scss';
+
+
+
+.borrower_detail{
+	padding:35px 0 35px 0;
+	overflow:hidden;
+
+}
+.borrower_item{
+	float:left;
+	font-size:16px;
+	color:#248ad4;
+	margin-left:135rem/$rem;
+	label{
+		font-weight:bold;
+		float:left;
+	}
+	p{
+		float:left;
+		margin-left:18rem/$rem;
+	}
+}
+.list_borrowers{
+	margin-top:20px;
+}
+.cont_list{
+	.borrowers_num{
+		width:372rem/$rem;
+	}
+	.borrowers_gps{
+		width:285rem/$rem;
+
+	}
+	.borrowers_gps_action{
+		font-size:16px;
+		color:#248ad4;
+		float:left;
+	}
+	.borrowers_color{
+		width:216rem/$rem;
+	}
+	.borrowers_time{
+		width:355rem/$rem;
+	}
+	.borrowers_action{
+		float:left;
+	}
+}

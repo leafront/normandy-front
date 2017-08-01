@@ -12,7 +12,7 @@ const shopAPI = 'http://shop.qgqg.me';
 
 module.exports = {
 
-	async get(ctx,{gateway,url,data}){
+	async get(ctx,{gateway,url,data,header=undefined}){
 
 
 		const requestData = querystring.stringify(data);
@@ -22,11 +22,13 @@ module.exports = {
 
 		url = requestData == '' ? API + url + requestData : API + url + '?' + requestData;
 
+
 		const getCookies = ctx.cookies;
 
-		const jwt = getCookies.get('jwt');
+		const jwt = header ? header.authorization : 'Bearer ' + getCookies.get('jwt');
 
 		const org_id = getCookies.get('org_id');
+
 
 		return new Promise((resolve,reject) => {
 			request({
@@ -34,11 +36,10 @@ module.exports = {
 				url: url,
 				headers:{
 					"X-Org":org_id,
-					"Authorization":'Bearer ' + jwt
+					"Authorization":jwt
 				}
 			}).then((res) =>{
 
-				console.log(url)
 
 				try{
 
@@ -72,13 +73,13 @@ module.exports = {
 			request({
 				method: 'POST',
 				url: API + url,
-				body: JSON.stringify(data),
+				body: querystring.stringify(data),
 				headers: {
+					'content-type':'application/x-www-form-urlencoded',
 					"X-Org": org_id,
 					"Authorization": 'Bearer ' + jwt
 				}
 			}).then((res) => {
-
 				try {
 
 					res = JSON.parse(res);
@@ -89,11 +90,13 @@ module.exports = {
 				} catch (error) {
 
 					reject(error);
+
 				}
 
 			}).catch((err) => {
 
 				reject(err);
+
 			})
 		})
 	}

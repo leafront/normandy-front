@@ -63,11 +63,13 @@ define(
 
 				})
 
-				function getMessage(){
+				var userName = $('.authority_name').text();
+
+					function getMessage(){
 
 					Lizard.ajax({
-						url:'/api/current-user/unread-msgs',
-						type:'GET',
+						url:'/user/message',
+						type:'POST',
 						success:function(data){
 							var msgHtml='\
 							<% msgList.forEach(function(item){%>\
@@ -75,7 +77,7 @@ define(
 									<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>\
 									<div class="notice_cont fr">\
 									<div class="notice_txt">\
-									<strong>黄丽莎</strong>\
+									<strong><%-userName%></strong>\
 									<time><%-getDateDiff(item.created_at)%></time>\
 									</div>\
 									<p><%-item.content%></p>\
@@ -87,9 +89,9 @@ define(
 
 							if(data.content && data.content.length > 0){
 
-								$('.notice_list').data('isrender',1);
 
-								var html = ejs.render(msgHtml,{msgList:data.content,getDateDiff:Lizard.getDateDiff});
+
+								var html = ejs.render(msgHtml,{msgList:data.content,getDateDiff:Lizard.getDateDiff,userName:userName});
 
 								$('.notice_list').html(html);
 
@@ -112,7 +114,7 @@ define(
 				Lizard.ajax({
 					type: 'POST',
 					gateway:'gatewayExt',
-					url: '/api/captcha',
+					url: '/user/verify',
 					success: function (data) {
 
 						$('#captcha-img').attr('src',data.img_url);

@@ -82,7 +82,7 @@ require([
 
 			Lizard.ajax({
 				type: 'POST',
-				url: '/api/signup/mobile',
+				url: '/user/register/mobile',
 				gateway:'gatewayExt',
 				data: {
 					mobile: mobile,

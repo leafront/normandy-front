@@ -1,5 +1,8 @@
 <script type="text/javascript">
     document.documentElement.style.fontSize = document.documentElement.clientWidth / 19.2 + 'px';
+    window.addEventListener('resize',function(){
+     document.documentElement.style.fontSize = document.documentElement.clientWidth / 19.2 + 'px';
+    })
 </script>
 <div class="header">
   <div class="header-logo fl">
@@ -13,7 +16,7 @@
     <div class="header_user js_user fr">
       <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="fl"/>
       <div class="header_user_txt fl">
-        <span><%-authority.name%></span>
+        <span class="authority_name"><%-authority.name%></span>
         <i class="user_arrowDown"></i>
         <div class="user_info">
           <ul class="user_info_list">
@@ -32,7 +35,7 @@
             <em>9</em>
           </a>
           <div class="header_notice">
-           <div class="notice_title"><span>您有<b>10条消息</b></span><a class="notice_link" href="#">查看所有</a></div>
+           <div class="notice_title"><span>您有<b>10条消息</b></span><a class="notice_link" href="/message/<%-authority.id%>">查看所有</a></div>
             <dl class="notice_list">
                 <dd>
                     <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>

@@ -14,30 +14,50 @@ router.get('/', async (ctx,next) => {
 		url:'/api/current-user'
 	})
 
-	const colorList = [
-		{'name':'银色',   'value': 0},
-		{'name':'黑色',   'value': 1},
-		{'name': '白色',   'value': 2},
-		{'name': '灰色',   'value': 3},
-		{'name': '红色',   'value': 4},
-		{'name': '金色',   'value': 5},
-		{'name': '黄色',   'value': 6},
-		{'name': '绿色',   'value': 7},
-		{'name': '紫色',   'value': 8},
-		{'name': '橙色',   'value': 9},
-		{'name': '棕色',   'value': 10},
-		{'name': '米色',   'value': 11},
-		{'name': '巧克力色', 'value': 12},
-		{'name': '香槟色', 'value': 13}
-	];
+	const { results: businessList} = await baseModel.get(ctx,{
+		url:'/api/borrowings',
+		page:1
+	})
 
-	await ctx.render('business',{
+	const borrowingType = ['抵押借款', '质押借款', '库存融资']
+
+	const termUnit = ['天', '个月'];
+
+	const borrowingStatus = {
+		'0': {'title': '待初审', 'color': 'business_status_txt3'},
+		'1': {'title': '待主审', 'color': 'business_status_txt1'},
+		'-1': {'title': '初审拒绝', 'color':'business_status_txt4'},
+		'2': {'title': '待财审', 'color': 'business_status_txt1',},
+		'-2': {'title': '主审拒绝', 'color': 'business_status_txt4'},
+		'3': {'title': '待复审', 'color': 'business_status_txt2'},
+		'-3': {'title': '财审拒绝', 'color': 'business_status_txt4'},
+		'4': {'title': '还款中', 'color': 'business_status_txt'},
+		'-4': {'title': '复审拒绝', 'color': 'business_status_tx4'},
+		'5': {'title': '还款完成', 'color': 'business_status_txt'},
+		'-5': {'title': '坏账', 'color': 'business_status_tx4'}
+	}
+	const autoReviewStatus = {
+		0: {'title': '已创建机审', 'color': 'business_status_txt3'},
+		1: {'title': '正在机审', 'color': 'business_status_txt1'},
+		2: {'title': '机审通过', 'color': 'business_status_txt2'},
+		3: {'title': '机审拒绝', 'color': 'business_status_txt4'}
+	}
+
+	const phoneReviewStatus = {
+		0: {'title': '等待电核', 'color': 'business_status_txt3'},
+		1: {'title': '电核完成', 'color': 'business_status_txt2'}
+	}
+	await ctx.render('business/index',{
 		pathName: ctx.path,
 		authority,
 		shop,
 		roleList,
-		vehiclesList,
-		colorList
+		businessList,
+		borrowingType,
+		termUnit,
+		borrowingStatus,
+		autoReviewStatus,
+		phoneReviewStatus
 	})
 
 })
