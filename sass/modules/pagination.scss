@@ -8,7 +8,6 @@
 	height:32px;
 	li{
 		float:left;
-
 		background:#f9f9f9;
 		height:32px;
 		line-height:32px;
@@ -23,6 +22,7 @@
 			display:block;
 			color:#6d7f84;
 			padding:0 14px;
+			@include borderRadius(3);
 			&:hover{
 				background:#53cac3;
 				color:#fff;

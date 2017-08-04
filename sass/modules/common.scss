@@ -9,10 +9,28 @@
 	white-space:nowrap;
 }
 
+@mixin boxShadow($shadow){
+
+	@if ($shadow == 4) {
+		box-shadow:0 4px 4px rgba(0,0,0,0.04);
+		-webkit-box-shadow:0 4px 4px rgba(0,0,0,0.04);
+	} @else{
+		box-shadow:0 5px 5px rgba(0,0,0,0.05);
+		-webkit-box-shadow:0 5px 5px rgba(0,0,0,0.05);
+	}
+}
+
+
 $rem:100;
 
 body{
 	background: #081c27;
+}
+
+.overflow{
+
+	overflow:hidden;
+
 }
 
 .user-ui-input{
@@ -58,7 +76,7 @@ body{
 /***header menu ***/
 .header{
 	height:68px;
-	box-shadow:0 1px 10px 0 rgba(50,50,50,.2);
+	@include boxShadow(5);
 	background: #fff;
 	position:fixed;
 	top:0;
@@ -72,7 +90,7 @@ body{
 	height:68px;
 	background:#53cac3;
 	padding-left:30rem/$rem;
-	padding-top:26px;
+	padding-top:22px;
 	position:relative;
 	img{
 		width:89rem/$rem;
@@ -84,8 +102,8 @@ body{
 		height:18rem/$rem;
 		display:block;
 		position:absolute;
-		top:30px;
-		right:25px;
+		top:25px;
+		right:22px;
 		background-size:400rem/$rem auto;
 		cursor:pointer;
 	}
@@ -178,8 +196,14 @@ body{
 			background-position:-72px -67px;
 			height:25px;
 		}
+
+
 		&.active{
 			background:#112735;
+
+			span{
+				color:#53cac3;
+			}
 			.ico1{
 				background-position:-28px -36px;
 			}
@@ -231,13 +255,13 @@ body{
 			height:18px;
 			border-radius:50%;
 			background:#17c4bb;
-			display:block;
 			position:absolute;
 			text-align:center;
 			color:#fff;
 			line-height:18px;
 			top:18px;
 			right:-8px;
+			display:none;
 		}
 		.ico1{
 			background-position:-3px -37px;
@@ -334,13 +358,14 @@ body{
 		color:#666;
 		float:left;
 		font-size:14px;
+
 	}
 }
 .content{
 	background:#fff;
 	padding-left:15rem/$rem;
 	padding-right:15rem/$rem;
-	box-shadow:0 1px 10px 0 rgba(50,50,50,.2);
+	@include boxShadow(5);
 	@include borderRadius(5);
 }
 
@@ -364,7 +389,7 @@ body{
 		margin-top:4px;
 		float:left;
 	}
-	button{
+	a{
 		width:123px;
 		height:32px;
 		text-align:center;
@@ -373,22 +398,31 @@ body{
 		color:#fefefe;
 		position:relative;
 		padding-left:12px;
+		line-height:32px;
+		font-size:14px;
+		@include boxShadow(4);
 		&:before{
 			font-size:20px;
 			color:#fefefe;
 			content:'+';
 			position:absolute;
 			left:15px;
-			top:2px;
+			top:-2px;
 
 		}
 	}
 	.title-btn1{
 		background:#ed6b75;
+		&:hover{
+			background:#ef5d5d;
+		}
 		margin-right:20px;
 	}
 	.title-btn2{
 		background:#ffc76c;
+		&:hover{
+			background:#ffda6b;
+		}
 
 	}
 }
@@ -466,8 +500,10 @@ body{
 	}
 }
 .notice_list{
+
 	max-height:243px;
 	overflow:auto;
+
 	dd{
 		padding:10px 15px;
 		overflow:hidden;
@@ -580,3 +616,5 @@ body{
 		}
 	}
 }
+
+

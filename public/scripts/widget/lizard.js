@@ -9,10 +9,6 @@ define([
 ){
 	var Lizard = {
 
-		userUrl:'http://user.qgqg.me',
-
-		shopUrl:'http://shop.qgqg.me',
-
 		prompt: function (obj,determine,cancel){
 
 			var tips = obj.tips;
@@ -50,7 +46,7 @@ define([
 
 			$('.J_close').click(function(){
 
-				cancel();
+				cancel && cancel();
 
 				$('.layui-poup').remove();
 
@@ -61,6 +57,10 @@ define([
 		showToast:function(value){
 
 			var tpl='<div class="mask"></div> <div class="mask-ui"><span>'+value+'</span></div>';
+
+			if ($('.mask').length) {
+				return;
+			}
 
 			$('body').append(tpl);
 
@@ -207,6 +207,18 @@ define([
 				return args[strParame.toLowerCase()]; // Return the object
 			}
 		},
+
+		diffArray: function(arr1,arr2){
+
+			var arr  = arr1.filter(function(item) {
+
+				return arr2.indexOf(item) < 0;
+
+			})
+
+			return arr;
+
+		},
 		queryStringify: function (obj) {
 
 				function toQueryPair(key, value) {
@@ -246,10 +258,13 @@ define([
 
 			var org_id = Lizard.getCookie('org_id');
 
+			var async = obj.async == false ? obj.async : true;
+
 			$.ajax({
 				type:obj.type,
 				dataType: 'json',
 				url: obj.url,
+				async:async,
 				data:resData,
 				beforeSend: function(xhr) {
 					xhr.setRequestHeader("Authorization", 'Bearer ' + jwt);
@@ -262,7 +277,7 @@ define([
 				},
 				error: function(error){
 
-					if (error.status == 400) {
+					if (error) {
 
 						var msg = JSON.parse(error.responseText);
 
@@ -270,40 +285,9 @@ define([
 
 						obj.error && obj.error();
 
-					} else {
-
-						Lizard.showToast('网络错误，请稍后重试');
 					}
 				}
 			})
-		},
-		countTime:function(obj,className){
-			var time = 60;
-			(function setTime(){
-				$(obj).html(time+'秒后重新获取');
-
-				$(obj).addClass(className);
-
-				time--;
-
-				$(obj).html(time+'秒后重新获取');
-
-
-				$(obj).attr('disabled','disabled');
-
-				if(time == 0) {
-
-					$(obj).html('获取短信验证码');
-
-					$(obj).removeClass(className);
-
-					$(obj).removeAttr('disabled');
-
-					clearInterval(timer);
-				}
-				var timer = setInterval(setTime,1000);
-
-			})();
 		},
 		getDateDiff: function (dateTimeStamp){
 

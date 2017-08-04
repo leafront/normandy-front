@@ -42,9 +42,13 @@ router.get('/:id', async (ctx,next) => {
 
 	const iPage = getPage(currentPage,showPage);
 
-	const pagination = path.resolve(__dirname + '/../../views/message/pagination.ejs');
+	const pagination = path.resolve(__dirname + '/../../views/common/pagination.ejs');
+
+	const listView = path.resolve(__dirname + '/../../views/message/list.ejs');
 
 	const  paginationTpl = fs.readFileSync(pagination,'utf-8');
+
+	const listTpl = fs.readFileSync(listView,'utf-8');
 
 	const isRead = messageList.every((item) => {
 
@@ -63,6 +67,7 @@ router.get('/:id', async (ctx,next) => {
 		page:currentPage,
 		iPage,
 		paginationTpl,
+		listTpl,
 		isRead,
 		isFirstPage:(currentPage - 1 ) == 0,
 		isLastPage:currentPage * pageSize > totalCount

@@ -15,12 +15,11 @@ module.exports = {
 			data
 		})
 
-
 		try{
 
-			const { shopuser: { shop={}, roles=[] } } = authority;
+			const { shopuser: { shop={}, roles=[] }, is_admin } = authority;
 
-			let roleList = [];
+			let roleList = is_admin ? ['SUPER_ADMIN'] : [];
 
 			roles.forEach((item) => {
 
@@ -33,6 +32,7 @@ module.exports = {
 			return { roleList, shop, authority }
 
 		}catch(err){
+
 
 			return { roleList:[], shop:{}, authority:{} }
 

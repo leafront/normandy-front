@@ -41,7 +41,7 @@ define(
 
 				$('.header_message_list li').click(function(){
 
-					getMessage();
+					$('.header_notice').toggle();
 
 				})
 
@@ -51,7 +51,7 @@ define(
 
 					Lizard.clearCookie();
 
-					window.location.reload();
+					location.href = '/user/login';
 
 				})
 
@@ -63,40 +63,50 @@ define(
 
 				})
 
-				var userName = $('.authority_name').text();
+				getMessage();
 
-					function getMessage(){
+				function getMessage(){
+
+					var userName = $('.authority_name').text();
 
 					Lizard.ajax({
 						url:'/user/message',
 						type:'POST',
 						success:function(data){
-							var msgHtml='\
-							<% msgList.forEach(function(item){%>\
-								<dd>\
-									<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>\
-									<div class="notice_cont fr">\
-									<div class="notice_txt">\
-									<strong><%-userName%></strong>\
-									<time><%-getDateDiff(item.created_at)%></time>\
-									</div>\
-									<p><%-item.content%></p>\
-								</div>\
-								</dd>\
-							<%})%>';
 
-							$('.header_notice').toggle();
+							var msgList = data.content;
 
-							if(data.content && data.content.length > 0){
+							if(data && msgList.length){
 
 
+								var msgHtml='\
+									<% msgList.forEach(function(item){%>\
+										<dd>\
+											<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>\
+											<div class="notice_cont fr">\
+											<div class="notice_txt">\
+											<strong><%-userName%></strong>\
+											<time><%-getDateDiff(item.created_at)%></time>\
+											</div>\
+											<p><%-item.content%></p>\
+										</div>\
+										</dd>\
+									<%})%>';
 
-								var html = ejs.render(msgHtml,{msgList:data.content,getDateDiff:Lizard.getDateDiff,userName:userName});
+								var html = ejs.render(msgHtml,{msgList:msgList,getDateDiff:Lizard.getDateDiff,userName:userName});
 
 								$('.notice_list').html(html);
 
-							}
+								$('.js_msgNume').show();
 
+								$('.js_msgNume').text(msgList.length);
+
+							} else {
+
+								$('.js_msgNume').text('0');
+
+								$('.notice_list').html('<dd><p>当前无信息</p></dd>');
+							}
 						}
 					})
 
@@ -109,6 +119,23 @@ define(
 					common.updateVerify();
 
 				})
+			},
+			getPage: function (page,showPage) {
+
+				var iPage = 0;
+
+				if ((page % showPage) == 0){
+
+					iPage = Math.floor((page / showPage -1)) * showPage;
+
+				} else {
+
+					iPage = Math.floor(page / showPage) * showPage;
+
+				}
+
+				return iPage
+
 			},
 			updateVerify: function(){
 				Lizard.ajax({

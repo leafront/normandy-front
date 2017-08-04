@@ -6,6 +6,7 @@ var baseModel = require('../../model/baseModel');
 router.get('/login', async (ctx,next) => {
 
 	const captcha =  await baseModel.post(ctx,{
+		type:'POST',
 		gateway:'gatewayExt',
 		url:'/api/captcha'
 	})
@@ -21,6 +22,7 @@ router.get('/login', async (ctx,next) => {
 router.get('/register', async (ctx,next) => {
 
 	const captcha =  await baseModel.post(ctx,{
+		type:'POST',
 		gateway:'gatewayExt',
 		url:'/api/captcha'
 	})
@@ -68,6 +70,7 @@ router.post('/login',async (ctx,next) => {
 	const data = ctx.request.body;
 
 	await baseModel.post(ctx,{
+		type:'POST',
 		gateway:'gatewayExt',
 		url:'/api/login',
 		data:data
@@ -149,6 +152,7 @@ router.post('/auth/jwt',async (ctx,next) => {
 
 	}).catch((err) => {
 
+
 		ctx.status =  err.response.statusCode;
 
 		ctx.body = err.response.body;
@@ -162,6 +166,7 @@ router.post('/auth/jwt',async (ctx,next) => {
 router.post('/verify',async (ctx,next) => {
 
 	await baseModel.post(ctx,{
+		type:'POST',
 		gateway:'gatewayExt',
 		url:'/api/captcha'
 	}).then((body) => {

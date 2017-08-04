@@ -24,6 +24,14 @@ var vehicles = require('./router/vehicles/index');
 
 var business = require('./router/business/index');
 
+var personnel = require('./router/personnel/index');
+
+var authority = require('./router/authority/index');
+
+var account = require('./router/account/index');
+
+var shop = require('./router/shop/index');
+
 app.use(server(__dirname + '/public'));
 
 app.use(koaBody());
@@ -34,40 +42,36 @@ app.use(views(__dirname + '/views',{
 	extension:'ejs'
 }))
 
-//
-//app.use(async (ctx, next) => {
-//
-//	try {
-//
-//		await next();
-//
-//		if (ctx.status == 404) {
-//
-//			ctx.redirect('/error/404');
-//
-//		} else if (ctx.status == 500) {
-//
-//			ctx.redirect('/error/500');
-//
-//		}
-//
-//	} catch (err) {
-//
-//		if (err.statusCode == 401) {
-//
-//			ctx.redirect('/user/login?returnurl=' + ctx.path);
-//
-//		} else if (err.statusCode == 403 || err.statusCode == 404) {
-//
-//			ctx.redirect('/error/404');
-//
-//		} else if (err.statusCode == 500) {
-//
-//			ctx.redirect('/error/500');
-//
-//		}
-//	}
-//})
+
+app.use(async (ctx, next) => {
+
+	try {
+
+		await next();
+
+		if (ctx.status == 404) {
+
+			ctx.redirect('/error/404?path='+ctx.path);
+
+		}
+
+	} catch (err) {
+
+		if (err.statusCode == 401) {
+
+			ctx.redirect('/user/login?returnurl=' + ctx.path);
+
+		} else if (err.statusCode == 403 || err.statusCode == 404) {
+
+			ctx.redirect('/error/404?path='+ctx.path);
+
+		} else if (err.statusCode == 500) {
+
+			ctx.redirect('/error/500?path='+ctx.path);
+
+		}
+	}
+})
 router.use('/',index.routes());
 
 router.use('/error',error.routes());
@@ -81,6 +85,14 @@ router.use('/borrowers',borrowers.routes());
 router.use('/vehicles',vehicles.routes());
 
 router.use('/business',business.routes());
+
+router.use('/personnel',personnel.routes());
+
+router.use('/account',account.routes());
+
+router.use('/authority',authority.routes());
+
+router.use('/shop',shop.routes());
 
 app.use(router.routes());
 

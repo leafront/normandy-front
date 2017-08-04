@@ -30,41 +30,46 @@
               <div class="vehicle_item">
                <p>
                   <label>车辆类型：</label>
-                  <span>小型汽车</span>
+                   <% carType.forEach(function(item){%>
+                     <%if(item.value == vehicles.type){%>
+                        <span><%-item.name%></span>
+                     <%}%>
+                   <%})%>
+
                </p>
                <p>
                   <label>车辆类型：</label>
-                  <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                  <span><%-vehicles.brand + ' ' + vehicles.series + ' ' + vehicles.model%></span>
                </p>
               </div>
                 <div class="vehicle_item">
                     <p>
                         <label>车牌号：</label>
-                        <span>小型汽车</span>
+                        <span><%-vehicles.plate_number%></span>
                     </p>
                     <p>
                         <label>车架号：</label>
-                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                        <span><%-vehicles.vin%></span>
                     </p>
                 </div>
                 <div class="vehicle_item">
                     <p>
                         <label>发动机号：</label>
-                        <span>小型汽车</span>
+                        <span><%-vehicles.engine_number%></span>
                     </p>
                     <p>
                         <label>出厂日期：</label>
-                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                        <span><%-vehicles.production_day%></span>
                     </p>
                 </div>
                 <div class="vehicle_item">
                     <p>
                         <label>颜色：</label>
-                        <span>小型汽车</span>
+                        <span><%-colorList[vehicles.color].name%></span>
                     </p>
                     <p>
                         <label>排量：</label>
-                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                        <span><%-vehicles.displacement%></span>
                     </p>
                 </div>
                 <div class="vehicle_item">
@@ -74,14 +79,12 @@
                     </p>
                     <p>
                         <label>驱动类型：</label>
-                        <span>阿斯顿·马丁 阿斯顿马丁DB7 2003款 阿斯顿马丁DB7 Vantage</span>
+                        <span><%-driverType[vehicles.driver_type]%></span>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <span>2016  上海百渊金融信息服务有限公司</span>
-        </div>
+        <% include ../common/footer.ejs%>
     </div>
 </div>
 <script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/borrowers/vehicle"></script>

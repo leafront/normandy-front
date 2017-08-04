@@ -1,6 +1,4 @@
-/**
- * Created by leafrontye on 16/8/24.
- */
+
 var request = require('request-promise');
 
 var querystring = require('querystring');
@@ -59,7 +57,7 @@ module.exports = {
 			})
 		})
 	},
-	async post (ctx,{url,gateway=undefined,data}){
+	async post (ctx,{type,url,gateway=undefined,data}){
 
 		const API = gateway == 'gatewayExt' ? userAPI : shopAPI ;
 
@@ -71,7 +69,7 @@ module.exports = {
 
 		return new Promise((resolve,reject) => {
 			request({
-				method: 'POST',
+				method: type,
 				url: API + url,
 				body: querystring.stringify(data),
 				headers: {

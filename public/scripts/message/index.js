@@ -55,7 +55,7 @@ require([
 
 						var totalCount = data.total_count;
 
-						var iPage = getPage(currentPage,showPage);
+						var iPage = common.getPage(currentPage,showPage);
 
 						var messageList = data.results;
 
@@ -69,21 +69,8 @@ require([
 							isLastPage: currentPage * pageSize > totalCount
 						}
 
-						var listTpl = '\
-						<% if (messageList) {%>\
-							<% messageList.forEach(function(item){%>\
-								<li<%if(item.status==0){%> class="active"<%}%>>\
-								<span><%-item.title%></span>\
-								<a href="javascript:;" data-id="<%-item.id%>" class="message_link">查看详情</a>\
-									<time class="message_time"><%-item.created_at%></time>\
-									<div class="sub_message">\
-									<span><%-item.content%></span>\
-									</div>\
-									</li>\
-									<%})%>\
-						<%}%>';
-
 						var html = ejs.render(paginationTpl,pagination);
+
 						$('.pagination_list').html(html);
 
 						var listHtml = ejs.render(listTpl,{messageList:messageList});
@@ -109,23 +96,7 @@ require([
 			return userId;
 		}
 
-		function getPage(page,showPage) {
 
-			var iPage = 0;
-
-			if ((page % showPage) == 0){
-
-				iPage = Math.floor((page / showPage -1)) * showPage;
-
-			} else {
-
-				iPage = Math.floor(page / showPage) * showPage;
-
-			}
-
-			return iPage
-
-		}
 
 		function showRead(){
 

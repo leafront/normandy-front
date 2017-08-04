@@ -21,37 +21,25 @@
             <div class="cont-title">
                 <i></i>
                 <span>站内信列表</span>
-                <button class="message_read <%if(isRead){%>active<%}%>">全部设为已读</button>
+                <a href="#" class="message_read <%if(isRead){%>active<%}%>">全部设为已读</a>
             </div>
             <div class="message">
               <ul class="message_list">
-              <% if (messageList) {%>
-               <% messageList.forEach(function(item){%>
-                <li<%if(item.status==0){%> class="active"<%}%>>
-                    <span><%-item.title%></span>
-                    <a href="javascript:;" data-id="<%-item.id%>" class="message_link">查看详情</a>
-                    <time class="message_time"><%-item.created_at%></time>
-                    <div class="sub_message">
-                      <span><%-item.content%></span>
-                    </div>
-                </li>
-               <%})%>
-              <%}%>
+                <% include list.ejs%>
               </ul>
             </div>
             <div class="pagination">
                 <ul class="pagination_list">
-                  <% include pagination.ejs %>
+                  <% include ../common/pagination.ejs %>
                 </ul>
             </div>
         </div>
-        <div class="footer">
-            <span>2016  上海百渊金融信息服务有限公司</span>
-        </div>
+        <% include ../common/footer.ejs%>
     </div>
 </div>
 <script type="text/javascript">
     window.paginationTpl = <%-JSON.stringify(paginationTpl)%>;
+    window.listTpl = <%-JSON.stringify(listTpl)%>;
 </script>
 <script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/message/index"></script>
 </body>

@@ -1,0 +1,102 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/pagination.scss';
+
+@import '../modules/popup.scss';
+
+@import '../layui/index.scss';
+
+.cont-title{
+	.title-btn1{
+		width:122px;
+		padding-left:0;
+	}
+}
+.cont_list{
+	.personnel_name{
+		width:90rem/$rem;
+		height:58px;
+	}
+	.personnel_phone{
+		width:140rem/$rem;
+	}
+	.personnel_auth{
+		width:125rem/$rem;
+		float:left;
+		height:58px;
+		i{
+			background:url(/images/ico_sprite.png) no-repeat;
+			float:left;
+			margin-top:24px;
+			margin-right:7px;
+		}
+		.ico1{
+			 width:13px;
+			 height:18px;
+			 background-position:-127px -114px;
+		 }
+		.ico2{
+			width:17px;
+			height:12px;
+			margin-top:30px;
+			background-position:-144px -116px;
+		}
+		.ico3{
+			width:14px;
+			height:16px;
+			margin-top:26px;
+			background-position:-165px -114px;
+		}
+	}
+	.personnel_time{
+		width:200rem/$rem;
+	}
+	.personnel_role{
+		width:628rem/$rem;
+		float:left;
+	}
+	.personnel_status{
+		width:170rem/$rem;
+		float:left;
+
+		span{
+			padding:0 14rem/$rem 0;
+
+			height:38px;
+
+			margin-top:10px;
+
+			line-height:38px;
+
+			@include borderRadius(5);
+
+			font-size:14px;
+			color:#fefefe;
+			background:#c3cbd8;
+			&.disable_btn{
+				background:#ffc76c;
+			}
+			&.usable_btn{
+				background:#53cac3;
+			}
+		}
+	}
+	.personnel_action{
+		float:left;
+	}
+	.list_status{
+		width:625rem/$rem;
+		@include borderRadius(5);
+		.list_btn{
+			margin-right:0;
+			margin-left:-8px;
+			&:first-child{
+				margin-left:0;
+			}
+		}
+	}
+}

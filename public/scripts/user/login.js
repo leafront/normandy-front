@@ -35,49 +35,53 @@ require([
 
 		function authLogin(jwt) {
 
-			var returnurl = Lizard.query('returnurl');
+			var returnurl = Lizard.query('returnurl') || '/';
 
-			if (returnurl) {
-				$.ajax({
-					url:'/user/auth/jwt',
-					type:'POST',
-					dataType:'json',
-					headers: {
-						Authorization: 'Bearer ' + jwt
-					},
-					success:function(data){
-						if ( data.is_admin ) {
-							local.set('jwt', jwt);
-							Lizard.setCookie('jwt',jwt,1000 * 60 * 60 * 24 * 360 );
-							Lizard.showToast('登录成功');
-							local.set('user_id')
-							setTimeout(function(){
-								window.location.href = returnurl;
-							},1000)
+			$.ajax({
+				url:'/user/auth/jwt',
+				type:'POST',
+				dataType:'json',
+				headers: {
+					Authorization: 'Bearer ' + jwt
+				},
+				success:function(data){
+					if ( data.is_admin ) {
+						local.set('jwt', jwt);
+						Lizard.setCookie('jwt',jwt,1000 * 60 * 60 * 24 * 360 );
+						Lizard.showToast('登录成功');
+						local.set('user_id')
+						setTimeout(function(){
+							window.location.href = returnurl;
+						},1000)
 
-						} else {
-							if ( data.results.length == 1) {
-								if (data.results[0].id != undefined) {
-									Lizard.setCookie('jwt',jwt,1000 * 60 * 60 * 24 * 360 );
-									Lizard.setCookie('org_id',data.results[0].id,1000 * 60 * 60 * 24 * 360 );
-									Lizard.showToast('登录成功');
-									setTimeout(function(){
-										window.location.href = returnurl;
-									},1000)
-								}
+					} else {
+						if ( data.results.length == 1) {
+							if (data.results[0].id != undefined) {
+								Lizard.setCookie('jwt',jwt,1000 * 60 * 60 * 24 * 360 );
+								Lizard.setCookie('org_id',data.results[0].id,1000 * 60 * 60 * 24 * 360 );
+								Lizard.showToast('登录成功');
+								setTimeout(function(){
+									window.location.href = returnurl;
+								},1000)
 							}
 						}
 					}
-				})
-			} else {
+				},
+				error:function(error){
 
-				Lizard.showToast('登录成功');
+					if (error.status == 400) {
 
-				setTimeout(function(){
-					window.location.href = '/';
-				},1000)
-			}
+						var msg = JSON.parse(error.responseText);
 
+						Lizard.showToast(msg.error.message);
+
+
+					} else {
+
+						Lizard.showToast('网络错误，请稍后重试');
+					}
+				}
+			})
 
 		}
 		function actionLogin (){ //开始登录
@@ -139,6 +143,7 @@ require([
 				success: function (data) {
 
 					authLogin(data.jwt);
+
 
 				},
 				error: function(){

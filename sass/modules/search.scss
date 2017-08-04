@@ -26,6 +26,8 @@
 		line-height:38px;
 
 		@include borderRadius(5);
+
+		@include boxShadow(4);
 		font-size: 14px;
 		padding-left:20px;
 		color:#fefefe;
@@ -35,6 +37,9 @@
 		&:first-child{
 			background:#53cac3;
 			margin-right:42px;
+			&:hover{
+				background:#6adbcf;
+			}
 			&:before{
 				width:17px;
 				height:17px;
@@ -49,6 +54,9 @@
 		}
 		&:last-child{
 			background:#84c0eb;
+			&:hover{
+				background:#97c4ea;
+			}
 			&:before{
 				width:14px;
 				height:17px;
@@ -60,6 +68,7 @@
 				background:url(/images/ico_sprite.png) no-repeat -147px -91px;
 			}
 		}
+
 	}
 
 }

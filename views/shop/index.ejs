@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>门店管理</title>
+    <link rel="stylesheet" href="/styles/shop/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>门店管理</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>门店管理</span>
+                <a href="javascript:;" class="title-btn1 js_add">添加门店</a>
+            </div>
+            <div class="list_container list_top">
+                <dl class="cont_list">
+                    <dt>
+                        <span class="authority_role">名称</span>
+                        <span class="authority_type">简称</span>
+                        <span class="authority_type">地址</span>
+                        <span class="authority_type">电话</span>
+                        <span class="authority_type">状态</span>
+                        <span class="authority_type">创建时间</span>
+                        <span class="authority_type">操作</span>
+                        <span>操作</span>
+                    </dt>
+                </dl>
+            </div>
+        </div>
+        <% include ../common/footer.ejs%>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/shop/index"></script>
+</body>
+</html>
+
