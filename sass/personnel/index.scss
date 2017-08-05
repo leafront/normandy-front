@@ -59,35 +59,11 @@
 		width:628rem/$rem;
 		float:left;
 	}
-	.personnel_status{
+	.user_status{
+
 		width:170rem/$rem;
-		float:left;
-
-		span{
-			padding:0 14rem/$rem 0;
-
-			height:38px;
-
-			margin-top:10px;
-
-			line-height:38px;
-
-			@include borderRadius(5);
-
-			font-size:14px;
-			color:#fefefe;
-			background:#c3cbd8;
-			&.disable_btn{
-				background:#ffc76c;
-			}
-			&.usable_btn{
-				background:#53cac3;
-			}
-		}
 	}
-	.personnel_action{
-		float:left;
-	}
+
 	.list_status{
 		width:625rem/$rem;
 		@include borderRadius(5);

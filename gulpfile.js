@@ -2,8 +2,44 @@ var gulp = require('gulp');
 
 var sass = require('gulp-sass');
 
+var ejs = require("gulp-ejs");
+
 var sourcemaps = require('gulp-sourcemaps');
 
+var replace = require('gulp-replace');
+
+var gutil = require('gulp-util');
+
+var date=new Date();
+
+var year=date.getFullYear();
+
+var month=date.getMonth()+1;
+
+var theDate=date.getDate();
+
+var hours=date.getHours();
+
+var minutes=date.getMinutes();
+
+var seconds=date.getSeconds();
+
+var dataString=[
+	year,
+	month > 10 ? month :'0'+ month,
+	theDate > 10 ? theDate :'0'+theDate,
+	hours > 10 ? hours : '0'+hours,
+	minutes > 10 ? minutes : '0'+minutes,
+	seconds > 10 ? seconds : '0'+seconds
+].join('');
+
+gulp.task('ejs',function() {
+	return gulp.src('./template/**/*.ejs')
+		.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
+		.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
+		.pipe(gulp.dest('./views/'))
+
+})
 
 gulp.task('sass', function () {
 	return gulp.src('./sass/**/*.scss')
@@ -17,4 +53,8 @@ gulp.task('sass:watch', function () {
 	gulp.watch('./sass/**/*.scss', ['sass']);
 })
 
-gulp.task('default', ['sass:watch']);
+gulp.task('ejs:watch', function () {
+	gulp.watch('./template/**/*.ejs', ['ejs']);
+})
+
+gulp.task('default', ['sass:watch','ejs:watch']);

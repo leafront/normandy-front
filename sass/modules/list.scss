@@ -15,25 +15,6 @@
 }
 .cont_list{
 
-	.list_number{
-		width:430rem/$rem;
-	}
-	.list_name{
-
-		width:250rem/$rem;
-	}
-	.list_car{
-		width:494rem/$rem;
-	}
-	.list_vin{
-		width:332rem/$rem;
-	}
-	.list_phone{
-		width:340rem/$rem;
-	}
-	.list_regTime{
-		width:415rem/$rem;
-	}
 	.list_action{
 		color:#248ad4;
 		font-size:14px;
@@ -41,8 +22,33 @@
 			text-decoration: underline;
 		}
 	}
-	.list_color{
-		width:280rem/$rem;
+	.user_action{
+		float:left;
+	}
+	.user_status{
+		float:left;
+		span{
+			padding:0 14rem/$rem 0;
+
+			height:38px;
+
+			margin-top:10px;
+
+			line-height:38px;
+
+			@include borderRadius(5);
+
+			font-size:14px;
+			color:#fefefe;
+			background:#c3cbd8;
+			&.disable_btn{
+				background:#ffc76c;
+			}
+			&.usable_btn{
+				background:#53cac3;
+			}
+		}
+
 	}
 	dt{
 		background:#53cac3;

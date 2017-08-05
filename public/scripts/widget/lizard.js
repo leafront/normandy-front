@@ -1,12 +1,7 @@
-/**
- * Created by leafrontye on 2017/5/3.
- */
 
-define([
-	'jquery'
-],function(
-	$
-){
+
+	var $ = require('../lib/jquery');
+
 	var Lizard = {
 
 		prompt: function (obj,determine,cancel){
@@ -305,20 +300,22 @@ define([
 			var dayC = diffValue/day;
 			var hourC = diffValue/hour;
 			var minC = diffValue/minute;
+
+			var result = "";
 			if(monthC >= 1){
-				result = "" + parseInt(monthC) + "月前";
+				result += parseInt(monthC) + "月前";
 			}
 			else if(weekC >= 1){
-				result = "" + parseInt(weekC) + "周前";
+				result += parseInt(weekC) + "周前";
 			}
 			else if(dayC >= 1){
-				result = ""+ parseInt(dayC) +"天前";
+				result += parseInt(dayC) +"天前";
 			}
 			else if(hourC >= 1){
-				result = ""+ parseInt(hourC) +"小时前";
+				result += parseInt(hourC) +"小时前";
 			}
 			else if(minC>=1){
-				result = ""+ parseInt(minC) +"分钟前";
+				result += parseInt(minC) +"分钟前";
 			}else
 			result = "刚刚";
 			return result;
@@ -440,5 +437,4 @@ define([
 		}
 	}
 	window.Lizard = Lizard;
-	return Lizard;
-})
+	module.exports = Lizard;

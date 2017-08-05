@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>百渊金服 • 借款人列表</title>
-    <link rel="stylesheet" href="/styles/borrowers/index.css"/>
+    <link rel="stylesheet" href="/styles/borrowers/index.css?v=20170805144339"/>
 </head>
 <body>
    <% include ../common/header.ejs %>
@@ -51,19 +51,19 @@
        <div class="list_container">
          <dl class="cont_list">
            <dt>
-             <span class="list_number">编号</span>
-             <span class="list_name">姓名</span>
-             <span class="list_phone">手机</span>
-             <span class="list_regTime">注册时间</span>
+             <span class="borrowers_number">编号</span>
+             <span class="borrowers_name">姓名</span>
+             <span class="borrowers_phone">手机</span>
+             <span class="borrowers_regTime">注册时间</span>
              <span>操作</span>
            </dt>
          <% if(borrowersList){%>
              <% borrowersList.forEach(function(item,index){%>
              <dd>
-                 <span class="list_number"><%-item.id%></span>
-                 <span class="list_name"><%-item.name%></span>
-                 <span class="list_phone"><%-item.mobile%></span>
-                 <span class="list_regTime"><%-item.created_at%></span>
+                 <span class="borrowers_number"><%-item.id%></span>
+                 <span class="borrowers_name"><%-item.name%></span>
+                 <span class="borrowers_phone"><%-item.mobile%></span>
+                 <span class="borrowers_regTime"><%-item.created_at%></span>
                  <a class="list_action" href="/borrowers/detail/<%-item.id%>">详情</a>
              </dd>
              <%})%>
@@ -88,7 +88,7 @@
        <% include ../common/footer.ejs%>
    </div>
   </div>
-   <script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/borrowers/index"></script>
+   <script type="text/javascript" src="/dist/scripts/borrowers/index.js?v=20170805144339"></script>
 </body>
 </html>
 

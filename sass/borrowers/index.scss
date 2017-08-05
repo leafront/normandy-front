@@ -8,3 +8,25 @@
 @import '../layui/index.scss';
 
 @import '../modules/pagination.scss';
+
+.cont_list{
+	.borrowers_number{
+		width:430rem/$rem;
+	}
+	.borrowers_name{
+
+		width:250rem/$rem;
+	}
+	.borrowers_car{
+		width:494rem/$rem;
+	}
+	.borrowers_vin{
+		width:332rem/$rem;
+	}
+	.borrowers_phone{
+		width:340rem/$rem;
+	}
+	.borrowers_regTime{
+		width:415rem/$rem;
+	}
+}

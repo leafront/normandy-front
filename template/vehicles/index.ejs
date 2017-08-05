@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>借款人列表</title>
+    <link rel="stylesheet" href="/styles/vehicles/index.css"/>
+</head>
+<body>
+
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>车辆列表</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>车辆列表</span>
+            </div>
+            <div class="search">
+                <div class="search_wraper clearfix">
+                    <div class="search_item">
+                        <label>手机号</label>
+                        <input type="text" class="user-ui-input" placeholder="请输入手机号"/>
+                    </div>
+                    <div class="search_item">
+                        <label>姓名</label>
+                        <input type="text" class="user-ui-input" placeholder="请输入姓名"/>
+                    </div>
+                    <div class="search_item">
+                        <label>注册时间</label>
+                        <div class="user-ui-calendar">
+                            <input type="text" class="user-ui-input" placeholder="请输入开始时间"/>
+                            <em>至</em>
+                            <input type="text" class="user-ui-input" placeholder="请输入开始时间"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_submit clearfix">
+                    <button>查询</button>
+                    <button>重置</button>
+                </div>
+            </div>
+
+            <div class="list_container">
+                <dl class="cont_list">
+                    <dt>
+                        <span class="vehicles_name">借款人</span>
+                        <span class="vehicles_car">车型</span>
+                        <span class="vehicles_vin">车架号</span>
+                        <span class="vehicles_color">颜色</span>
+                        <span>添加时间</span>
+                    </dt>
+                    <% if(vehiclesList){%>
+                        <%vehiclesList.forEach(function(item){%>
+                        <dd>
+                            <span class="vehicles_name"><%-item.borrower.name%></span>
+                            <span class="vehicles_car"><%-item.model%></span>
+                            <span class="vehicles_vin"><%-item.vin%></span>
+
+                            <span class="vehicles_color"><%-colorList[item.color] && colorList[item.color].name%></span>
+                            <span><%-item.created_at%></span>
+                        </dd>
+                        <%})%>
+                    <%}%>
+                </dl>
+            </div>
+            <div class="pagination">
+                <ul class="pagination_list">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">上一页</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">下一页</a></li>
+                    <li><a href="#">尾页</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/vehicles/index.js"></script>
+</body>
+</html>
+

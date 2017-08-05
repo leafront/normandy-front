@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>首页</title>
-    <link rel="stylesheet" href="/styles/message/index.css"/>
+    <link rel="stylesheet" href="/styles/message/index.css?v=20170805144339"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -37,11 +37,12 @@
         <% include ../common/footer.ejs%>
     </div>
 </div>
+
 <script type="text/javascript">
-    window.paginationTpl = <%-JSON.stringify(paginationTpl)%>;
+    window.paginationTpl = JSON.stringify(paginationTpl);
     window.listTpl = <%-JSON.stringify(listTpl)%>;
 </script>
-<script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/message/index"></script>
+<script type="text/javascript" src="/dist/scripts/message/index.js?v=20170805144339"></script>
 </body>
 </html>
 

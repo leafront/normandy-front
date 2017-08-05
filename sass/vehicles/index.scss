@@ -5,6 +5,20 @@
 
 @import '../modules/list.scss';
 
-
-
 @import '../modules/pagination.scss';
+
+.cont_list{
+	.vehicles_name{
+
+		width:250rem/$rem;
+	}
+	.vehicles_color{
+		width:260rem/$rem;
+	}
+	.vehicles_car{
+		width:494rem/$rem;
+	}
+	.vehicles_vin{
+		width:332rem/$rem;
+	}
+}

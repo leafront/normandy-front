@@ -1,157 +1,169 @@
-/**
- * Created by leafrontye on 2017/7/26.
- */
+var $ = require('./lib/jquery');
 
-define(
-	[
-	'jquery',
-	'Lizard',
-	'ejs'
-],
-	function(
-		$,
-		Lizard,
-		ejs
-	){
+var Lizard = require('./widget/lizard');
 
-		var common = {
+var ejs = require('./lib/ejs');
 
-			headerMenu: function(){
+var common = {
 
-				$('.js_narrow').click(function(){
+	headerMenu: function(){
 
-					$('.header-logo').toggleClass('header_menu_scale');
+		$('.js_narrow').click(function(){
 
-					$('.aside-menu').toggleClass('header_menu_scale');
+			$('.header-logo').toggleClass('header_menu_scale');
 
-					$('.header_logo_img').toggle();
+			$('.aside-menu').toggleClass('header_menu_scale');
 
-					$('.js_nav_link').toggle();
+			$('.header_logo_img').toggle();
 
-					$('.header-top').toggleClass('header_menu_toggle');
+			$('.js_nav_link').toggle();
 
-					$('.right-container').toggleClass('header_menu_toggle');
+			$('.header-top').toggleClass('header_menu_toggle');
 
-				})
+			$('.right-container').toggleClass('header_menu_toggle');
+
+		})
 
 
-				$('.container').css('height',$(window).height());
+		$('.container').css('height',$(window).height());
 
-				$('.right-container').css('min-height',$(window).height());
+		$('.right-container').css('min-height',$(window).height());
 
-				$('.header_message_list li').click(function(){
+		$('.header_message_list li').click(function(){
 
-					$('.header_notice').toggle();
+			$('.header_notice').toggle();
 
-				})
+		})
 
-				//退出登录
+		//退出登录
 
-				$('.js_logout').click(function(){
+		$('.js_logout').click(function(){
 
-					Lizard.clearCookie();
+			Lizard.clearCookie();
 
-					location.href = '/user/login';
+			location.href = '/user/login';
 
-				})
+		})
 
-				//用户信息
+		//用户信息
 
-				$('.js_user').click(function(){
+		$('.js_user').click(function(){
 
-					$('.user_info').toggle();
+			$('.user_info').toggle();
 
-				})
+		})
 
-				getMessage();
+		getMessage();
 
-				function getMessage(){
+		function getMessage(){
 
-					var userName = $('.authority_name').text();
+			var userName = $('.authority_name').text();
 
-					Lizard.ajax({
-						url:'/user/message',
-						type:'POST',
-						success:function(data){
+			Lizard.ajax({
+				url:'/user/message',
+				type:'POST',
+				success:function(data){
 
-							var msgList = data.content;
+					var msgList = data.content;
 
-							if(data && msgList.length){
+					if(data && msgList.length){
 
 
-								var msgHtml='\
-									<% msgList.forEach(function(item){%>\
-										<dd>\
-											<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>\
-											<div class="notice_cont fr">\
-											<div class="notice_txt">\
-											<strong><%-userName%></strong>\
-											<time><%-getDateDiff(item.created_at)%></time>\
-											</div>\
-											<p><%-item.content%></p>\
-										</div>\
-										</dd>\
-									<%})%>';
+						var msgHtml='\
+							<% msgList.forEach(function(item){%>\
+								<dd>\
+									<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>\
+									<div class="notice_cont fr">\
+									<div class="notice_txt">\
+									<strong><%-userName%></strong>\
+									<time><%-getDateDiff(item.created_at)%></time>\
+									</div>\
+									<p><%-item.content%></p>\
+								</div>\
+								</dd>\
+							<%})%>';
 
-								var html = ejs.render(msgHtml,{msgList:msgList,getDateDiff:Lizard.getDateDiff,userName:userName});
+						var html = ejs.render(msgHtml,{msgList:msgList,getDateDiff:Lizard.getDateDiff,userName:userName});
 
-								$('.notice_list').html(html);
+						$('.notice_list').html(html);
 
-								$('.js_msgNume').show();
+						$('.js_msgNume').show();
 
-								$('.js_msgNume').text(msgList.length);
+						$('.js_msgNume').text(msgList.length);
 
-							} else {
+					} else {
 
-								$('.js_msgNume').text('0');
+						$('.js_msgNume').text('0');
 
-								$('.notice_list').html('<dd><p>当前无信息</p></dd>');
-							}
-						}
-					})
-
-				}
-			},
-			getVerify: function () { //获取验证码
-
-				$('#captcha-img').click(function(){
-
-					common.updateVerify();
-
-				})
-			},
-			getPage: function (page,showPage) {
-
-				var iPage = 0;
-
-				if ((page % showPage) == 0){
-
-					iPage = Math.floor((page / showPage -1)) * showPage;
-
-				} else {
-
-					iPage = Math.floor(page / showPage) * showPage;
-
-				}
-
-				return iPage
-
-			},
-			updateVerify: function(){
-				Lizard.ajax({
-					type: 'POST',
-					gateway:'gatewayExt',
-					url: '/user/verify',
-					success: function (data) {
-
-						$('#captcha-img').attr('src',data.img_url);
-
-						$('#captcha_key').val(data.key);
-
+						$('.notice_list').html('<dd><p>当前无信息</p></dd>');
 					}
-				})
-			}
+				}
+			})
+
+		}
+	},
+	getVerify: function () { //获取验证码
+
+		$('#captcha-img').click(function(){
+
+			common.updateVerify();
+
+		})
+	},
+	getPage: function (page,showPage) {
+
+		var iPage = 0;
+
+		if ((page % showPage) == 0){
+
+			iPage = Math.floor((page / showPage -1)) * showPage;
+
+		} else {
+
+			iPage = Math.floor(page / showPage) * showPage;
+
 		}
 
-		return common;
-})
+		return iPage
+
+	},
+	dropMenu: function  () {
+
+		$('.js_select').click(function(e){
+
+			e.stopPropagation();
+
+			$(this).removeClass('active');
+
+			$(this).parent('.drop_menu').toggleClass('active');
+
+		})
+
+		$('.drop_menu_list').on('click','li',function(){
+
+			$(this).parent().prev('.js_select').text($(this).text()).addClass('active');
+
+		})
+
+		$(document).click(function(){
+			$('.drop_menu').removeClass('active');
+
+		})
+	},
+	updateVerify: function(){
+		Lizard.ajax({
+			type: 'POST',
+			gateway:'gatewayExt',
+			url: '/user/verify',
+			success: function (data) {
+
+				$('#captcha-img').attr('src',data.img_url);
+
+				$('#captcha_key').val(data.key);
+
+			}
+		})
+	}
+}
+
+module.exports = common;

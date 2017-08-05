@@ -5,3 +5,50 @@
 @import '../modules/list.scss';
 
 @import '../modules/pagination.scss';
+
+@import '../modules/popup.scss';
+
+@import '../modules/dropMenu.scss';
+
+
+
+.cont_list{
+	.shop_name{
+		width:210rem/$rem;
+	}
+	.shop_abbreviation{
+		width:230rem/$rem;
+	}
+	.shop_address{
+		width:190rem/$rem;
+	}
+	.shop_phone{
+		width:220rem/$rem;
+	}
+	.user_status{
+
+		width:228rem/$rem;
+	}
+	.shop_time{
+		width:258rem/$rem;
+	}
+	.shop_action{
+		float:left;
+	}
+}
+
+.user-ui-input{
+	width:382rem/$rem;
+}
+.drop_menu_city{
+
+	width:182rem/$rem;
+
+	.drop_menu_list{
+
+
+		width:182rem/$rem;
+	}
+
+
+}

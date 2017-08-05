@@ -29,7 +29,6 @@
 	width:850rem/$rem;
 	z-index:1050;
 	background:#fff;
-	overflow: hidden;
 	@include borderRadius(5);
 
 	position:fixed;
@@ -64,6 +63,8 @@
 }
 
 .popup_title{
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
 
 	height:55rem/$rem;
 
@@ -80,8 +81,8 @@
 	}
 
 }
-
 .popup_cont{
+
 
 	padding-left:105rem/$rem;
 
@@ -220,7 +221,7 @@
 		font-size:14px;
 		color:#333;
 		display:inline-block;
-		width:56px;
+		width:84px;
 		text-align:right;
 	}
 }

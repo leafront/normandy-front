@@ -29,7 +29,7 @@ router.get('/:id', async (ctx,next) => {
 	const currentPage = parseInt(params.page) || 1;
 
 
-	const { results:messageList, page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
+	const { results:messageList, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
 		url:`/api/${userId}/msgs`,
 		data:{
 			page: currentPage

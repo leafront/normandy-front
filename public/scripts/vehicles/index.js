@@ -1,23 +1,9 @@
-/**
- * Created by leafrontye on 2017/7/27.
- */
+
+var $ = require('../lib/jquery');
+
+var common = require('../common');
 
 
-require([
-	'../config'
-], function(){
-	require([
-		'jquery',
-		'common',
-		'local'
-	], function(
-		$,
-		common,
-		local
-	){
+var Lizard = require('../widget/lizard');
 
-		common.headerMenu();
-
-
-	})
-})
+common.headerMenu();

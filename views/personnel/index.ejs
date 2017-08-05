@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>员工管理</title>
-    <link rel="stylesheet" href="/styles/personnel/index.css"/>
+    <link rel="stylesheet" href="/styles/personnel/index.css?v=20170805144339"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -102,15 +102,13 @@
 </div>
 
 </div>
-
-
 <div class="popup_mask"></div>
 
 <script type="text/javascript">
   window.paginationTpl = <%-JSON.stringify(paginationTpl)%>
   window.listTpl = <%-JSON.stringify(listTpl)%>;
 </script>
-<script type="text/javascript" src="/scripts/lib/require.js" data-main="/scripts/personnel/index"></script>
+<script type="text/javascript" src="/dist/scripts/personnel/index.js?v=20170805144339"></script>
 </body>
 </html>
 
