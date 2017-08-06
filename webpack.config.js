@@ -37,7 +37,7 @@ module.exports = {
 
 		'message/index':'./public/scripts/message/index',
 
-		'account/index':'./public/scripts/account/index',
+		'account/index':'./public/scripts/account/index'
 
 
 

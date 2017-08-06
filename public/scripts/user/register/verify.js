@@ -7,66 +7,70 @@ var Lizard = require('../../widget/lizard');
 
 var local = require('../../widget/local');
 
-function startVerify (){
 
-	$('.login-submit').click(function(){
+var Page = require('../../widget/page');
 
-		actionVerify()
+Page({
 
-	})
-}
+	bindEvents(){
 
-function actionVerify (){ //开始验证
+		$('.login-submit').click(() => {
 
-	var userInfo = local.get('userInfo');
+			this.actionVerify()
 
-	var mobile = userInfo.mobile;
+		})
+	},
+	actionVerify (){ //开始验证
 
-	var password = userInfo.password;
+		var userInfo = local.get('userInfo');
 
-	var mobile_key = $.trim($('#mobile_key').val());
+		var mobile = userInfo.mobile;
 
-	var mobile_code = $.trim($('#mobile_code').val());
+		var password = userInfo.password;
 
-	if (!mobile_code) {
+		var mobile_key = $.trim($('#mobile_key').val());
 
-		Lizard.showToast('请输入验证码');
+		var mobile_code = $.trim($('#mobile_code').val());
 
-		return;
-	}
+		if (!mobile_code) {
 
-	if (!/^\d{4}$/.test(mobile_code)) {
+			Lizard.showToast('请输入验证码');
 
-		Lizard.showToast('请输入正确的短信验证码');
-
-		return;
-	}
-
-	Lizard.ajax({
-		type: 'POST',
-		url: '/user/register',
-		gateway:'gatewayExt',
-		data: {
-			mobile: mobile,
-			password: password,
-			mobile_code: mobile_code,
-			mobile_key: mobile_key
-		},
-		success: function (data) {
-
-			Lizard.showToast('注册成功');
-
-			local.remove('userInfo');
-
-			setTimeout(function(){
-
-				location.href = '/user/login';
-
-			},1000)
-
+			return;
 		}
-	})
-}
 
-startVerify();
+		if (!/^\d{4}$/.test(mobile_code)) {
+
+			Lizard.showToast('请输入正确的短信验证码');
+
+			return;
+		}
+
+		Lizard.ajax({
+			type: 'POST',
+			url: '/user/register',
+			gateway:'gatewayExt',
+			data: {
+				mobile: mobile,
+				password: password,
+				mobile_code: mobile_code,
+				mobile_key: mobile_key
+			},
+			success: function (data) {
+
+				Lizard.showToast('注册成功');
+
+				local.remove('userInfo');
+
+				setTimeout(function(){
+
+					location.href = '/user/login';
+
+				},1000)
+
+			}
+		})
+	}
+})
+
 

@@ -8,100 +8,110 @@ var Lizard = require('../../widget/lizard');
 var local = require('../../widget/local');
 
 
+var Page = require('../../widget/page');
+
+Page({
+
+	onShow(){
+
+		this.clearForm();
+
+		common.getVerify();
+
+	},
+
+	clearForm(){
+
+		$('#mobile').val('');
+
+		$('#password').val('');
+
+	},
+	bindEvents(){
+
+		$('.login-submit').click(() =>{
+
+			this.actionRegister()
+
+		})
+	},
+
+	actionRegister (){ //开始注册
+
+		var mobile = $.trim($('#mobile').val());
+
+		var password = $.trim($('#password').val());
+
+		var captcha_code = $.trim($('#captcha_code').val());
+
+		var captcha_key = $.trim($('#captcha_key').val());
 
 
+		if (!mobile) {
 
-function startRegister (){
+			Lizard.showToast('请输入手机号');
 
-	$('#mobile').val('');
+			return;
+		}
+		if (!Lizard.isMobile(mobile)) {
 
-	$('#password').val('');
+			Lizard.showToast('请输入正确的手机号');
 
+			return;
+		}
 
-	$('.login-submit').click(function(){
+		if (!password) {
 
-		actionRegister()
+			Lizard.showToast('请输入密码');
 
-	})
-}
+			return;
+		}
 
-function actionRegister (){ //开始注册
+		if (!captcha_code) {
 
-	var mobile = $.trim($('#mobile').val());
+			Lizard.showToast('请输入验证码');
 
-	var password = $.trim($('#password').val());
-
-	var captcha_code = $.trim($('#captcha_code').val());
-
-	var captcha_key = $.trim($('#captcha_key').val());
-
-
-	if (!mobile) {
-
-		Lizard.showToast('请输入手机号');
-
-		return;
-	}
-	if (!Lizard.isMobile(mobile)) {
-
-		Lizard.showToast('请输入正确的手机号');
-
-		return;
-	}
-
-	if (!password) {
-
-		Lizard.showToast('请输入密码');
-
-		return;
-	}
-
-	if (!captcha_code) {
-
-		Lizard.showToast('请输入验证码');
-
-		return;
-	}
+			return;
+		}
 
 
-	if (!Lizard.isVerify(captcha_code)) {
+		if (!Lizard.isVerify(captcha_code)) {
 
-		Lizard.showToast('请输入正确的验证码');
+			Lizard.showToast('请输入正确的验证码');
 
-		return;
-
-	}
-
-	Lizard.ajax({
-		type: 'POST',
-		url: '/user/register/mobile',
-		gateway:'gatewayExt',
-		data: {
-			mobile: mobile,
-			password: password,
-			captcha_code: captcha_code,
-			captcha_key: captcha_key
-		},
-		success: function (data) {
-
-			local.set('userInfo',{
-				mobile:mobile,
-				password:password,
-				mobile_key:data.key
-			})
-			location.href = '/user/register/' + data.key;
-
-		},
-		error: function(){
-
-			common.updateVerify();
+			return;
 
 		}
-	})
-}
 
-common.getVerify();
+		Lizard.ajax({
+			type: 'POST',
+			url: '/user/register/mobile',
+			gateway:'gatewayExt',
+			data: {
+				mobile: mobile,
+				password: password,
+				captcha_code: captcha_code,
+				captcha_key: captcha_key
+			},
+			success: function (data) {
 
-startRegister();
+				local.set('userInfo',{
+					mobile:mobile,
+					password:password,
+					mobile_key:data.key
+				})
+				location.href = '/user/register/' + data.key;
+
+			},
+			error: function(){
+
+				common.updateVerify();
+
+			}
+		})
+	}
+
+})
+
 
 
