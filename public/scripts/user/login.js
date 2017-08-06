@@ -71,7 +71,6 @@ Page({
 			return;
 		}
 
-
 		if (!Lizard.isVerify(captcha_code)) {
 
 			Lizard.showToast('请输入正确的验证码');
@@ -80,16 +79,24 @@ Page({
 
 		}
 
+		var data = {
+			mobile: mobile,
+			password: password,
+			captcha_code: captcha_code,
+			captcha_key: captcha_key
+		}
+
+		this.userLogin(data);
+
+	},
+
+	userLogin(data){
+
 		Lizard.ajax({
 			type: 'POST',
 			url: '/user/login',
 			gateway:'gatewayExt',
-			data: {
-				mobile: mobile,
-				password: password,
-				captcha_code: captcha_code,
-				captcha_key: captcha_key
-			},
+			data: data,
 			success: (data) =>{
 
 				this.authLogin(data.jwt);
