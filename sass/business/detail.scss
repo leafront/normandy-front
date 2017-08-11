@@ -248,7 +248,7 @@
 
 	.credit_name{
 
-		width:745rem/$rem;
+		width:700rem/$rem;
 	}
 	.credit_institution{
 
@@ -260,15 +260,18 @@
 	}
 	.credit_times{
 
-		width:180rem/$rem;
+		width:220rem/$rem;
+
+		height:58px;
 	}
 	.credit_actionName{
 
 		width:168rem/$rem;
+		height:58px;
 	}
 	.credit_action {
 		float: left;
-		a {
+		button{
 			margin-top: 10px;
 			padding: 0 14rem/$rem;
 			@include borderRadius(5);
@@ -279,6 +282,7 @@
 			text-align: center;
 			float: left;
 			margin-right: 8px;
+			cursor: pointer;
 		}
 		.btn_buy{
 			background:#ed6b75;

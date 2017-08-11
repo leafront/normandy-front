@@ -86,7 +86,7 @@ Page({
 
 		})
 
-		popup.selectRole();
+		roleAuth.selectRole();
 
 	},
 

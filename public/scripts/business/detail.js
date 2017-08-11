@@ -108,7 +108,9 @@ Page({
 
 				if(data) {
 
-					var html = ejs.render(creditTpl,{list:credit})
+					var html = ejs.render(creditTpl,{list:credit,risks:data});
+
+					$('#creditList').html(html);
 				}
 
 			}
