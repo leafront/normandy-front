@@ -63,11 +63,6 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
-<<<<<<< HEAD
-/******/ ({
-
-/***/ 26:
-=======
 /******/ ([
 /* 0 */
 /*!**************************************!*\
@@ -182,21 +177,11 @@ eval("\n\nvar condition = { \"true\": \"是\", \"false\": \"否\", \"null\": \"�
 /* 24 */,
 /* 25 */,
 /* 26 */
->>>>>>> develop
 /*!******************************************************!*\
   !*** ./public/scripts/borrowers/vehicle/list/add.js ***!
   \******************************************************/
 /*! no static exports found */
 /*! all exports used */
-<<<<<<< HEAD
-/***/ (function(module, exports) {
-
-eval("throw new Error(\"Module build failed: Error: ENOENT: no such file or directory, open '/Users/leafrontye/Desktop/normandy-front/public/scripts/borrowers/vehicle/list/add.js'\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjYuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///26\n");
-
-/***/ })
-
-/******/ });
-=======
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -204,4 +189,3 @@ eval("\n\nvar $ = __webpack_require__(/*! ../../../lib/jquery */ 0);\n\nvar comm
 
 /***/ })
 /******/ ]);
->>>>>>> develop

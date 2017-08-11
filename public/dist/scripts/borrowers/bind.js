@@ -65,8 +65,6 @@
 /************************************************************************/
 /******/ ({
 
-<<<<<<< HEAD
-=======
 /***/ 0:
 /*!**************************************!*\
   !*** ./public/scripts/lib/jquery.js ***!
@@ -106,18 +104,12 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 
 /***/ }),
 
->>>>>>> develop
 /***/ 24:
 /*!******************************************!*\
   !*** ./public/scripts/borrowers/bind.js ***!
   \******************************************/
 /*! no static exports found */
 /*! all exports used */
-<<<<<<< HEAD
-/***/ (function(module, exports) {
-
-eval("throw new Error(\"Module build failed: Error: ENOENT: no such file or directory, open '/Users/leafrontye/Desktop/normandy-front/public/scripts/borrowers/bind.js'\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjQuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///24\n");
-=======
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -172,7 +164,6 @@ eval("/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals 
 
 "use strict";
 eval("\n\nfunction Page(options) {\n\t//  执行某些函数，进行初始化\n\n\treturn new Page.prototype.init(options);\n}\n\nPage.prototype = {\n\n\tconstructor: Page, // 修改构造器的指向\n\n\tinit: function init(options) {\n\n\t\toptions.ajax && options.ajax();\n\n\t\toptions.onShow && options.onShow();\n\n\t\toptions.bindEvents && options.bindEvents();\n\t}\n};\n\nmodule.exports = Page;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNi5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9wdWJsaWMvc2NyaXB0cy93aWRnZXQvcGFnZS5qcz9jNDk2Il0sInNvdXJjZXNDb250ZW50IjpbIlxuZnVuY3Rpb24gUGFnZShvcHRpb25zKXtcblx0Ly8gIOaJp+ihjOafkOS6m+WHveaVsO+8jOi/m+ihjOWIneWni+WMllxuXG5cdHJldHVybiBuZXcgUGFnZS5wcm90b3R5cGUuaW5pdChvcHRpb25zKTtcbn1cblxuUGFnZS5wcm90b3R5cGUgPSB7XG5cblx0Y29uc3RydWN0b3I6IFBhZ2UsICAvLyDkv67mlLnmnoTpgKDlmajnmoTmjIflkJFcblxuXHRpbml0IChvcHRpb25zKXtcblxuXHRcdG9wdGlvbnMuYWpheCAmJiBvcHRpb25zLmFqYXgoKTtcblxuXHQgIG9wdGlvbnMub25TaG93ICYmIG9wdGlvbnMub25TaG93KCk7XG5cblx0XHRvcHRpb25zLmJpbmRFdmVudHMgJiYgb3B0aW9ucy5iaW5kRXZlbnRzKCk7XG5cblxuXG5cdH1cbn1cblxubW9kdWxlLmV4cG9ydHMgPSBQYWdlO1xuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIHB1YmxpYy9zY3JpcHRzL3dpZGdldC9wYWdlLmpzIl0sIm1hcHBpbmdzIjoiOztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFJQTtBQWRBO0FBQ0E7QUFnQkEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///6\n");
->>>>>>> develop
 
 /***/ })
 

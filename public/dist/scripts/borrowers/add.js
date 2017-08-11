@@ -63,23 +63,6 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
-<<<<<<< HEAD
-/******/ ({
-
-/***/ 23:
-/*!*****************************************!*\
-  !*** ./public/scripts/borrowers/add.js ***!
-  \*****************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-eval("throw new Error(\"Module build failed: Error: ENOENT: no such file or directory, open '/Users/leafrontye/Desktop/normandy-front/public/scripts/borrowers/add.js'\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjMuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///23\n");
-
-/***/ })
-
-/******/ });
-=======
 /******/ ([
 /* 0 */
 /*!**************************************!*\
@@ -192,4 +175,3 @@ eval("\n\n$ = __webpack_require__(/*! ../lib/jquery */ 0);\n\nvar common = __web
 
 /***/ })
 /******/ ]);
->>>>>>> develop
