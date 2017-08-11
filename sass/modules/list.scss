@@ -116,8 +116,29 @@
 				background:#ffc76c;
 			}
 			&.list_btn4{
-				background:red;
+				background:#ed6b75;
 			}
 		}
+	}
+}
+
+
+.list_empty{
+
+	text-align:center;
+
+	padding-top:118rem/$rem;
+	img{
+
+		width:256px;
+		height:204px;
+
+	}
+
+	span{
+		font-size:18px;
+		color:#999;
+		display:block;
+		margin-top:18px;
 	}
 }

@@ -6,6 +6,9 @@ var baseModel = require('../../model/baseModel');
 
 var querystring = require('querystring');
 
+var fs = require('fs');
+
+var path = require('path');
 
 const {
 	getPage
@@ -46,7 +49,7 @@ router.get('/', async (ctx,next) => {
 		authority,
 		shop,
 		roleList,
-		shopList,
+		list:shopList,
 		showPage,
 		totalPage,
 		page:currentPage,

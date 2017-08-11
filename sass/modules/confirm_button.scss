@@ -1,0 +1,39 @@
+@import 'common.scss';
+
+.btn_confirm{
+	width:118rem/$rem;
+	height:38px;
+	line-height:38px;
+
+	@include borderRadius(5);
+	font-size: 14px;
+	text-align:center;
+	color:#fefefe;
+	float:left;
+	position:relative;
+	cursor: pointer;
+
+	background: #53cac3;
+	margin-right: 42px;
+	&:hover {
+		background: #6adbcf;
+	}
+}
+
+.btn_cancel{
+	width:118rem/$rem;
+	height:38px;
+	line-height:38px;
+	@include borderRadius(5);
+	font-size: 14px;
+	text-align:center;
+	float:left;
+	position:relative;
+	cursor: pointer;
+	background:#e1e5ec;
+	color:#666;
+	&:hover{
+		background:#e7eaf0;
+
+	}
+}

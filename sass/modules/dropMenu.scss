@@ -77,6 +77,14 @@
 
 		padding-left:15rem/$rem;
 
+		span{
+			display:inline-block;
+			width:84px;
+			height:18px;
+			position:relative;
+			top:4px;
+		}
+
 		&:hover{
 			background:#53cac3;
 			a{

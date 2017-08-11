@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>百渊金服 • 借款人列表</title>
-    <link rel="stylesheet" href="/styles/business/index.css?v=20170805144339"/>
+    <link rel="stylesheet" href="/styles/business/index.css"/>
 </head>
 <body>
 <% include ../common/header.ejs %>
@@ -106,10 +106,10 @@
                     <dd>
                         <span class="business_num"><%-item.no%></span>
                         <span class="business_name"><%-item.application.borrower.name%></span>
-                        <span class="business_type"><%-borrowingType[item.type]%></span>
+                        <span class="business_type"><%-borrowingType[item.type].name%></span>
 
                         <span class="business_money"><%-item.amount%></span>
-                        <span class="business_term"><%-item.term + termUnit[item.term_unit]%></span>
+                        <span class="business_term"><%-item.term + termUnit[item.term_unit].name%></span>
                         <span class="business_time"><%-item.created_at%></span>
                         <div class="list_status">
                           <span class="<%-borrowingStatus[item.status].color%>"><%-borrowingStatus[item.status].title%></span>
@@ -145,6 +145,6 @@
         <% include ../common/footer.ejs%>
     </div>
 </div>
-<script type="text/javascript" src="/dist/scripts/business/index.js?v=20170805144339"></script>
+<script type="text/javascript" src="/dist/scripts/business/index.js"></script>
 </body>
 </html>

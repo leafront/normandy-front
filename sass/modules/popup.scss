@@ -1,5 +1,7 @@
 @import 'common.scss';
 
+@import 'confirm_button.scss';
+
 .popup_mask{
 
 	width:100%;
@@ -37,13 +39,15 @@
 
 	opacity: 0;
 
+	z-index:-10;
+
 	left:50%;
 
 	margin-left:-850rem/2/$rem;
 
-	transform:translateY(-50%);
+	transform:translateY(-100%);
 
-	-webkit-transform:translateY(-50%);
+	-webkit-transform:translateY(-100%);
 
 	transition: transform .3s linear;
 
@@ -54,9 +58,9 @@
 	 opacity: 1;
 	  z-index:1100;
 
-		transform:translateY(142rem/$rem);
+		transform:translateY(100rem/$rem);
 
-		-webkit-transform:translateY(142rem/$rem);
+		-webkit-transform:translateY(100rem/$rem);
 
 	}
 
@@ -184,33 +188,6 @@
 .popup_submit{
 
 	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
-	button{
-		width:118rem/$rem;
-		height:38px;
-		line-height:38px;
-		@include borderRadius(5);
-		font-size: 14px;
-		text-align:center;
-		color:#fefefe;
-		float:left;
-		position:relative;
-		@include boxShadow(4);
-		cursor: pointer;
-		&:first-child{
-			background:#53cac3;
-			margin-right:42px;
-			&:hover{
-				background:#6adbcf;
-			}
-		}
-		&:last-child{
-			background:#e1e5ec;
-			color:#666;
-			&:hover{
-				background:#e7eaf0;
-			}
-		}
-	}
 }
 
 

@@ -1,6 +1,6 @@
 /**
-* Created by leafrontye on 2017/7/31.
-*/
+ * Created by leafrontye on 2017/7/31.
+ */
 var $ = require('../lib/jquery');
 
 var common = require('../common');

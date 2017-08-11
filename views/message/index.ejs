@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>首页</title>
-    <link rel="stylesheet" href="/styles/message/index.css?v=20170805144339"/>
+    <link rel="stylesheet" href="/styles/message/index.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -21,7 +21,7 @@
             <div class="cont-title">
                 <i></i>
                 <span>站内信列表</span>
-                <a href="#" class="message_read <%if(isRead){%>active<%}%>">全部设为已读</a>
+                <a href="javascript:;" class="message_read <%if(isRead){%>active<%}%>">全部设为已读</a>
             </div>
             <div class="message">
               <ul class="message_list">
@@ -39,10 +39,10 @@
 </div>
 
 <script type="text/javascript">
-    window.paginationTpl = JSON.stringify(paginationTpl);
+    window.paginationTpl = <%-JSON.stringify(paginationTpl)%>;
     window.listTpl = <%-JSON.stringify(listTpl)%>;
 </script>
-<script type="text/javascript" src="/dist/scripts/message/index.js?v=20170805144339"></script>
+<script type="text/javascript" src="/dist/scripts/message/index.js"></script>
 </body>
 </html>
 

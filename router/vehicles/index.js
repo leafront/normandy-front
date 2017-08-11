@@ -8,9 +8,11 @@ var baseModel = require('../../model/baseModel');
 
 var common = require('../../model/common');
 
+var data = require('../../model/data');
+
 const {
 	colorList
-} = common;
+} = data;
 
 router.get('/', async (ctx,next) => {
 

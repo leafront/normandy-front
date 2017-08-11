@@ -1,82 +1,81 @@
 
-	var store = (function(){
 
-		var api = {};
+var local = {};
 
-		var storage;
+var storage;
 
-		var doc = document;
+var doc = document;
 
-		function serialize(value) {
-			return JSON.stringify(value);
-		}
+function serialize(value) {
+	return JSON.stringify(value);
+}
 
-		function deserialize(value) {
+function deserialize(value) {
 
-			if (typeof value != 'string') return undefined;
+	if (typeof value != 'string') return undefined;
 
-			return JSON.parse(value);
-		}
+	return JSON.parse(value);
+}
 
-		if (localStorage in window && window.localStorage) {
+if ('localStorage' in window && window.localStorage) {
 
-			storage = window.localStorage;
+	storage = window.localStorage;
 
-			api.set = function(key, val) {
-				storage[key] = serialize(val);
-			}
-			api.get = function(key) {
-				return deserialize(
-					storage[key]);
-			}
-			api.remove = function(key) {
-				delete storage[key];
-			}
-			api.clear = function() {
-				storage.clear();
-			}
+	local.set = function(key, val) {
+		storage[key] = serialize(val);
+	}
+	local.get = function(key) {
+		return deserialize(
+			storage[key]);
+	}
+	local.remove = function(key) {
+		delete storage[key];
+	}
+	local.clear = function() {
+		storage.clear();
+	}
+
+} else {
+
+
+	local.set = function(key, val) {
+
+		if (window.name) {
+
+			storage = deserialize(window.name);
 
 		} else {
 
-			api.set = function(key, val) {
+			storage = {};
 
-				if (window.name) {
-
-					storage = deserialize(window.name);
-
-				} else {
-
-					storage = {};
-
-				}
-
-				storage[key] = val;
-
-				window.name = serialize(storage);
-
-			}
-			api.get = function(key) {
-
-				return deserialize(window.name)[key];
-
-			}
-			api.remove = function(key) {
-
-				storage = deserialize(window.name);
-
-				delete storage[key];
-
-				window.name = serialize(storage);
-
-			}
-			api.clear = function() {
-
-				window.name = '';
-
-			}
 		}
-		return api
-	})()
-module.epxorts = store;
+
+		storage[key] = val;
+
+		window.name = serialize(storage);
+
+	}
+	local.get = function(key) {
+
+		return deserialize(window.name)[key];
+
+	}
+	local.remove = function(key) {
+
+		storage = deserialize(window.name);
+
+		delete storage[key];
+
+		window.name = serialize(storage);
+
+	}
+	local.clear = function() {
+
+		window.name = '';
+
+	}
+}
+
+module.exports = local;
 
 

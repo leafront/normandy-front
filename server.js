@@ -57,6 +57,8 @@ app.use(async (ctx, next) => {
 
 	} catch (err) {
 
+		console.log(err)
+
 		if (err.statusCode == 401) {
 
 			ctx.redirect('/user/login?returnurl=' + ctx.path);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>首页</title>
-    <link rel="stylesheet" href="/styles/borrowers/detail.css?v=20170805144339"/>
+    <link rel="stylesheet" href="/styles/borrowers/detail.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -25,26 +25,27 @@
                 <span>用户详情</span>
             </div>
             <div class="borrower_detail">
-              <div class="borrower_item">
-                <label>姓名：</label>
-                <p><%-borrowersInfo.name%></p>
-              </div>
-              <div class="borrower_item">
-                <label>手机号：</label>
-                <p><%-borrowersInfo.mobile%></p>
-              </div>
-              <div class="borrower_item">
-                <label>身份证：</label>
-                <p><%-borrowersInfo.id_no%></p>
-              </div>
-              <div class="borrower_item">
-                <label>注册时间：</label>
-                <p><%-borrowersInfo.created_at%></p>
-              </div>
+                <div class="borrower_item">
+                    <label>姓名：</label>
+                    <p><%-borrowersInfo.name%></p>
+                </div>
+                <div class="borrower_item">
+                    <label>手机号：</label>
+                    <p><%-borrowersInfo.mobile%></p>
+                </div>
+                <div class="borrower_item">
+                    <label>身份证：</label>
+                    <p><%-borrowersInfo.id_no%></p>
+                </div>
+                <div class="borrower_item">
+                    <label>注册时间：</label>
+                    <p><%-borrowersInfo.created_at%></p>
+                </div>
             </div>
             <div class="cont-title">
                 <i></i>
                 <span>车辆</span>
+                <a href="/borrowers/<%-detailId%>/add" class="title-btn1">新增车辆</a>
             </div>
             <div class="list_container list_borrowers">
                 <dl class="cont_list">
@@ -55,27 +56,26 @@
                         <span class="borrowers_time">添加时间</span>
                         <span>操作</span>
                     </dt>
-                <%if(borrowersList){%>
+                    <%if(borrowersList){%>
                     <% borrowersList.forEach(function(item){%>
-                     <dd>
+                    <dd>
                         <span class="borrowers_num"><%-item.model%></span>
                         <a href="/" class="borrowers_gps borrowers_gps_action">添加 GPS 设备</a>
                         <span class="borrowers_color"><%-colorList[item.color].name%></span>
                         <span class="borrowers_time"><%-item.created_at%></span>
                         <div class="borrowers_action">
                             <a href="/borrowers/vehicle/<%-item.id%>?id=<%-detailId%>" class="list_action">查看详情</a>
-                            <a href="/borrowers/car/<%-item.id%>" class="list_action"> / 车况信息</a>
+                            <a href="/borrowers/vehicle/list/<%-item.id%>?id=<%-detailId%>" class="list_action"> / 车况信息</a>
                         </div>
-                      </dd>
+                    </dd>
                     <%})%>
-                <%}%>
+                    <%}%>
                 </dl>
             </div>
         </div>
         <% include ../common/footer.ejs%>
     </div>
 </div>
-<script type="text/javascript" src="/dist/scripts/borrowers/index.js?v=20170805144339"></script>
+<script type="text/javascript" src="/dist/scripts/borrowers/detail.js"></script>
 </body>
 </html>
-
