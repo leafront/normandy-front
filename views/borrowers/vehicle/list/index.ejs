@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>车况列表</title>
+    <link rel="stylesheet" href="/styles/borrowers/vehicle/list/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../../../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../../../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers" class="navigation_link">借款人列表</a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers/<%-detailId%>" class="navigation_link">用户详情</a>
+            <em class="navigation_ico"></em>
+            <span>车况列表</span>
+        </div>
+        <input type="hidden" id="vehicleId" value="<%-vehicleId%>"/>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>车况列表</span>
+                <a href="/borrowers/vehicle/add/<%-vehicleId%>?id=<%-detailId%>" class="title-btn1">新增车况</a>
+            </div>
+            <div class="vehicle_cont">
+
+            </div>
+        </div>
+        <% include ../../../common/footer.ejs %>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.listTpl = <%-JSON.stringify(listTpl)%>;
+</script>
+<script type="text/javascript" src="/dist/scripts/borrowers/vehicle/list/index.js"></script>
+</body>
+</html>
+

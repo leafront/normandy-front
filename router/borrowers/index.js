@@ -7,9 +7,28 @@ var baseModel = require('../../model/baseModel');
 
 var common = require('../../model/common');
 
+var data = require('../../model/data');
+
+var path = require('path');
+
+var fs = require('fs');
+
+
+
 const {
-	colorList
-} = common;
+	colorList,
+	carType,
+	collateralLastFree,
+	starterStatus,
+	engineStatus,
+	transmissionStatus,
+	exhaustStatus,
+	booleanOptions,
+	certificateType,
+	isWorkOk,
+	interiorStatus,
+	surfaceStatus
+} = data;
 
 router.get('/', async (ctx,next) => {
 
@@ -51,7 +70,104 @@ router.get('/modify/password', async (ctx,next) => {
 
 })
 
-router.get('/detail/:id', async (ctx,next) => {
+
+router.get('/add', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+
+
+	await ctx.render('borrowers/add',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
+
+})
+
+router.get('/bind', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	await ctx.render('borrowers/bind',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
+
+})
+
+router.get('/vehicle/list/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	const vehicleId = ctx.params.id;
+
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const detailId = params.id;
+
+
+	const listView = path.resolve(__dirname + '/../../views/borrowers/vehicle/vehicle_list.ejs');
+
+
+	const listTpl = fs.readFileSync(listView,'utf-8');
+
+	await ctx.render('borrowers/vehicle/list',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		detailId,
+		listTpl,
+		vehicleId
+	})
+
+})
+
+
+router.get('/vehicle/add/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	const vehicleId = ctx.params.id;
+
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const detailId = params.id;
+
+	await ctx.render('borrowers/vehicle/list/add',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		vehicleId,
+		detailId,
+		collateralLastFree,
+		starterStatus,
+		engineStatus,
+		transmissionStatus,
+		exhaustStatus,
+		booleanOptions,
+		certificateType,
+		isWorkOk,
+		interiorStatus,
+		surfaceStatus
+	})
+
+})
+
+router.get('/:id', async (ctx,next) => {
 
 	const detailId = ctx.params.id;
 
@@ -82,6 +198,27 @@ router.get('/detail/:id', async (ctx,next) => {
 })
 
 
+router.get('/:id/add', async (ctx,next) => {
+
+	const detailId = ctx.params.id;
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	await ctx.render('borrowers/vehicle/add',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		detailId,
+		carType,
+		colorList
+	})
+
+})
+
+
 router.get('/vehicle/:id', async (ctx,next) => {
 
 	const id = ctx.params.id;
@@ -99,49 +236,9 @@ router.get('/vehicle/:id', async (ctx,next) => {
 	})
 
 
-	const carType = [{
-		name: '大型汽车', value: 1
-	}, {
-		name: '小型汽车', value: 2
-	},{
-		name:'使馆汽车', value:3
-	},{
-		name:'领馆汽车', value:4
-	},{
-		name:'境外汽车', value:5
-	},{
-		name:'外籍汽车', value:6
-	},{
-		name:'两三轮摩托', value:7
-	},{
-		name:'轻便摩托车', value:8
-	},{
-		name:'使馆摩托车', value:9
-	},{
-		name: '领馆摩托车', value:10
-	},{
-		name:'境外摩托车', value:11
-	},{
-		name:'外籍摩托车', value:12
-	},{
-		name:'农用运输车', value:13
-	},{
-		name:'拖拉机', value:14
-	},{
-		name:'挂车', value:15
-	},{
-		name:'教练汽车',value:16
-	},{
-		name:'教练摩托车',value:17
-	},{
-		name: '香港入境车', value: 26
-	},{
-		name: '澳门入境车', value: 27
-}];
-
 	const driverType = ['两驱', '四驱'];
 
-	await ctx.render('borrowers/vehicle',{
+	await ctx.render('borrowers/vehicle/detail',{
 		pathName: ctx.path,
 		authority,
 		shop,
@@ -151,6 +248,138 @@ router.get('/vehicle/:id', async (ctx,next) => {
 		carType,
 		colorList,
 		driverType
+	})
+
+})
+
+
+router.post('/add',async (ctx,next) => {
+
+	const body = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		url:'/api/user-bind-borrower',
+		data:body
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/bind',async (ctx,next) => {
+
+	const body = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		url:'/api/borrowers',
+		data:body
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/vehicles/list',async (ctx,next) => {
+
+	const { id } = ctx.request.body;
+
+
+
+	await baseModel.get(ctx,{
+		url:`/api/vehicles/${id}/conditions`,
+		data:{
+			id
+		}
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+router.post('/brand',async (ctx,next) => {
+
+	const { id } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/brands`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+router.post('/carType',async (ctx,next) => {
+
+	const { brandId } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/series?brand_id=${brandId}`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/carModel',async (ctx,next) => {
+
+	const { typeId } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/models?series_id=${typeId}`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
 	})
 
 })

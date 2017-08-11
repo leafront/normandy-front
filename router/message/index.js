@@ -77,14 +77,15 @@ router.get('/:id', async (ctx,next) => {
 
 router.post('/read',async (ctx,next) => {
 
-	const data = ctx.request.body;
+	const { userId, msg_ids } = ctx.request.body;
 
-	const userId = data.userId;
+	console.log(`/api/${userId}/msgs`)
 
 	await baseModel.post(ctx,{
+		type:'POST',
 		url:`/api/${userId}/msgs`,
 		data:{
-			data
+			msg_ids
 		}
 	}).then((body) => {
 
@@ -122,7 +123,6 @@ router.post('/list',async (ctx,next) => {
 	})
 
 })
-
 
 
 module.exports = router;

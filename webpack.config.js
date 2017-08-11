@@ -2,6 +2,11 @@ var webpack = require('webpack');
 
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
+var path = require('path');
+
+
+console.log( path.resolve(__dirname,'./public'))
+
 module.exports = {
   entry: {
     index:'./public/scripts/index',
@@ -25,11 +30,23 @@ module.exports = {
 
 		'borrowers/detail':'./public/scripts/borrowers/detail',
 
-		'borrowers/vehicle':'./public/scripts/borrowers/vehicle',
+		'borrowers/vehicle/detail':'./public/scripts/borrowers/vehicle/detail',
+
+		'borrowers/vehicle/add':'./public/scripts/borrowers/vehicle/add',
+
+		'borrowers/add':'./public/scripts/borrowers/add',
+
+		'borrowers/bind':'./public/scripts/borrowers/bind',
+
+		'borrowers/vehicle/list/index':'./public/scripts/borrowers/vehicle/list/index',
+
+		'borrowers/vehicle/list/add':'./public/scripts/borrowers/vehicle/list/add',
 
 		'borrowers/modify/password':'./public/scripts/borrowers/modify/password',
 
 		'business/index':'./public/scripts/business/index',
+
+		'business/detail':'./public/scripts/business/detail',
 
 		'vehicles/index':'./public/scripts/vehicles/index',
 
@@ -44,18 +61,26 @@ module.exports = {
 
   },
   output: {
-		path: 'public/dist/',
-		filename: 'scripts/[name].js'
+		path: path.resolve(__dirname, './public/dist/scripts'),
+		filename: '[name].js'
 		//publicPath: '/dist/', // 设置require.ensure路径
 		//chunkFilename: 'scripts/[name].js' // 设置require.ensure 文件名
   },
   module: {
     loaders: [
-      { test: /\.js?$/, loaders: ['babel'], exclude: /node_modules/ }
+      {
+				test: /\.js?$/,
+				loaders: ['babel-loader'],
+				exclude: /node_modules/
+			},
+			{
+				test: /\.ejs$/,
+				loader: ['ejs-loader']
+			}
     ]
   },
   resolve:{
-    extensions:['','.js','.json']
+    extensions:['*','.js','.json','.ejs']
   },
   plugins: [
     new webpack.DefinePlugin({

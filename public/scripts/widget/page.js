@@ -9,7 +9,7 @@ Page.prototype = {
 
 	constructor: Page,  // 修改构造器的指向
 
-	init: function(options){
+	init (options){
 
 		options.ajax && options.ajax();
 

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>百渊金服 • 借款人列表</title>
-    <link rel="stylesheet" href="/styles/borrowers/index.css?v=20170806140528"/>
+    <link rel="stylesheet" href="/styles/borrowers/index.css"/>
 </head>
 <body>
    <% include ../common/header.ejs %>
@@ -20,8 +20,8 @@
        <div class="cont-title">
          <i></i>
          <span>借款人列表</span>
-         <a href="#" class="title-btn2">邦定借款人</a>
-         <a href="#" class="title-btn1">新增借款人</a>
+         <a href="/borrowers/bind" class="title-btn2">邦定借款人</a>
+         <a href="/borrowers/add" class="title-btn1">新增借款人</a>
        </div>
        <div class="search">
           <div class="search_wraper clearfix">
@@ -64,7 +64,7 @@
                  <span class="borrowers_name"><%-item.name%></span>
                  <span class="borrowers_phone"><%-item.mobile%></span>
                  <span class="borrowers_regTime"><%-item.created_at%></span>
-                 <a class="list_action" href="/borrowers/detail/<%-item.id%>">详情</a>
+                 <a class="list_action" href="/borrowers/<%-item.id%>">详情</a>
              </dd>
              <%})%>
          <%}%>
@@ -88,7 +88,7 @@
        <% include ../common/footer.ejs%>
    </div>
   </div>
-   <script type="text/javascript" src="/dist/scripts/borrowers/index.js?v=20170806140528"></script>
+   <script type="text/javascript" src="/dist/scripts/borrowers/index.js"></script>
 </body>
 </html>
 

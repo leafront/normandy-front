@@ -1,0 +1,53 @@
+@import './common.scss';
+
+
+.vehicle_tab_wraper{
+
+	padding: 28px 0 28px 20px;
+
+	border-bottom:1px solid #ececec;
+
+
+
+	&:last-child{
+		border-bottom:0;
+	}
+}
+.vehicle_title{
+
+	float:left;
+
+	font-size:14px;
+	line-height:34px;
+
+	width:162rem/$rem;
+
+	color:#53cac3;
+
+}
+
+.form-group-rows{
+	&:first-child{
+		width:750rem/$rem;
+	}
+
+}
+.form-group{
+	.form-group-rows{
+		label{
+			width:140px;
+		}
+	}
+
+	.vehicle_color{
+		color:#53cac3;
+		font-size:14px;
+	}
+
+}
+
+
+.vehicle_item{
+	width:100%;
+	float:left;
+}

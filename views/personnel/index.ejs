@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>员工管理</title>
-    <link rel="stylesheet" href="/styles/personnel/index.css?v=20170806140528"/>
+    <link rel="stylesheet" href="/styles/personnel/index.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -61,8 +61,8 @@
     </div>
 
     <div class="popup_submit clearfix">
-        <button class="js_editConfirm" data-roletype="#popup_edit_role">确定</button>
-        <button class="js_cancel" data-popup="#editPopup">取消</button>
+        <button class="btn_confirm js_editConfirm" data-roletype="#popup_edit_role">确定</button>
+        <button class="btn_cancel js_cancel" data-popup="#editPopup">取消</button>
     </div>
 </div>
 
@@ -97,8 +97,8 @@
 </div>
 
 <div class="popup_submit clearfix">
-    <button class="js_addConfirm" data-roletype="#popup_add_role">添加</button>
-    <button class="js_cancel" data-popup="#addPopup">取消</button>
+    <button class="btn_confirm js_addConfirm" data-roletype="#popup_add_role">添加</button>
+    <button class="btn_cancel js_cancel" data-popup="#addPopup">取消</button>
 </div>
 
 </div>
@@ -108,7 +108,7 @@
   window.paginationTpl = <%-JSON.stringify(paginationTpl)%>
   window.listTpl = <%-JSON.stringify(listTpl)%>;
 </script>
-<script type="text/javascript" src="/dist/scripts/personnel/index.js?v=20170806140528"></script>
+<script type="text/javascript" src="/dist/scripts/personnel/index.js"></script>
 </body>
 </html>
 

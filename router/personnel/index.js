@@ -55,7 +55,7 @@ router.get('/', async (ctx,next) => {
 		authority,
 		shop,
 		roleList,
-		userList,
+		list:userList,
 		showPage,
 		totalPage,
 		page:currentPage,
@@ -137,10 +137,10 @@ router.post('/edit/roles',async (ctx,next) => {
 
 	const body = ctx.request.body;
 
-	const id = body.id;
+	const roleId = body.roleId;
 
 	await baseModel.get(ctx,{
-		url: `/api/users/${id}`
+		url: `/api/users/${roleId}`
 	}).then((body) => {
 
 		ctx.body = body;

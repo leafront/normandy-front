@@ -1,0 +1,192 @@
+@import '../../../modules/reset.scss';
+
+@import '../../../modules/common.scss';
+
+@import '../../../modules/dropMenu.scss';
+
+
+@import '../../common.scss';
+
+@import '../../../modules/form_list.scss';
+
+.modify-button{
+	padding-top:15px;
+	padding-left:530rem/$rem;
+}
+
+.user-ui-input-txt{
+
+	display:inline-block;
+	position:relative;
+	left:-38px;
+	top:1px;
+	width:33px;
+
+	height:32px;
+	background:#eee;
+
+	border-left:1px solid #ccc;
+
+
+	border-right:0;
+
+	font-size:14px;
+
+	color:#333;
+	line-height:34px;
+
+	text-align:center;
+
+
+}
+
+.user-ui-input{
+
+	width:440rem/$rem;
+
+
+}
+
+.vehicles-base-input{
+
+	.user-ui-input-txt{
+
+		width:54px;
+
+		left:-59px;
+	}
+}
+
+.vehicle-ui-ico{
+
+	.user-ui-input-txt{
+
+		background:url(/images/ico_sprite.png) no-repeat #eee -218px -32px;
+	}
+}
+
+
+.form-group{
+
+	.form-group-rows{
+		position:relative;
+	}
+	strong{
+		font-size:14px;
+		color:#333;
+
+		display:inline-block;
+
+		padding-left:40px;
+
+		position:relative;
+
+		top:5px;
+
+		cursor:pointer;
+
+		&.active{
+
+			&:before{
+
+				border:1px solid #53cac3;
+
+				background:url(/images/ico_sprite.png) no-repeat #53cac3 -179px -109px;
+
+			}
+
+		}
+
+		&:before{
+
+			width:15px;
+
+			height:15px;
+
+			content:'';
+
+			display:block;
+
+			border:1px solid #c1c1c1;
+
+			border-radius:50%;
+
+			-webkit-border-radius:50%;
+
+			position:absolute;
+
+			left:15rem/$rem;
+
+			top:1px;
+
+
+
+		}
+	}
+
+}
+.user-ui-explain{
+
+	width:300rem/$rem;
+}
+.vehicle_item_check{
+
+	display:inline-block;
+
+	strong{
+
+		top:0;
+	}
+}
+.form-group{
+
+	.vehicle_checkbox{
+
+		&:before{
+
+			border-radius:2px;
+
+			-webkit-box-radius:2px;
+		}
+	}
+
+}
+.vehicle_checkbox_wraper{
+	display:inline-block;
+	padding-top:3px;
+
+	width: 500rem/$rem;
+
+	strong{
+		width:120rem/$rem;
+		margin-bottom:15px;
+
+	}
+}
+
+.drop_menu_mortgage{
+
+	width:440rem/$rem;
+
+	.drop_menu_list{
+
+		width:420rem/$rem;
+	}
+}
+
+.vehicle_run_des{
+
+	display:inline-block;
+
+	width:1200rem/$rem;
+
+	height:140px;
+
+	border:1px solid #ccc;
+
+	padding:10px;
+	&:focus{
+		border:1px solid #53cac3
+
+	}
+}

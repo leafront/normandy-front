@@ -1,12 +1,47 @@
-/**
- * Created by leafrontye on 2017/7/28.
- */
 
 var router = require('koa-router')();
 
 var baseModel = require('../../model/baseModel');
 
 var common = require('../../model/common');
+
+var data = require('../../model/data');
+
+const {
+
+	mobileEncrypt,
+	idCardEncrypt
+} = common;
+
+const {
+	borrowingType,
+	termUnit,
+	borrowingStatus,
+	autoReviewStatus,
+	phoneReviewStatus,
+	nullBooleanOptions,
+	interiorStatus,
+	surfaceStatus,
+	shiftingType,
+	driverType,
+	collateralLastFree,
+	repaymentType,
+	purchaseType,
+	maritalStatus,
+	borrowingSeriesType,
+	salaryType,
+	purposeType,
+	companyType,
+	education,
+	isWorkOk,
+	transmissionStatus,
+	exhaustStatus,
+	certificateType,
+	starterStatus,
+	engineStatus,
+	carType,
+	colorList
+} = data;
 
 router.get('/', async (ctx,next) => {
 
@@ -19,34 +54,6 @@ router.get('/', async (ctx,next) => {
 		page:1
 	})
 
-	const borrowingType = ['抵押借款', '质押借款', '库存融资']
-
-	const termUnit = ['天', '个月'];
-
-	const borrowingStatus = {
-		'0': {'title': '待初审', 'color': 'list_btn3'},
-		'1': {'title': '待主审', 'color': 'list_btn1'},
-		'-1': {'title': '初审拒绝', 'color':'list_btn4'},
-		'2': {'title': '待财审', 'color': 'list_btn1',},
-		'-2': {'title': '主审拒绝', 'color': 'list_btn4'},
-		'3': {'title': '待复审', 'color': 'list_btn2'},
-		'-3': {'title': '财审拒绝', 'color': 'list_btn4'},
-		'4': {'title': '还款中', 'color': 'list_btn'},
-		'-4': {'title': '复审拒绝', 'color': 'list_btn4'},
-		'5': {'title': '还款完成', 'color': 'list_btn'},
-		'-5': {'title': '坏账', 'color': 'list_btn4'}
-	}
-	const autoReviewStatus = {
-		0: {'title': '已创建机审', 'color': 'list_btn3'},
-		1: {'title': '正在机审', 'color': 'list_btn1'},
-		2: {'title': '机审通过', 'color': 'list_btn2'},
-		3: {'title': '机审拒绝', 'color': 'list_btn4'}
-	}
-
-	const phoneReviewStatus = {
-		0: {'title': '等待电核', 'color': 'list_btn3'},
-		1: {'title': '电核完成', 'color': 'list_btn2'}
-	}
 	await ctx.render('business/index',{
 		pathName: ctx.path,
 		authority,
@@ -61,5 +68,161 @@ router.get('/', async (ctx,next) => {
 	})
 
 })
+
+router.get('/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	const id = ctx.params.id;
+
+	const business = await baseModel.get(ctx,{
+		url:`/api/borrowings/${id}`
+	})
+
+	const application = business.application;
+
+	const vehicleId = business.application.vehicle.id;
+
+
+	const conditionList = await baseModel.get(ctx,{
+		url:`/api/vehicles/${vehicleId}/conditions`
+	})
+
+	const condition = conditionList.results[0];
+
+	const uploadImg = [
+		{
+			type: 'cover_pic',
+			name: '封面图'
+		},
+		{
+			type: 'apply_pics',
+			name: '申请资料图'
+		},
+		{
+			type: 'call_records',
+			name: '通话记录'
+		},
+		{
+			type: 'contract_pics',
+			name: '合同资料'
+		},
+		{
+			type: 'violation_records',
+			name: '违章资料'
+		},
+		{
+			type: 'supporting_pics',
+			name: '三方证明资料'
+		}
+	];
+
+	const vehicle = business.application.vehicle;
+
+	await ctx.render('business/detail',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		borrowingType,
+		termUnit,
+		repaymentType,
+		carType,
+		colorList,
+		shiftingType,
+		purchaseType,
+		isWorkOk,
+		transmissionStatus,
+		exhaustStatus,
+		starterStatus,
+		engineStatus,
+		collateralLastFree,
+		certificateType,
+		driverType,
+		nullBooleanOptions,
+		interiorStatus,
+		maritalStatus,
+		borrowingSeriesType,
+		purposeType,
+		companyType,
+		salaryType,
+		surfaceStatus,
+		education,
+		mobileEncrypt,
+		idCardEncrypt,
+		uploadImg,
+		business,
+		application,
+		condition,
+		vehicle
+	})
+
+})
+
+
+router.post('/approvals',async (ctx,next) => {
+
+	const { id } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/borrowings/${id}/approvals`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+router.post('/risks',async (ctx,next) => {
+
+	const { id } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/borrowings/${id}/risks`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/vehicles/risks',async (ctx,next) => {
+
+	const { id } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/borrowings/${id}/vehicles/risks`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
 
 module.exports = router;

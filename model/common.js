@@ -9,36 +9,52 @@ module.exports = {
 
 	async authority (ctx,{gateway,url,data}){
 
-		const authority = await baseModel.get(ctx, {
-			gateway,
-			url,
-			data
-		})
+		return new Promise((resolve,reject) => {
 
-		try{
+			baseModel.get(ctx, {
+				gateway,
+				url,
+				data
+			}).then((authority) =>{
 
-			const { shopuser: { shop={}, roles=[] }, is_admin } = authority;
+				const { shopuser: { shop={}, roles=[] }, is_admin } = authority;
 
-			let roleList = is_admin ? ['SUPER_ADMIN'] : [];
+				let roleList = is_admin ? ['SUPER_ADMIN'] : [];
 
-			roles.forEach((item) => {
+				roles.forEach((item) => {
 
-				item.permissions.forEach((child) =>{
+					item.permissions.forEach((child) =>{
 
-					roleList.push(child.code);
+						roleList.push(child.code);
+					})
 				})
+
+				resolve ({ roleList, shop, authority })
+
+			}).catch((err) =>{
+
+				reject({ roleList:[], shop:{}, authority:{} })
+
 			})
 
-			return { roleList, shop, authority }
-
-		}catch(err){
-
-
-			return { roleList:[], shop:{}, authority:{} }
-
-		}
+		})
 
   },
+
+	mobileEncrypt(text){
+
+		var pattern = /(\d{3})\d{4}(\d{4})/;
+
+		return text.replace(pattern, '$1****$2');
+
+	},
+	idCardEncrypt(text){
+
+		var pattern = /(\d{6})\d{8}(\d{4})/;
+
+		return text.replace(pattern, '$1********$2');
+
+	},
 	getPage(page,showPage) {
 
 		let iPage = 0;
@@ -55,21 +71,5 @@ module.exports = {
 
 		return iPage
 
-	},
-	colorList:[
-		{'name':'银色',   'value': 0},
-		{'name':'黑色',   'value': 1},
-		{'name': '白色',   'value': 2},
-		{'name': '灰色',   'value': 3},
-		{'name': '红色',   'value': 4},
-		{'name': '金色',   'value': 5},
-		{'name': '黄色',   'value': 6},
-		{'name': '绿色',   'value': 7},
-		{'name': '紫色',   'value': 8},
-		{'name': '橙色',   'value': 9},
-		{'name': '棕色',   'value': 10},
-		{'name': '米色',   'value': 11},
-		{'name': '巧克力色', 'value': 12},
-		{'name': '香槟色', 'value': 13}
-	]
+	}
 }
