@@ -1,4 +1,4 @@
-$ = require('../lib/jquery');
+var $ = require('../lib/jquery');
 
 var common = require('../common');
 

@@ -24,67 +24,69 @@
             </div>
             <div class="search">
                 <div class="search_wraper clearfix">
-                  <div class="list_item">
-                    <div class="search_item">
-                        <label>借款编号</label>
-                        <input type="text" class="user-ui-input" placeholder="请输入借款编号"/>
-                    </div>
-                    <div class="search_item">
-                        <label>借款人</label>
-                        <input type="text" class="user-ui-input" placeholder="请输入借款人姓名"/>
-                    </div>
-                    <div class="search_item">
-                        <label>借款金额</label>
-                        <input type="text" class="user-ui-input" placeholder="请输入借款金额"/>
-                    </div>
-                    <div class="search_item">
-                        <label>借款金额</label>
-                        <input type="text" class="time-ui-input" placeholder=""/>
-                        <div class="drop_menu">
-                          <span class="js_select">请选择</span>
-                          <ul class="drop_menu_list">
-                            <li><a href="javascript:;">天</a></li>
-                            <li><a href="javascript:;">月</a></li>
-                          </ul>
+                    <div class="list_item">
+                       <form id="form">
+                        <div class="search_item">
+                            <label>借款编号</label>
+                            <input type="text" class="user-ui-input" id="businessNo" placeholder="请输入借款编号"/>
                         </div>
-                    </div>
+                        <div class="search_item">
+                            <label>借款人</label>
+                            <input type="text" class="user-ui-input" id="userName" placeholder="请输入借款人姓名"/>
+                        </div>
+                        <div class="search_item">
+                            <label>借款金额</label>
+                            <input type="text" class="user-ui-input" id="amount" placeholder="请输入借款金额"/>
+                        </div>
+                        <div class="search_item">
+                            <label>借款期限</label>
+                            <input type="text" class="time-ui-input" id="term" placeholder="请输入借款期限"/>
+                            <div class="drop_menu">
+                              <span class="js_select" id="termType">请选择</span>
+                              <ul class="drop_menu_list">
+                                <li><a href="javascript:;">天</a></li>
+                                <li><a href="javascript:;">月</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                      </form>
                   </div>
                 </div>
                 <div class="list_item">
                   <div class="search_item">
                     <label>借款类型</label>
                     <div class="drop_menu drop-menu-loan">
-                      <span class="js_select">请选择</span>
+                      <span class="js_select" id="businessType">请选择</span>
                       <ul class="drop_menu_list">
-                          <li><a href="javascript:;">抵押借款</a></li>
-                          <li><a href="javascript:;">质押借款</a></li>
-                          <li><a href="javascript:;">库存融资</a></li>
+                        <%borrowingType.forEach(function(item){%>
+                          <li data-value="<%-item.value%>"><a href="javascript:;"><%-item.name%></a></li>
+                        <%})%>
                       </ul>
                     </div>
                   </div>
                   <div class="search_item">
-                    <label>借款类型</label>
+                    <label>借款状态</label>
                       <div class="drop_menu drop-menu-loan">
-                        <span class="js_select">请选择</span>
+                        <span class="js_select" id="businessStatus">请选择</span>
                           <ul class="drop_menu_list">
-                            <li><a href="javascript:;">抵押借款</a></li>
-                            <li><a href="javascript:;">质押借款</a></li>
-                            <li><a href="javascript:;">库存融资</a></li>
+                          <% for(var attr in borrowingStatus) {%>
+                            <li data-value="<%-attr%>"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                          <%}%>
                           </ul>
                         </div>
                   </div>
                   <div class="search_item">
                     <label>注册时间</label>
                     <div class="user-ui-calendar">
-                        <input type="text" class="user-ui-input" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" id="fromTime" placeholder="请输入开始时间"/>
                         <em>至</em>
-                        <input type="text" class="user-ui-input" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" id="fromTime" placeholder="请输入开始时间"/>
                     </div>
                   </div>
                 </div>
                 <div class="search_submit clearfix">
-                    <button>查询</button>
-                    <button>重置</button>
+                    <button class="js_query">查询</button>
+                    <button class="js_reset">重置</button>
                 </div>
             </div>
 
@@ -100,7 +102,7 @@
                         <span class="list_status">状态</span>
                         <span>操作</span>
                     </dt>
-                <% if (businessList){%>
+                <% if (businessList && businessList.length){%>
 
                   <% businessList.forEach(function(item){%>
                     <dd>
@@ -125,22 +127,18 @@
                         <% if(item.status == 0) {%><a class="list_action" href="/business/edit?id=<%-item.id%>"> / 完善借款信息</a><%}%>
                     </dd>
                   <%})%>
+                <%}else{%>
+                  <% include ../common/list_empty.ejs %>
                 <%}%>
                 </dl>
             </div>
-            <div class="pagination">
+            <% if(businessList && businessList.length){%>
+              <div class="pagination">
                 <ul class="pagination_list">
-                    <li><a href="#">首页</a></li>
-                    <li><a href="#">上一页</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">下一页</a></li>
-                    <li><a href="#">尾页</a></li>
+                    <% include ../common/pagination.ejs %>
                 </ul>
-            </div>
+              </div>
+            <%}%>
         </div>
         <% include ../common/footer.ejs%>
     </div>

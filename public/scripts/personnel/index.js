@@ -12,6 +12,7 @@ var Page = require('../widget/page');
 
 var pagination = require('../widget/pagination');
 
+var listTpl =  require('./templates/list');
 
 Page({
 
@@ -29,7 +30,7 @@ Page({
 	},
 	bindEvents(){
 
-		pagination.showPage('/personnel/list');
+		pagination.showPage('/personnel/list',listTpl);
 
 		this.showSwitch();
 

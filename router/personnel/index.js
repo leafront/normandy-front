@@ -2,10 +2,6 @@ var router = require('koa-router')();
 
 var querystring = require('querystring');
 
-var path = require('path');
-
-var fs = require('fs');
-
 var common = require('../../model/common');
 
 var baseModel = require('../../model/baseModel');
@@ -41,15 +37,6 @@ router.get('/', async (ctx,next) => {
 
 	const iPage = getPage(currentPage,showPage);
 
-	const pagination = path.resolve(__dirname + '/../../views/common/pagination.ejs');
-
-	const listView = path.resolve(__dirname + '/../../views/personnel/list.ejs');
-
-	const  paginationTpl = fs.readFileSync(pagination,'utf-8');
-
-	const listTpl = fs.readFileSync(listView,'utf-8');
-
-
 	await ctx.render('personnel',{
 		pathName: ctx.path,
 		authority,
@@ -60,8 +47,6 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		paginationTpl,
-		listTpl,
 		isFirstPage:(currentPage - 1 ) == 0,
 		isLastPage:currentPage * pageSize > totalCount
 	})

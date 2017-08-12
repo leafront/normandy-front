@@ -559,7 +559,7 @@ var borrowingSeriesType =[
 		"name": "二借",
 		"value": 2
 	}
-]
+];
 
 module.exports = {
 	condition,

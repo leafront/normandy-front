@@ -60,8 +60,8 @@ var common = {
 			var userName = $('.authority_name').text();
 
 			Lizard.ajax({
-				url:'/user/message',
 				type:'POST',
+				url:'/user/message',
 				success:function(data){
 
 					var msgList = data.content;
@@ -139,9 +139,11 @@ var common = {
 
 		})
 
-		$('.drop_menu_list').on('click','li',function(){
+		$('.drop_menu_list').on('click','li',function(e){
 
-			$(this).parent().prev('.js_select').text($(this).text()).addClass('active');
+			e.stopPropagation();
+
+			$(this).parent().prev('.js_select').text($(this).text()).addClass('active').parents('.drop_menu').removeClass('active');
 
 		})
 
@@ -149,6 +151,13 @@ var common = {
 			$('.drop_menu').removeClass('active');
 
 		})
+	},
+
+	clearForm(){
+
+		document.getElementById('form').reset();
+
+
 	},
 	updateVerify: function(){
 		Lizard.ajax({

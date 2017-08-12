@@ -119,10 +119,8 @@
         <h4>选择品牌车型</h4>
     </div>
     <div class="carPopup">
-
        <div class="carPopup_nav">
          <ul class="carNav_list">
-
          </ul>
        </div>
 
@@ -149,64 +147,19 @@
 </div>
 <div class="popup_mask"></div>
 
-<div class="ui-calendar">
+<div class="ui-calendar" id="calendar"></div>
+<script src="https://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/lib/ejs.js"></script>
+<script type="text/javascript" src="/scripts/widget/calendar.js"></script>
 
-  <div class="ui-calendar-date">
-    <span class="ui-calendar-prev"></span>
-    <h4><strong class="js_year">2017</strong>年  <strong class="js_month">1</strong>月</h4>
-    <span class="ui-calendar-next"></span>
-  </div>
-  <div class="ui-calendar-title">
-    <span>日</span>
-    <span>一</span>
-    <span>二</span>
-    <span>三</span>
-    <span>四</span>
-    <span>五</span>
-    <span>六</span>
-  </div>
-  <div class="ui-calendar-cont">
+<script type="text/javascript">
 
-    <div class="ui-calendar-item">
-      <span class="js_calc">10</span>
-      <span class="js_calc">11</span>
-      <span class="js_calc gray">12</span>
-      <span class="js_calc gray">13</span>
-      <span class="js_calc">14</span>
-      <span class="js_calc">15</span>
-      <span class="js_calc">16</span>
-    </div>
+    var calendar = new Calendar({
+      startYear: 2000
+    })
 
-    <div class="ui-calendar-item">
-      <span class="js_calc">10</span>
-      <span class="js_calc">11</span>
-      <span class="js_calc gray">12</span>
-      <span class="js_calc gray">13</span>
-      <span class="js_calc">14</span>
-      <span class="js_calc">15</span>
-      <span class="js_calc">16</span>
-    </div>
-    <div class="ui-calendar-item">
-      <span class="js_calc">10</span>
-      <span class="js_calc">11</span>
-      <span class="js_calc gray">12</span>
-      <span class="js_calc gray">13</span>
-      <span class="js_calc">14</span>
-      <span class="js_calc">15</span>
-      <span class="js_calc">16</span>
-    </div>
-    <div class="ui-calendar-item">
-      <span class="js_calc">10</span>
-      <span class="js_calc">11</span>
-      <span class="js_calc">12</span>
-      <span class="js_calc">13</span>
-      <span class="js_calc">14</span>
-      <span class="js_calc">15</span>
-      <span class="js_calc">16</span>
-    </div>
-
-  </div>
-</div>
+    calendar.showCalendar();
+</script>
 <script type="text/javascript" src="/dist/scripts/borrowers/vehicle/add.js"></script>
 </body>
 </html>

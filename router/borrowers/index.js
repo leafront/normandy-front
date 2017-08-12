@@ -30,6 +30,14 @@ const {
 	surfaceStatus
 } = data;
 
+const {
+
+	getPage,
+	mobileEncrypt,
+	idCardEncrypt
+
+} = common
+
 router.get('/', async (ctx,next) => {
 
 	const { roleList, shop, authority } = await common.authority(ctx,{
@@ -37,18 +45,34 @@ router.get('/', async (ctx,next) => {
 	})
 
 
-	const { results: borrowersList} = await baseModel.get(ctx,{
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const currentPage = parseInt(params.page) || 1;
+
+
+	const { results: borrowersList,page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
 		url:'/api/borrowers',
-		page:1
+		data:{
+			page:currentPage
+		}
 	})
 
+	const showPage = 5;
+
+	const iPage = getPage(currentPage,showPage);
 
 	await ctx.render('borrowers',{
 		pathName: ctx.path,
 		borrowersList,
 		authority,
 		shop,
-		roleList
+		roleList,
+		showPage,
+		totalPage,
+		page:currentPage,
+		iPage,
+		isFirstPage:(currentPage - 1 ) == 0,
+		isLastPage:currentPage * pageSize > totalCount
 	})
 
 })
@@ -179,7 +203,6 @@ router.get('/:id', async (ctx,next) => {
 		url:`/api/borrowers/${detailId}/vehicles`
 	})
 
-
 	const borrowersInfo = await baseModel.get(ctx,{
 		url:`/api/borrowers/${detailId}`
 	})
@@ -192,7 +215,9 @@ router.get('/:id', async (ctx,next) => {
 		borrowersList,
 		colorList,
 		detailId,
-		borrowersInfo
+		borrowersInfo,
+		mobileEncrypt,
+		idCardEncrypt
 	})
 
 })
@@ -308,6 +333,27 @@ router.post('/vehicles/list',async (ctx,next) => {
 		data:{
 			id
 		}
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/list',async (ctx,next) => {
+
+	const body = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/borrowers`,
+		data:body
 	}).then((body) => {
 
 		ctx.body = body;

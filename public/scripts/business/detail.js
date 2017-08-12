@@ -67,6 +67,10 @@ Page({
 
 		common.headerMenu();
 
+		this.init();
+
+	},
+	init(){
 
 		this.getRisks();
 
@@ -76,6 +80,21 @@ Page({
 	bindEvents(){
 
 		this.showTab();
+
+		var This = this;
+
+		$('#creditList').on('click','.btn_buy',function(){
+
+			var { index, interface_name } = $(this).data('query');
+
+			if (credit[index].interface_name !== 'person_card_trans_record'){
+
+				credit[index].is_active = false;
+
+			}
+
+			This.purchaseAction(query);
+		})
 
 	},
 
@@ -89,10 +108,47 @@ Page({
 			},
 			success:function(data){
 
+				if(data) {
 
+					var html = ejs.render(creditTpl,{list:credit,risks:data});
+
+					$('#vehicleList').html(html);
+				}
 
 			}
 		})
+
+	},
+
+	purchaseAction(query){
+
+		Lizard.ajax({
+			type:'POST',
+			url:'/business/purchase',
+			data:{
+				id: this.borrowingsId
+			},
+			success(data){
+
+				if(data) {
+
+					credit[index].is_active = true;
+
+					Lizard.showToast('提交成功');
+				}
+
+			},
+			error(){
+
+				credit[index].is_active = true;
+
+			}
+
+		})
+
+	},
+
+	seeAction(){
 
 	},
 

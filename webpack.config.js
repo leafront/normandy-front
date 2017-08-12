@@ -4,9 +4,6 @@ var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var path = require('path');
 
-
-console.log( path.resolve(__dirname,'./public'))
-
 module.exports = {
   entry: {
     index:'./public/scripts/index',
@@ -47,6 +44,8 @@ module.exports = {
 		'business/index':'./public/scripts/business/index',
 
 		'business/detail':'./public/scripts/business/detail',
+
+		'business/approval/index':'./public/scripts/business/approval/index',
 
 		'vehicles/index':'./public/scripts/vehicles/index',
 
