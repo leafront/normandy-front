@@ -2,7 +2,9 @@
 function Page(options){
 	//  执行某些函数，进行初始化
 
-	return new Page.prototype.init(options);
+	new Page.prototype.init(options);
+
+	return Page;
 }
 
 Page.prototype = {
@@ -16,8 +18,6 @@ Page.prototype = {
 	  options.onShow && options.onShow();
 
 		options.bindEvents && options.bindEvents();
-
-
 
 	}
 }

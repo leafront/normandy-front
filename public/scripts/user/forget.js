@@ -5,6 +5,8 @@ var common = require('../common');
 
 var local = require('../widget/local');
 
+var validate = require('../widget/validate');
+
 var Lizard = require('../widget/lizard');
 
 
@@ -32,7 +34,7 @@ function actionForget (){ //开始验证用户
 
 		return;
 	}
-	if (!Lizard.isMobile(mobile)) {
+	if (!validate.isMobile(mobile)) {
 
 		Lizard.showToast('请输入正确的手机号');
 
@@ -48,7 +50,7 @@ function actionForget (){ //开始验证用户
 	}
 
 
-	if (!Lizard.isVerify(captcha_code)) {
+	if (!validate.isVerify(captcha_code)) {
 
 		Lizard.showToast('请输入正确的验证码');
 

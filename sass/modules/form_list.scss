@@ -1,6 +1,39 @@
 @import './common.scss';
 
+.vehicle-ui-ico{
 
+	.user-ui-input-txt{
+
+		background:url(/images/ico_sprite.png) no-repeat #eee -218px -32px;
+	}
+}
+
+
+.user-ui-input-txt{
+
+	display:inline-block;
+	position:relative;
+	left:-38px;
+	top:1px;
+	width:33px;
+
+	height:32px;
+	background:#eee;
+
+	border-left:1px solid #ccc;
+
+
+	border-right:0;
+
+	font-size:14px;
+
+	color:#333;
+	line-height:34px;
+
+	text-align:center;
+
+
+}
 .vehicle_tab_wraper{
 
 	padding: 28px 0 28px 20px;
@@ -20,18 +53,73 @@
 	font-size:14px;
 	line-height:34px;
 
-	width:162rem/$rem;
+	width:100px;
 
 	color:#53cac3;
 
 }
 
-.form-group-rows{
-	&:first-child{
-		width:750rem/$rem;
+
+.form-group{
+
+	.form-group-rows{
+		position:relative;
+	}
+	strong{
+		font-size:14px;
+		color:#333;
+
+		display:inline-block;
+
+		padding-left:40px;
+
+		position:relative;
+
+		top:2px;
+
+		cursor:pointer;
+
+		&.active{
+
+			&:before{
+
+				border:1px solid #53cac3;
+
+				background:url(/images/ico_sprite.png) no-repeat #53cac3 -179px -109px;
+
+			}
+
+		}
+
+		&:before{
+
+			width:15px;
+
+			height:15px;
+
+			content:'';
+
+			display:block;
+
+			border:1px solid #c1c1c1;
+
+			border-radius:50%;
+
+			-webkit-border-radius:50%;
+
+			position:absolute;
+
+			left:15rem/$rem;
+
+			top:1px;
+
+
+
+		}
 	}
 
 }
+
 .form-group{
 	.form-group-rows{
 		label{
@@ -48,6 +136,140 @@
 
 
 .vehicle_item{
-	width:100%;
 	float:left;
 }
+
+.form-group-rows{
+	float:left;
+	&:first-child{
+		width:750rem/$rem;
+		min-width:500px;
+	}
+	>button{
+		padding:0 10px;
+		height:24px;
+		font-size:14px;
+
+		background:#56d6ce;
+
+		color:#fff;
+
+		margin-left:10rem/$rem;
+
+		margin-top:6px;
+
+		&:first-of-type{
+			margin-left:20rem/$rem;
+		}
+	}
+	.btn_danger{
+
+		background:#ed6b75;
+	}
+	> span{
+		line-height:34px;
+
+		color:#333;
+		display:inline-block;
+		margin-left:20rem/$rem;
+	}
+}
+
+.form-group{
+	font-size:14px;
+
+	margin-bottom:25px;
+
+	&:last-child{
+		margin-bottom:0;
+	}
+	> span{
+		line-height:34px;
+
+		color:#333;
+		margin-left:20rem/$rem;
+	}
+	label{
+		width:72px;
+		text-align:right;
+		display:inline-block;
+
+		line-height:34px;
+
+		color:#666;
+	}
+
+}
+.form-group{
+	.form-group-error{
+
+		label{
+			color:#e73d4a;
+		}
+		.user-ui-input{
+
+			&::-webkit-input-placeholder{
+				color:#e73d4a;
+			}
+		}
+
+		.drop_menu{
+
+			border:1px solid #e73d4a;
+
+			span{
+				color:#e73d4a;
+			}
+		}
+		strong{
+			color:#e73d4a;
+		}
+		.user-ui-input{
+
+			border:1px solid #e73d4a;
+		}
+
+
+	}
+}
+
+.form-group-error{
+	.vehicle_run_des{
+
+		border:1px solid #e73d4a;
+	}
+}
+
+.form-group-rows{
+
+	.error_input{
+
+		border:1px solid #e73d4a;
+
+		span{
+			color:#e73d4a;
+		}
+
+		&::-webkit-input-placeholder{
+			color:#e73d4a;
+		}
+
+	}
+}
+
+
+.error_text{
+
+	color:#e73d4a;
+
+}
+.form-group{
+
+	.error_text{
+
+		color:#e73d4a;
+
+	}
+}
+
+

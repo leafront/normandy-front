@@ -1,6 +1,3 @@
-/**
- * Created by leafrontye on 2017/7/26.
- */
 
 var router = require('koa-router')();
 
@@ -10,9 +7,18 @@ var common = require('../../model/common');
 
 var data = require('../../model/data');
 
+
+var querystring = require('querystring');
+
 const {
 	colorList
 } = data;
+
+const {
+
+	getPage
+
+} = common;
 
 router.get('/', async (ctx,next) => {
 
@@ -20,10 +26,21 @@ router.get('/', async (ctx,next) => {
 		url:'/api/current-user'
 	})
 
-	const { results: vehiclesList} = await baseModel.get(ctx,{
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const currentPage = parseInt(params.page) || 1;
+
+	const { results: vehiclesList,page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
 		url:'/api/vehicles',
-		page:1
+		data:{
+			page:currentPage
+		}
 	})
+
+
+	const showPage = 5;
+
+	const iPage = getPage(currentPage,showPage);
 
 
 	await ctx.render('vehicles',{
@@ -32,7 +49,34 @@ router.get('/', async (ctx,next) => {
 		shop,
 		roleList,
 		vehiclesList,
-		colorList
+		colorList,
+		showPage,
+		totalPage,
+		page:currentPage,
+		iPage,
+		isFirstPage:(currentPage - 1 ) == 0,
+		isLastPage:currentPage * pageSize > totalCount
+	})
+
+})
+
+router.post('/list',async (ctx,next) => {
+
+	const body = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:'/api/vehicles',
+		data:body
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
 	})
 
 })

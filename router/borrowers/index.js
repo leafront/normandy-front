@@ -9,14 +9,11 @@ var common = require('../../model/common');
 
 var data = require('../../model/data');
 
-var path = require('path');
-
-var fs = require('fs');
-
 
 
 const {
 	colorList,
+	condition,
 	carType,
 	collateralLastFree,
 	starterStatus,
@@ -25,10 +22,21 @@ const {
 	exhaustStatus,
 	booleanOptions,
 	certificateType,
+	shiftingType,
+	driverType,
+	purchaseType,
 	isWorkOk,
 	interiorStatus,
 	surfaceStatus
 } = data;
+
+const {
+
+	getPage,
+	mobileEncrypt,
+	idCardEncrypt
+
+} = common
 
 router.get('/', async (ctx,next) => {
 
@@ -37,18 +45,34 @@ router.get('/', async (ctx,next) => {
 	})
 
 
-	const { results: borrowersList} = await baseModel.get(ctx,{
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const currentPage = parseInt(params.page) || 1;
+
+
+	const { results: borrowersList,page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
 		url:'/api/borrowers',
-		page:1
+		data:{
+			page:currentPage
+		}
 	})
 
+	const showPage = 5;
+
+	const iPage = getPage(currentPage,showPage);
 
 	await ctx.render('borrowers',{
 		pathName: ctx.path,
 		borrowersList,
 		authority,
 		shop,
-		roleList
+		roleList,
+		showPage,
+		totalPage,
+		page:currentPage,
+		iPage,
+		isFirstPage:(currentPage - 1 ) == 0,
+		isLastPage:currentPage * pageSize > totalCount
 	})
 
 })
@@ -115,11 +139,9 @@ router.get('/vehicle/list/:id', async (ctx,next) => {
 
 	const detailId = params.id;
 
-
-	const listView = path.resolve(__dirname + '/../../views/borrowers/vehicle/vehicle_list.ejs');
-
-
-	const listTpl = fs.readFileSync(listView,'utf-8');
+	const {results:list } = await baseModel.get(ctx,{
+		url:`/api/vehicles/${vehicleId}/conditions`,
+	})
 
 	await ctx.render('borrowers/vehicle/list',{
 		pathName: ctx.path,
@@ -127,7 +149,17 @@ router.get('/vehicle/list/:id', async (ctx,next) => {
 		shop,
 		roleList,
 		detailId,
-		listTpl,
+		list,
+		condition,
+		surfaceStatus,
+		purchaseType,
+		collateralLastFree,
+		certificateType,
+		starterStatus,
+		engineStatus,
+		transmissionStatus,
+		exhaustStatus,
+		isWorkOk,
 		vehicleId
 	})
 
@@ -158,6 +190,7 @@ router.get('/vehicle/add/:id', async (ctx,next) => {
 		engineStatus,
 		transmissionStatus,
 		exhaustStatus,
+		purchaseType,
 		booleanOptions,
 		certificateType,
 		isWorkOk,
@@ -179,7 +212,6 @@ router.get('/:id', async (ctx,next) => {
 		url:`/api/borrowers/${detailId}/vehicles`
 	})
 
-
 	const borrowersInfo = await baseModel.get(ctx,{
 		url:`/api/borrowers/${detailId}`
 	})
@@ -192,7 +224,9 @@ router.get('/:id', async (ctx,next) => {
 		borrowersList,
 		colorList,
 		detailId,
-		borrowersInfo
+		borrowersInfo,
+		mobileEncrypt,
+		idCardEncrypt
 	})
 
 })
@@ -212,6 +246,8 @@ router.get('/:id/add', async (ctx,next) => {
 		shop,
 		roleList,
 		detailId,
+		shiftingType,
+		driverType,
 		carType,
 		colorList
 	})
@@ -236,7 +272,6 @@ router.get('/vehicle/:id', async (ctx,next) => {
 	})
 
 
-	const driverType = ['两驱', '四驱'];
 
 	await ctx.render('borrowers/vehicle/detail',{
 		pathName: ctx.path,
@@ -251,6 +286,9 @@ router.get('/vehicle/:id', async (ctx,next) => {
 	})
 
 })
+
+
+
 
 
 router.post('/add',async (ctx,next) => {
@@ -297,17 +335,14 @@ router.post('/bind',async (ctx,next) => {
 
 })
 
-router.post('/vehicles/list',async (ctx,next) => {
 
-	const { id } = ctx.request.body;
+router.post('/list',async (ctx,next) => {
 
-
+	const body = ctx.request.body;
 
 	await baseModel.get(ctx,{
-		url:`/api/vehicles/${id}/conditions`,
-		data:{
-			id
-		}
+		url:`/api/borrowers`,
+		data:body
 	}).then((body) => {
 
 		ctx.body = body;
@@ -370,6 +405,48 @@ router.post('/carModel',async (ctx,next) => {
 
 	await baseModel.get(ctx,{
 		url:`/api/models?series_id=${typeId}`,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/vehicles/add',async (ctx,next) => {
+
+	const { id, data } = ctx.request.body;
+	await baseModel.post(ctx,{
+		type:'POST',
+		data:data,
+		url:`/api/borrowers/${id}/vehicles`
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/vehicles/conditions',async (ctx,next) => {
+
+	const { id, data } = ctx.request.body;
+	await baseModel.post(ctx,{
+		type:'POST',
+		data:data,
+		url:`/api/vehicles/${id}/conditions`
 	}).then((body) => {
 
 		ctx.body = body;

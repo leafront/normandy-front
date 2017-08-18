@@ -1,3 +1,18 @@
-/**
- * Created by leafrontye on 2017/8/1.
- */
+
+var $ = require('../../lib/jquery');
+
+var common = require('../../common');
+
+var Lizard = require('../../widget/lizard');
+
+
+var Page = require('../../widget/page');
+
+Page({
+
+	onShow(){
+
+		common.headerMenu();
+
+	}
+})

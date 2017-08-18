@@ -51,75 +51,34 @@ body{
 	}
 
 }
+.user-ui-disabled{
 
+	cursor:not-allowed;
+
+	background:#eef1f5;
+
+}
 .user-disable{
 
 	background:#eef1f5;
 }
 
+.user-input-error{
 
-.form-group-rows{
-	button{
-		padding:0 10px;
-		height:24px;
-		font-size:14px;
-
-		background:#56d6ce;
-
-		color:#fff;
-
-		margin-left:10rem/$rem;
-
-		margin-top:6px;
-
-		&:first-of-type{
-			margin-left:20rem/$rem;
-		}
-	}
-	.btn_danger{
-
-		background:#ed6b75;
-	}
-	> span{
-		line-height:34px;
-
-		color:#333;
-		float:left;
-		margin-left:20rem/$rem;
-	}
-	&:first-child{
-		width:600rem/$rem;
-	}
-
-	float:left;
+	border:1px solid #e73d4a;
 }
 
-.form-group{
-	font-size:14px;
-
-	margin-bottom:25px;
-
-	&:last-child{
-		margin-bottom:0;
-	}
-	> span{
-		line-height:34px;
-
-		color:#333;
-		float:left;
-		margin-left:20rem/$rem;
-	}
-	label{
-		width:72px;
-		float:left;
-		text-align:right;
-
-		line-height:34px;
-
-		color:#666;
-	}
-
+.btn_success{
+	background:#53cac3;
 }
+.btn_warning{
+	background:#ffc76c;
+}
+.btn_danger{
+	background:#ed6b75;
+}
+
+
 .time-ui-input{
 	@extend .user-ui-input;
 	width:156rem/$rem;
@@ -137,6 +96,8 @@ body{
 		height:16px;
 		background:url(/images/ico_sprite.png) no-repeat -125px -91px;
 	}
+}
+.search_item{
 	em{
 		padding:0 12px;
 	}

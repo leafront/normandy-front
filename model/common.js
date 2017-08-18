@@ -33,7 +33,7 @@ module.exports = {
 
 			}).catch((err) =>{
 
-				reject({ roleList:[], shop:{}, authority:{} })
+				reject(err);
 
 			})
 

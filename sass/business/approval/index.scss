@@ -1,0 +1,154 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../modules/confirm_button.scss';
+
+@import '../../modules/table_list.scss';
+
+@import '../../layui/index.scss';
+
+.approval_cont{
+
+	padding-top:38px;
+
+	padding-left:35px;
+}
+.approval_form{
+
+	overflow:hidden;
+
+	padding-left:250rem/$rem;
+
+
+}
+.form-group{
+
+	overflow: hidden;
+
+	label{
+
+		font-size:14px;
+		color:#333;
+		float:left;
+		margin-right:30px;
+
+		height:26px;
+
+		line-height:26px;
+
+	}
+}
+.approval_comment{
+
+	float:left;
+
+	li{
+
+		float:left;
+
+		&.active{
+
+			i{
+				border:1px solid #53cac3;
+
+				background:url(/images/ico_sprite.png) no-repeat #53cac3 -180px -110px;
+			}
+
+		}
+
+		i{
+
+			width:15px;
+
+			height:15px;
+
+			content:'';
+
+			display:inline-block;
+
+			border:1px solid #c1c1c1;
+
+			border-radius:50%;
+
+			-webkit-border-radius:50%;
+
+			position:relative;
+			top:3px;
+
+		}
+		span{
+			margin-left:12px;
+			width:50px;
+			height:26px;
+			display:inline-block;
+
+			font-size:14px;
+
+			color:#fefefe;
+
+			line-height:26px;
+
+			text-align:center;
+
+			margin-right:32px;
+		}
+	}
+}
+.form-group{
+
+	margin-bottom:26px;
+
+}
+.form-group-tips{
+
+	padding-left:60px;
+
+	padding-top:10px;
+
+	padding-bottom:15px;
+
+	p{
+		font-size:14px;
+		color:#53cac3;
+	}
+}
+.approval_description{
+
+	width:608rem/$rem;
+
+	height:132rem/$rem;
+
+	padding:5px;
+
+	resize:vertical;
+
+	border:1px solid #ccc;
+
+	&:focus{
+
+		border:1px solid #53cac3;
+	}
+}
+
+.approval_submit{
+
+	padding-left:60px;
+
+	overflow: hidden;
+}
+
+.approval_table{
+
+	padding-top:30rem/$rem;
+
+	padding-bottom:40px;
+
+	h4{
+		padding-left:10px;
+		line-height:65px;
+
+		font-size:18px;
+		color:#53cac3;
+	}
+}

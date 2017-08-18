@@ -34,54 +34,54 @@
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>真皮内饰：</label>
+                                <label id="leather" data-value="">真皮内饰</label>
                                 <% booleanOptions.forEach(function(item,index){%>
-                                  <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                  <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
                              <div class="form-group-rows">
-                                <label>天窗：</label>
+                                <label id="sunroof" data-value="">天窗</label>
                                  <% booleanOptions.forEach(function(item,index){%>
-                                   <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                   <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                  <%})%>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>导航：</label>
+                                <label id="navigation" data-value="">导航</label>
                                 <% booleanOptions.forEach(function(item,index){%>
-                                  <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                  <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
                             <div class="form-group-rows vehicles-base-input">
-                                <label>总千瓦数：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>总千瓦数</label>
+                                <input type="number" class="user-ui-input" id="kilowatt" placeholder="总千瓦数"/>
                                 <i class="user-ui-input-txt">千瓦</i>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>内饰状况：</label>
+                                <label id="interior" data-value="">内饰状况</label>
                                 <% interiorStatus.forEach(function(item,index){%>
-                                   <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                   <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
                             <div class="form-group-rows">
-                                <label>漆面状况：</label>
+                                <label id="paint" data-value="">漆面状况</label>
                                 <% surfaceStatus.forEach(function(item,index){%>
-                                  <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                  <strong data-value="<%-item.value%>" class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>车牌价格：</label>
-                                <input type="text" class="user-ui-input "/>
+                                <label>车牌价格</label>
+                                <input type="number" class="user-ui-input" id="licensePrice" placeholder="车牌价格"/>
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                             <div class="form-group-rows vehicles-base-input">
-                                <label>行使里程：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>行驶里程</label>
+                                <input type="number" class="user-ui-input" id="mileage" placeholder="行驶里程"/>
                                 <i class="user-ui-input-txt">公里</i>
                             </div>
                         </div>
@@ -92,74 +92,75 @@
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows vehicle-ui-ico">
-                                <label>购买时间：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>购买时间</label>
+                                <input type="text" class="user-ui-input" readonly="readonly" id="buyTime" placeholder="购买时间"/>
                                 <i class="user-ui-input-txt"> &nbsp;</i>
                             </div>
                             <div class="form-group-rows vehicle-ui-ico">
-                                <label>过户时间：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>过户时间</label>
+                                <input type="text" class="user-ui-input" readonly="readonly" id="transferTime" placeholder="过户时间"/>
                                 <i class="user-ui-input-txt"> &nbsp;</i>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows vehicle-ui-ico">
-                                <label>首次上牌日期：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>首次上牌日期</label>
+                                <input type="text" class="user-ui-input" readonly="readonly" id="registrationTime" placeholder="首次上牌日期"/>
                                 <i class="user-ui-input-txt"> &nbsp;</i>
                             </div>
                             <div class="form-group-rows vehicle-ui-ico">
-                                <label>保单到期日：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>保单到期日</label>
+                                <input type="text" class="user-ui-input" readonly="readonly" id="insuranceTime" placeholder="保单到期日"/>
                                 <i class="user-ui-input-txt"> &nbsp;</i>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>购买方式：</label>
-                                <strong class="active">全款</strong>
-                                <strong>按揭</strong>
+                                <label id="purchaseType" data-value="">购买方式</label>
+                                <%purchaseType.forEach(function(item){%>
+                                  <strong class="js_checked js_loan" data-value="<%-item.value%>"><%-item.name%></strong>
+                                <%})%>
                             </div>
                             <div class="form-group-rows">
-                                <label>购买价格：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>购买价格</label>
+                                <input type="number" class="user-ui-input" id="purchasePrice" placeholder="购买价格"/>
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>购车贷款金额：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>购车贷款金额</label>
+                                <input type="number" class="user-ui-input js_amount" id="loanAmount" placeholder="购车贷款金额"/>
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                             <div class="form-group-rows">
-                                <label>剩余未还金额：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>剩余未还金额</label>
+                                <input type="number" class="user-ui-input js_amount" id="loanPendingAmount" placeholder="剩余未还金额"/>
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>购车贷款总期数：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>购车贷款总期数</label>
+                                <input type="number" class="user-ui-input js_amount" id="loanTerms" placeholder="购车贷款总期数"/>
                                 <i class="user-ui-input-txt">期</i>
                             </div>
                              <div class="form-group-rows">
-                                <label>剩余未还期数：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>剩余未还期数</label>
+                                <input type="number" class="user-ui-input js_amount" id="loanPendingTerms" placeholder="剩余未还期数"/>
                                 <i class="user-ui-input-txt">期</i>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>历史抵押次数：</label>
-                                <input type="text" class="user-ui-input"/>
+                                <label>历史抵押次数</label>
+                                <input type="number" class="user-ui-input" id="collateralTimes" placeholder="历史抵押次数"/>
                                 <i class="user-ui-input-txt">次</i>
                             </div>
                             <div class="form-group-rows">
-                                <label>最近解抵押：</label>
+                                <label>最近解抵押</label>
                                 <div class="drop_menu drop_menu_mortgage">
-                                    <span class="active js_select">选择抵押时间</span>
+                                    <span class="active js_select" data-value="<%-collateralLastFree[0].value%>" id="mortgageTime"><%-collateralLastFree[0].name%></span>
                                     <ul class="drop_menu_list">
                                      <%collateralLastFree.forEach(function(item){%>
 
@@ -174,20 +175,20 @@
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>是否有车险理赔记录：</label>
+                                <label id="claimsRecords" data-vlue="">是否有车险理赔记录</label>
                                 <div class="vehicle_item_check">
                                     <% booleanOptions.forEach(function(item,index){%>
-                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                      <strong class="js_insurance" data-value="<%-item.value%>"><%-item.name%></strong>
                                     <%})%>
                                 </div>
 
-                                <input type="text" class="user-ui-input user-ui-explain" placeholder="理赔金额"/>
+                                <input type="text" class="user-ui-input user-ui-explain" id="claimsAmount" placeholder="理赔金额"/>
                             </div>
                             <div class="form-group-rows">
-                                <label>证件核查：</label>
-                                <div class="vehicle_checkbox_wraper" style="width:320px;">
+                                <label>证件核查</label>
+                                <div class="vehicle_checkbox_wraper vehicle_certificate" id="certificate">
                                   <%certificateType.forEach(function(item,index){%>
-                                    <strong data-value="<%-item.value%>" class="vehicle_checkbox<%if(index==0){%><%}%>"><%-item.name%></strong>
+                                    <strong data-value="<%-item.value%>" class="js_checkbox vehicle_checkbox"><%-item.name%></strong>
                                   <%})%>
                                 </div>
                             </div>
@@ -199,39 +200,39 @@
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>起动机/转向助力：</label>
-                                <div class="vehicle_checkbox_wraper">
+                                <label>起动机/转向助力</label>
+                                <div class="vehicle_checkbox_wraper" id="starter" >
                                     <% starterStatus.forEach(function(item,index){%>
-                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}else{%>vehicle_checkbox<%}%>"><%-item.name%></strong>
+                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>js_multiple<%}else{%>js_multiple vehicle_checkbox<%}%>"><%-item.name%></strong>
                                     <%})%>
                                 </div>
 
                             </div>
                             <div class="form-group-rows">
-                                <label>发动机：</label>
-                                <div class="vehicle_checkbox_wraper">
+                                <label data-value="">发动机</label>
+                                <div class="vehicle_checkbox_wraper" id="engine" >
                                     <%engineStatus.forEach(function(item,index){%>
-                                    <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}else{%>vehicle_checkbox<%}%>"><%-item.name%></strong>
+                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>js_multiple<%}else{%>js_multiple vehicle_checkbox<%}%>"><%-item.name%></strong>
                                     <%})%>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>变速器：</label>
+                                <label data-value="">变速器</label>
 
-                                <div class="vehicle_checkbox_wraper">
+                                <div class="vehicle_checkbox_wraper" id="transmission">
                                     <% transmissionStatus.forEach(function(item,index){%>
-                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}else{%>vehicle_checkbox<%}%>"><%-item.name%></strong>
+                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>js_multiple<%}else{%>js_multiple vehicle_checkbox<%}%>"><%-item.name%></strong>
                                     <%})%>
                                 </div>
 
                             </div>
                             <div class="form-group-rows">
-                                <label>排气系统：</label>
-                                <div class="vehicle_checkbox_wraper">
+                                <label>排气系统</label>
+                                <div class="vehicle_checkbox_wraper" id="exhaust">
                                   <% exhaustStatus.forEach(function(item,index){%>
-                                    <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}else{%>vehicle_checkbox<%}%>"><%-item.name%></strong>
+                                    <strong data-value="<%-item.value%>" class="<%if(index==0){%>js_multiple<%}else{%>js_multiple vehicle_checkbox<%}%>"><%-item.name%></strong>
                                   <%})%>
                                 </div>
 
@@ -239,22 +240,22 @@
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>电器系统/空调正常：</label>
+                                <label id="electricalSystem" data-value="">电器系统/空调正常</label>
                                 <div class="vehicle_item_check">
                                   <% booleanOptions.forEach(function(item,index){%>
-                                    <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                    <strong class="js_disabled" data-value="<%-item.value%>"><%-item.name%></strong>
                                   <%})%>
                                 </div>
-                                <input type="text" class="user-ui-input user-ui-explain" placeholder="电器系统/空调异常说明"/>
+                                <input type="text" class="user-ui-input user-ui-explain" id="electricalSystemDes" placeholder="电器系统/空调异常说明"/>
                             </div>
                             <div class="form-group-rows">
-                                <label>底盘正常：</label>
+                                <label id="chassis" data-value="">底盘正常</label>
                                 <div class="vehicle_item_check">
                                     <% booleanOptions.forEach(function(item,index){%>
-                                      <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                    <strong class="js_disabled" data-value="<%-item.value%>"><%-item.name%></strong>
                                     <%})%>
                                 </div>
-                                <input type="text" class="user-ui-input user-ui-explain" placeholder="底盘异常说明"/>
+                                <input type="text" class="user-ui-input user-ui-explain" id="chassisDes" placeholder="底盘异常说明"/>
                             </div>
                         </div>
                     </div>
@@ -264,24 +265,26 @@
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>车辆综合状况：</label>
+                                <label id="vehicleWork" data-value="">车辆综合状况</label>
                                 <%isWorkOk.forEach(function(item,index){%>
-                                  <strong data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                  <strong class="js_checked" data-value="<%-item.value%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
                             <div class="form-group-rows">
-                                <label>评估价格：</label>
-                                <input type="text" class="user-ui-input" placeholder="评估价格"/>
+                                <label>评估价格</label>
+                                <input type="text" class="user-ui-input" id="evaluatePrice" placeholder="评估价格"/>
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
-                        <div class="form-group clearfix">
-                            <label>整体运行说明：</label>
-                            <textarea class="vehicle_run_des"></textarea>
+                        <div class="form-group vehicle_run clearfix">
+                           <label>整体运行说明</label>
+                            <textarea id="summary" class="vehicle_run_des"></textarea>
                         </div>
                         <div class="modify-button clearfix">
-                            <button class="js_submit">确认</button>
-                            <button class="js_cancel">放弃</button>
+                            <input type="hidden" id="vehicleId" value="<%-vehicleId%>"/>
+                            <input type="hidden" id="detailId" value="<%-detailId%>"/>
+                            <button class="btn_confirm js_submit">确认</button>
+                            <button class="btn_cancel js_cancel">放弃</button>
                         </div>
                     </div>
                 </div>
@@ -291,6 +294,7 @@
         <% include ../../../common/footer.ejs %>
     </div>
 </div>
+<div class="ui-calendar" id="calendar"></div>
 <script type="text/javascript" src="/dist/scripts/borrowers/vehicle/list/add.js"></script>
 </body>
 </html>
