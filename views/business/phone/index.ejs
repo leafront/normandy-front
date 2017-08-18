@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>业务--电核</title>
+    <link rel="stylesheet" href="/styles/business/phone/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/business" class="navigation_link">借款列表</a>
+            <em class="navigation_ico"></em>
+            <a href="/business/<%-detailId%>" class="navigation_link">借款详情</a>
+            <em class="navigation_ico"></em>
+            <span>电核</span>
+
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>电核</span>
+            </div>
+            <div class="phone_cont">
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>本人</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>是否认证手机号</label>
+                                <% booleanOptions.forEach(function(item){%>
+                                  <strong :class="{'active':<%-item.value%> === self.phone_auth}" @click="checkValue('self','phone_auth',<%-item.value%>)"><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>是否有其他负债/借款</label>
+                                <% booleanOptions.forEach(function(item){%>
+                                  <strong :class="{'active':<%-item.value%> === self.other_liabilities}" @click="checkValue('self','other_liabilities',<%-item.value%>)"><%-item.name%></strong>
+                                <%})%>
+                                <div class="form-group-loan">
+                                    <input type="number" :disabled="self.other_liabilities == 0" :class="{'user-ui-disabled':self.other_liabilities == 0}" v-model="self.liabilities_amount" class="user-ui-input" placeholder="负债/借款金额元"/>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>是否本地户籍</label>
+                                <% booleanOptions.forEach(function(item){%>
+                                  <strong :class="{'active':<%-item.value%> === self.local_reg}" @click="checkValue('self','local_reg',<%-item.value%>)"><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>本地居住时间请选择 </label>
+                                <div class="drop_menu drop_menu_phone">
+                                    <span class="js_select">请选择</span>
+                                    <ul class="drop_menu_list">
+                                      <% selfResidenceTime.forEach(function(item){%>
+                                       <li @click="checkValue('self','residence_time',<%-item.value%>)">
+                                         <a href="javascript:;"><%-item.name%></a>
+                                       </li>
+                                      <%})%>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows vehicles-base-input">
+                                <label>申请金额</label>
+                                <input type="text" placeholder="金额" class="user-ui-input user-ui-salary">
+                                <i class="user-ui-input-txt">万元</i>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>申请期限</label>
+                                <input type="text" placeholder="金额" class="user-ui-input user-ui-salary">
+                                <i class="user-ui-input-txt">月</i>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-live">
+                                <label>共住情况</label>
+                                <div class="vehicle_checkbox_wraper">
+                                 <%livingConditions.forEach(function(item){%>
+                                    <strong class="vehicle_checkbox"><%-item.name%></strong>
+                                 <%})%>
+                                </div>
+                            </div>
+                            <div class="form-group-rows form-group-live">
+                                <label>知晓借款情况</label>
+                                <div class="vehicle_checkbox_wraper">
+                                    <%borrowingConditions.forEach(function(item){%>
+                                      <strong class="vehicle_checkbox"><%-item.name%></strong>
+                                    <%})%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                              <label>收入情况</label>
+                              <div class="form_income">
+                                <i></i>
+                                <input type="text" placeholder="每月稳定收入" class="user-ui-input user-ui-salary">
+                              </div>
+                            </div>
+                            <div class="form-group-rows">
+                                <div class="form_income">
+                                    <i></i>
+                                    <input type="text" placeholder="有应收账款, 项目待结算金额" class="user-ui-input user-ui-salary">
+                                </div>
+                                <div class="form_income">
+                                    <i></i>
+                                    <input type="text" placeholder="预计结算周期" class="user-ui-input user-ui-salary">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <div class="form_noIncome">
+                                    <i></i>
+                                    <span>无固定稳定收入或待收账款</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-des">
+                               <label>借款用途</label>
+                               <textarea class="phone_des"></textarea>
+                            </div>
+                            <div class="form-group-rows form-group-des">
+                                <label>还款来源</label>
+                                <textarea class="phone_des"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>直系亲属</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                  <div class="vehicle_item">
+                      <div class="form-group clearfix">
+                          <div class="form-group-rows form-group-ellipsis">
+                              <label>普通话是否标准<br/>是否有沟通障碍</label>
+                              <% booleanOptions.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.phone_auth}" @click="checkValue('self','phone_auth',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                          <div class="form-group-rows">
+                              <label>是否共同居住</label>
+                              <% booleanOptions.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.other_liabilities}" @click="checkValue('self','other_liabilities',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                      </div>
+                      <div class="form-group clearfix">
+                          <div class="form-group-rows">
+                              <label>接通电话是否要求重拨</label>
+                              <% booleanOptions.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.phone_auth}" @click="checkValue('self','phone_auth',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                          <div class="form-group-rows">
+                              <label>基本信息回答情况</label>
+                              <% answerStatus.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.other_liabilities}" @click="checkValue('self','other_liabilities',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                      </div>
+                      <div class="form-group clearfix">
+                          <div class="form-group-rows">
+                              <label>是否知晓借款</label>
+                              <% booleanOptions.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.phone_auth}" @click="checkValue('self','phone_auth',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                          <div class="form-group-rows">
+                              <label>是否同意本次借款</label>
+                              <% booleanOptions.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.other_liabilities}" @click="checkValue('self','other_liabilities',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                      </div>
+                      <div class="form-group clearfix">
+                          <div class="form-group-rows form-group-ellipsis">
+                              <label>是否表露出借款人<br/>有其他外部负债信息</label>
+                              <% booleanOptions.forEach(function(item){%>
+                              <strong :class="{'active':<%-item.value%> === self.phone_auth}" @click="checkValue('self','phone_auth',<%-item.value%>)"><%-item.name%></strong>
+                              <%})%>
+                          </div>
+                          <div class="form-group-rows">
+                              <label>是否共同居住</label>
+                              <div class="form-group-loan">
+                                  <input type="number" :disabled="self.other_liabilities == 0" :class="{'user-ui-disabled':self.other_liabilities == 0}" v-model="self.liabilities_amount" class="user-ui-input" placeholder="负债/借款金额元"/>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <% include ../../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/business/phone/index.js"></script>
+</body>
+</html>
+

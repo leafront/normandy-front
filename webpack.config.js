@@ -22,7 +22,6 @@ module.exports = {
 
 		'user/forget':'./public/scripts/user/forget',
 
-
 		'borrowers/index':'./public/scripts/borrowers/index',
 
 		'borrowers/detail':'./public/scripts/borrowers/detail',
@@ -48,6 +47,8 @@ module.exports = {
 		'business/loan':'./public/scripts/business/loan',
 
 		'business/approval/index':'./public/scripts/business/approval/index',
+
+		'business/phone/index':'./public/scripts/business/phone/index',
 
 		'vehicles/index':'./public/scripts/vehicles/index',
 

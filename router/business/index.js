@@ -17,6 +17,10 @@ const {
 } = common;
 
 const {
+	answerStatus,
+	livingConditions,
+	borrowingConditions,
+	selfResidenceTime,
 	borrowingStage,
 	borrowingResult,
 	borrowingRating,
@@ -246,7 +250,33 @@ router.get('/approval/:id', async (ctx,next) => {
 })
 
 
+router.get('/phone/:id', async (ctx,next) => {
 
+	const { roleList, shop, authority } = await common.authority(ctx, {
+		url: '/api/current-user'
+	})
+
+	const phoneId = ctx.params.id;
+
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const detailId = params.id;
+
+	await ctx.render('business/phone/index',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		phoneId,
+		detailId,
+		answerStatus,
+		selfResidenceTime,
+		livingConditions,
+		borrowingConditions,
+		booleanOptions
+	})
+
+})
 
 
 router.post('/approvals',async (ctx,next) => {

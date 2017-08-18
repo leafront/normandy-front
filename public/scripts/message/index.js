@@ -102,13 +102,13 @@ function showRead(){
 		var $this = $(this);
 
 
-		var fn = function(){
+		var fnClass = function(){
 
 			$this.parent().removeClass('active');
 
 		}
 
-		readMessage(id_list,fn);
+		readMessage(id_list,fnClass);
 
 		var jwt = Lizard.getCookie('jwt');
 
@@ -133,6 +133,8 @@ function showRead(){
 
 				$(this).parent().removeClass('active');
 			})
+
+			Lizard.showToast('设置成功');
 		}
 
 		readMessage(msg_ids,fn);

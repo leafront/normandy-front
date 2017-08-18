@@ -10,6 +10,8 @@ var Calendar = require('../widget/calendar');
 
 var Lizard = require('../widget/lizard');
 
+common.headerMenu();
+
 
 const {
 
@@ -133,8 +135,6 @@ var vueConfig = new Vue({
 	mounted(){
 
 		common.dropMenu();
-
-		common.headerMenu();
 
 		this.showCalendar();
 	},

@@ -23,9 +23,9 @@ var common = {
 		})
 
 
-		$('.container').css('height',$(window).height());
+		document.querySelector('.container').style.height = $(window).height() + 'px';
 
-		$('.right-container').css('min-height',$(window).height());
+		document.querySelector('.right-container').style.minHeight = $(window).height() + 'px';
 
 		$('.header_message_list li').click(function(){
 
@@ -102,6 +102,7 @@ var common = {
 	getVerify: function () { //获取验证码
 
 		$('#captcha-img').click(function(){
+
 
 			common.updateVerify();
 
