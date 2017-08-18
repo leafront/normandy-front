@@ -809,6 +809,44 @@ var nation =  [
 	}
 ];
 
+
+
+var livingConditions = [{
+	name:'独居',
+	value:0
+},{
+	name:'配偶',
+	value:1
+},{
+	name:'父母',
+	value:2
+},{
+	name:'子女',
+	value:3
+},{
+	name:'亲友',
+	value:4
+}];
+
+var borrowingConditions = [{
+	name:'配偶',
+	value:0
+},{
+	name:'子女',
+	value:1
+},{
+	name:'父母',
+	value:2
+},{
+	name:'公司同事',
+	value:3
+},{
+	name:'朋友',
+	value:4
+},{
+	name:'完全保密',
+	value:5
+}];
 var houseStatus = [{
 	name:'自有',
 	value:0
@@ -823,10 +861,58 @@ var vehicleStatus = [{
 },{
 	name:'租赁',
 	value:1
-}]
+}];
+
+var selfResidenceTime = [
+	{
+		"name": "三个月以内",
+		"value": 0
+	},
+	{
+		"name": "本年内",
+		"value": 1
+	},
+	{
+		"name": "一年以内",
+		"value": 2
+	},
+	{
+		"name": "一至两年",
+		"value": 3
+	},
+	{
+		"name": "两至三年",
+		"value": 4
+	},
+	{
+		"name": "三至五年",
+		"value": 5
+	},
+	{
+		"name": "五至十年",
+		"value": 6
+	},
+	{
+		"name": "十年以上",
+		"value": 7
+}];
+
+var answerStatus = [{
+		"name": "熟悉",
+		"value": 0
+	},{
+		"name": "一般",
+		"value": 1
+	},{
+		"name": "不熟悉",
+		"value": 2
+}];
 
 
 module.exports = {
+	answerStatus,
+	livingConditions,
+	borrowingConditions,
 	nation,
 	condition,
 	maritalStatusList,
@@ -862,5 +948,6 @@ module.exports = {
 	salaryType,
 	education,
 	houseStatus,
+	selfResidenceTime,
 	vehicleStatus
 }

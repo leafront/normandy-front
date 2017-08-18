@@ -3,6 +3,8 @@ var $ = require('../lib/jquery');
 
 var popup = require('./popup');
 
+var ejs = require('../lib/ejs');
+
 var roleAuth = {
 
 	adminRole: null,

@@ -22,6 +22,10 @@ Page({
 		})
 
 	},
+	onShow () {
+
+		common.getVerify();
+	},
 	actionLogin (){ //开始登录
 
 		var mobile = $.trim($('#mobile').val());
@@ -111,7 +115,7 @@ Page({
 
 				window.location.href = returnurl;
 
-			},500)
+			},100)
 
 		} else {
 
@@ -129,8 +133,12 @@ Page({
 
 						window.location.href = returnurl;
 
-					},500)
+					},100)
 				}
+			} else {
+
+				Lizard.showToast('登录失败');
+
 			}
 		}
 	},

@@ -5,7 +5,6 @@
     <title>业务-申请借款</title>
     <link rel="stylesheet" href="/styles/business/loan.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.min.js"></script>
 </head>
 <body>
 <%include ../common/header.ejs%>
@@ -324,7 +323,7 @@
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                             <div class="form-group-rows vehicles-base-input">
-                                <label>说明</label>
+                                <label :class="{'error_text':(!isValidate && item.desc === '')}">说明</label>
                                 <input type="text" class="user-ui-input user-ui-des" :class="{'error_input':(!isValidate && item.desc === '')}" v-model="item.desc" placeholder="说明">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','financialAssets',index)">+</button>
                                 <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('property','financialAssets',index)">-</button>

@@ -24,11 +24,6 @@
 
 			$('body').append(tpl);
 
-			$('.layui-layer').css({
-				'marginLeft':-	$('.layui-layer').width() / 2,
-				'marginTop':- $('.layui-layer').height() / 2
-			})
-
 			$('.layui-layer-btn0').click(function(){
 
 				determine();
@@ -59,10 +54,6 @@
 
 			$('body').append(tpl);
 
-			$('.mask-ui').css({
-				'marginLeft': - $('.mask-ui').width()/2,
-				'marginTop': - $('.mask-ui').height()/2
-			});
 
 			setTimeout(function(){
 
@@ -78,40 +69,6 @@
 		    return true;
 		  }
 		  return false;
-		},
-		tips:function(obj){
-
-			var eleCont = obj.ele;
-
-			var text = obj.text;
-
-			var eleHeight = $(eleCont).outerHeight(true);
-
-			var eleWidth = $(eleCont).outerWidth(true);
-
-
-			var tpl = '\
-				<div class="tips_cont tips_top">\
-					<span>'+text+'</span>\
-				</div>\
-			';
-
-			$('body').append(tpl);
-
-			var tipsWidth  = $('.tips_cont').outerWidth(true);
-
-			var top = $(eleCont).offset().top - eleHeight - 25;
-
-			var left = $(eleCont).offset().left - (tipsWidth - 20)/2;
-
-			$('.tips_cont').css({'top':top,'left':left});
-
-			setTimeout(function(){
-
-				$('.tips_cont').remove();
-
-			},3000);
-
 		},
 
 		query: function(){
@@ -217,18 +174,14 @@
 				},
 				error: function(error){
 
-					if (obj.error) {
+					if (error) {
 
-						obj.error();
+						var msg = JSON.parse(error.responseText);
 
-					} else {
+						Lizard.showToast(msg.error.message);
 
-						if (error) {
+						obj.error && obj.error();
 
-							var msg = JSON.parse(error.responseText);
-
-							Lizard.showToast(msg.error.message);
-						}
 					}
 				}
 			})
