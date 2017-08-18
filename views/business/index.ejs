@@ -20,12 +20,13 @@
             <div class="cont-title">
                 <i></i>
                 <span>车辆列表</span>
-                <a href="#" class="title-btn1">发起借款</a>
+                <a href="/business/loan" class="title-btn1">发起借款</a>
             </div>
             <div class="search">
+                <form id="form">
                 <div class="search_wraper clearfix">
                     <div class="list_item">
-                       <form id="form">
+
                         <div class="search_item">
                             <label>借款编号</label>
                             <input type="text" class="user-ui-input" id="businessNo" placeholder="请输入借款编号"/>
@@ -42,21 +43,21 @@
                             <label>借款期限</label>
                             <input type="text" class="time-ui-input" id="term" placeholder="请输入借款期限"/>
                             <div class="drop_menu">
-                              <span class="js_select" id="termType">请选择</span>
+                              <span class="js_select" id="termType" data-value="">请选择</span>
                               <ul class="drop_menu_list">
-                                <li><a href="javascript:;">天</a></li>
-                                <li><a href="javascript:;">月</a></li>
+                                <% termUnit.forEach(function(item){%>
+                                   <li data-value="<%-item.value%>"><a href="javascript:;"><%-item.name%></a></li>
+                                <%})%>
                               </ul>
                             </div>
                         </div>
-                      </form>
                   </div>
                 </div>
                 <div class="list_item">
                   <div class="search_item">
                     <label>借款类型</label>
                     <div class="drop_menu drop-menu-loan">
-                      <span class="js_select" id="businessType">请选择</span>
+                      <span class="js_select" id="businessType" data-value="">请选择</span>
                       <ul class="drop_menu_list">
                         <%borrowingType.forEach(function(item){%>
                           <li data-value="<%-item.value%>"><a href="javascript:;"><%-item.name%></a></li>
@@ -67,7 +68,7 @@
                   <div class="search_item">
                     <label>借款状态</label>
                       <div class="drop_menu drop-menu-loan">
-                        <span class="js_select" id="businessStatus">请选择</span>
+                        <span class="js_select" id="businessStatus" data-value="">请选择</span>
                           <ul class="drop_menu_list">
                           <% for(var attr in borrowingStatus) {%>
                             <li data-value="<%-attr%>"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
@@ -78,16 +79,17 @@
                   <div class="search_item">
                     <label>注册时间</label>
                     <div class="user-ui-calendar">
-                        <input type="text" class="user-ui-input" id="fromTime" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" readonly="readonly" id="fromTime" placeholder="请输入开始时间"/>
                         <em>至</em>
-                        <input type="text" class="user-ui-input" id="fromTime" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" readonly="readonly" id="endTime" placeholder="请输入开始时间"/>
                     </div>
                   </div>
                 </div>
                 <div class="search_submit clearfix">
-                    <button class="js_query">查询</button>
-                    <button class="js_reset">重置</button>
+                    <button type="button" class="js_query">查询</button>
+                    <button type="reset" class="js_reset">重置</button>
                 </div>
+               </form>
             </div>
 
             <div class="list_container">
@@ -143,6 +145,7 @@
         <% include ../common/footer.ejs%>
     </div>
 </div>
+<div class="ui-calendar" id="calendar"></div>
 <script type="text/javascript" src="/dist/scripts/business/index.js"></script>
 </body>
 </html>

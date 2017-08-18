@@ -24,8 +24,8 @@
          <a href="/borrowers/add" class="title-btn1">新增借款人</a>
        </div>
        <div class="search">
-          <div class="search_wraper clearfix">
-              <form id="form">
+         <form id="form">
+            <div class="search_wraper clearfix">
                   <div class="search_item">
                     <label>手机号</label>
                      <input type="text" class="user-ui-input" id="phone" placeholder="请输入手机号"/>
@@ -37,19 +37,19 @@
                    <div class="search_item">
                        <label>注册时间</label>
                        <div class="user-ui-calendar">
-                         <input type="text" class="user-ui-input" id="fromTime" placeholder="请输入开始时间"/>
+                         <input type="text" class="user-ui-input" readonly="readonly" id="fromTime" placeholder="请输入开始时间"/>
                        </div>
                        <em>至</em>
                        <div class="user-ui-calendar">
-                         <input type="text" class="user-ui-input" id="endTime" placeholder="请输入结束时间"/>
+                         <input type="text" class="user-ui-input" readonly="readonly" id="endTime" placeholder="请输入结束时间"/>
                        </div>
                    </div>
-              </form>
-          </div>
+            </div>
           <div class="search_submit clearfix">
-            <button class="js_query">查询</button>
-            <button class="js_reset">重置</button>
+            <button type="button" class="js_query">查询</button>
+            <button type="reset" class="js_reset">重置</button>
           </div>
+         </form>
        </div>
 
        <div class="list_container">
@@ -87,6 +87,7 @@
        <% include ../common/footer.ejs%>
    </div>
   </div>
+   <div class="ui-calendar" id="calendar"></div>
    <script type="text/javascript" src="/dist/scripts/borrowers/index.js"></script>
 </body>
 </html>

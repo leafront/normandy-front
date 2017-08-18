@@ -45,6 +45,8 @@ module.exports = {
 
 		'business/detail':'./public/scripts/business/detail',
 
+		'business/loan':'./public/scripts/business/loan',
+
 		'business/approval/index':'./public/scripts/business/approval/index',
 
 		'vehicles/index':'./public/scripts/vehicles/index',

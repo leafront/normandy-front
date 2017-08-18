@@ -7,6 +7,7 @@ var Lizard = require('../../widget/lizard');
 
 var local = require('../../widget/local');
 
+var validate = require('../../widget/validate');
 
 var Page = require('../../widget/page');
 
@@ -39,7 +40,7 @@ Page({
 			return;
 		}
 
-		if (!/^\d{4}$/.test(mobile_code)) {
+		if (!validate.isVerify(mobile_code)) {
 
 			Lizard.showToast('请输入正确的短信验证码');
 

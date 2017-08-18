@@ -4,6 +4,8 @@ var common = require('../common');
 
 var data = require('../../../model/data');
 
+var ejs = require('../lib/ejs');
+
 var Lizard = require('../widget/lizard');
 
 var Page = require('../widget/page');

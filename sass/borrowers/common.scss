@@ -20,32 +20,4 @@
 .modify-button{
 	padding-top:15px;
 	padding-left:70px;
-	button{
-		width:118rem/$rem;
-		height:38px;
-		line-height:38px;
-
-		@include borderRadius(5);
-		font-size: 14px;
-		text-align:center;
-		color:#fefefe;
-		float:left;
-		position:relative;
-		cursor: pointer;
-		&:first-child {
-			background: #53cac3;
-			margin-right: 42px;
-			&:hover {
-				background: #6adbcf;
-			}
-		}
-		&:last-child{
-			background:#e1e5ec;
-			color:#666;
-			&:hover{
-				background:#e7eaf0;
-
-			}
-		}
-	}
 }

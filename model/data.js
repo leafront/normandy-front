@@ -2,7 +2,7 @@
 
 var condition = {"true":"是","false":"否","null":"未知"};
 
-var nullBooleanOptions = {"true":"是","false":"否","null":"未知"};
+var nullBooleanOptions = [{value:"true",name:"是"},{value:"false",name:"否"},{value:"null",name:"未知"}];
 
 var booleanOptions = [
 	{
@@ -226,7 +226,13 @@ var collateralLastFree =[
 		"value": 8
 }];
 
-var purchaseType = ['全款', '按揭'];
+var purchaseType = [{
+	name: '全款',
+	value: 0
+}, {
+	name: '按揭',
+	value: 1
+}];
 
 var colorList = [
 	{
@@ -388,7 +394,7 @@ var repaymentType = [
 	"value": 2
 },
 {
-	"name": "等额本金",
+	"nme": "等额本金",
 	"value": 3
 }
 ];
@@ -429,12 +435,12 @@ var education = [
 	];
 
 var borrowingStatus = {
-	'0': {'title': '待初审', 'color': 'list_btn3'},
-	'1': {'title': '待主审', 'color': 'list_btn1'},
+	'0': {'title': '待初审', "stage": "初审", 'color': 'list_btn3'},
+	'1': {'title': '待主审',  "stage": "主审", 'color': 'list_btn1'},
 	'-1': {'title': '初审拒绝', 'color':'list_btn4'},
-	'2': {'title': '待财审', 'color': 'list_btn1',},
+	'2': {'title': '待财审', "stage": "财审",'color': 'list_btn1',},
 	'-2': {'title': '主审拒绝', 'color': 'list_btn4'},
-	'3': {'title': '待复审', 'color': 'list_btn2'},
+	'3': {'title': '待复审', "stage": "复审", 'color': 'list_btn2'},
 	'-3': {'title': '财审拒绝', 'color': 'list_btn4'},
 	'4': {'title': '还款中', 'color': 'list_btn'},
 	'-4': {'title': '复审拒绝', 'color': 'list_btn4'},
@@ -480,6 +486,21 @@ var maritalStatus = {
 	"true": "已婚",
 	"null": "未知"
 };
+
+var maritalStatusList = [
+	{
+		"name": "未婚",
+		"value": false
+		},
+	{
+		"name": "已婚",
+		"value": true
+		},
+	{
+		"name": "未知",
+		"value": "null"
+		}
+];
 
 var companyType = [
 {
@@ -561,8 +582,254 @@ var borrowingSeriesType =[
 	}
 ];
 
+var nation =  [
+	{
+		'title': '汉族',
+		'value': 'hanzu'
+	},
+	{
+		'title': '蒙古族',
+		'value': 'mengguzu'
+	},
+	{
+		'title': '回族',
+		'value': 'huizu'
+	},
+	{
+		'title': '藏族',
+		'value': 'zangzu'
+	},
+	{
+		'title': '维吾尔族',
+		'value': 'weiwuerzu'
+	},
+	{
+		'title': '苗族',
+		'value': 'miaozu'
+	},
+	{
+		'title': '彝族',
+		'value': 'yizu'
+	},
+	{
+		'title': '壮族',
+		'value': 'zhuangzu'
+	},
+	{
+		'title': '布依族',
+		'value': 'buyizu'
+	},
+	{
+		'title': '朝鲜族',
+		'value': 'chaoxianzu'
+	},
+	{
+		'title': '满族',
+		'value': 'manzu'
+	},
+	{
+		'title': '侗族',
+		'value': 'dongzu'
+	},
+	{
+		'title': '瑶族',
+		'value': 'yaozu'
+	},
+	{
+		'title': '白族',
+		'value': 'baizu'
+	},
+	{
+		'title': '土家族',
+		'value': 'tujiazu'
+	},
+	{
+		'title': '哈尼族',
+		'value': 'hanizu'
+	},
+	{
+		'title': '哈萨克族',
+		'value': 'hasakezu'
+	},
+	{
+		'title': '傣族',
+		'value': 'daizu'
+	},
+	{
+		'title': '黎族',
+		'value': 'lizu'
+	},
+	{
+		'title': '傈僳族',
+		'value': 'lisuzu'
+	},
+	{
+		'title': '佤族',
+		'value': 'wazu'
+	},
+	{
+		'title': '畲族',
+		'value': 'shezu'
+	},
+	{
+		'title': '高山族',
+		'value': 'gaoshanzu'
+	},
+	{
+		'title': '拉祜族',
+		'value': 'lahuzu'
+	},
+	{
+		'title': '水族',
+		'value': 'shuizu'
+	},
+	{
+		'title': '东乡族',
+		'value': 'dongxiangzu'
+	},
+	{
+		'title': '纳西族',
+		'value': 'naxizu'
+	},
+	{
+		'title': '景颇族',
+		'value': 'jingpozu'
+	},
+	{
+		'title': '柯尔克孜族',
+		'value': 'keerkezizu'
+	},
+	{
+		'title': '土族',
+		'value': 'tuzu'
+	},
+	{
+		'title': '达斡尔族',
+		'value': 'dawoerzu'
+	},
+	{
+		'title': '仫佬族',
+		'value': 'mulaozu'
+	},
+	{
+		'title': '羌族',
+		'value': 'qiangzu'
+	},
+	{
+		'title': '布朗族',
+		'value': 'bulangzu'
+	},
+	{
+		'title': '撒拉族',
+		'value': 'salazu'
+	},
+	{
+		'title': '毛南族',
+		'value': 'maonanzu'
+	},
+	{
+		'title': '仡佬族',
+		'value': 'gelaozu'
+	},
+	{
+		'title': '锡伯族',
+		'value': 'xibozu'
+	},
+	{
+		'title': '阿昌族',
+		'value': 'achangzu'
+	},
+	{
+		'title': '普米族',
+		'value': 'pumizu'
+	},
+	{
+		'title': '塔吉克族',
+		'value': 'tajikezu'
+	},
+	{
+		'title': '怒族',
+		'value': 'nuzu'
+	},
+	{
+		'title': '乌孜别克族',
+		'value': 'wuzibiekezu'
+	},
+	{
+		'title': '俄罗斯族',
+		'value': 'eluosizu'
+	},
+	{
+		'title': '鄂温克族',
+		'value': 'ewenkezu'
+	},
+	{
+		'title': '德昂族',
+		'value': 'deangzu'
+	},
+	{
+		'title': '保安族',
+		'value': 'baoanzu'
+	},
+	{
+		'title': '裕固族',
+		'value': 'yuguzu'
+	},
+	{
+		'title': '京族',
+		'value': 'jingzu'
+	},
+	{
+		'title': '塔塔尔族',
+		'value': 'tataerzu'
+	},
+	{
+		'title': '独龙族',
+		'value': 'dulongzu'
+	},
+	{
+		'title': '鄂伦春族',
+		'value': 'elunchunzu'
+	},
+	{
+		'title': '赫哲族',
+		'value': 'hezhezu'
+	},
+	{
+		'title': '门巴族',
+		'value': 'menbazu'
+	},
+	{
+		'title': '珞巴族',
+		'value': 'luobazu'
+	},
+	{
+		'title': '基诺族',
+		'value': 'jinuozu'
+	}
+];
+
+var houseStatus = [{
+	name:'自有',
+	value:0
+},{
+	name:'租房',
+	value:1
+}];
+
+var vehicleStatus = [{
+	name:'自有',
+	value:0
+},{
+	name:'租赁',
+	value:1
+}]
+
+
 module.exports = {
+	nation,
 	condition,
+	maritalStatusList,
 	surfaceStatus,
 	collateralLastFree,
 	purchaseType,
@@ -593,5 +860,7 @@ module.exports = {
 	companyType,
 	borrowingSeriesType,
 	salaryType,
-	education
+	education,
+	houseStatus,
+	vehicleStatus
 }

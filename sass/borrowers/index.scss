@@ -10,6 +10,10 @@
 
 @import '../modules/pagination.scss';
 
+@import '../modules/dropMenu.scss';
+
+@import '../widget/calendar.scss';
+
 .cont_list{
 	.borrowers_number{
 		width:430rem/$rem;

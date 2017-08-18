@@ -11,6 +11,8 @@ var paginationTpl = require('../templates/pagination');
 
 var pagination = require('../widget/pagination');
 
+var Calendar = require('../widget/calendar');
+
 var Page = require('../widget/page');
 
 var data = require('../../../model/data');
@@ -26,6 +28,28 @@ Page({
 	onShow(){
 
 		common.headerMenu();
+
+		this.widgetCalendar();
+
+	},
+
+	widgetCalendar(){
+
+		var fromTime = new Calendar({
+			startYear: 2000,
+			yearNum:5,
+			ele:'#fromTime'
+		})
+
+		fromTime.showCalendar();
+
+		var endTime = new Calendar({
+			startYear: 2000,
+			yearNum:5,
+			ele:'#endTime'
+		})
+
+		endTime.showCalendar();
 
 	},
 	bindEvents(){
@@ -56,7 +80,10 @@ Page({
 
 			var endTime = $.trim($('#endTime').val());
 
+			var page = Lizard.query('page') || 1;
+
 			var data = {
+				page,
 				vin:vin,
 				name:userName,
 				from:fromTime,

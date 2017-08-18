@@ -4,6 +4,8 @@ var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
+var validate = require('../widget/validate');
+
 var local = require('../widget/local');
 
 
@@ -36,7 +38,7 @@ function actionForget (){ //开始重置密码
 
 		return;
 	}
-	if (!/^\d{4}$/.test(mobile_code)) {
+	if (!validate.isVerify(mobile_code)) {
 
 		Lizard.showToast('请输入正确的短信验证码');
 
@@ -51,7 +53,7 @@ function actionForget (){ //开始重置密码
 		return;
 	}
 
-	if (!Lizard.isPass(password)){
+	if (!validate.isPass(password)){
 
 		Lizard.showToast('请输入8-20位包含字母的密码');
 	}
@@ -62,7 +64,7 @@ function actionForget (){ //开始重置密码
 		return;
 	}
 
-	if (!Lizard.isPass(repeat_password)){
+	if (!validate.isPass(repeat_password)){
 
 		Lizard.showToast('请输入8-20位包含字母的密码');
 	}

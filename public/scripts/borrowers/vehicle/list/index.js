@@ -25,12 +25,6 @@ const {
 
 Page({
 
-	ajax(){
-
-		this.getVehicleList();
-
-	},
-
 	onShow(){
 
 		common.headerMenu();
@@ -42,43 +36,8 @@ Page({
 
 			$(this).toggleClass('active');
 
-			$('.vehicle_tab').toggleClass('active');
+			$(this).next().toggleClass('active').siblings('.vehicle_tab').removeClass('active');
 
-		})
-	},
-	getVehicleList(){
-
-		var id = $('#vehicleId').val();
-
-		Lizard.ajax({
-			type:'POST',
-			url:'/borrowers/vehicles/list',
-			data:{
-				id
-			},
-			success:function(data){
-
-				if (data && data.results.length){
-
-					var html = ejs.render(listTpl, {
-						list:data.results,
-						condition,
-						surfaceStatus,
-						purchaseType,
-						collateralLastFree,
-						certificateType,
-						starterStatus,
-						engineStatus,
-						transmissionStatus,
-						exhaustStatus,
-						isWorkOk
-					})
-
-					$('.vehicle_cont').html(html);
-
-				}
-
-			}
 		})
 	}
 })

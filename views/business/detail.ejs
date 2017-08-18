@@ -35,7 +35,7 @@
                  <div class="vehicle_info_title">
                      <div class="business_status">
                          <h4>借款信息</h4>
-                         <a class="ico1" href="/business/approval/<%-detailId%>">去主审</a>
+                        <% if([0, 1, 2, 3].indexOf(business.status) > -1){%> <a class="ico1" href="/business/approval/<%-detailId%>?bid=<%-business.no%>&status=<%-business.status%>">去<%-borrowingStatus[business.status].stage%></a><%}%>
                      </div>
                  </div>
                  <div class="vehicle_info_wraper clearfix">
@@ -239,50 +239,49 @@
                      <div class="business_status">
                          <h4>车况信息</h4>
                      </div>
-                     <p>车况评估报告（评估时间: <%-condition.created_at %> 评估人: <%-condition.evaluator.name%>）</p>
+                     <p>车况评估报告（评估时间: <%-condition && condition.created_at %> 评估人: <%-condition && condition.evaluator.name%>）</p>
                  </div>
-
                  <div class="vehicle_tab_wraper clearfix">
                      <div class="vehicle_title">车辆属性</div>
                      <div class="vehicle_item">
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>真皮内饰：</label>
-                                 <span><%-nullBooleanOptions[condition.is_leather]%></span>
+                                 <span><%- condition && booleanOptions[condition.is_leather]%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>天窗：</label>
-                                 <span><%-nullBooleanOptions[condition.has_sunroof]%></span>
+                                 <span><%-condition && booleanOptions[condition.has_sunroof]%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>导航：</label>
-                                 <span><%-nullBooleanOptions[condition.has_navigation]%></span>
+                                 <span><%-condition && booleanOptions[condition.has_navigation]%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>总千瓦数：</label>
-                                 <span><%-condition.power_kw%></span>
+                                 <span><%-condition && condition.power_kw%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>内饰状况：</label>
-                                 <span><%-interiorStatus[condition.interior_status].name%></span>
+                                 <span><%-condition && interiorStatus[condition.interior_status].name%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>漆面状况：</label>
-                                 <span><%-surfaceStatus[condition.surface_status].name%></span>
+                                 <span><%-condition && surfaceStatus[condition.surface_status].name%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>车牌价格：</label>
-                                 <span><%-condition.plate_price%> 元</span>
+                                 <span><%-condition && condition.plate_price%> 元</span>
                              </div>
                              <div class="form-group-rows">
                                  <label>行使里程：</label>
-                                 <span><%-condition.mileage%> 公里</span>
+                                 <span><%-condition && condition.mileage%> 公里</span>
                              </div>
                          </div>
                      </div>
@@ -293,75 +292,75 @@
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>购买时间：</label>
-                                 <span><%-condition.buy_day%></span>
+                                 <span><%-condition && condition.buy_day%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>过户时间：</label>
-                                 <span><%-condition.assigned_day%></span>
+                                 <span><%-condition && condition.assigned_day%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>首次上牌日期：</label>
-                                 <span><%-condition.registration_day%></span>
+                                 <span><%-condition && condition.registration_day%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>保单到期日：</label>
-                                 <span><%-condition.insurance_expired_day%></span>
+                                 <span><%-condition && condition.insurance_expired_day%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>购买方式：</label>
-                                 <span><%-purchaseType[condition.purchase_type]%></span>
+                                 <span><%-condition && purchaseType[condition.purchase_type]%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>购买价格：</label>
-                                 <span><%-condition.buy_price%></span>
+                                 <span><%-condition && condition.buy_price%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>购车贷款金额：</label>
-                                 <span><%-condition.loan_amount || 0%> 元</span>
+                                 <span><%-(condition && condition.loan_amount) || 0%> 元</span>
                              </div>
                              <div class="form-group-rows">
                                  <label>剩余未还金额：</label>
-                                 <span><%-condition.loan_terms || 0%> 元</span>
+                                 <span><%-(condition && condition.loan_terms) || 0%> 元</span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>购车贷款总期数：</label>
-                                 <span><%-condition.loan_pending_terms || 0%> 期 </span>
+                                 <span><%-(condition && condition.loan_pending_terms) || 0%> 期 </span>
                              </div>
                              <div class="form-group-rows">
                                  <label>剩余未还期数：</label>
-                                 <span><%-condition.loan_pending_terms || 0%> 期</span>
+                                 <span><%-(condition && condition.loan_pending_terms) || 0%> 期</span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>历史抵押次数：</label>
-                                 <span><%-condition.collateral_times%> 次 </span>
+                                 <span><%-condition && condition.collateral_times%> 次 </span>
                              </div>
                              <div class="form-group-rows">
 
                                  <label>最近解抵押：</label>
-                                 <span><%-collateralLastFree[condition.collateral_last_free].name%></span>
+                                 <span><%-condition &&  collateralLastFree[condition.collateral_last_free].name%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>是否有车险理赔记录：</label>
-                                 <span><%-nullBooleanOptions[condition.has_claims_records]%>   </span>
-                                 <%if(condition.has_claims_records){%>
-                                   <span>(理赔金额: <%-condition.claims_amount%> 元) </span>
+                                 <span><%-condition && booleanOptions[condition.has_claims_records]%>   </span>
+                                 <%if(condition &&  condition.has_claims_records){%>
+                                   <span>(理赔金额: <%-condition && condition.claims_amount%> 元) </span>
                                  <%}%>
                              </div>
                              <div class="form-group-rows">
                                  <label>证件核查：</label>
-                                 <%condition.certificate.forEach(function(item){%>
+                                 <%condition && condition.certificate.forEach(function(item){%>
                                     <button><%-certificateType[item].name%></button>
                                  <%})%>
 
@@ -376,7 +375,7 @@
                              <div class="form-group-rows">
                                  <label>起动机/转向助力：</label>
 
-                                 <%condition.starter_status.forEach(function(item){%>
+                                 <%condition && condition.starter_status.forEach(function(item){%>
 
                                     <button <%if(item !==0){%>class="btn_danger"<%}%>><%-starterStatus[item].name%></button>
 
@@ -385,7 +384,7 @@
                              </div>
                              <div class="form-group-rows">
                                  <label>发动机：</label>
-                                 <% condition.engine_status.forEach(function(item){%>
+                                 <% condition && condition.engine_status.forEach(function(item){%>
                                    <button <%if(item !==0){%>class="btn_danger"<%}%>><%-engineStatus[item].name%></button>
                                  <%})%>
 
@@ -397,7 +396,7 @@
                              <div class="form-group-rows">
                                  <label>变速器：</label>
 
-                                 <% condition.transmission_status.forEach(function(item){%>
+                                 <% condition && condition.transmission_status.forEach(function(item){%>
                                    <button <%if(item !==0){%>class="btn_danger"<%}%>><%-transmissionStatus[item].name%></button>
                                  <%})%>
 
@@ -405,7 +404,7 @@
                              <div class="form-group-rows">
                                  <label>排气系统：</label>
 
-                                 <% condition.exhaust_status.forEach(function(item){%>
+                                 <% condition && condition.exhaust_status.forEach(function(item){%>
                                    <button <%if(item !==0){%>class="btn_danger"<%}%>><%-exhaustStatus[item].name%></button>
                                  <%})%>
 
@@ -414,13 +413,13 @@
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>电器系统/空调正常：</label>
-                                 <span><%-nullBooleanOptions[condition.is_electric_ok]%></span>
-                                 <%if(!condition.is_electric_ok){%><span>( 说明: <%-condition.electric_state%> )</span><%}%>
+                                 <span><%-condition && booleanOptions[condition.is_electric_ok]%></span>
+                                 <%if(condition && !condition.is_electric_ok){%><span>( 说明: <%-condition.electric_state%> )</span><%}%>
                              </div>
                              <div class="form-group-rows">
                                  <label>底盘正常：</label>
-                                 <span><%-nullBooleanOptions[condition.is_chassis_ok]%></span>
-                                 <%if(!condition.is_chassis_ok){%><span>( 说明: <%-condition.chassis_state%> )</span><%}%>
+                                 <span><%-condition && booleanOptions[condition.is_chassis_ok]%></span>
+                                 <%if(condition &&  !condition.is_chassis_ok){%><span>( 说明: <%-condition.chassis_state%> )</span><%}%>
                              </div>
                          </div>
                      </div>
@@ -431,17 +430,17 @@
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>车辆综合状况：</label>
-                                 <span><%-isWorkOk[condition.is_work_ok].name%></span>
+                                 <span><%-condition && isWorkOk[condition.is_work_ok].name%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>评估价格：</label>
-                                 <span><%-condition.evaluated_price%> 元 </span>
+                                 <span><%-condition && condition.evaluated_price%> 元 </span>
                              </div>
                          </div>
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>整体运行说明：</label>
-                                 <span><%-condition.summary%></span>
+                                 <span><%-condition && condition.summary%></span>
                              </div>
                          </div>
                      </div>
@@ -499,11 +498,11 @@
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>本地户籍：</label>
-                                 <span><%-nullBooleanOptions[application.is_native]%></span>
+                                 <span><%-booleanOptions[application.is_native]%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>配偶本地户籍：</label>
-                                 <span><%-nullBooleanOptions[application.is_mate_native]%></span>
+                                 <span><%-booleanOptions[application.is_mate_native]%></span>
                              </div>
                          </div>
                          <div class="form-group clearfix">

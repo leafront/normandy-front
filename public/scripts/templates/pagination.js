@@ -1,4 +1,6 @@
 module.exports =`
+
+<% if(data && data.results.length){%>
 	<li><a  class="js_page" href="<%-pathName%>?page=1">首页</a></li>
 	<%if(!isFirstPage){%>
 	<li><a class="js_page" href="<%-pathName%>?page=<%-page-1%>">上一页</a></li>
@@ -14,4 +16,5 @@ module.exports =`
 	<li><a class="js_page" href="<%-pathName%>?page=<%-page +1 %>">下一页</a></li>
 	<%}%>
 	<li><a class="js_page" href="<%-pathName%>?page=<%-totalPage%>">尾页</a></li>
+<%}%>
 `;

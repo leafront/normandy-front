@@ -10,8 +10,33 @@
 
 @import '../../modules/popup.scss';
 
-
 @import '../../widget/calendar.scss';
+
+.user-ui-input-txt{
+
+	display:inline-block;
+	position:relative;
+	left:-38px;
+	top:1px;
+	width:33px;
+
+	height:32px;
+	background:#eee;
+
+	border-left:1px solid #ccc;
+
+
+	border-right:0;
+
+	font-size:14px;
+
+	color:#666;
+	line-height:34px;
+
+	text-align:center;
+
+
+}
 
 .modify-button{
 	padding-top:15px;
@@ -22,7 +47,10 @@
 	float:left;
 	width:600rem/$rem;
 	margin-right:160rem/$rem;
+
+	position:relative;
 	&:last-child{
+		width:650rem/$rem;
 		margin-right:0;
 	}
 	label{
@@ -224,6 +252,19 @@
 		line-height:28px;
 
 		margin-top:10px;
+
+		&.active{
+
+			a{
+
+				background:#53cac3;
+
+				color:#fff;
+
+			}
+
+
+		}
 
 		a{
 			display:block;

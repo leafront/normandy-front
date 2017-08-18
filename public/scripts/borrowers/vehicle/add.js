@@ -1,4 +1,3 @@
-
 var $ = require('../../lib/jquery');
 
 var common = require('../../common');
@@ -6,6 +5,10 @@ var common = require('../../common');
 var Lizard = require('../../widget/lizard');
 
 var popup = require('../../widget/popup');
+
+var Calendar = require('../../widget/calendar');
+
+var validate = require('../../widget/validate');
 
 var Page = require('../../widget/page');
 
@@ -24,8 +27,32 @@ Page({
 
 		common.dropMenu();
 
+		this.widgetCalendar();
+
 	},
+	widgetCalendar(){
+
+		var calendar = new Calendar({
+			startYear: 2000,
+			yearNum:5,
+			ele:'#madeTime'
+		})
+
+		calendar.showCalendar();
+
+	},
+
 	bindEvents(){
+
+		this.selectType();
+
+		this.showCarPopup();
+
+		this.vehicleAction();
+
+	},
+
+	showCarPopup(){
 
 		var This  = this;
 
@@ -42,6 +69,14 @@ Page({
 
 			var brandId = $(this).data('brandid');
 
+			$('#brandList dd').removeClass('active');
+
+			$(this).addClass('active');
+
+			var brandName = $(this).text();
+
+			$('#brandName').val(brandName);
+
 			This.getCarType(brandId);
 
 		})
@@ -50,13 +85,34 @@ Page({
 
 			var typeId = $(this).data('typeid');
 
+			$('#carType dd').removeClass('active');
+
+			$(this).addClass('active');
+
+			var typeName = $(this).text();
+
+			$('#typeName').val(typeName);
+
 			This.getCarModel(typeId);
+
+		})
+
+
+		$('#carModel').on('click','dd',function() {
+
+			var modelName = $(this).text();
+
+			$('#carModel dd').removeClass('active');
+
+			$(this).addClass('active');
+
+			$('#modelName').val(modelName);
 
 		})
 
 		$('#js_brand').click(function(){
 
-			popup.showContent('#carPopup')
+			popup.showContent('#carPopup');
 
 		})
 
@@ -67,7 +123,20 @@ Page({
 
 		})
 
-		this.selectType();
+		$('.js_confirm').click(function(){
+
+
+			popup.hideContent('#carPopup');
+
+			$('#js_brand').val($('#brandName').val() + $('#typeName').val() + $('#modelName').val());
+
+		})
+
+		$('.popup_mask').click(function(){
+
+			popup.hideContent('#carPopup');
+
+		})
 
 	},
 
@@ -75,11 +144,19 @@ Page({
 
 		$('.shiftingType').click(function(){
 
+			var value = $(this).data('value');
+
+			$('#shiftingType').data('value',value);
+
 			$(this).addClass('active').siblings().removeClass('active');
 
 		})
 
 		$('.driverType').click(function(){
+
+			var value = $(this).data('value');
+
+			$('#driverType').data('value',value);
 
 			$(this).addClass('active').siblings().removeClass('active');
 
@@ -117,14 +194,193 @@ Page({
 
 	},
 
+	vehicleAction(){
+
+		$('.js_submit').click(() =>{
+
+			var id = $('#detailId').val();
+
+			var vehicleType = $.trim($('#vehicleType').data('value'));
+
+			var carName = $.trim($('#js_brand').val());
+
+			var license = $.trim($('#license').val());
+
+			var vin = $.trim($('#vin').val());
+
+			var engine = $.trim($('#engine').val());
+
+			var madeTime = $.trim($('#madeTime').val());
+
+			var vehicleColor = $.trim($('#vehicleColor').data('value'));
+
+			var volume = $.trim($('#volume').val());
+
+			var shiftingType = $.trim($('#shiftingType').data('value'));
+
+			var driverType = $.trim($('#driverType').data('value'));
+
+			var brand = $('#brandName').val();
+
+			var series = $('#typeName').val();
+
+			var model = $('#modelName').val();
+
+
+			if (!vehicleType){
+
+				Lizard.showToast('请选择车辆类型');
+
+				return;
+
+			}
+
+			if (!carName) {
+
+				Lizard.showToast('请选择品牌类型');
+
+				return;
+
+			}
+
+			if (!license) {
+
+				Lizard.showToast('请输入车牌号');
+
+				return;
+
+			}
+
+			if (!validate.isCarNumber(license)) {
+
+				Lizard.showToast('请输入正确的车牌号');
+
+				return;
+			}
+
+			if (!vin) {
+
+				Lizard.showToast('请输入车架号');
+
+				return;
+
+			}
+
+			if (!validate.isVin(vin)) {
+
+				Lizard.showToast('请输入正确的17位唯一车架号');
+
+				return;
+
+			}
+
+			if (!engine) {
+
+				Lizard.showToast('请输入发动机号');
+
+				return;
+
+			}
+
+			if (!validate.isEngineNumber(engine)) {
+
+				Lizard.showToast('请输入正确的发动机号');
+
+				return;
+
+			}
+
+			if (!madeTime) {
+
+				Lizard.showToast('请选择出厂日期');
+
+				return;
+
+			}
+
+
+			if (!vehicleColor) {
+
+				Lizard.showToast('请选择颜色');
+
+				return;
+
+			}
+
+			if (!volume) {
+
+				Lizard.showToast('请输入排量');
+
+				return;
+
+			}
+
+			if (!validate.isDisplacement(volume)){
+
+				Lizard.showToast('请输入正确的排量');
+
+				return;
+
+			}
+
+			var data = {
+				id: id,
+				data:{
+					brand:brand,
+					series,series,
+					model,model,
+					type:vehicleType,
+					car_name:carName,
+					plate_number:license,
+					vin:vin,
+					engine_number:engine,
+					production_day:madeTime,
+					color:vehicleColor,
+					displacement:volume,
+					shifting:shiftingType,
+					driver_type:driverType
+				}
+			}
+
+			this.submitVehicles(data);
+
+		})
+
+	},
+
+	submitVehicles(formData){
+
+		Lizard.ajax({
+			type: 'POST',
+			url: '/borrowers/vehicles/add',
+			data:formData,
+			success(data){
+
+				if (data){
+
+					Lizard.showToast('添加成功, 跳转至借款人详情');
+
+					setTimeout(() => {
+
+						location.href = '/borrowers/' + formData.id;
+
+					},500)
+
+				}
+
+			}
+		})
+
+	},
+
 	getCarModel(typeId){
 
 		var carModelTpl = `
-		<% list.forEach(function(item){%>
+		<% list.forEach(function(item,index){%>
 		  <dl class="carList">
         <dt><a href="javascript:;"><%-item.year%> 款</a></dt>
-        <% item.results.forEach(function(child){%>
-				  <dd data-modelid="<%-child.id%>"><a href="javascript:;"><%-child.name%></a></dd>
+        <% item.results.forEach(function(child,cIndex){%>
+				  <dd data-modelid="<%-child.id%>" class="<%if(index==0 && cIndex==0){%>active<%}%>"><a href="javascript:;"><%-child.name%></a></dd>
 				<%})%>
       </dl>
     <%})%>`;
@@ -149,6 +405,8 @@ Page({
 
 					$('#carModel').html(carModelHtml);
 
+					$('#modelName').val(list[0].results[0].name);
+
 				}
 			}
 		})
@@ -157,11 +415,11 @@ Page({
 	getCarType(brandId){
 
 		var carTypeTpl = `
-		<% list.forEach(function(item){%>
+		<% list.forEach(function(item,index){%>
 		  <dl class="carList">
         <dt><a href="javascript:;"><%-item.group_name%></a></dt>
-        <% item.results.forEach(function(child){%>
-				  <dd data-typeid="<%-child.id%>"><a href="javascript:;"><%-child.name%></a></dd>
+        <% item.results.forEach(function(child,cIndex){%>
+				  <dd data-typeid="<%-child.id%>" class="<%if(index==0 && cIndex==0){%>active<%}%>"><a href="javascript:;"><%-child.name%></a></dd>
 				<%})%>
       </dl>
     <%})%>`;
@@ -185,6 +443,8 @@ Page({
 
 					$('#carType').html(carTypeHtml);
 
+					$('#typeName').val(list[0].results[0].name);
+
 					this.getCarModel(results[0].id);
 				}
 			}
@@ -199,11 +459,11 @@ Page({
 			<%})%>`;
 
 		var brandTpl = `
-		<% list.forEach(function(item){%>
+		<% list.forEach(function(item,index){%>
 		  <dl class="carList" id="letter-<%-item.initial%>">
         <dt><a href="javascript:;"><%-item.initial%></a></dt>
-        <% item.results.forEach(function(child){%>
-				  <dd data-brandid="<%-child.id%>"><a href="javascript:;"><%-child.name%></a></dd>
+        <% item.results.forEach(function(child,cIndex){%>
+				  <dd data-brandid="<%-child.id%>" class="<%if(index==0 && cIndex==0){%>active<%}%>"><a href="javascript:;"><%-child.name%></a></dd>
 				<%})%>
       </dl>
     <%})%>`;
@@ -230,17 +490,15 @@ Page({
 
 					var list = this.getGroupArr(results,'initial');
 
-
 					var letterHtml = ejs.render(letterTpl, {letterNav});
 
-
 					var brandHtml = ejs.render(brandTpl,{list});
-
 
 					$('.carNav_list').html(letterHtml);
 
 					$('#brandList').html(brandHtml);
 
+					$('#brandName').val(list[0].results[0].name);
 
 					this.getCarType(results[0].id);
 				}

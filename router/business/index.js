@@ -17,11 +17,17 @@ const {
 } = common;
 
 const {
+	borrowingStage,
+	borrowingResult,
+	borrowingRating,
+	condition,
+	nation,
 	borrowingType,
 	termUnit,
 	borrowingStatus,
 	autoReviewStatus,
 	phoneReviewStatus,
+	booleanOptions,
 	nullBooleanOptions,
 	interiorStatus,
 	surfaceStatus,
@@ -31,6 +37,7 @@ const {
 	repaymentType,
 	purchaseType,
 	maritalStatus,
+	maritalStatusList,
 	borrowingSeriesType,
 	salaryType,
 	purposeType,
@@ -88,6 +95,26 @@ router.get('/', async (ctx,next) => {
 
 })
 
+router.get('/loan', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('business/loan',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		nation,
+		maritalStatusList,
+		companyType,
+		education,
+		salaryType,
+		nullBooleanOptions
+	})
+
+})
+
 router.get('/:id', async (ctx,next) => {
 
 	const { roleList, shop, authority } = await common.authority(ctx,{
@@ -109,7 +136,7 @@ router.get('/:id', async (ctx,next) => {
 		url:`/api/vehicles/${vehicleId}/conditions`
 	})
 
-	const condition = conditionList.results[0];
+	const conditionInfo = conditionList.results[0];
 
 	const uploadImg = [
 		{
@@ -146,6 +173,7 @@ router.get('/:id', async (ctx,next) => {
 		shop,
 		roleList,
 		detailId:id,
+		borrowingStatus,
 		borrowingType,
 		termUnit,
 		repaymentType,
@@ -161,7 +189,7 @@ router.get('/:id', async (ctx,next) => {
 		collateralLastFree,
 		certificateType,
 		driverType,
-		nullBooleanOptions,
+		booleanOptions:condition,
 		interiorStatus,
 		maritalStatus,
 		borrowingSeriesType,
@@ -175,7 +203,7 @@ router.get('/:id', async (ctx,next) => {
 		uploadImg,
 		business,
 		application,
-		condition,
+		condition:conditionInfo,
 		vehicle
 	})
 
@@ -187,15 +215,38 @@ router.get('/approval/:id', async (ctx,next) => {
 		url: '/api/current-user'
 	})
 
+	const detailId = ctx.params.id;
 
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const bidId = params.bid;
+
+	const pidStatus = params.status;
+
+	const { results: list } = await baseModel.get(ctx,{
+		url:`/api/borrowings/${detailId}/approvals`,
+	})
 	await ctx.render('business/approval/index',{
 		pathName: ctx.path,
+		bidId,
 		authority,
+		pidStatus,
 		shop,
-		roleList
+		roleList,
+		list,
+		detailId,
+		borrowingStage,
+		borrowingStatus,
+		borrowingResult,
+		borrowingRating,
+		carType
+
 	})
 
 })
+
+
+
 
 
 router.post('/approvals',async (ctx,next) => {
@@ -289,6 +340,88 @@ router.post('/list',async (ctx,next) => {
 	await baseModel.get(ctx,{
 		url:'/api/borrowings',
 		data:body
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/borrowers',async (ctx,next) => {
+
+	await baseModel.get(ctx,{
+		url:'/api/borrowers'
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/vehicles',async (ctx,next) => {
+
+	const { id } = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		url:`/api/borrowers/${id}/vehicles`
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/loan/add',async (ctx,next) => {
+
+	const body = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		url:'/api/applications',
+		data:body
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/approval/review',async (ctx,next) => {
+
+	const { id, data }  = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		url:`/api/borrowings/${id}/approvals/master_review`,
+		data:data
 	}).then((body) => {
 
 		ctx.body = body;

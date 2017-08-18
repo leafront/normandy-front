@@ -22,9 +22,11 @@
                 <i></i>
                 <span>车辆列表</span>
             </div>
+
             <div class="search">
+              <form id="form">
                 <div class="search_wraper clearfix">
-                 <form id="form">
+
                     <div class="search_item">
                         <label>车架号</label>
                         <input type="text" class="user-ui-input" id="vin" placeholder="请输入车架号"/>
@@ -36,19 +38,19 @@
                     <div class="search_item">
                         <label>注册时间</label>
                         <div class="user-ui-calendar">
-                            <input type="text" class="user-ui-input" id="fromTime" placeholder="请输入开始时间"/>
+                            <input type="text" class="user-ui-input" readonly="readonly" id="fromTime" placeholder="请输入开始时间"/>
                             <em>至</em>
-                            <input type="text" class="user-ui-input" id="endTime" placeholder="请输入开始时间"/>
+                            <input type="text" class="user-ui-input" readonly="readonly" id="endTime" placeholder="请输入开始时间"/>
                         </div>
                     </div>
-                 </form>
+
                 </div>
                 <div class="search_submit clearfix">
-                    <button class="js_query">查询</button>
-                    <button class="js_reset">重置</button>
+                    <button type="button" class="js_query">查询</button>
+                    <button type="reset" class="js_reset">重置</button>
                 </div>
+              </form>
             </div>
-
             <div class="list_container">
                 <dl class="cont_list">
                     <dt>
@@ -85,6 +87,7 @@
         <% include ../common/footer.ejs %>
     </div>
 </div>
+<div class="ui-calendar" id="calendar"></div>
 <script type="text/javascript" src="/dist/scripts/vehicles/index.js"></script>
 </body>
 </html>

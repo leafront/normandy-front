@@ -11,6 +11,8 @@ var paginationTpl = require('../templates/pagination');
 
 var pagination = require('../widget/pagination');
 
+var Calendar = require('../widget/calendar');
+
 var Page = require('../widget/page');
 
 Page({
@@ -18,6 +20,28 @@ Page({
 	onShow(){
 
 		common.headerMenu();
+
+		this.widgetCalendar();
+
+	},
+
+	widgetCalendar(){
+
+		var fromTime = new Calendar({
+			startYear: 2000,
+			yearNum:5,
+			ele:'#fromTime'
+		})
+
+		fromTime.showCalendar();
+
+		var endTime = new Calendar({
+			startYear: 2000,
+			yearNum:5,
+			ele:'#endTime'
+		})
+
+		endTime.showCalendar();
 
 	},
 	bindEvents(){
@@ -48,6 +72,8 @@ Page({
 
 			var endTime = $.trim($('#endTime').val());
 
+			var page = Lizard.query('page') || 1;
+
 			if (phone && !Lizard.isMobile(phone)){
 
 				Lizard.showToast('请输入正确的手机号');
@@ -57,6 +83,7 @@ Page({
 			}
 
 			var data = {
+				page,
 				mobile:phone,
 				name:userName,
 				from:fromTime,

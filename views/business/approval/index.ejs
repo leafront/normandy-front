@@ -14,12 +14,93 @@
         <div class="navigation">
             <a href="/" class="home_ico"></a>
             <em class="navigation_ico"></em>
-            <span>车辆列表</span>
+            <a href="/business" class="navigation_link">借款列表</a>
+            <em class="navigation_ico"></em>
+            <a href="/business/<%-detailId%>" class="navigation_link">借款详情</a>
+            <em class="navigation_ico"></em>
+            <span>审核</span>
 
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>标的 <%-bidId%>  <%-borrowingStatus[pidStatus].stage%></span>
+            </div>
+            <div class="approval_cont">
+
+                <div class="approval_form" id="app">
+                    <div class="form-group">
+                      <label>评分</label>
+
+                        <ul class="approval_comment">
+
+                         <% borrowingRating.forEach(function(item){%>
+
+                          <li @click="checkValue('rating',<%-item.value%>)" :class="{'active':<%-item.value%> === formData.rating}"><i></i><span class="<%-item.label_class%>"><%-item.name%></span></li>
+
+                          <%})%>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label>结果</label>
+
+                        <ul class="approval_comment">
+                            <% borrowingResult.forEach(function(item){%>
+
+                            <li @click="checkValue('result',<%-item.value%>)" :class="{'active':<%-item.value%> === formData.result}"><i></i><span class="<%-item.label_class%>"><%-item.name%></span></li>
+
+                            <%})%>
+                        </ul>
+                    </div>
+                    <div class="form-group-tips">
+                      <p>注意：主审通过要求电核通过 !</p>
+                    </div>
+                    <div class="form-group">
+                        <label>备注</label>
+                        <textarea v-model="formData.remark" class="approval_description"></textarea>
+                    </div>
+                    <div class="approval_submit">
+                      <button class="btn_confirm" @click="submitAction"><%-borrowingStatus[pidStatus].stage%></button>
+                      <button class="btn_cancel" @click="cancelAction">取消</button>
+                    </div>
+                </div>
+
+                <div class="approval_table">
+                    <%if (list && list.length){%>
+                    <h4>审批信息</h4>
+                    <div class="business_table">
+                        <dl class="business_table_list">
+                            <dt>
+                                <span>审批信息</span>
+                                <span>审批人</span>
+                                <span>阶段</span>
+                                <span>结果</span>
+                                <span>评分</span>
+                                <span>备注</span>
+                            </dt>
+                            <% list.forEach(function(item){%>
+                            <dd>
+                                <span><%-item.created_at%></span>
+                                <span><%-item.reviewer.name%></span>
+                                <span><%-borrowingStage[item.stage].name%></span>
+                                <span><button class="<%-borrowingResult[item.result].label_class%>"><%-borrowingResult[item.result].name%></button></span>
+                                <span><button class="<%-borrowingRating[item.result].label_class%>"><%-borrowingRating[item.result].name%></button></span>
+                                <span><%-item.remark%></span>
+                            </dd>
+                            <%})%>
+                        </dl>
+                    </div>
+                    <%}%>
+                </div>
+
+            </div>
         </div>
         <% include ../../common/footer.ejs %>
     </div>
 </div>
+<script type="text/javascript">
+    window.borrowingsId = '<%-detailId%>';
+</script>
 <script type="text/javascript" src="/dist/scripts/business/approval/index.js"></script>
 </body>
 </html>

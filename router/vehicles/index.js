@@ -64,8 +64,8 @@ router.post('/list',async (ctx,next) => {
 
 	const body = ctx.request.body;
 
-	baseModel.get(ctx,{
-		url:`/api/vehicles`,
+	await baseModel.get(ctx,{
+		url:'/api/vehicles',
 		data:body
 	}).then((body) => {
 

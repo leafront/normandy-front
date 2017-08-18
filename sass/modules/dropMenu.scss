@@ -10,12 +10,9 @@
 
 	border:1px solid #ccc;
 
-	padding-left:18rem/$rem;
+	padding-left:12px;
 
 	margin-left:15rem/$rem;
-
-
-	position:relative;
 
 	&.active{
 
@@ -45,11 +42,16 @@
 	}
 
 	span{
-		display:block;
+
 		line-height:34px;
 		color:#999;
 		font-size:14px;
 		cursor:pointer;
+
+		width:100%;
+
+		display:block;
+
 		&.active{
 			color:#333;
 		}
@@ -75,7 +77,10 @@
 		line-height:28px;
 		font-size:14px;
 
+		width:100%;
+
 		padding-left:15rem/$rem;
+		@include ellipsis;
 
 		span{
 			display:inline-block;

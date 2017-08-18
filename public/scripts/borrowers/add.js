@@ -4,6 +4,8 @@ var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
+var validate = require('../widget/validate');
+
 var Page = require('../widget/page');
 
 
@@ -37,14 +39,21 @@ Page({
 			return;
 		}
 
-		if (!borrowers_phone) {
+		if (!phone) {
 
 			Lizard.showToast('请输入手机号');
 
 			return;
 		}
 
-		if (email && !Lizard.isEmail(email)){
+		if (!validate.isMobile(phone)) {
+
+			Lizard.showToast('请输入手机号');
+
+			return;
+		}
+
+		if (email && !validate.isEmail(email)){
 
 			Lizard.showToast('请输入正确的邮箱地址');
 

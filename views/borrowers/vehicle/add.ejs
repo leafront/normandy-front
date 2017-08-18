@@ -35,10 +35,10 @@
                   <div class="vehicle_item">
                     <label>车辆类型</label>
                       <div class="drop_menu drop_menu_car">
-                          <span class="active js_select"><%-carType[0].name%></span>
+                          <span class="active js_select" data-value="" id="vehicleType">请选择车辆类型</span>
                           <ul class="drop_menu_list">
                           <% carType.forEach(function(item){%>
-                            <li value="<%-item.value%>">
+                            <li data-value="<%-item.value%>">
                                 <a href="javascript:;"><%-item.name%></a>
 
                             </li>
@@ -55,28 +55,29 @@
                 <div class="vehicle_wraper clearfix">
                     <div class="vehicle_item">
                         <label>车牌号</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" placeholder="沪A12345"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" id="license" placeholder="沪A12345"/>
                     </div>
                     <div class="vehicle_item">
                         <label>车架号</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" placeholder="17位唯一车架号"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" id="vin" placeholder="17位唯一车架号"/>
                     </div>
                 </div>
                 <div class="vehicle_wraper clearfix">
                     <div class="vehicle_item">
                         <label>发动机号</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" placeholder="发动机号"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" id="engine" placeholder="发动机号"/>
                     </div>
-                    <div class="vehicle_item">
+                    <div class="vehicle_item vehicle-ui-ico">
                         <label>出厂日期</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" placeholder="出厂日期"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" id="madeTime" placeholder="出厂日期"/>
+                        <i class="user-ui-input-txt"> &nbsp;</i>
                     </div>
                 </div>
                 <div class="vehicle_wraper clearfix">
                     <div class="vehicle_item">
                         <label>颜色</label>
                         <div class="drop_menu drop_menu_color">
-                            <span class="active js_select">选择车辆颜色</span>
+                            <span class="active js_select" id="vehicleColor" data-value="">请选择颜色</span>
                             <ul class="drop_menu_list">
                                 <% colorList.forEach(function(item){%>
 
@@ -90,24 +91,28 @@
                     </div>
                     <div class="vehicle_item">
                         <label>排量</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" placeholder="排量"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" id="volume" placeholder="排量"/>
+                        <i class="user-ui-input-txt">L</i>
                     </div>
                 </div>
                 <div class="vehicle_wraper clearfix">
                   <div class="vehicle_item">
-                     <label>变速</label>
-                     <strong class="shiftingType active" data-shifting="0">手动</strong>
-                     <strong class="shiftingType" data-shifting="1">自动</strong>
+                     <label id="shiftingType" data-value="<%-shiftingType[0].value%>">变速</label>
+
+                      <%shiftingType.forEach(function(item,index){%>
+                        <strong class="shiftingType <%if(index==0){%>active<%}%>" data-value="<%-item.value%>">手动</strong>
+                      <%})%>
                   </div>
                   <div class="vehicle_item">
-                    <label>驱动类型</label>
-                    <strong class="driverType active" data-driver="0">两驱</strong>
-                    <strong class="driverType" data-driver="1">四驱</strong>
+                    <label id="driverType" data-value="<%-driverType[0].value%>">驱动类型</label>
+                    <% driverType.forEach(function(item,index){%>
+                      <strong class="driverType <%if(index==0){%>active<%}%>" data-value="<%-item.value%>">两驱</strong>
+                    <%})%>
                   </div>
                 </div>
                 <div class="modify-button clearfix">
-                    <button class="js_submit">确认</button>
-                    <button class="js_cancel">放弃</button>
+                    <button class="btn_confirm js_submit">确认</button>
+                    <button class="btn_cancel js_cancel">放弃</button>
                 </div>
             </div>
         </div>
@@ -140,26 +145,19 @@
         </div>
       </div>
     </div>
+    <input type="hidden" id="brandName" value=""/>
+    <input type="hidden" id="typeName" value=""/>
+    <input type="hidden" id="modelName" value=""/>
+
+    <input type="hidden" id="detailId" value="<%-detailId%>">
     <div class="popup_submit clearfix">
-        <button class="js_confirm">确定</button>
-        <button class="js_cancel">取消</button>
+        <button class="btn_confirm js_confirm">确定</button>
+        <button class="btn_cancel js_cancel">取消</button>
     </div>
 </div>
 <div class="popup_mask"></div>
 
 <div class="ui-calendar" id="calendar"></div>
-<script src="https://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="/scripts/lib/ejs.js"></script>
-<script type="text/javascript" src="/scripts/widget/calendar.js"></script>
-
-<script type="text/javascript">
-
-    var calendar = new Calendar({
-      startYear: 2000
-    })
-
-    calendar.showCalendar();
-</script>
 <script type="text/javascript" src="/dist/scripts/borrowers/vehicle/add.js"></script>
 </body>
 </html>
