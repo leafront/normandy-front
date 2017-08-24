@@ -1,3 +1,133 @@
 @import '../modules/reset.scss';
 
 @import '../modules/common.scss';
+
+.account_info{
+
+	padding-top:30rem/$rem;
+
+	padding-bottom:50rem/$rem;
+
+	text-align:center;
+
+	border-bottom:1px solid #ececec;
+
+
+
+	h4{
+
+		font-size:18px;
+
+		color:#666;
+
+	}
+	strong{
+		display:block;
+		margin-top:18px;
+		font-size:28px;
+
+		color:#ed6b75;
+
+		font-weight:bold;
+
+	}
+
+}
+.account_btn{
+
+	padding-top:34rem/$rem;
+
+	button{
+
+		padding:0 50rem/$rem;
+
+		height:42px;
+		line-height:42px;
+
+		@include boxShadow(4);
+
+		@include borderRadius(6);
+
+		font-size:16px;
+
+		color:#fefefe;
+
+		cursor: pointer;
+
+	}
+	.btn_recharge{
+		background:#ed6b75;
+
+		margin-right:24px;
+		&:hover{
+
+			background:#ef5d5d;
+		}
+	}
+	.btn_cash{
+
+		background:#53cac3;
+		&:hover{
+
+			background:#6adbcf;
+		}
+	}
+}
+
+.bank_card{
+
+	padding-top:40rem/$rem;
+
+	padding-bottom:50rem/$rem;
+
+
+}
+.bank_card_btn{
+
+	text-align:center;
+
+	.bank_card_link{
+
+		padding:0 50rem/$rem;
+
+		height:42px;
+
+		display:inline-block;
+
+		cursor:pointer;
+
+		line-height:42px;
+
+		@include boxShadow(4);
+
+		@include borderRadius(6);
+
+		font-size:16px;
+
+		color:#fefefe;
+
+		background:#ed6b75;
+
+		cursor: pointer;
+
+		&:hover{
+
+			background:#ef5d5d;
+
+		}
+	}
+}
+
+.bank_card_des{
+	color:#666;
+	h4{
+		font-size:16px;
+	}
+	width:660px;
+	margin:0 auto;
+	padding-top:30rem/$rem;
+
+	p{
+		margin-top:20px;
+	}
+}

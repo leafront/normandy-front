@@ -5,14 +5,15 @@ var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
+var ejs = require('../lib/ejs');
 
 var popup = require('../widget/popup');
 
+var listTpl =  require('./templates/list');
 
 var Page = require('../widget/page');
 
 var pagination = require('../widget/pagination');
-
 
 Page({
 
@@ -32,7 +33,12 @@ Page({
 
 		var This = this;
 
-		pagination.showPage('/shop/list');
+		$('.pagination_list').on('click','.js_page',(event) =>{
+
+			pagination.showPage(event,'/shop/list',null,listTpl,null);
+
+		})
+
 
 		$('.shop_province').on('click','li',function(){
 

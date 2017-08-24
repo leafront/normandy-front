@@ -52,3 +52,34 @@
 
 
 }
+
+
+
+.popup_list_wraper{
+	width:220rem/$rem;
+
+	height:280rem/$rem;
+
+	overflow:auto;
+
+	float:left;
+	@include borderRadius(3);
+	border:1px solid #ccc;
+}
+.popup_submit{
+
+	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
+}
+
+
+.popup_input{
+	padding-left:114rem/$rem;
+	padding-top:32rem/$rem;
+	label{
+		font-size:14px;
+		color:#333;
+		display:inline-block;
+		width:84px;
+		text-align:right;
+	}
+}

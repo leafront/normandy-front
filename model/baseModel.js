@@ -38,7 +38,6 @@ module.exports = {
 				}
 			}).then((res) =>{
 
-
 				try{
 
 					res = JSON.parse(res);

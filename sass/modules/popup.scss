@@ -51,12 +51,11 @@
 
 	transition: transform .3s linear;
 
-
-
 	&.active{
 
-	 opacity: 1;
-	  z-index:1100;
+		opacity: 1;
+
+		z-index:1100;
 
 		transform:translateY(100rem/$rem);
 
@@ -85,120 +84,6 @@
 	}
 
 }
-.popup_cont{
+/********/
 
 
-	padding-left:105rem/$rem;
-
-	padding-top:32rem/$rem;
-
-	padding-bottom:30rem/$rem;
-
-	border-bottom:1px solid #ececec;
-
-	span{
-		float:left;
-
-		margin-right:30rem/$rem;
-
-		margin-top:120rem/$rem;
-
-		font-size:14px;
-
-		color:#333;
-	}
-
-	strong{
-		float: left;
-		position:relative;
-
-		width:24px;
-		height:14px;
-
-		margin:120rem/$rem 25rem/$rem 0;
-
-		&:before{
-			content:'';
-			position:absolute;
-
-			left:0;
-			top:0;
-			display: block;
-			width: 0;
-			height: 0;
-			border-top: 7px solid transparent;
-			border-right: 10px solid #d4d9de;
-			border-bottom: 7px solid transparent;
-		}
-		&:after{
-			content:'';
-			position:absolute;
-			right:0;
-			top:0;
-			display: block;
-			width: 0;
-			height: 0;
-			border-top: 7px solid transparent;
-			border-left:10px solid #d4d9de;
-			border-bottom: 7px solid transparent;
-		}
-	}
-
-}
-
-.popup_list_wraper{
-	width:220rem/$rem;
-
-	height:280rem/$rem;
-
-	overflow:auto;
-
-	float:left;
-	@include borderRadius(3);
-	border:1px solid #ccc;
-}
-.popup_list{
-
-	width:100%;
-
-	padding:0 6px 8px;
-
-
-	li{
-
-		height:28px;
-
-		line-height:28px;
-
-		margin-top:8px;
-
-		font-size:14px;
-
-		a{
-			color:#333;
-			display:block;
-			padding-left:18px;
-			&:hover{
-				background:#f1f3f6;
-			}
-		}
-	}
-
-}
-.popup_submit{
-
-	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
-}
-
-
-.popup_input{
-	padding-left:114rem/$rem;
-	padding-top:32rem/$rem;
-	label{
-		font-size:14px;
-		color:#333;
-		display:inline-block;
-		width:84px;
-		text-align:right;
-	}
-}

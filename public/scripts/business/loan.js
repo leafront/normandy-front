@@ -124,6 +124,7 @@ var vueConfig = new Vue({
 	},
 	watch: {
 		'dropMenu.cars':{
+
 			handler: function (val, oldVal) {
 
 				this.showCalendar();

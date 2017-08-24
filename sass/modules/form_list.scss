@@ -199,7 +199,6 @@
 	}
 
 }
-.form-group{
 	.form-group-error{
 
 		label{
@@ -210,6 +209,18 @@
 			&::-webkit-input-placeholder{
 				color:#e73d4a;
 			}
+		}
+		i{
+			color:#e73d4a;
+
+		}
+
+		span{
+			color:#e73d4a;
+		}
+		.phone_des{
+
+			border:1px solid #e73d4a;
 		}
 
 		.drop_menu{
@@ -227,10 +238,7 @@
 
 			border:1px solid #e73d4a;
 		}
-
-
 	}
-}
 
 .form-group-error{
 	.vehicle_run_des{

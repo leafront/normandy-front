@@ -394,10 +394,9 @@ var repaymentType = [
 	"value": 2
 },
 {
-	"nme": "等额本金",
+	"name": "等额本金",
 	"value": 3
-}
-];
+}];
 
 var education = [
 	{
@@ -828,6 +827,14 @@ var livingConditions = [{
 	value:4
 }];
 
+var gender = [{
+	name: '女',
+	value: 0
+},{
+	name:'男',
+	value:1
+}];
+
 var borrowingConditions = [{
 	name:'配偶',
 	value:0
@@ -908,8 +915,73 @@ var answerStatus = [{
 		"value": 2
 }];
 
+var emerContactFrequency = [{
+		"name": "经常",
+		"value": 0
+	},{
+		"name": "偶尔",
+		"value": 1
+	},{
+		"name": "极少",
+		"value": 2
+}];
+
+var companyScale = [{
+	"name": "5人以内",
+	"value": 0
+ },{
+		"name": "10人以内",
+		"value": 1
+	},{
+		"name": "10-20人",
+		"value": 2
+	},{
+		"name": "20-50人",
+		"value": 3
+	},{
+		"name": "50-100人",
+		"value": 4
+	},{
+		"name": "100-200人",
+		"value": 5
+	},{
+		"name": "200-500人",
+		"value": 6
+	},{
+		"name": "500人以上",
+		"value": 7
+	},{
+		"name": "无职业",
+		"value": 8
+}];
+
+
+var seniority = [{
+		"name": "一年内",
+		"value": 0
+	},
+	{
+		"name": "一年以上",
+		"value": 1
+	},
+	{
+		"name": "未知",
+		"value": 2
+}];
+
+var loanType = [{
+	"name": "抵押",
+	"value": 0
+},{
+	"name": "质押",
+	"value": 1
+}];
 
 module.exports = {
+	loanType,
+	seniority,
+	companyScale,
+	gender,
 	answerStatus,
 	livingConditions,
 	borrowingConditions,
@@ -949,5 +1021,6 @@ module.exports = {
 	education,
 	houseStatus,
 	selfResidenceTime,
-	vehicleStatus
+	vehicleStatus,
+	emerContactFrequency
 }

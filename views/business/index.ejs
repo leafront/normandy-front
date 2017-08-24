@@ -16,7 +16,7 @@
             <em class="navigation_ico"></em>
             <span>借款人列表</span>
         </div>
-        <div class="content">
+        <div class="content" id="app">
             <div class="cont-title">
                 <i></i>
                 <span>车辆列表</span>
@@ -29,24 +29,26 @@
 
                         <div class="search_item">
                             <label>借款编号</label>
-                            <input type="text" class="user-ui-input" id="businessNo" placeholder="请输入借款编号"/>
+                            <input type="text" class="user-ui-input" v-model="params.no" placeholder="请输入借款编号"/>
                         </div>
                         <div class="search_item">
                             <label>借款人</label>
-                            <input type="text" class="user-ui-input" id="userName" placeholder="请输入借款人姓名"/>
+                            <input type="text" class="user-ui-input" v-model="params.name" placeholder="请输入借款人姓名"/>
                         </div>
                         <div class="search_item">
                             <label>借款金额</label>
-                            <input type="text" class="user-ui-input" id="amount" placeholder="请输入借款金额"/>
+                            <input type="text" class="user-ui-input" v-model="params.amount" placeholder="请输入借款金额"/>
                         </div>
                         <div class="search_item">
                             <label>借款期限</label>
-                            <input type="text" class="time-ui-input" id="term" placeholder="请输入借款期限"/>
-                            <div class="drop_menu">
-                              <span class="js_select" id="termType" data-value="">请选择</span>
+                            <input type="text" class="time-ui-input" v-model="params.term" placeholder="请输入借款期限"/>
+                            <div class="drop_menu" :class="{'active':dropMenu == 1}">
+                              <span @click.stop="selectValue(1)" v-cloak>{{loanTerm}}</span>
                               <ul class="drop_menu_list">
-                                <% termUnit.forEach(function(item){%>
-                                   <li data-value="<%-item.value%>"><a href="javascript:;"><%-item.name%></a></li>
+                                <%termUnit.forEach(function(item){%>
+
+                                 <li @click="checkValue('term_unit',<%-item.value%>)"><a href="javascript:;"><%-item.name%></a></li>
+
                                 <%})%>
                               </ul>
                             </div>
@@ -56,22 +58,22 @@
                 <div class="list_item">
                   <div class="search_item">
                     <label>借款类型</label>
-                    <div class="drop_menu drop-menu-loan">
-                      <span class="js_select" id="businessType" data-value="">请选择</span>
+                    <div class="drop_menu drop-menu-loan" :class="{'active':dropMenu == 2}">
+                      <span @click.stop="selectValue(2)" v-cloak>{{loanType}}</span>
                       <ul class="drop_menu_list">
                         <%borrowingType.forEach(function(item){%>
-                          <li data-value="<%-item.value%>"><a href="javascript:;"><%-item.name%></a></li>
+                          <li @click="checkValue('type',<%-item.value%>)"><a href="javascript:;"><%-item.name%></a></li>
                         <%})%>
                       </ul>
                     </div>
                   </div>
                   <div class="search_item">
                     <label>借款状态</label>
-                      <div class="drop_menu drop-menu-loan">
-                        <span class="js_select" id="businessStatus" data-value="">请选择</span>
+                      <div class="drop_menu drop-menu-loan" :class="{'active':dropMenu == 3}">
+                        <span @click.stop="selectValue(3)" v-cloak>{{loanStatus}}</span>
                           <ul class="drop_menu_list">
                           <% for(var attr in borrowingStatus) {%>
-                            <li data-value="<%-attr%>"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                            <li  @click="checkValue('status',<%-attr%>)"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
                           <%}%>
                           </ul>
                         </div>
@@ -79,15 +81,15 @@
                   <div class="search_item">
                     <label>注册时间</label>
                     <div class="user-ui-calendar">
-                        <input type="text" class="user-ui-input" readonly="readonly" id="fromTime" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" readonly="readonly" v-model="params.from" id="fromTime" placeholder="请输入开始时间"/>
                         <em>至</em>
-                        <input type="text" class="user-ui-input" readonly="readonly" id="endTime" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" readonly="readonly" v-model="params.to" id="endTime" placeholder="请输入开始时间"/>
                     </div>
                   </div>
                 </div>
                 <div class="search_submit clearfix">
-                    <button type="button" class="js_query">查询</button>
-                    <button type="reset" class="js_reset">重置</button>
+                    <button type="button" @click="query">查询</button>
+                    <button type="reset" @click="reset">重置</button>
                 </div>
                </form>
             </div>
@@ -126,7 +128,7 @@
                           <%}%>
                         </div>
                         <a class="list_action" href="/business/<%-item.id%>">详情</a>
-                        <% if(item.status == 0) {%><a class="list_action" href="/business/edit?id=<%-item.id%>"> / 完善借款信息</a><%}%>
+                        <% if(item.status == 0) {%><a class="list_action" href="/business/edit/<%-item.id%>"> / 完善借款信息</a><%}%>
                     </dd>
                   <%})%>
                 <%}else{%>
