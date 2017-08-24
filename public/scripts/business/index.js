@@ -13,7 +13,7 @@ var pagination = require('../widget/pagination');
 
 var Calendar = require('../widget/calendar');
 
-var Page = require('../widget/page');
+var Vue = require('../lib/vue');
 
 var data = require('../../../model/data');
 
@@ -27,105 +27,29 @@ const {
 
 } = data;
 
-Page({
 
-	onShow(){
+var vueConfig = new Vue({
+
+	el:'#app',
+	data:{
+		borrowingType,
+		termUnit,
+		borrowingStatus,
+		dropMenu:-1,
+		params:{ no:'', name:'', status:'', type:'', amount:'', term:'', term_unit:'', from:'', to:'' }
+	},
+
+	mounted(){
 
 		common.headerMenu();
 
-		common.dropMenu();
+		this.showCalendar();
 
-		this.widgetCalendar();
+		$('.pagination_list').on('click','.js_page',(event) =>{
 
-	},
+			var data = this.params;
 
-	widgetCalendar(){
-
-		var fromTime = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#fromTime'
-		})
-
-		fromTime.showCalendar();
-
-		var endTime = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#endTime'
-		})
-
-		endTime.showCalendar();
-
-	},
-	bindEvents(){
-
-		pagination.showPage('/business/list',listTpl,{
-			termUnit,
-			borrowingStatus,
-			autoReviewStatus,
-			phoneReviewStatus,
-			borrowingType
-		});
-
-		$('.js_reset').click(function(){
-
-			common.clearForm();
-
-			pagination.pageList('/business/list',null,listTpl,{
-				termUnit,
-				borrowingStatus,
-				autoReviewStatus,
-				phoneReviewStatus,
-				borrowingType
-			});
-
-		})
-
-		this.search();
-
-	},
-
-	search(){
-
-		$('.js_query').click(function(){
-
-			var businessNo = $.trim($('#businessNo').val());
-
-			var userName = $.trim($('#userName').val());
-
-			var term = $.trim($('#term').val());
-
-			var amount = $.trim($('#amount').val());
-
-			var termType = $.trim($('#termType').data('value'));
-
-			var businessType = $.trim($('#businessType').data('value'));
-
-			var businessStatus = $.trim($('#businessStatus').data('value'));
-
-			var fromTime = $.trim($('#fromTime').val());
-
-			var endTime = $.trim($('#endTime').val());
-
-			var page = Lizard.query('page') || 1;
-
-			var data = {
-				page,
-				no:businessNo,
-				type:businessType,
-				amount,
-				term:term,
-				term_unit:termType,
-				status:businessStatus,
-				name:userName,
-				from:fromTime,
-				to:endTime
-			}
-
-			data = common.deleteEmptyProperty(data);
-
-			pagination.pageList('/business/list',data,listTpl,{
+			pagination.showPage(event,'/business/list',data,listTpl,{
 				termUnit,
 				borrowingStatus,
 				autoReviewStatus,
@@ -135,7 +59,156 @@ Page({
 
 		})
 
+
+		$(document).click(() =>{
+
+			this.dropMenu = -1;
+
+		})
+
+	},
+
+	computed:{
+
+		loanTerm () {
+
+			var term_unit = this.params.term_unit;
+
+			if (term_unit !== "") {
+
+				var value = this.termUnit[term_unit].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		loanType () {
+
+			var type = this.params.type;
+
+			if (type !== "") {
+
+				var value = this.borrowingType[type].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		loanStatus () {
+
+			var status = this.params.status;
+
+			if (status !== "") {
+
+				var value = this.borrowingStatus[status].title;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		}
+
+	},
+	methods: {
+
+		showCalendar(){
+
+			var times = [{ele: '#fromTime', name: 'from'}, {ele: '#endTime', name: 'to'}];
+
+
+				times.forEach((item, index) => {
+
+					var calendarItem = new Calendar({
+						startYear: 2000,
+						yearNum: 5,
+						ele: item.ele,
+						callback: (date) => {
+
+							this.params[item.name] = date;
+
+						}
+					})
+
+					calendarItem.showCalendar();
+				})
+
+
+		},
+
+		checkValue (property, value) {
+
+			this.params[property] = value;
+
+		},
+
+		fetch (data) {
+
+			var page = Lizard.query('page') || {};
+
+			var formData = Object.assign({ page }, data );
+
+			pagination.pageList('/business/list',formData,listTpl,{
+				termUnit,
+				borrowingStatus,
+				autoReviewStatus,
+				phoneReviewStatus,
+				borrowingType
+			})
+		},
+
+		selectValue (value) {
+
+			var dropMenu  = this.dropMenu;
+
+			if (dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+			}
+
+		},
+
+		query () {
+
+			var data = this.params;
+
+			data = common.deleteEmptyProperty(data);
+
+			this.fetch(data);
+
+		},
+
+		reset () {
+
+			this.params = {
+				no:'',
+				name:'',
+				status:'',
+				type:'',
+				amount:'',
+				term:'',
+				term_unit:'',
+				from:'',
+				to:''
+			}
+
+			this.fetch(null);
+
+		}
 	}
 })
-
 

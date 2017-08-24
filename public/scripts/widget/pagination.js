@@ -9,39 +9,28 @@ var listEmpty = require('../templates/list_empty');
 
 var pagination = {
 
-	showPage (url,listTpl,tplData){
+	showPage (event,url,data,listTpl,tplData){
 
-		var This = this;
+		event.preventDefault();
 
-		$('.pagination_list').on('click','.js_page',function(e) {
+		var href = $(event.currentTarget).attr('href');
 
-			e.preventDefault();
-
-			var href = $(this).attr('href');
+		var page = href.split('?')[1];
 
 
-			var page = href.split('?')[1];
+		if (history.pushState) {
 
+			history.pushState(null,null,href);
 
-			if (history.pushState) {
+		}
 
-				history.pushState(null,null,href);
+		var currentPage = parseInt(page.split('=')[1]);
 
-			}
+		var formData = Object.assign({page:currentPage},data);
 
-			var currentPage = parseInt(page.split('=')[1]);
+		formData = common.deleteEmptyProperty(formData);
 
-
-			var data = {
-
-				page:currentPage
-
-			}
-
-
-			This.pageList(url,data,listTpl,tplData);
-
-		})
+		this.pageList(url,formData,listTpl,tplData);
 
 	},
 	pageList(url,formData,listTpl,tplData) {
@@ -94,8 +83,6 @@ var pagination = {
 				} else {
 
 					var html = ejs.render(paginationTpl,{data:null});
-
-					console.log(data)
 
 					$('.pagination_list').html(html);
 

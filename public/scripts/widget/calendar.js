@@ -219,18 +219,12 @@ Calendar.prototype = {
 			$('#getDate').val(changeYear + '-' + This.parseNumber(changeMonth) + '-' + This.day);
 
 		})
-
-
 	},
 
 	renderTpl(year,month,today){
 
 
 		var firstDay = new Date(year,month-1,1).getDay();
-
-		var currentYear = this.year;
-
-		var currentMonth = this.parseNumber(this.month);
 
 		var rows = Math.ceil((this.getDaysInMonth(year,month) + firstDay)/7);
 
@@ -248,7 +242,7 @@ Calendar.prototype = {
 								}
 								var calcClass = '';
 
-								if (currentYear == year && currentMonth == parseNumber(month) && day == today ){
+								if (day == today ){
 
 									calcClass = 'active';
 
@@ -273,8 +267,6 @@ Calendar.prototype = {
 		var html = ejs.render(tpl,{
 			year,
 			month:month,
-			currentYear,
-			currentMonth,
 			rows,
 			firstDay,
 			today,

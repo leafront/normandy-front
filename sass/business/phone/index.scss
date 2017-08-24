@@ -33,7 +33,7 @@
 	}
 }
 .business_status {
-	overflow: hidden;
+	height:40px;
 	border-bottom: 1px solid #ececec;
 	h4 {
 		font-size: 16px;
@@ -123,18 +123,11 @@
 
 	display:inline-block;
 
-	margin-right:120rem/$rem;
-
-	&:last-child{
-
-		margin-right:0;
-	}
-
 	i{
 
-		width:15px;
+		width:17px;
 
-		height:15px;
+		height:17px;
 
 		display:inline-block;
 
@@ -147,6 +140,13 @@
 		top:2px;
 
 		margin-left:15rem/$rem;
+
+		&.active{
+
+			border:1px solid #53cac3;
+
+			background:url(/images/ico_sprite.png) no-repeat #53cac3 -179px -109px;
+		}
 	}
 }
 
@@ -171,6 +171,12 @@
 		top:2px;
 
 		margin-left:15rem/$rem;
+		&.active{
+
+			border:1px solid #53cac3;
+
+			background:url(/images/ico_sprite.png) no-repeat #53cac3 -179px -109px;
+		}
 	}
 	span{
 		margin-left:15rem/$rem;
@@ -183,20 +189,20 @@
 
 		float:left;
 	}
-	.phone_des{
-		width:470rem/$rem;
-		margin-left:16rem/$rem;
-		border:1px solid #ccc;
+}
+.phone_des{
+	width:470rem/$rem;
+	margin-left:16rem/$rem;
+	border:1px solid #ccc;
 
-		height:140px;
+	height:140px;
 
-		resize:vertical;
+	resize:vertical;
 
-		padding:5px;
+	padding:5px;
 
-		&:focus{
-			border:1px solid #53cac3;
-		}
+	&:focus{
+		border:1px solid #53cac3;
 	}
 }
 .form-group-ellipsis{
@@ -205,5 +211,22 @@
 		float:left;
 
 		line-height:22px;
+	}
+}
+.phone_submit{
+
+	display:flex;
+
+	justify-content:center;
+	padding-top:20px;
+
+	padding-bottom:30px;
+}
+.business_status{
+
+	.drop_menu{
+
+		float:right;
+
 	}
 }

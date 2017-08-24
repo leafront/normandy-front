@@ -1,11 +1,9 @@
-/**
- * Created by leafrontye on 2017/8/2.
- */
-
 
 var router = require('koa-router')();
 
 var common = require('../../model/common');
+
+var baseModel = require('../../model/baseModel');
 
 router.get('/', async (ctx,next) => {
 
@@ -18,6 +16,43 @@ router.get('/', async (ctx,next) => {
 		shop,
 		roleList
 	})
+})
+
+
+router.post('/sina', async (ctx,next) => {
+
+	await baseModel.get(ctx,{
+		url:'/api/sina-account'
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/card', async (ctx,next) => {
+
+	await baseModel.get(ctx,{
+		url:'/api/sina-card'
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
 })
 
 module.exports = router;

@@ -9,6 +9,32 @@ var data = require('../../model/data');
 
 var querystring = require('querystring');
 
+const uploadImg = [
+	{
+		type: 'cover_pic',
+		name: '封面图'
+	},
+	{
+		type: 'apply_pics',
+		name: '申请资料图'
+	},
+	{
+		type: 'call_records',
+		name: '通话记录'
+	},
+	{
+		type: 'contract_pics',
+		name: '合同资料'
+	},
+	{
+		type: 'supporting_pics',
+		name: '三方证明资料'
+	},{
+		type: 'violation_records',
+		name: '违章资料'
+	},
+];
+
 const {
 
 	mobileEncrypt,
@@ -17,6 +43,11 @@ const {
 } = common;
 
 const {
+	loanType,
+	seniority,
+	companyScale,
+	gender,
+	emerContactFrequency,
 	answerStatus,
 	livingConditions,
 	borrowingConditions,
@@ -84,8 +115,8 @@ router.get('/', async (ctx,next) => {
 		shop,
 		roleList,
 		businessList,
-		borrowingType,
 		termUnit,
+		borrowingType,
 		borrowingStatus,
 		autoReviewStatus,
 		phoneReviewStatus,
@@ -142,33 +173,24 @@ router.get('/:id', async (ctx,next) => {
 
 	const conditionInfo = conditionList.results[0];
 
-	const uploadImg = [
-		{
-			type: 'cover_pic',
-			name: '封面图'
-		},
-		{
-			type: 'apply_pics',
-			name: '申请资料图'
-		},
-		{
-			type: 'call_records',
-			name: '通话记录'
-		},
-		{
-			type: 'contract_pics',
-			name: '合同资料'
-		},
-		{
-			type: 'violation_records',
-			name: '违章资料'
-		},
-		{
-			type: 'supporting_pics',
-			name: '三方证明资料'
-		}
-	];
 
+
+  function reviewPermission (status){
+
+		switch(status){
+			case 0:
+				return roleList.indexOf('SHOP_REVIEW') > -1;
+			case 1:
+				return roleList.indexOf('MASTER_REVIEW') > -1;
+			case 2:
+				return roleList.indexOf('ACCOUNTANT_REVIEW') > -1;
+			case 3:
+				return roleList.indexOf('RETRIAL') > -1;
+		}
+
+		return false;
+
+	}
 	const vehicle = business.application.vehicle;
 
 	await ctx.render('business/detail',{
@@ -176,6 +198,7 @@ router.get('/:id', async (ctx,next) => {
 		authority,
 		shop,
 		roleList,
+		reviewPermission,
 		detailId:id,
 		borrowingStatus,
 		borrowingType,
@@ -269,11 +292,50 @@ router.get('/phone/:id', async (ctx,next) => {
 		roleList,
 		phoneId,
 		detailId,
+		seniority,
+		nullBooleanOptions,
+		companyScale,
 		answerStatus,
 		selfResidenceTime,
 		livingConditions,
 		borrowingConditions,
-		booleanOptions
+		booleanOptions,
+		emerContactFrequency,
+		gender
+	})
+
+})
+
+
+router.get('/edit/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx, {
+		url: '/api/current-user'
+	})
+
+	const borrowingId = ctx.params.id;
+
+	const business = await baseModel.get(ctx,{
+		url:`/api/borrowings/${borrowingId}`
+	})
+
+	const { application } =  business;
+
+	await ctx.render('business/edit/index',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		borrowingId,
+		application,
+		business,
+		uploadImg,
+		loanType,
+		termUnit,
+		booleanOptions,
+		repaymentType,
+		mobileEncrypt,
+		idCardEncrypt
 	})
 
 })
@@ -466,6 +528,92 @@ router.post('/approval/review',async (ctx,next) => {
 
 })
 
+router.post('/phone/submit',async (ctx,next) => {
+
+	const { id, data }  = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		url:`/api/applications/${id}/phone-reviews`,
+		data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+router.post('/salesmen',async (ctx,next) => {
+
+	await baseModel.get(ctx,{
+		type:'GET',
+		url:'/api/salesmen',
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/oss-key',async (ctx,next) => {
+
+	const body = ctx.request.body;
+
+	await baseModel.get(ctx,{
+		type:'GET',
+		url:'/api/oss-key',
+		data:body,
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/edit', async (ctx,next) => {
+
+	const { id, data }= ctx.request.body;
+
+
+	await baseModel.post(ctx,{
+		type:'PATCH',
+		url:`/api/borrowings/${id}`,
+		data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
 
 
 module.exports = router;

@@ -8,6 +8,8 @@ var ejs = require('../lib/ejs');
 
 var Lizard = require('../widget/lizard');
 
+var local = require('../widget/local');
+
 var Page = require('../widget/page');
 
 var approvalTpl = require('./templates/approval');
@@ -71,6 +73,15 @@ Page({
 
 		this.init();
 
+
+		this.storageContact();
+
+	},
+
+	storageContact(){
+
+		local.set('social_net',window.social_net);
+
 	},
 	init(){
 
@@ -98,27 +109,53 @@ Page({
 			This.purchaseAction(query);
 		})
 
+		this.rotateImg();
+
+
+
+	},
+
+	rotateImg() {
+
+		var origin_rotate = 0;
+
+		$('.business_rotate').click(function(event){
+
+			var img = $(this).parent().find('.img_pic');
+
+			var new_rotate = (origin_rotate + 90) % 360;
+
+			img.css('transform', 'rotate('+ new_rotate +'deg)');
+
+			origin_rotate= new_rotate;
+
+		})
+
 	},
 
 	getVehiclesRisks(){
 
-		Lizard.ajax({
-			type:'POST',
-			url:'/business/vehicles/risks',
-			data:{
-				id: this.borrowingsId
-			},
-			success:function(data){
+		if (roleList.indexOf('CREDIT_READ') > -1) {
 
-				if(data) {
+			Lizard.ajax({
+				type:'POST',
+				url:'/business/vehicles/risks',
+				data:{
+					id: this.borrowingsId
+				},
+				success:function(data){
 
-					var html = ejs.render(creditTpl,{list:credit,risks:data});
+					if(data) {
 
-					$('#vehicleList').html(html);
+						var html = ejs.render(creditTpl,{list:credit,risks:data});
+
+						$('#vehicleList').html(html);
+					}
+
 				}
+			})
 
-			}
-		})
+		}
 
 	},
 

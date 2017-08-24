@@ -216,10 +216,10 @@
                                 <label>直系亲属</label>
                                 <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
                                 <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
-                                <input type="text" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
                                 <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','relatives',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('social_net','relatives',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','relatives',index)">-</button>
                             </div>
 
                         </div>
@@ -228,10 +228,10 @@
                                 <label>紧急联系人</label>
                                 <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
                                 <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
-                                <input type="text" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
                                 <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','emergencyContacts',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('social_net','emergencyContacts',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','emergencyContacts',index)">-</button>
                             </div>
                         </div>
                         <div class="form-group clearfix" v-for="(item,index) in formData.social_net.friends">
@@ -239,10 +239,10 @@
                                 <label>朋友</label>
                                 <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
                                 <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
-                                <input type="text" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
                                 <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','friends',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('social_net','friends',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','friends',index)">-</button>
                             </div>
                         </div>
                         <div class="form-group clearfix" v-for="(item,index) in formData.social_net.colleagues">
@@ -250,10 +250,10 @@
                                 <label>单位联系人</label>
                                 <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
                                 <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
-                                <input type="text" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
                                 <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','colleagues',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('social_net','colleagues',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','colleagues',index)">-</button>
                             </div>
                         </div>
                     </div>
@@ -278,13 +278,13 @@
                             </div>
                             <div class="form-group-rows">
                                 <div class="form-group-salary">
-                                    <input type="text" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.monthlyPay === '')}" v-model="item.monthlyPay" placeholder="月供">
+                                    <input type="number" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.monthlyPay === '')}" v-model="item.monthlyPay" placeholder="月供">
                                     <i class="user-ui-input-txt">元/月</i>
                                 </div>
 
                                 <input type="text" class="user-ui-input user-ui-area"  :class="{'error_input':(!isValidate && item.address === '')}" v-model="item.address" placeholder="地址">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','houseProperties',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('property','houseProperties',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('property','houseProperties',index)">-</button>
                             </div>
                         </div>
                         <div class="form-group clearfix" v-for="(item,index) in formData.property.cars">
@@ -312,21 +312,21 @@
                                 </div>
                                 <input type="text" class="user-ui-input user-ui-area" :class="{'error_input':(!isValidate && item.brand === '')}" v-model="item.brand" placeholder="品牌型号">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','cars',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('property','cars',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('property','cars',index)">-</button>
                             </div>
                         </div>
                         <div class="form-group clearfix" v-for="(item,index) in formData.property.financialAssets">
                             <div class="form-group-rows" :class="{'error_input':(!isValidate && formData.property.financialAssets[index].status === '')}">
                                 <label :class="{'error_text':(!isValidate && item.field === '')}">金融资产</label>
                                 <input type="text" class="user-ui-input user-ui-money" :class="{'error_input':(!isValidate && item.field === '')}" v-model="item.field" placeholder="投资领域">
-                                <input type="text" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.amount === '')}" v-model="item.amount" placeholder="金额">
+                                <input type="number" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.amount === '')}" v-model="item.amount" placeholder="金额">
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                             <div class="form-group-rows vehicles-base-input">
                                 <label :class="{'error_text':(!isValidate && item.desc === '')}">说明</label>
                                 <input type="text" class="user-ui-input user-ui-des" :class="{'error_input':(!isValidate && item.desc === '')}" v-model="item.desc" placeholder="说明">
                                 <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','financialAssets',index)">+</button>
-                                <button class="form-group-btn btn_gray" v-else="index == 0" @click="removeRecord('property','financialAssets',index)">-</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('property','financialAssets',index)">-</button>
                             </div>
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.amount === '')}">
                                 <label data-value="">借款金额</label>
-                                <input type="text" class="user-ui-input" v-model="formData.amount" placeholder="工作年限">
+                                <input type="number" class="user-ui-input" v-model="formData.amount" placeholder="工作年限">
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                             <div class="form-group-rows">

@@ -35,7 +35,7 @@
                  <div class="vehicle_info_title">
                      <div class="business_status">
                          <h4>借款信息</h4>
-                        <% if([0, 1, 2, 3].indexOf(business.status) > -1){%> <a class="ico1" href="/business/approval/<%-detailId%>?bid=<%-business.no%>&status=<%-business.status%>">去<%-borrowingStatus[business.status].stage%></a><%}%>
+                        <% if([0, 1, 2, 3].indexOf(business.status) > -1 && reviewPermission(business.status)){%> <a class="ico1" href="/business/approval/<%-detailId%>?bid=<%-business.no%>&status=<%-business.status%>">去<%-borrowingStatus[business.status].stage%></a><%}%>
                      </div>
                  </div>
                  <div class="vehicle_info_wraper clearfix">
@@ -133,11 +133,11 @@
                      </div>
                      <div class="vehicle_info_wraper clearfix">
                          <div class="vehicle_item">
-                           <%if(business[item.type].length >0){%>
+                           <%if(business[item.type].length){%>
                             <div class="business_upload_img">
 
                                 <%business[item.type].forEach(function(img){%>
-                                    <img src="<%-img.source_link%>"/>
+                                    <img class="img_pic" src="<%-img.source_link%>"/>
                                     <span><%-img.filename%></span>
                                     <i class="business_rotate"></i>
                                 <%})%>
@@ -450,7 +450,7 @@
                  <div class="vehicle_info_title">
                      <div class="business_status">
                          <h4>借款人信息</h4>
-                         <a href="/business/phone/<%-application.id%>?id=<%-detailId%>" class="ico2">去电核</a>
+                        <%if (application.phone_review_status == 0){%><a href="/business/phone/<%-application.id%>?id=<%-detailId%>" class="ico2">去电核</a><%}%>
                      </div>
                  </div>
                  <div class="vehicle_info_wraper clearfix">
@@ -603,7 +603,6 @@
                                      <span><%-item.relation%></span>
                                      <span><%-mobileEncrypt(item.mobile)%></span>
                                      <span><%-item.company%></span>
-
                                  </div>
                             </div>
                          <%})%>
@@ -743,7 +742,9 @@
 </div>
 <script type="text/javascript">
 
-    window.roleList = <%-JSON.stringify(roleList)%>;
+    var roleList = <%-JSON.stringify(roleList)%>;
+
+    var social_net = <%-JSON.stringify(application.social_net)%>;
 
 </script>
 <script type="text/javascript" src="/dist/scripts/business/detail.js"></script>

@@ -13,88 +13,88 @@ var pagination = require('../widget/pagination');
 
 var Calendar = require('../widget/calendar');
 
-var Page = require('../widget/page');
+var Vue = require('../lib/vue');
 
-Page({
 
-	onShow(){
+var vueConfig = new Vue({
+
+	el:'#app',
+	data:{
+		params:{ mobile:"", name:"", from:"", to:""}
+	},
+
+	mounted(){
 
 		common.headerMenu();
 
-		this.widgetCalendar();
+		this.showCalendar();
 
-	},
+		$('.pagination_list').on('click','.js_page',(event) => {
 
-	widgetCalendar(){
+			var data = this.params;
 
-		var fromTime = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#fromTime'
-		})
-
-		fromTime.showCalendar();
-
-		var endTime = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#endTime'
-		})
-
-		endTime.showCalendar();
-
-	},
-	bindEvents(){
-
-		pagination.showPage('/borrowers/list',listTpl);
-
-		$('.js_reset').click(function(){
-
-			common.clearForm();
-
-			pagination.pageList('/borrowers/list',null,listTpl);
+			pagination.showPage(event,'/borrowers/list', data, listTpl, null);
 
 		})
 
-		this.search();
-
 	},
+	methods: {
 
-	search(){
+		showCalendar(){
 
-		$('.js_query').click(function(){
+			var times = [{ele: '#fromTime', name: 'from'}, {ele: '#endTime', name: 'to'}];
 
-			var phone = $.trim($('#phone').val());
 
-			var userName = $.trim($('#userName').val());
+			times.forEach((item, index) => {
 
-			var fromTime = $.trim($('#fromTime').val());
+				var calendarItem = new Calendar({
+					startYear: 2000,
+					yearNum: 5,
+					ele: item.ele,
+					callback: (date) => {
 
-			var endTime = $.trim($('#endTime').val());
+						this.params[item.name] = date;
 
-			var page = Lizard.query('page') || 1;
+					}
+				})
 
-			if (phone && !Lizard.isMobile(phone)){
+				calendarItem.showCalendar();
+			})
 
-				Lizard.showToast('请输入正确的手机号');
 
-				return;
+		},
 
+
+		fetch (data) {
+
+			var page = Lizard.query('page') || {};
+
+			var formData = Object.assign({ page }, data );
+
+			pagination.pageList('/borrowers/list',formData,listTpl,null)
+		},
+
+		query () {
+
+			var data = this.params;
+
+			data = common.deleteEmptyProperty(data);
+
+			this.fetch(data);
+
+		},
+
+		reset () {
+
+			this.params = {
+				mobile:"",
+				name:"",
+				from:"",
+				to:""
 			}
 
-			var data = {
-				page,
-				mobile:phone,
-				name:userName,
-				from:fromTime,
-				to:endTime
-			}
+			this.fetch(null);
 
-			pagination.pageList('/borrowers/list',data,listTpl);
-
-		})
-
+		}
 	}
 })
-
-

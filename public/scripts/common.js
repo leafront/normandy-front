@@ -129,8 +129,6 @@ var common = {
 
 		$('.js_select').click(function(e){
 
-			console.log(111)
-
 			e.stopPropagation();
 
 
@@ -176,6 +174,15 @@ var common = {
 
 			}
 		})
+	},
+	isEmptyObject (value){
+
+		for (var attr in value) {
+
+			return false;
+		}
+
+		return true;
 	},
 	deleteEmptyProperty(object){
 

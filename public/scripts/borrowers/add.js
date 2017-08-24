@@ -48,7 +48,7 @@ Page({
 
 		if (!validate.isMobile(phone)) {
 
-			Lizard.showToast('请输入手机号');
+			Lizard.showToast('请输入正确的手机号');
 
 			return;
 		}

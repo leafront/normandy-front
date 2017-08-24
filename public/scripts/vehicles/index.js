@@ -13,9 +13,9 @@ var pagination = require('../widget/pagination');
 
 var Calendar = require('../widget/calendar');
 
-var Page = require('../widget/page');
-
 var data = require('../../../model/data');
+
+var Vue = require('../lib/vue');
 
 const {
 
@@ -23,76 +23,86 @@ const {
 
 } = data;
 
-Page({
 
-	onShow(){
+var vueConfig = new Vue({
+
+	el:'#app',
+	data:{
+		params:{ vin:"", name:"", from:"", to:"" }
+	},
+
+	mounted(){
 
 		common.headerMenu();
 
-		this.widgetCalendar();
+		this.showCalendar();
 
-	},
+		$('.pagination_list').on('click','.js_page',(event) => {
 
-	widgetCalendar(){
+			var data = this.params;
 
-		var fromTime = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#fromTime'
-		})
-
-		fromTime.showCalendar();
-
-		var endTime = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#endTime'
-		})
-
-		endTime.showCalendar();
-
-	},
-	bindEvents(){
-
-		pagination.showPage('/vehicles/list',listTpl,{colorList});
-
-		$('.js_reset').click(function(){
-
-			common.clearForm();
-
-			pagination.pageList('/vehicles/list',null,listTpl,{colorList});
+			pagination.showPage(event,'/vehicles/list', data, listTpl, {colorList});
 
 		})
 
-		this.search();
-
 	},
+	methods: {
 
-	search(){
+		showCalendar(){
 
-		$('.js_query').click(function(){
+			var times = [{ele: '#fromTime', name: 'from'}, {ele: '#endTime', name: 'to'}];
 
-			var vin = $.trim($('#vin').val());
 
-			var userName = $.trim($('#userName').val());
+			times.forEach((item, index) => {
 
-			var fromTime = $.trim($('#fromTime').val());
+				var calendarItem = new Calendar({
+					startYear: 2000,
+					yearNum: 5,
+					ele: item.ele,
+					callback: (date) => {
 
-			var endTime = $.trim($('#endTime').val());
+						this.params[item.name] = date;
 
-			var page = Lizard.query('page') || 1;
+					}
+				})
 
-			var data = {
-				page,
-				vin:vin,
-				name:userName,
-				from:fromTime,
-				to:endTime
+				calendarItem.showCalendar();
+			})
+
+
+		},
+
+
+		fetch (data) {
+
+			var page = Lizard.query('page') || {};
+
+			var formData = Object.assign({ page }, data );
+
+			pagination.pageList('/vehicles/list',formData,listTpl,{colorList})
+		},
+
+		query () {
+
+			var data = this.params;
+
+			data = common.deleteEmptyProperty(data);
+
+			this.fetch(data);
+
+		},
+
+		reset () {
+
+			this.params = {
+				mobile:"",
+				name:"",
+				from:"",
+				to:""
 			}
 
-			pagination.pageList('/vehicles/list',data,listTpl,{colorList});
+			this.fetch(null);
 
-		})
-
+		}
 	}
 })

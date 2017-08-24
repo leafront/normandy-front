@@ -30,7 +30,11 @@ Page({
 	},
 	bindEvents(){
 
-		pagination.showPage('/personnel/list',listTpl);
+		$('.pagination_list').on('click','.js_page',(event) => {
+
+			pagination.showPage(event,'/personnel/list', null, listTpl, null);
+
+		})
 
 		this.showSwitch();
 
