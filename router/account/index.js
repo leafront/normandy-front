@@ -55,4 +55,52 @@ router.post('/card', async (ctx,next) => {
 
 })
 
+router.post('/recharge', async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type: 'POST',
+		url: '/api/recharge',
+		data: data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+router.post('/cash', async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	console.log(data)
+
+	await baseModel.post(ctx,{
+		type: 'POST',
+		url: '/api/withdrawal',
+		data: data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+
 module.exports = router;

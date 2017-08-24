@@ -2,6 +2,8 @@
 
 @import '../modules/common.scss';
 
+@import '../modules/popup.scss';
+
 .account_info{
 
 	padding-top:30rem/$rem;
@@ -130,4 +132,27 @@
 	p{
 		margin-top:20px;
 	}
+}
+
+.popup_submit{
+
+	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
+}
+
+
+.popup_input{
+	padding-left:114rem/$rem;
+	padding-top:32rem/$rem;
+	label{
+		font-size:14px;
+		color:#333;
+		display:inline-block;
+		width:84px;
+		text-align:right;
+	}
+}
+
+.popup_form{
+
+	display:none;
 }

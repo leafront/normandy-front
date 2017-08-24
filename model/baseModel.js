@@ -77,18 +77,27 @@ module.exports = {
 					"Authorization": 'Bearer ' + jwt
 				}
 			}).then((res) => {
-				try {
 
-					res = JSON.parse(res);
+				if (typeof res == 'object') {
+
+					try {
+
+						res = JSON.parse(res);
+
+						resolve(res);
+
+
+					} catch (error) {
+
+						reject(error);
+
+					}
+
+				} else {
 
 					resolve(res);
-
-
-				} catch (error) {
-
-					reject(error);
-
 				}
+
 
 			}).catch((err) => {
 

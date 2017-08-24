@@ -44,33 +44,6 @@ module.exports = {
 		})
 
   },
-	interface (ctx,{type,url,data}) {
-	  return new Promise((resolve,reject) => {
-			request({
-				method: type,
-				url: url,
-				body: querystring.stringify(data),
-			}).then((res) => {
-				try {
-
-					res = JSON.parse(res);
-
-					resolve(res);
-
-
-				} catch (error) {
-
-					reject(error);
-
-				}
-
-			}).catch((err) => {
-
-				reject(err);
-
-			})
-		})
-	},
 	mobileEncrypt(text = ''){
 
 		var pattern = /(\d{3})\d{4}(\d{4})/;
