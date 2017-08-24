@@ -8,7 +8,6 @@
 </head>
 <body>
 <% include ../common/header.ejs %>
-
 <div class="container clearfix">
     <% include ../common/aside_menu.ejs %>
     <div class="right-container fr">
@@ -27,8 +26,8 @@
                 <h4>帐户余额</h4>
                 <strong>12988.00元</strong>
                 <div class="account_btn">
-                   <button class="btn_recharge">充值</button>
-                   <button class="btn_cash">提现</button>
+                   <button class="btn_recharge" @click="showPopup('#rechargePopup')">充值</button>
+                   <button class="btn_cash" @click="showPopup('#cashPopup')">提现</button>
                 </div>
             </div>
             <div class="cont-title">
@@ -50,6 +49,47 @@
         </div>
         <% include ../common/footer.ejs%>
     </div>
+</div>
+
+<div class="popup_wraper" id="rechargePopup">
+    <div class="popup_title">
+        <h4>门店充值</h4>
+    </div>
+    <div class="popup_input">
+        <label>金额</label>
+        <input type="text" class="user-ui-input" v-model="rechargeAmount" placeholder="请输入金额"/>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm" :disabled="saveBtn" @click="saveRecharge">确认</button>
+        <button class="btn_cancel" @click="hidePopup">取消</button>
+    </div>
+    <form method="post" :action="sinaPayLink" class="popup_form" id="recharge">
+        <template v-for="(value, key) in formData">
+            <input type="hidden" :name="key" :value="value">
+        </template>
+        <button type="submit">网银支付</button>
+    </form>
+</div>
+<div class="popup_mask"></div>
+
+<div class="popup_wraper" id="cashPopup">
+    <div class="popup_title">
+        <h4>门店提现</h4>
+    </div>
+    <div class="popup_input">
+        <label>金额</label>
+        <input type="text" class="user-ui-input" v-model="withdrawalAmount" placeholder="请输入金额"/>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm" :disabled="saveBtn" @click="saveRecharge">确认</button>
+        <button class="btn_cancel" @click="hidePopup">取消</button>
+    </div>
+    <form method="post" action="/account/cash" class="popup_form" id="cashForm">
+        <input type="hidden" name="amount" v-model="withdrawalAmount">
+        <button type="submit">网银支付</button>
+    </form>
 </div>
 <script type="text/javascript" src="/dist/scripts/account/index.js"></script>
 </body>
