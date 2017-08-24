@@ -26,7 +26,7 @@
             <div class="search">
               <form id="form">
                 <div class="search_wraper clearfix">
-
+                  <div class="list_item">
                     <div class="search_item">
                         <label>车架号</label>
                         <input type="text" class="user-ui-input" v-model="params.vin" placeholder="请输入车架号"/>
@@ -43,7 +43,31 @@
                             <input type="text" class="user-ui-input" readonly="readonly" v-model="params.to" id="endTime" placeholder="请输入开始时间"/>
                         </div>
                     </div>
-
+                  </div>
+                  <div class="list_item">
+                    <div class="search_item">
+                        <label>标的状态</label>
+                        <div class="drop_menu drop-menu-loan" :class="{'active':dropMenu == 3}">
+                            <span @click.stop="selectValue(3)" v-cloak>{{loanStatus}}</span>
+                            <ul class="drop_menu_list">
+                                <% for(var attr in borrowingStatus) {%>
+                                <li  @click="checkValue('status',<%-attr%>)"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                                <%}%>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="search_item">
+                        <label>GPS状态</label>
+                        <div class="drop_menu drop-menu-loan" :class="{'active':dropMenu == 4}">
+                            <span @click.stop="selectValue(4)" v-cloak>{{loanStatus}}</span>
+                            <ul class="drop_menu_list">
+                                <%subjectStatus.forEach(function(item){%>
+                                <li @click="checkValue('type',<%-item.value%>)"><a href="javascript:;"><%-item.name%></a></li>
+                                <%})%>
+                            </ul>
+                        </div>
+                      </div>
+                </div>
                 </div>
                 <div class="search_submit clearfix">
                     <button type="button" @click="query">查询</button>
@@ -51,24 +75,47 @@
                 </div>
               </form>
             </div>
+            <div class="gps_btn">
+               <button>一键刷新GPS状态</button>
+            </div>
             <div class="list_container">
                 <dl class="cont_list">
                     <dt>
-                        <span class="vehicles_name">借款人</span>
-                        <span class="vehicles_car">车型</span>
                         <span class="vehicles_vin">车架号</span>
-                        <span class="vehicles_color">颜色</span>
-                        <span>添加时间</span>
+                        <span class="vehicles_name">借款人</span>
+                        <span class="vehicles_times">添加时间</span>
+                        <span class="vehicles_status">标的状态</span>
+                        <span class="vehicles_subject">标的号</span>
+                        <span class="vehicles_gps">GPS设备</span>
+                        <span class="vehicles_gpsStatus">GPS状态</span>
+                        <span>操作</span>
+
                     </dt>
                     <% if(vehiclesList && vehiclesList.length){%>
                         <%vehiclesList.forEach(function(item){%>
                         <dd>
-                            <span class="vehicles_name"><%-item.borrower.name%></span>
-                            <span class="vehicles_car"><%-item.model%></span>
                             <span class="vehicles_vin"><%-item.vin%></span>
+                            <span class="vehicles_name"><%-item.borrower.name%></span>
+                            <span class="vehicles_times"><%-item.created_at.toString().slice(0,-10)%></span>
+                            <span class="vehicles_status">未上标</span>
+                            <span class="vehicles_subject">216768014</span>
+                            <div class="vehicles_gps">
+                              <div class="drop_menu drop-menu-gps" :class="{'active':dropMenu == '<%-item.vin%>'}">
+                                <span @click.stop="selectValue('<%-item.vin%>')" v-cloak>请选择</span>
+                                <ul class="drop_menu_list">
+                                    <li @click="checkValue('type',0)"><a href="javascript:;">全部</a></li>
 
-                            <span class="vehicles_color"><%-colorList[item.color] && colorList[item.color].name%></span>
-                            <span><%-item.created_at%></span>
+                                    <li @click="checkValue('type',1)"><a href="javascript:;">异常</a></li>
+
+                                    <li @click="checkValue('type',2)"><a href="javascript:;">预警</a></li>
+
+                                    <li @click="checkValue('type',3)"><a href="javascript:;">无异常</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <span class="vehicles_gpsStatus">GPS状态</span>
+                            <span class="list_action">刷新GPS状态</span>
+
                         </dd>
                         <%})%>
                     <%}else{%>

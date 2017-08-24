@@ -81,8 +81,6 @@ router.post('/cash', async (ctx,next) => {
 
 	const data = ctx.request.body;
 
-	console.log(data)
-
 	await baseModel.post(ctx,{
 		type: 'POST',
 		url: '/api/withdrawal',

@@ -977,7 +977,23 @@ var loanType = [{
 	"value": 1
 }];
 
+var subjectStatus = [{
+
+	name:'全部',
+	value:0
+},{
+	name:'异常',
+	value:1
+},{
+	name:'预警',
+	value:2
+},{
+	name:'无异常',
+	value:3
+}];
+
 module.exports = {
+	subjectStatus,
 	loanType,
 	seniority,
 	companyScale,

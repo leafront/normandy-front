@@ -12,6 +12,10 @@
 	margin-bottom:22rem/$rem;
 
 	height:34px;
+
+	&:last-child{
+		margin-bottom:0;
+	}
 }
 .cont_list{
 
@@ -53,11 +57,11 @@
 	dt{
 		background:#53cac3;
 		height:58rem/$rem;
-		overflow:hidden;
+
 		line-height:58rem/$rem;
 		font-size:16px;
 		color:#fff;
-		padding-left:60rem/$rem;
+		padding-left:40rem/$rem;
 		span{
 			font-size:16px;
 			color:#fff;
@@ -66,11 +70,11 @@
 
 	}
 	dd{
-		overflow:hidden;
+		height:58px;
 		line-height:58px;
 		font-size:16px;
 		color:#fff;
-		padding-left:60rem/$rem;
+		padding-left:40rem/$rem;
 		span{
 			font-size:16px;
 			color:#fff;
