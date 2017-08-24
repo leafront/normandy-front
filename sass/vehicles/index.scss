@@ -14,15 +14,79 @@
 .cont_list{
 	.vehicles_name{
 
-		width:250rem/$rem;
+		width:142rem/$rem;
 	}
 	.vehicles_color{
 		width:260rem/$rem;
 	}
-	.vehicles_car{
-		width:494rem/$rem;
+	.vehicles_times{
+		width:160rem/$rem;
+	}
+	.vehicles_status{
+		width:134rem/$rem;
 	}
 	.vehicles_vin{
-		width:332rem/$rem;
+		width:250rem/$rem;
+	}
+	.vehicles_subject{
+		width:184rem/$rem;
+	}
+	.vehicles_gps{
+		width: 380rem/$rem;
+		height:34px;
+		.drop-menu-gps{
+			margin-top:15px;
+			margin-left:0;
+		}
+
+		float:left;
+	}
+	.vehicles_gpsStatus{
+		width:200rem/$rem;
+	}
+}
+
+.drop-menu-loan{
+	width:260rem/$rem;
+	.drop_menu_list{
+		width:260rem/$rem;
+	}
+}
+.gps_btn{
+	text-align:right;
+	padding-bottom:10px;
+
+	border-bottom:1px solid #ececec;
+	margin-bottom:10px;
+	button{
+
+		height:38px;
+		line-height:38px;
+
+		@include borderRadius(5);
+
+		@include boxShadow(4);
+		font-size: 14px;
+		padding-left:40px;
+		padding-right:20px;
+		color:#fefefe;
+		cursor: pointer;
+		position:relative;
+
+		background:#ed6b75;
+
+		&:hover{
+			background:#ef5d5d;
+		}
+		&:before{
+			width:14px;
+			height:17px;
+			content:'';
+			display:block;
+			position:absolute;
+			left:20px;
+			top:10px;
+			background:url(/images/ico_sprite.png) no-repeat -147px -91px;
+		}
 	}
 }

@@ -60,7 +60,7 @@
                     <% borrowersList.forEach(function(item){%>
                     <dd>
                         <span class="borrowers_num"><%-item.model%></span>
-                        <a href="/" class="borrowers_gps borrowers_gps_action">添加 GPS 设备</a>
+                        <div class="borrowers_gps"><span class="borrowers_gps_action">添加 GPS 设备</span><span class="borrowers_gps_action"> / 查看设备</span></div>
                         <span class="borrowers_color"><%-colorList[item.color].name%></span>
                         <span class="borrowers_time"><%-item.created_at%></span>
                         <div class="borrowers_action">
@@ -78,6 +78,46 @@
         <% include ../common/footer.ejs%>
     </div>
 </div>
+<div class="popup_wraper active" id="popup">
+    <div class="popup_title">
+        <h4>自定义还款</h4>
+    </div>
+    <div class="popup_cont">
+        <div class="popup_cont_type">
+            <ul class="popup_menu">
+                <li>指定期</li>
+                <li>综合管理费</li>
+                <li>还本金额</li>
+            </ul>
+        </div>
+        <div class="const_wraper">
+
+            <div class="cost_item" v-for="(item,index) in repay_schema">
+                <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu[index].isOpen}">
+                    <span @click.stop="showMenu(!dropMenu[index].isOpen,index)">{{'第' + item.term + '期'}}</span>
+                    <ul class="drop_menu_list">
+                        <li v-for="child in stage" @click="selectValue(index,child)">
+                            <a href="javascript:;">第{{child}}期</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="const_money">
+                    <input type="number" placeholder="综合管理费" v-model="item.interest" class="user-ui-input"/>
+                </div>
+                <div class="const_money">
+                    <input type="number" placeholder="还本金额" v-model="item.capital" class="user-ui-input"/>
+                </div>
+                <button class="form-group-btn" v-if="index==0" @click="addRecord(1)">+</button>
+                <button class="form-group-btn btn_gray" v-else @click="removeRecord(index)">-</button>
+            </div>
+        </div>
+    </div>
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm">添加</button>
+        <button class="btn_cancel">取消</button>
+    </div>
+</div>
+<div class="popup_mask active"></div>
 <script type="text/javascript" src="/dist/scripts/borrowers/detail.js"></script>
 </body>
 </html>

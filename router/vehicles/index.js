@@ -11,7 +11,9 @@ var data = require('../../model/data');
 var querystring = require('querystring');
 
 const {
-	colorList
+	colorList,
+	borrowingStatus,
+	subjectStatus
 } = data;
 
 const {
@@ -49,6 +51,8 @@ router.get('/', async (ctx,next) => {
 		shop,
 		roleList,
 		vehiclesList,
+		borrowingStatus,
+		subjectStatus,
 		colorList,
 		showPage,
 		totalPage,

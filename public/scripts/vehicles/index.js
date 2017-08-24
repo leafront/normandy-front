@@ -19,7 +19,8 @@ var Vue = require('../lib/vue');
 
 const {
 
-	colorList
+	colorList,
+	borrowingStatus
 
 } = data;
 
@@ -28,7 +29,9 @@ var vueConfig = new Vue({
 
 	el:'#app',
 	data:{
-		params:{ vin:"", name:"", from:"", to:"" }
+		params:{ vin:"",status:"", name:"", from:"", to:"" },
+		dropMenu: -1,
+		borrowingStatus
 	},
 
 	mounted(){
@@ -45,6 +48,31 @@ var vueConfig = new Vue({
 
 		})
 
+		$(document).click(() =>{
+
+			this.dropMenu = -1;
+
+		})
+
+	},
+	computed: {
+
+		loanStatus () {
+
+			var status = this.params.status;
+
+			if (status !== "") {
+
+				var value = this.borrowingStatus[status].title;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		}
 	},
 	methods: {
 
@@ -69,6 +97,27 @@ var vueConfig = new Vue({
 				calendarItem.showCalendar();
 			})
 
+
+		},
+
+		selectValue (value) {
+
+			var dropMenu  = this.dropMenu;
+
+			if (dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+			}
+
+		},
+
+		checkValue (property, value) {
+
+			this.params[property] = value;
 
 		},
 
