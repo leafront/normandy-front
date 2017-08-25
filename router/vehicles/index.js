@@ -1,4 +1,3 @@
-
 var router = require('koa-router')();
 
 var baseModel = require('../../model/baseModel');
@@ -14,13 +13,13 @@ const {
 	colorList,
 	borrowingStatus,
 	subjectStatus
-} = data;
+	} = data;
 
 const {
 
 	getPage
 
-} = common;
+	} = common;
 
 router.get('/', async (ctx,next) => {
 
@@ -63,6 +62,30 @@ router.get('/', async (ctx,next) => {
 	})
 
 })
+
+
+router.get('/map/:id', async (ctx,next) => {
+
+	const id = ctx.params.id;
+
+	const { data: monitor } = await common.getInterface(ctx,{
+		type: 'GET',
+		url: 'http://192.168.1.250/api/tracking',
+		data: {
+			imeis: '693916032657362'
+		}
+
+	})
+
+	console.log(JSON.stringify(monitor,null,2))
+
+
+	await ctx.render('vehicles/map/index',{
+		monitor
+	})
+
+})
+
 
 router.post('/list',async (ctx,next) => {
 

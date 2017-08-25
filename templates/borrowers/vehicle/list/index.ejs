@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>车况列表</title>
+    <link rel="stylesheet" href="/styles/borrowers/vehicle/list/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../../../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../../../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers" class="navigation_link">借款人列表</a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers/<%-detailId%>" class="navigation_link">用户详情</a>
+            <em class="navigation_ico"></em>
+            <span>车况列表</span>
+        </div>
+        <input type="hidden" id="vehicleId" value="<%-vehicleId%>"/>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>车况列表</span>
+                <a href="/borrowers/vehicle/add/<%-vehicleId%>?id=<%-detailId%>" class="title-btn1">新增车况</a>
+            </div>
+            <div class="vehicle_cont">
+                <% list.forEach(function(item,index){%>
+                <div class="vehicle_item_drop active">
+                    <div class="form-group-rows">车况评估报告（评估时间: <%-item.created_at%> 评估人: <%-item.evaluator.name%>）</p>
+                    </div>
+                </div>
+                <div class="vehicle_tab <%if(index==0){%>active<%}%>">
+                    <div class="vehicle_tab_wraper clearfix">
+                        <div class="vehicle_title">车辆属性</div>
+                        <div class="vehicle_item">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>真皮内饰：</label>
+                                    <span><%-condition[item.is_leather]%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>天窗：</label>
+                                    <span><%-condition[item.has_sunroof]%></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>导航：</label>
+                                    <span><%-condition[item.has_navigation]%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>总千瓦数：</label>
+                                    <span><%-item.power_kw%> 千瓦</span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>内饰状况：</label>
+                                    <span><%-surfaceStatus[item.interior_status].name%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>漆面状况：</label>
+                                    <span><%-surfaceStatus[item.surface_status].name%></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>车牌价格：</label>
+                                    <span><%-item.plate_price%> 元</span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>行使里程：</label>
+                                    <span><%-item.mileage%>公里</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vehicle_tab_wraper clearfix">
+                        <div class="vehicle_title">车辆信息</div>
+                        <div class="vehicle_item">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>购买时间：</label>
+                                    <span><%-item.buy_day%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>过户时间：</label>
+                                    <span><%-item.assigned_day%></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>首次上牌日期：</label>
+                                    <span><%-item.registration_day%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>保单到期日：</label>
+                                    <span><%-item.insurance_expired_day%></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>购买方式：</label>
+                                    <span><%-purchaseType[item.purchase_type].name%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>购买价格：</label>
+                                    <span><%-item.buy_price%></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>购车贷款金额：</label>
+                                    <span><%-item.loan_amount || 0 %> 元</span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>剩余未还金额：</label>
+                                    <span><%-item.loan_pending_amount || 0 %>元</span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>购车贷款总期数：</label>
+                                    <span><%-item.loan_terms || 0%> 期 </span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>剩余未还期数：</label>
+                                    <span><%-item.loan_pending_terms%>次</span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>历史抵押次数：</label>
+                                    <span><%-item.collateral_times%> 次 </span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>最近解抵押：</label>
+                                    <span><%-collateralLastFree[item.collateral_last_free].name%></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>是否有车险理赔记录：</label>
+                                    <span><%-condition[item.has_claims_records]%>   <%if(item.has_claims_records){%>(理赔金额: <%-condition.claims_amount%> 元)<%}%></span>
+                                </div>
+                                <p class="form-group-rows">
+                                    <label>证件核查：</label>
+                                    <%item.certificate.forEach(function(item){%>
+                                    <button><%-certificateType[item].name%></button>
+                                    <%})%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vehicle_tab_wraper clearfix">
+                        <div class="vehicle_title">工况及性能说明</div>
+                        <div class="vehicle_item">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>起动机/转向助力：</label>
+
+                                    <% item.starter_status.forEach(function(item){%>
+
+                                    <span class="vehicle_color"><%-starterStatus[item].name%></span>
+
+                                    <%})%>
+
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>发动机：</label>
+
+                                    <% item.engine_status.forEach(function(item){%>
+                                    <span class="vehicle_color"><%-engineStatus[item].name%></span>
+                                    <%})%>
+
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>变速器：</label>
+                                    <% item.transmission_status.forEach(function(item){%>
+                                    <span class="vehicle_color"><%-transmissionStatus[item].name%></span>
+                                    <%})%>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>排气系统：</label>
+                                    <% item.exhaust_status.forEach(function(item){%>
+                                    <span class="vehicle_color"><%-exhaustStatus[item].name%></span>
+                                    <%})%>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>电器系统/空调正常：</label>
+                                    <span><%-condition[item.is_electric_ok]%></span>
+                                    <span>( 说明: <%-item.electric_state%> )</span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>底盘正常：</label>
+                                    <span><%-condition[item.is_chassis_ok]%></span>
+                                    <span>( 说明: <%-item.chassis_state%> )</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vehicle_tab_wraper clearfix">
+                        <div class="vehicle_title">评估</div>
+                        <div class="vehicle_item">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>车辆综合状况：</label>
+                                    <span><%-isWorkOk[item.is_work_ok].name%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>评估价格：</label>
+                                    <span><%-item.evaluated_price%> 元 </span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>整体运行说明：</label>
+                                    <span><%-item.summary%></span>
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>排气系统：</label>
+                                    <span>否</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%})%>
+            </div>
+        </div>
+        <% include ../../../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/borrowers/vehicle/list/index.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>账户</title>
+    <link rel="stylesheet" href="/styles/account/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<% include ../common/header.ejs %>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>帐户</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>帐户</span>
+                <a class="base_btn" @click="accountAction('/account/sina')">管理新浪帐户</a>
+            </div>
+            <div class="account_info">
+                <h4>帐户余额</h4>
+                <strong>12988.00元</strong>
+                <div class="account_btn">
+                   <button class="btn_recharge" @click="showPopup('#rechargePopup')">充值</button>
+                   <button class="btn_cash" @click="showPopup('#cashPopup')">提现</button>
+                </div>
+            </div>
+            <div class="cont-title">
+                <i></i>
+                <span>银行卡</span>
+            </div>
+
+            <div class="bank_card">
+               <div class="bank_card_btn">
+                  <a class="bank_card_link" @click="accountAction('/account/card')">到新浪管理银行卡</a>
+               </div>
+               <div class="bank_card_des">
+                 <h4>绑定绑定说明：</h4>
+                 <p>1. 安全卡:您在充值时选择快捷支付后输入卡号,自动绑定为您支付时的安全卡(邮政储蓄银行需要先绑定)。 为保证资金同卡进出，同时最多只能绑定一张安全卡，如果需要绑定其他的银行卡，需要将现在使用的安全卡删除后再绑定。</p>
+                 <p>
+                     2. 更换绑定的条件：如果您充值时，用的银行卡A支付，充值成功后，系统就绑定了该卡为您百财车贷唯一的银行卡。 仅支持用该卡充值和提现。如果要换卡，须存钱罐帐户没有余额，且没有正在进行中的交易（充值或提现），可以自行解绑该卡，重新绑定。</p>
+               </div>
+            </div>
+        </div>
+        <% include ../common/footer.ejs%>
+    </div>
+</div>
+
+<div class="popup_wraper" id="rechargePopup">
+    <div class="popup_title">
+        <h4>门店充值</h4>
+    </div>
+    <div class="popup_input">
+        <label>金额</label>
+        <input type="text" class="user-ui-input" v-model="rechargeAmount" placeholder="请输入金额"/>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm" :disabled="saveBtn" @click="saveRecharge">确认</button>
+        <button class="btn_cancel" @click="hidePopup">取消</button>
+    </div>
+    <form method="post" :action="sinaPayLink" class="popup_form" id="recharge">
+        <template v-for="(value, key) in formData">
+            <input type="hidden" :name="key" :value="value">
+        </template>
+        <button type="submit">网银支付</button>
+    </form>
+</div>
+<div class="popup_mask"></div>
+
+<div class="popup_wraper" id="cashPopup">
+    <div class="popup_title">
+        <h4>门店提现</h4>
+    </div>
+    <div class="popup_input">
+        <label>金额</label>
+        <input type="text" class="user-ui-input" v-model="withdrawalAmount" placeholder="请输入金额"/>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm" :disabled="saveBtn" @click="saveRecharge">确认</button>
+        <button class="btn_cancel" @click="hidePopup">取消</button>
+    </div>
+    <form method="post" action="/account/cash" class="popup_form" id="cashForm">
+        <input type="hidden" name="amount" v-model="withdrawalAmount">
+        <button type="submit">网银支付</button>
+    </form>
+</div>
+<script type="text/javascript" src="/dist/scripts/account/index.js"></script>
+</body>
+</html>
+

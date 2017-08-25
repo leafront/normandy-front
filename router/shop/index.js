@@ -6,10 +6,6 @@ var baseModel = require('../../model/baseModel');
 
 var querystring = require('querystring');
 
-var fs = require('fs');
-
-var path = require('path');
-
 const {
 	getPage
 } = common;
@@ -36,14 +32,6 @@ router.get('/', async (ctx,next) => {
 
 	const iPage = getPage(currentPage,showPage);
 
-	const pagination = path.resolve(__dirname + '/../../views/common/pagination.ejs');
-
-	const listView = path.resolve(__dirname + '/../../views/shop/list.ejs');
-
-	const paginationTpl = fs.readFileSync(pagination,'utf-8');
-
-	const listTpl = fs.readFileSync(listView,'utf-8');
-
 	await ctx.render('shop',{
 		pathName: ctx.path,
 		authority,
@@ -54,8 +42,6 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		paginationTpl,
-		listTpl,
 		isFirstPage:(currentPage - 1 ) == 0,
 		isLastPage:currentPage * pageSize > totalCount
 	})

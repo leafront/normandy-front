@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>业务-申请借款</title>
+    <link rel="stylesheet" href="/styles/business/loan.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers" class="navigation_link">借款列表</a>
+            <em class="navigation_ico"></em>
+            <span>申请借款</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>申请借款</span>
+            </div>
+            <div class="load_add">
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title"></div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.borrower === '')}">
+                                <label>借款人</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择借款人</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in borrowersData" @click="selectBorrowers(item.id)">
+                                            <a href="javascript:;">{{item.name}}({{item.mobile}})</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.vehicle === '')}">
+                                <label>车辆</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select" id="vehicleName">请选择车辆</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in vehicleData"><a href="javascript:;" @click="checkValue('vehicle',item.id)">{{ item.brand + item.series + item.model }}</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.nation === '')}">
+                                <label>民族</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择民族</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="item in nation" @click="checkValue('nation',item.title)">
+                                            <a href="javascript:;">{{item.title}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.marital_status === '')}">
+                                <label>婚姻状况</label>
+                                <% maritalStatusList.forEach(function(item,index){%>
+                                <strong @click="checkValue('marital_status',<%-item.value%>)" :class="{'active':formData.marital_status === <%-item.value%>}"><%-item.name%></strong>
+                                <%})%>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.telephone === '')}">
+                                <label>家庭电话</label>
+                                <input type="tel" class="user-ui-input" v-model="formData.telephone" placeholder="家庭电话">
+
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.education === '')}">
+                                <label>教育程度</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择教育程度</span>
+                                    <ul class="drop_menu_list">
+                                        <%education.forEach(function(item){%>
+                                        <li @click="checkValue('education',<%-item.value%>)">
+                                            <a href="javascript:;"><%-item.name%></a>
+                                        </li>
+                                        <%})%>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.is_native === '')}">
+                                <label>本地户籍</label>
+                                <% nullBooleanOptions.forEach(function(item,index){%>
+                                <strong @click="checkValue('is_native',<%-item.value%>)" :class='{"active":formData.is_native === <%-item.value%>}'><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.is_mate_native === '')}">
+                                <label>配偶本地户籍</label>
+                                <% nullBooleanOptions.forEach(function(item,index){%>
+                                <strong @click="checkValue('is_mate_native',<%-item.value%>)" :class='{"active":formData.is_mate_native === <%-item.value%>}'><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-address">
+                                <label :class="{'error_text':!isValidate && (formData.birthplace_province === '' || formData.birthplace_city === '' ||  formData.birthplace_address === '' )}">户籍</label>
+                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.birthplace_province === '')}" v-model="formData.birthplace_province" placeholder="户籍省份">
+                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.birthplace_city === '')}" v-model="formData.birthplace_city" placeholder="户籍城市">
+                                <input type="text" class="user-ui-input user-ui-address" :class="{'error_input':(!isValidate && formData.birthplace_address === '')}" v-model="formData.birthplace_address" placeholder="详细地址">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-address">
+                                <label :class="{'error_text':!isValidate && (formData.province === '' || formData.city === '' ||  formData.address === '' )}">现居住地</label>
+                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.province === '')}" v-model="formData.province" placeholder="现居住地省份">
+                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.city === '')}" v-model="formData.city" placeholder="现居住地城市">
+                                <input type="text" class="user-ui-input user-ui-address" :class="{'error_input':(!isValidate && formData.address === '')}" v-model="formData.address" placeholder="详细地址">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">单位信息</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.company_name === '')}">
+                                <label>单位名称</label>
+                                <input type="text" class="user-ui-input" v-model="formData.company_name" placeholder="单位名称"/>
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.company_type === '')}">
+                                <label>单位性质</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择单位性质</span>
+                                    <ul class="drop_menu_list">
+                                        <%companyType.forEach(function(item){%>
+                                        <li @click="checkValue('company_type',<%-item.value%>)">
+                                            <a href="javascript:;"><%-item.name%></a>
+                                        </li>
+                                        <%})%>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.salary_type === '')}">
+                                <label>雇佣类型</label>
+                                <% salaryType.forEach(function(item,index){%>
+                                <strong @click="checkValue('salary_type',<%-item.value%>)" :class="{'active':formData.salary_type === <%-item.value%>}"><%-item.name%></strong>
+                                <%})%>
+
+
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.share === '')}">
+                                <label id="interior">占股</label>
+                                <input type="number" class="user-ui-input" v-model="formData.share" placeholder="占股"/>
+                                <i class="user-ui-input-txt">%</i>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.department === '')}">
+                                <label>部门</label>
+                                <input type="text" class="user-ui-input" v-model="formData.department" placeholder="技术部"/>
+
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.position === '')}">
+                                <label>职务</label>
+                                <input type="text" class="user-ui-input" v-model="formData.position" placeholder="职务"/>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.work_years === '')}">
+                                <label>工作年限</label>
+                                <input type="number" class="user-ui-input" v-model="formData.work_years" placeholder="工作年限"/>
+                                <i class="user-ui-input-txt">年</i>
+                            </div>
+                            <div class="form-group-rows vehicles-base-input">
+                                <label>收入</label>
+                                <div class="form-group-salary" :class="{'form-group-error':(!isValidate && formData.salary === '')}">
+                                    <input type="number" class="user-ui-input user-ui-salary" v-model="formData.salary" placeholder="工资"/>
+                                    <i class="user-ui-input-txt">元/月</i>
+                                </div>
+
+                                <div class="form-group-salary" style="margin-left:0.35rem;" :class="{'form-group-error':(!isValidate && formData.other_incoming === '')}">
+
+                                    <input type="number" class="user-ui-input user-ui-salary" v-model="formData.other_incoming" placeholder="其他收入"/>
+                                    <i class="user-ui-input-txt">元/月</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.company_phone === '')}">
+                                <label>公司电话</label>
+                                <input type="tel" class="user-ui-input" v-model="formData.company_phone" placeholder="公司电话"/>
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.finance_phone === '')}">
+                                <label id="interior" data-value="">财务电话</label>
+                                <input type="tel" class="user-ui-input" v-model="formData.finance_phone" placeholder="财务电话"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">联系人信息</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix" v-for="(item,index) in formData.social_net.relatives">
+                            <div class="form-group-rows form-group-phone">
+                                <label>直系亲属</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','relatives',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','relatives',index)">-</button>
+                            </div>
+
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in formData.social_net.emergencyContacts">
+                            <div class="form-group-rows form-group-phone">
+                                <label>紧急联系人</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','emergencyContacts',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','emergencyContacts',index)">-</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in formData.social_net.friends">
+                            <div class="form-group-rows form-group-phone">
+                                <label>朋友</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','friends',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','friends',index)">-</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in formData.social_net.colleagues">
+                            <div class="form-group-rows form-group-phone">
+                                <label>单位联系人</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" :class="{'error_input':(!isValidate && item.name === '')}" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" :class="{'error_input':(!isValidate && item.relation === '')}" placeholder="关系">
+                                <input type="tel" class="user-ui-input" v-model="item.mobile" :class="{'error_input':(!isValidate && item.mobile === '')}" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" :class="{'error_input':(!isValidate && item.company === '')}" placeholder="工作单位">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('social_net','colleagues',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('social_net','colleagues',index)">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">资产信息</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix" v-for="(item,index) in formData.property.houseProperties">
+                            <div class="form-group-rows">
+                                <label :class="{'error_text':(!isValidate && formData.property.houseProperties[index].status === '')}">房产</label>
+                                <div class="drop_menu drop_menu_assets" :class="{'active':dropMenu.houseProperties[index].isOpen,'error_input':(!isValidate && formData.property.houseProperties[index].status === '')}">
+                                    <span @click.stop="showDropMenu('houseProperties',index,!dropMenu.houseProperties[index].isOpen)" :class="{'active':formData.property.houseProperties[index].status !== '' }">{{dropMenu.houseProperties[index].value}}</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="item in houseStatus" @click="selectValue('property','houseProperties','status',item.value,index,false,item.name)">
+                                            <a href="javascript:;">{{item.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input type="text" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.area === '')}" v-model="item.area" placeholder="面积"/>
+                                <i class="user-ui-input-txt">m²</i>
+
+                            </div>
+                            <div class="form-group-rows">
+                                <div class="form-group-salary">
+                                    <input type="number" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.monthlyPay === '')}" v-model="item.monthlyPay" placeholder="月供">
+                                    <i class="user-ui-input-txt">元/月</i>
+                                </div>
+
+                                <input type="text" class="user-ui-input user-ui-area"  :class="{'error_input':(!isValidate && item.address === '')}" v-model="item.address" placeholder="地址">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','houseProperties',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('property','houseProperties',index)">-</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in formData.property.cars">
+                            <div class="form-group-rows vehicle-ui-ico">
+                                <label :class="{'error_text':(!isValidate && formData.property.cars[index].status === '')}">车辆</label>
+
+                                <div class="drop_menu drop_menu_assets" :class="{'active':dropMenu.cars[index].isOpen,'error_input':(!isValidate && formData.property.cars[index].status === '')}">
+                                    <span @click.stop="showDropMenu('cars',index,!dropMenu.cars[index].isOpen)" :class="{'active':formData.property.cars[index].status !==''}">{{dropMenu.cars[index].value}}</span>
+                                    <ul class="drop_menu_list">
+
+                                        <li v-for="item in vehicleStatus" @click="selectValue('property','cars','status',item.value,index,false,item.name)">
+                                            <a href="javascript:;">{{item.name}}</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <input type="text" :id="'buyTime' + index" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.buyingDate === '')}" v-model="item.buyingDate" placeholder="购买时间">
+                                <i class="user-ui-input-txt">&nbsp;</i>
+
+                            </div>
+                            <div class="form-group-rows vehicles-base-input">
+                                <div class="form-group-salary">
+                                    <input type="text" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.monthlyPay === '')}"  v-model="item.monthlyPay" placeholder="月供">
+                                    <i class="user-ui-input-txt">元/月</i>
+                                </div>
+                                <input type="text" class="user-ui-input user-ui-area" :class="{'error_input':(!isValidate && item.brand === '')}" v-model="item.brand" placeholder="品牌型号">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','cars',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('property','cars',index)">-</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in formData.property.financialAssets">
+                            <div class="form-group-rows" :class="{'error_input':(!isValidate && formData.property.financialAssets[index].status === '')}">
+                                <label :class="{'error_text':(!isValidate && item.field === '')}">金融资产</label>
+                                <input type="text" class="user-ui-input user-ui-money" :class="{'error_input':(!isValidate && item.field === '')}" v-model="item.field" placeholder="投资领域">
+                                <input type="number" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && item.amount === '')}" v-model="item.amount" placeholder="金额">
+                                <i class="user-ui-input-txt">元</i>
+                            </div>
+                            <div class="form-group-rows vehicles-base-input">
+                                <label :class="{'error_text':(!isValidate && item.desc === '')}">说明</label>
+                                <input type="text" class="user-ui-input user-ui-des" :class="{'error_input':(!isValidate && item.desc === '')}" v-model="item.desc" placeholder="说明">
+                                <button class="form-group-btn" v-if="index == 0" @click="addRecord('property','financialAssets',index)">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('property','financialAssets',index)">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">借款事项</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.purpose === '')}">
+                                <label data-value="">用途</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择用途</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in purposeType" @click="checkValue('purpose',item.value)">
+                                            <a href="javascript:;">{{item.name}}</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.borrowing_type === '')}">
+                                <label data-value="">借款类型</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select" data-value="">未抵押过</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in borrowingSeriesType" @click="checkValue('borrowing_type',item.value)">
+                                            <a href="javascript:;">{{item.name}}</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.amount === '')}">
+                                <label data-value="">借款金额</label>
+                                <input type="number" class="user-ui-input" v-model="formData.amount" placeholder="工作年限">
+                                <i class="user-ui-input-txt">元</i>
+                            </div>
+                            <div class="form-group-rows">
+                                <label :class="{'error_text':(!isValidate && formData.term_unit === '')}">借款期限</label>
+                                <input type="text" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && formData.term === '')}" v-model="formData.term" placeholder="工作年限">
+                                <div class="drop_menu drop_menu_times" :class="{'error_input':(!isValidate && formData.term_unit === '')}">
+                                    <span class="js_select">请选择</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in termUnit" @click="checkValue('term_unit',item.value)">
+                                            <a href="javascript:;">{{item.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loan_submit">
+                <button class="btn_confirm" @click="submitVehicle">申请</button>
+                <button class="btn_cancel">放弃</button>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<div class="ui-calendar" id="calendar"></div>
+<script type="text/javascript" src="/dist/scripts/business/loan.js"></script>
+</body>
+</html>
+

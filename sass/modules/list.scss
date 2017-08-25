@@ -70,7 +70,8 @@
 
 	}
 	dd{
-		height:58px;
+		width:100%;
+		overflow: hidden;
 		line-height:58px;
 		font-size:16px;
 		color:#fff;
@@ -96,6 +97,7 @@
 		width:430rem/$rem;
 		overflow:hidden;
 		float:left;
+		padding-bottom:10px;
 		span{
 			margin-top:10px;
 			padding:0 14rem/$rem;

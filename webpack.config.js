@@ -54,6 +54,10 @@ module.exports = {
 
 		'vehicles/index':'./public/scripts/vehicles/index',
 
+		'vehicles/detail':'./public/scripts/vehicles/detail',
+
+		'vehicles/map/index': './public/scripts/vehicles/map/index',
+
 		'personnel/index':'./public/scripts/personnel/index',
 
 		'message/index':'./public/scripts/message/index',
@@ -76,10 +80,6 @@ module.exports = {
 				test: /\.js?$/,
 				loaders: ['babel-loader'],
 				exclude: /node_modules/
-			},
-			{
-				test: /\.ejs$/,
-				loader: ['ejs-loader']
 			}
     ]
   },

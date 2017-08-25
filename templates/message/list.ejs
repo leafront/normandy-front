@@ -1,0 +1,12 @@
+<% if (messageList) {%>
+<% messageList.forEach(function(item){%>
+<li<%if(item.status==0){%> class="active"<%}%>>
+    <span><%-item.title%></span>
+    <a href="javascript:;" data-id="<%-item.id%>" class="message_link">查看详情</a>
+    <time class="message_time"><%-item.created_at%></time>
+    <div class="sub_message">
+        <span><%-item.content%></span>
+    </div>
+</li>
+<%})%>
+<%}%>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>业务-申请借款</title>
+    <link rel="stylesheet" href="/styles/business/loan.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <a href="/borrowers" class="navigation_link">借款列表</a>
+            <em class="navigation_ico"></em>
+            <span>申请借款</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>申请借款</span>
+            </div>
+            <div class="load_add" id="app">
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title"></div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>借款人</label>
+
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择借款人</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in borrowersData" @click="selectBorrowers(item.id)">
+                                            <a href="javascript:;">{{item.name}}({{item.mobile}})</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="sunroof" data-value="">车辆</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择车辆</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in vehicleData"><a href="javascript:;" @click="checkValue('vehicle',item.id)">{{ item.brand + item.series + item.model }}</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label id="sunroof">民族</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择民族</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in nation" @click="checkValue('nation',item.title)">
+                                            <a href="javascript:;">{{item.title}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="interior" data-value="null">婚姻状况</label>
+                                <% maritalStatusList.forEach(function(item,index){%>
+                                <strong @click="checkValue('marital_status',<%-item.value%>)" :class='{"active":formData.marital_status === <%-item.value%>}'><%-item.name%></strong>
+                                <%})%>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label id="interior">家庭电话</label>
+                                <input type="tel" class="user-ui-input" v-model="formData.telephone" placeholder="家庭电话">
+
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="paint" data-value="">教育程度</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select">请选择教育程度</span>
+                                    <ul class="drop_menu_list">
+                                        <%education.forEach(function(item){%>
+                                        <li @click="checkValue('education',<%-item.value%>)">
+                                            <a href="javascript:;"><%-item.name%></a>
+                                        </li>
+                                        <%})%>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>本地户籍</label>
+                                <% nullBooleanOptions.forEach(function(item,index){%>
+                                <strong @click="checkValue('is_native',<%-item.value%>)" :class='{"active":formData.is_native === <%-item.value%>}'><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>配偶本地户籍</label>
+                                <% nullBooleanOptions.forEach(function(item,index){%>
+                                <strong @click="checkValue('is_mate_native',<%-item.value%>)" :class='{"active":formData.is_mate_native === <%-item.value%>}'><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-address">
+                                <label data-value="null">户籍</label>
+                                <input type="text" class="user-ui-input user-ui-province" v-model="formData.birthplace_province" placeholder="户籍省份">
+                                <input type="text" class="user-ui-input user-ui-province" v-model="formData.birthplace_city" placeholder="户籍城市">
+                                <input type="text" class="user-ui-input user-ui-address" v-model="formData.birthplace_address" placeholder="详细地址">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-address">
+                                <label data-value="null">现居住地</label>
+                                <input type="text" class="user-ui-input user-ui-province" v-model="formData.province" placeholder="现居住地省份">
+                                <input type="text" class="user-ui-input user-ui-province" v-model="formData.city" placeholder="现居住地城市">
+                                <input type="text" class="user-ui-input user-ui-address" v-model="formData.address" placeholder="详细地址">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">单位信息</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>单位名称</label>
+                                <input type="text" class="user-ui-input" v-model="formData.company_name" placeholder="单位名称"/>
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="sunroof" data-value="">单位性质</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select" data-value="">请选择单位性质</span>
+                                    <ul class="drop_menu_list">
+                                        <%companyType.forEach(function(item){%>
+                                        <li @click="checkValue('company_type',<%-item.value%>)">
+                                            <a href="javascript:;"><%-item.name%></a>
+                                        </li>
+                                        <%})%>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>雇佣类型</label>
+                                <% salaryType.forEach(function(item,index){%>
+                                <strong @click="checkValue('salary_type',<%-item.value%>)" :class="{'active':formData.salary_type === <%-item.value%>}"><%-item.name%></strong>
+                                <%})%>
+
+
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="interior">占股</label>
+                                <input type="number" class="user-ui-input" v-model="formData.share" placeholder="占股"/>
+                                <i class="user-ui-input-txt">%</i>
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label id="interior" data-value="">部门</label>
+                                <input type="text" class="user-ui-input" v-model="formData.department" placeholder="技术部"/>
+
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="interior" data-value="">职务</label>
+                                <input type="text" class="user-ui-input" v-model="formData.position" placeholder="职务"/>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label data-value="null">工作年限</label>
+                                <input type="number" class="user-ui-input" v-model="formData.work_years" placeholder="工作年限"/>
+                                <i class="user-ui-input-txt">年</i>
+                            </div>
+                            <div class="form-group-rows vehicles-base-input">
+                                <label>收入</label>
+
+                                <input type="number" class="user-ui-input user-ui-salary" v-model="formData.salary" placeholder="工资"/>
+                                <i class="user-ui-input-txt">元/月</i>
+                                <div class="form-group-salary">
+
+                                    <input type="number" class="user-ui-input user-ui-salary" v-model="formData.other_incoming" placeholder="其他收入"/>
+                                    <i class="user-ui-input-txt">元/月</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label id="interior" data-value="">公司电话</label>
+                                <input type="tel" class="user-ui-input" v-model="formData.company_phone" placeholder="公司电话"/>
+                            </div>
+                            <div class="form-group-rows">
+                                <label id="interior" data-value="">财务电话</label>
+                                <input type="tel" class="user-ui-input" v-model="formData.finance_phone" placeholder="财务电话"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">联系人信息</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-phone" v-for="(item,index) in contact.relatives">
+                                <label id="leather" data-value="">直系亲属</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" placeholder="关系">
+                                <input type="text" class="user-ui-input" v-model="item.mobile" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" placeholder="工作单位">
+                                <button class="form-group-btn">+</button>
+                            </div>
+
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-phone" v-for="(item,index) in contact.emergencyContacts">
+                                <label id="leather" data-value="">紧急联系人</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" placeholder="关系">
+                                <input type="text" class="user-ui-input" v-model="item.mobile" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" placeholder="工作单位">
+                                <button class="form-group-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-phone" v-for="(item,index) in contact.friends">
+                                <label id="leather" data-value="">朋友</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" placeholder="关系">
+                                <input type="text" class="user-ui-input" v-model="item.mobile" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" placeholder="工作单位">
+                                <button class="form-group-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-phone" v-for="(item,index) in contact.colleagues">
+                                <label id="leather" data-value="">单位联系人</label>
+                                <input type="text" class="user-ui-input" v-model="item.name" placeholder="姓名">
+                                <input type="text" class="user-ui-input" v-model="item.relation" placeholder="关系">
+                                <input type="text" class="user-ui-input" v-model="item.mobile" placeholder="手机号">
+                                <input type="text" class="user-ui-input" v-model="item.company" placeholder="工作单位">
+                                <button class="form-group-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">资产信息</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-assets">
+                                <label>房产</label>
+                                <div class="drop_menu drop_menu_assets">
+                                    <span class="js_select" data-value="">请选择单位性质</span>
+                                    <ul class="drop_menu_list">
+                                        <%companyType.forEach(function(item){%>
+                                        <li data-value="<%-item.value%>">
+                                            <a href="javascript:;"><%-item.name%></a>
+                                        </li>
+                                        <%})%>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="form-group-rows vehicles-base-input">
+                                <input type="text" class="user-ui-input user-ui-salary" placeholder="面积"/>
+                                <i class="user-ui-input-txt">m²</i>
+                                <input type="text" class="user-ui-input user-ui-salary" id="" placeholder="月供">
+                                <i class="user-ui-input-txt">元/月</i>
+                                <input type="text" class="user-ui-input user-ui-area" id="" placeholder="地址">
+                                <button class="form-group-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-assets">
+                                <label id="leather" data-value="">车辆</label>
+                                <div class="drop_menu drop_menu_assets">
+                                    <span class="js_select" data-value="">请选择单位性质</span>
+                                    <ul class="drop_menu_list">
+                                        <%companyType.forEach(function(item){%>
+                                        <li data-value="<%-item.value%>">
+                                            <a href="javascript:;"><%-item.name%></a>
+                                        </li>
+                                        <%})%>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="form-group-rows vehicles-base-input">
+                                <input type="text" class="user-ui-input user-ui-salary" id="" placeholder="购买时间">
+                                <i class="user-ui-input-txt">m²</i>
+                                <input type="text" class="user-ui-input user-ui-salary" id="" placeholder="月供">
+                                <i class="user-ui-input-txt">元/月</i>
+                                <input type="text" class="user-ui-input user-ui-area" id="" placeholder="品牌型号">
+                                <button class="form-group-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows form-group-assets">
+                                <label id="leather" data-value="">金融资产</label>
+                                <input type="text" class="user-ui-input user-ui-amount" id="" placeholder="金额">
+
+                            </div>
+                            <div class="form-group-rows">
+                                <input type="text" class="user-ui-input user-ui-salary" id="" placeholder="金额">
+                                <i class="user-ui-input-txt">m²</i>
+                                <input type="text" class="user-ui-input user-ui-des" id="" placeholder="说明">
+                                <button class="form-group-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_tab_wraper clearfix">
+                    <div class="vehicle_title">借款事项</div>
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label data-value="">用途</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select" data-value="">未抵押过</span>
+                                    <ul class="drop_menu_list">
+                                        <li data-value="0">
+                                            <a href="javascript:;">未抵押过</a>
+                                        </li>
+
+
+                                        <li data-value="1">
+                                            <a href="javascript:;">10天内</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group-rows">
+                                <label data-value="">借款类型</label>
+                                <div class="drop_menu drop_menu_loan">
+                                    <span class="js_select" data-value="">未抵押过</span>
+                                    <ul class="drop_menu_list">
+                                        <li data-value="0">
+                                            <a href="javascript:;">未抵押过</a>
+                                        </li>
+
+
+                                        <li data-value="1">
+                                            <a href="javascript:;">10天内</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label data-value="">借款金额</label>
+                                <input type="text" class="user-ui-input" id="" placeholder="工作年限">
+                                <i class="user-ui-input-txt">年</i>
+                            </div>
+                            <div class="form-group-rows">
+                                <label data-value="">借款期限</label>
+                                <input type="text" class="user-ui-input user-ui-amount" id="" placeholder="工作年限">
+                                <div class="drop_menu drop_menu_times">
+                                    <span class="js_select" data-value="">未抵押过</span>
+                                    <ul class="drop_menu_list">
+                                        <li data-value="0">
+                                            <a href="javascript:;">未抵押过</a>
+                                        </li>
+
+
+                                        <li data-value="1">
+                                            <a href="javascript:;">10天内</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loan_submit">
+                <button class="btn_confirm" type="button">申请</button>
+                <button class="btn_cancel" type="button">放弃</button>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/business/loan.js"></script>
+</body>
+</html>
+
