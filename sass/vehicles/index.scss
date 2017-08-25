@@ -1,4 +1,5 @@
 @import '../modules/reset.scss';
+
 @import '../modules/common.scss';
 
 @import '../modules/search.scss';
@@ -14,7 +15,7 @@
 .cont_list{
 	.vehicles_name{
 
-		width:142rem/$rem;
+		width:122rem/$rem;
 	}
 	.vehicles_color{
 		width:260rem/$rem;
@@ -26,23 +27,21 @@
 		width:134rem/$rem;
 	}
 	.vehicles_vin{
-		width:250rem/$rem;
-	}
-	.vehicles_subject{
-		width:184rem/$rem;
-	}
-	.vehicles_gps{
-		width: 380rem/$rem;
-		height:34px;
-		.drop-menu-gps{
-			margin-top:15px;
-			margin-left:0;
-		}
-
+		width:240rem/$rem;
 		float:left;
 	}
+	.vehicles_subject{
+		width:164rem/$rem;
+	}
 	.vehicles_gpsStatus{
-		width:200rem/$rem;
+		width:150rem/$rem;
+	}
+
+	dd{
+
+		overflow:visible;
+
+		height:58px;
 	}
 }
 
@@ -87,6 +86,43 @@
 			left:20px;
 			top:10px;
 			background:url(/images/ico_sprite.png) no-repeat -147px -91px;
+		}
+	}
+}
+
+.vehicles_gps{
+	width: 440rem/$rem;
+	height:34px;
+	float:left;
+}
+
+.drop-menu-gps{
+	width: 400rem/$rem;
+	margin-top:12px;
+	margin-left:0;
+
+	.allowable{
+		a{
+			color:#248ad4;
+		}
+	}
+	.disabled{
+		a{
+			color:#999;
+		}
+	}
+
+}
+.drop_menu_list{
+	width: 400rem/$rem;
+	li{
+		&:hover{
+			strong{
+				color:#fff;
+			}
+		}
+		strong{
+			color:#666;
 		}
 	}
 }

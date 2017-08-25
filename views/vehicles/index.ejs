@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>借款人列表</title>
-    <link rel="stylesheet" href="/styles/vehicles/index.css"/>
+    <link rel="stylesheet" href="/styles/vehicles/index.css?v=20170825225434"/>
 </head>
 <body>
 
@@ -94,22 +94,35 @@
                     <% if(vehiclesList && vehiclesList.length){%>
                         <%vehiclesList.forEach(function(item){%>
                         <dd>
-                            <span class="vehicles_vin"><%-item.vin%></span>
+                            <a class="vehicles_vin list_action" href="/vehicles/<%-item.id%>"><%-item.vin%></a>
                             <span class="vehicles_name"><%-item.borrower.name%></span>
                             <span class="vehicles_times"><%-item.created_at.toString().slice(0,-10)%></span>
                             <span class="vehicles_status">未上标</span>
                             <span class="vehicles_subject">216768014</span>
                             <div class="vehicles_gps">
                               <div class="drop_menu drop-menu-gps" :class="{'active':dropMenu == '<%-item.vin%>'}">
-                                <span @click.stop="selectValue('<%-item.vin%>')" v-cloak>请选择</span>
+                                <span @click.stop="selectValue('<%-item.vin%>')" v-cloak>查看设备状态</span>
                                 <ul class="drop_menu_list">
-                                    <li @click="checkValue('type',0)"><a href="javascript:;">全部</a></li>
-
-                                    <li @click="checkValue('type',1)"><a href="javascript:;">异常</a></li>
-
-                                    <li @click="checkValue('type',2)"><a href="javascript:;">预警</a></li>
-
-                                    <li @click="checkValue('type',3)"><a href="javascript:;">无异常</a></li>
+                                    <li @click="checkValue('type',0)">
+                                        <a href="javascript:;">123456789874566</a>
+                                        <strong>（有线）</strong>
+                                        <strong class="disabled"><a href="/vehicles/map/<%-item.id%>">监控（行使）</a></strong>
+                                    </li>
+                                    <li @click="checkValue('type',0)">
+                                        <a href="javascript:;">123456789874566</a>
+                                        <strong>（有线）</strong>
+                                        <strong class="disabled"><a href="/vehicles/map/<%-item.id%>">监控（行使）</a></strong>
+                                    </li>
+                                    <li @click="checkValue('type',0)">
+                                        <a href="javascript:;">123456789874566</a>
+                                        <strong>（有线）</strong>
+                                        <strong class="disabled"><a href="/vehicles/map/<%-item.id%>">监控（行使）</a></strong>
+                                    </li>
+                                    <li @click="checkValue('type',0)">
+                                        <a href="javascript:;">123456789874566</a>
+                                        <strong>（有线）</strong>
+                                        <strong class="disabled"><a href="/vehicles/map/<%-item.id%>">监控（行使）</a></strong>
+                                    </li>
                                 </ul>
                               </div>
                             </div>
@@ -135,7 +148,7 @@
     </div>
 </div>
 <div class="ui-calendar" id="calendar"></div>
-<script type="text/javascript" src="/dist/scripts/vehicles/index.js"></script>
+<script type="text/javascript" src="/dist/scripts/vehicles/index.js?v=20170825225434"></script>
 </body>
 </html>
 

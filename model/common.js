@@ -37,7 +37,9 @@ module.exports = {
 
 			}).catch((err) =>{
 
-				reject(err);
+				resolve ({ roleList:[], shop:{}, authority:{} })
+
+				//reject(err);
 
 			})
 
@@ -57,6 +59,57 @@ module.exports = {
 
 		return text.replace(pattern, '$1********$2');
 
+	},
+
+	getInterface (ctx,{type,url,data}) {
+
+		var requestData = {
+			method: type,
+			url: url
+		};
+
+		if (type == "POST") {
+
+			requestData.body = querystring.stringify(data);
+
+			requestData.headers = { 'content-type':'application/x-www-form-urlencoded' }
+
+		} else {
+
+			requestData.url = requestData == '' ? url : url + '?' + querystring.stringify(data);
+
+		}
+
+		return new Promise((resolve,reject) => {
+
+			request(requestData).then((res) =>{
+
+				if (typeof res == 'object') {
+
+					resolve(res);
+
+				} else {
+
+					try {
+
+						res = JSON.parse(res);
+
+						resolve(res);
+
+
+					} catch (error) {
+
+						reject(error);
+
+					}
+				}
+
+			}).catch((err) =>{
+
+				reject(err);
+
+			})
+		})
 	},
 	getPage(page,showPage) {
 

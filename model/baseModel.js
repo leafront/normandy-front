@@ -18,7 +18,7 @@ module.exports = {
 		const API = gateway == 'gatewayExt' ? userAPI : shopAPI;
 
 
-		url = requestData == '' ? API + url + requestData : API + url + '?' + requestData;
+		url = requestData == '' ? API + url : API + url + '?' + requestData;
 
 
 		const getCookies = ctx.cookies;
@@ -38,15 +38,24 @@ module.exports = {
 				}
 			}).then((res) =>{
 
-				try{
-
-					res = JSON.parse(res);
+				if (typeof res == 'object') {
 
 					resolve(res);
 
-				}catch(error){
+				} else {
 
-					reject(error);
+					try {
+
+						res = JSON.parse(res);
+
+						resolve(res);
+
+
+					} catch (error) {
+
+						reject(error);
+
+					}
 				}
 
 			}).catch((err) =>{
@@ -80,6 +89,10 @@ module.exports = {
 
 				if (typeof res == 'object') {
 
+					resolve(res);
+
+				} else {
+
 					try {
 
 						res = JSON.parse(res);
@@ -92,10 +105,6 @@ module.exports = {
 						reject(error);
 
 					}
-
-				} else {
-
-					resolve(res);
 				}
 
 

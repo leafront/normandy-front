@@ -34,7 +34,7 @@ var dataString=[
 ].join('');
 
 gulp.task('ejs',function() {
-	return gulp.src('./template/**/*.ejs')
+	return gulp.src('./templates/**/*.ejs')
 		.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
 		.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
 		.pipe(gulp.dest('./views/'))
@@ -54,7 +54,7 @@ gulp.task('sass:watch', function () {
 })
 
 gulp.task('ejs:watch', function () {
-	gulp.watch('./template/**/*.ejs', ['ejs']);
+	gulp.watch('./templates/**/*.ejs', ['ejs']);
 })
 
 gulp.task('default', ['sass:watch','ejs:watch']);
