@@ -1,4 +1,6 @@
 node_modules
 .idea/*
 public/dist/*
-public/styles
+.idea/
+public/dist/
+uploads/

@@ -56,7 +56,7 @@ module.exports = {
 
 		'vehicles/detail':'./public/scripts/vehicles/detail',
 
-		'vehicles/map/index': './public/scripts/vehicles/map/index',
+		'vehicles/trace/index':'./public/scripts/vehicles/trace/index',
 
 		'personnel/index':'./public/scripts/personnel/index',
 

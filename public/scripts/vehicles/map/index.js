@@ -1,8 +1,19 @@
 
 var $ = require('../../lib/jquery');
 
-var common = require('../../common');
+var Page = require('../../widget/page');
 
-var Lizard = require('../../widget/lizard');
+var popup = require('../../widget/popup');
+
+Page({
+
+	bindEvents() {
+		alert(1)
+
+
+	}
+})
+
+
 
 

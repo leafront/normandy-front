@@ -233,6 +233,24 @@
 			return arrObj[1].substring(start);
 		},
 
+		timeComputed (times) {
+
+			if (times > 0 &&  times < 60 * 60 * 24) {
+
+				return parseInt(times/60/60) + '小时';
+
+			} else if (times >= 60 * 60 * 24 && times < 60 * 60 * 24 * 60) {
+
+				return parseInt(times/60/60/24) + '天';
+
+			} else if (times > 60 * 60 * 24 * 60) {
+
+				return '大于60天';
+
+			}
+
+		},
+
 		/**
 		 * 对Date的扩展，将 Date 转化为指定格式的String
 		 * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q) 可以用 1-2 个占位符

@@ -76,7 +76,23 @@ var vueConfig = new Vue({
 
 		query () {
 
-			var data = this.params;
+			var data = Object.assign({},this.params);
+
+			var startTime = data.from;
+
+			var endTime = data.to;
+
+			startTime =  startTime.replace('/\-/','/');
+
+			endTime =  endTime.replace('/\-/','/');
+
+			if ((startTime && endTime) && new Date(startTime).getTime() > new Date(endTime).getTime()) {
+
+				Lizard.showToast('开始时间不能大于结束时间');
+
+				return;
+
+			}
 
 			data = common.deleteEmptyProperty(data);
 
