@@ -175,6 +175,13 @@
 
 					if (error) {
 
+						if (JSON.parse(error.status) == 401){
+
+							location.href = '/user/login';
+
+							return false;
+						}
+
 						var msg = JSON.parse(error.responseText);
 
 						Lizard.showToast(msg.error.message);

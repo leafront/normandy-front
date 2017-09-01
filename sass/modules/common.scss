@@ -99,7 +99,7 @@ body{
 }
 .search_item{
 	em{
-	  padding-left:15rem/$rem;
+		padding:0 12px;
 	}
 }
 
@@ -163,8 +163,8 @@ body{
 	width:180rem/$rem;
 	position:fixed;
 	top:68px;
-	height:100%;
 	background: #081c27;
+
 }
 .right-container{
 
@@ -667,6 +667,11 @@ body{
 		}
 	}
 }
+
+[v-cloak] {
+	display: none;
+}
+
 
 
 

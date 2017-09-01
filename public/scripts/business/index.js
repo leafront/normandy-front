@@ -60,11 +60,11 @@ var vueConfig = new Vue({
 		})
 
 
-		$(document).click(() =>{
+		document.documentElement.onclick = ()=>{
 
 			this.dropMenu = -1;
 
-		})
+		}
 
 	},
 

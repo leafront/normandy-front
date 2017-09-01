@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>借款人列表</title>
-    <link rel="stylesheet" href="/styles/vehicles/index.css"/>
+    <link rel="stylesheet" href="/styles/vehicles/index.css?v=20170901222619"/>
 </head>
 <body>
 
@@ -114,14 +114,23 @@
                                           <li>
                                             <a href="javascript:;"><%-child.imei%></a>
                                             <strong>（<%-deviceType[child.type].name%>）</strong>
-                                             <template v-if="gpsInfo[<%-child.imei%>]">
+                                             <% if (child.status == 0){%>
+                                                <strong class="disabled">监控（报废）</strong>
+                                             <%} else{%>
+                                               <template v-if= "gpsInfo[<%-child.imei%>]">
                                                  <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info_new,<%-child.imei%>)" class="gps_info" v-if="gpsInfo[<%-child.imei%>].device_info == 0 && gpsInfo[<%-child.imei%>].device_info_new == 4">
                                                     监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info_new].name}}）
                                                  </strong>
-                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info,<%-child.imei%>)" class="gps_info" :class="{'disabled':gpsInfo[<%-child.imei%>].device_info == 1 || gpsInfo[<%-child.imei%>].device_info == 2}" v-else>
+                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info,<%-child.imei%>)" :class="{'gps_info':[0,3,4].indexOf(gpsInfo[<%-child.imei%>].device_info) > -1,'disabled':[1,2].indexOf(gpsInfo[<%-child.imei%>].device_info > -1)}" v-else>
                                                      监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info].name}})
                                                  </strong>
-                                             </template>
+                                               </template>
+                                               <template v-else>
+                                                   <strong class="disabled">
+                                                      当前无设备信息
+                                                   </strong>
+                                               </template>
+                                             <%}%>
                                           </li>
 
                                         <%})%>
@@ -163,7 +172,7 @@
 <script type="text/javascript">
     var vehiclesList = <%-JSON.stringify(vehiclesList)%>;
 </script>
-<script type="text/javascript" src="/dist/scripts/vehicles/index.js"></script>
+<script type="text/javascript" src="/dist/scripts/vehicles/index.js?v=20170901222619"></script>
 </body>
 </html>
 

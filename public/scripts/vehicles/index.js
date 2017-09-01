@@ -1,5 +1,5 @@
 
-window.$ = require('../lib/jquery');
+var $ = require('../lib/jquery');
 
 var common = require('../common');
 
@@ -87,6 +87,11 @@ var vueConfig = new Vue({
 
 		})
 
+		$('.drop_menu_list li').click(function(e){
+
+			e.stopPropagation();
+		})
+
 	},
 	computed: {
 
@@ -150,7 +155,11 @@ var vueConfig = new Vue({
 
 			gps_device.forEach( (item) => {
 
-				imei_ids.push(item.imei);
+				if (item.status == 1) {
+
+					imei_ids.push(item.imei);
+
+				}
 
 			})
 

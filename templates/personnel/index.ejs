@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>员工管理</title>
+    <link rel="stylesheet" href="/styles/personnel/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<% include ../common/header.ejs %>
+
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>员工管理</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>员工管理</span>
+                <a href="javascript:;" class="title-btn1 js_add">添加员工</a>
+            </div>
+            <div class="list_container list_top">
+                <dl class="cont_list">
+                    <% include list.ejs %>
+                </dl>
+            </div>
+            <div class="pagination">
+                <ul class="pagination_list">
+                    <% include ../common/pagination.ejs %>
+                </ul>
+            </div>
+        </div>
+        <% include ../common/footer.ejs%>
+    </div>
+</div>
+
+<div class="popup_wraper" id="editPopup">
+    <div class="popup_title">
+        <h4>编辑角色</h4>
+    </div>
+    <div class="popup_cont clearfix">
+        <span>待选角色</span>
+        <div class="popup_list_wraper">
+            <ul class="popup_list popup_admin" id="popup_has_role">
+
+            </ul>
+        </div>
+
+
+        <strong></strong>
+
+        <div class="popup_list_wraper">
+            <ul class="popup_list popup_role" id="popup_edit_role">
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm js_editConfirm" data-roletype="#popup_edit_role">确定</button>
+        <button class="btn_cancel js_cancel" data-popup="#editPopup">取消</button>
+    </div>
+</div>
+
+<div class="popup_wraper" id="addPopup">
+    <div class="popup_title">
+        <h4>添加角色</h4>
+    </div>
+    <div class="popup_input">
+        <label>姓名</label>
+        <input type="text" class="user-ui-input" id="roleName" placeholder="请输入员工名称"/>
+    </div>
+    <div class="popup_input">
+        <label>手机号</label>
+        <input type="text" class="user-ui-input" id="mobile" placeholder="请输入手机号"/>
+    </div>
+    <div class="popup_cont clearfix">
+        <span>特选权限</span>
+        <div class="popup_list_wraper">
+            <ul class="popup_list popup_admin" id="popup_all_role">
+
+            </ul>
+        </div>
+
+
+        <strong></strong>
+
+        <div class="popup_list_wraper">
+            <ul class="popup_list popup_role" id="popup_add_role">
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm js_addConfirm" data-roletype="#popup_add_role">添加</button>
+        <button class="btn_cancel js_cancel" data-popup="#addPopup">取消</button>
+    </div>
+
+</div>
+<div class="popup_mask"></div>
+
+<script type="text/javascript" src="/dist/scripts/personnel/index.js"></script>
+</body>
+</html>
+
