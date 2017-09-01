@@ -27,9 +27,17 @@ var common = {
 
 		document.querySelector('.right-container').style.minHeight = $(window).height() + 'px';
 
-		$('.header_message_list li').click(function(){
+		$('.header_message_list li').click(function(e){
+
+			e.stopPropagation();
 
 			$('.header_notice').toggle();
+
+		})
+
+		$(document).click(function(){
+
+			$('.header_notice').hide();
 
 		})
 

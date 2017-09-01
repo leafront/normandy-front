@@ -99,7 +99,7 @@ body{
 }
 .search_item{
 	em{
-		padding:0 12px;
+	  padding-left:15rem/$rem;
 	}
 }
 
@@ -667,11 +667,6 @@ body{
 		}
 	}
 }
-
-[v-cloak] {
-	display: none;
-}
-
 
 
 

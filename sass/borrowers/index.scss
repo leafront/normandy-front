@@ -6,13 +6,14 @@
 
 @import '../modules/list.scss';
 
-@import '../layui/index.scss';
-
-@import '../modules/pagination.scss';
-
 @import '../modules/dropMenu.scss';
 
 @import '../widget/calendar.scss';
+
+@import '../modules/pagination.scss';
+
+@import '../layui/index.scss';
+
 
 .cont_list{
 	.borrowers_number{

@@ -64,8 +64,11 @@
                            </div>
                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.amount === '')}">
                                <label>借款金额</label>
-                               <input type="text" class="user-ui-input edit-ui-input" v-model="business.amount" placeholder="借款金额">
-                               <i class="user-ui-input-txt">元</i>
+                               <div class="user-ui-number">
+                                  <input type="text" class="user-ui-input edit-ui-input" v-model="business.amount" placeholder="借款金额">
+                                  <i class="user-ui-input-txt">元</i>
+                               </div>
+
                            </div>
                        </div>
                        <div class="form-group clearfix">
@@ -73,7 +76,7 @@
                                <label :class="{'error_text':(!isValidate && business.term === '')}">借款期限</label>
                                <input type="number" class="user-ui-input" :class="{'error_input':(!isValidate && business.term === '')}" v-model="business.term" placeholder="借款期限"/>
                                <div class="drop_menu drop_menu_term" :class="{'form-group-error':(!isValidate && business.term_unit === '')}">
-                                   <span class="js_select">请选择</span>
+                                   <span class="js_select">{{term}}</span>
                                    <ul class="drop_menu_list">
                                        <% termUnit.forEach(function(item){%>
                                        <li @click="checkValue('term_unit',<%-item.value%>)">
@@ -109,11 +112,12 @@
                                    </ul>
                                </div>
                            </div>
-                           <div class="form-group-rows vehicles-base-input" :class="{'form-group-error':(!isValidate && business.interest_rate === '')}">
+                           <div class="form-group-rows " :class="{'form-group-error':(!isValidate && business.interest_rate === '')}">
                                <label>综合服务费率</label>
-                               <input type="text" class="user-ui-input user-ui-month" v-model="business.interest_rate" placeholder="综合服务费率">
-                               <i class="user-ui-input-txt">% / 期</i>
-                               <button class="edit_btn_custom" @click="customStage">自定义</button>
+                               <div class="user-ui-number">
+                                   <input type="text" class="user-ui-input user-ui-month" v-model="business.interest_rate" placeholder="综合服务费率">
+                                   <i class="user-ui-input-txt">% / 期</i>
+                               </div><button class="edit_btn_custom" @click="customStage">自定义</button>
                            </div>
                        </div>
                    </div>
@@ -128,50 +132,66 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.agency_fee.value === '')}">
                                 <label>中介费</label>
-                                <input type="text" placeholder="中介费" v-model="business.fees.agency_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                  <input type="text" placeholder="中介费" v-model="business.fees.agency_fee.value" class="user-ui-input edit-ui-input">
+                                  <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.evaluation_fee.value === '')}">
                                 <label>评估费</label>
-                                <input type="text" placeholder="评估费" v-model="business.fees.evaluation_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                  <input type="text" placeholder="评估费" v-model="business.fees.evaluation_fee.value" class="user-ui-input edit-ui-input">
+                                   <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
-                            <div class="form-group-rows vehicles-base-input" :class="{'form-group-error':(!isValidate && business.fees.parking_fee.value === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.parking_fee.value === '')}">
                                 <label>停车费</label>
-                                <input type="text" placeholder="停车费" v-model="business.fees.parking_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元/月</i>
+                                <div class="user-ui-number">
+                                    <input type="text" placeholder="停车费" v-model="business.fees.parking_fee.value" class="user-ui-input edit-ui-input">
+                                    <i class="user-ui-input-txt">元/月</i>
+                                </div>
                             </div>
-                            <div class="form-group-rows vehicles-base-input" :class="{'form-group-error':(!isValidate && business.fees.gps_fee.value === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.gps_fee.value === '')}">
                                 <label>GPS 使用费</label>
-                                <input type="text" placeholder="GPS 使用费" v-model="business.fees.gps_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元/月</i>
+                                <div class="user-ui-number">
+                                  <input type="text" placeholder="GPS 使用费" v-model="business.fees.gps_fee.value" class="user-ui-input edit-ui-input">
+                                  <i class="user-ui-input-txt">元/月</i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.violation_deposit_fee.value === '')}">
                                 <label>违章押金</label>
-                                <input type="text" placeholder="违章押金" v-model="business.fees.violation_deposit_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                  <input type="text" placeholder="违章押金" v-model="business.fees.violation_deposit_fee.value" class="user-ui-input edit-ui-input">
+                                  <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
-                            <div class="form-group-rows vehicles-base-input" :class="{'form-group-error':(!isValidate && business.fees.gps_deposit_fee.value === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.gps_deposit_fee.value === '')}">
                                 <label>GPS 押金</label>
-                                <input type="text" placeholder="GPS 押金" v-model="business.fees.gps_deposit_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                  <input type="text" placeholder="GPS 押金" v-model="business.fees.gps_deposit_fee.value" class="user-ui-input edit-ui-input">
+                                  <i class="user-ui-input-txt">元</i>
+                                </div>    
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.fees.risk_deposit_fee.value === '')}">
                                 <label>风险押金</label>
-                                <input type="text" placeholder="风险押金" v-model="business.fees.risk_deposit_fee.value" class="user-ui-input edit-ui-input">
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                  <input type="text" placeholder="风险押金" v-model="business.fees.risk_deposit_fee.value" class="user-ui-input edit-ui-input">
+                                  <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
-                            <div class="form-group-rows vehicles-base-input">
+                            <div class="form-group-rows">
                                 <label :class="{'error_text':(!isValidate && business.fees.other_fee.name === '')}">自定费用</label>
                                 <input type="text" placeholder="费用名称" :class="{'error_input':(!isValidate && business.fees.other_fee.name === '')}" v-model="business.fees.other_fee.name" class="user-ui-input user-ui-cost">
-                                <input type="number" placeholder="GPS 押金" :class="{'error_input':(!isValidate && business.fees.other_fee.value === '')}" v-model="business.fees.other_fee.value" class="user-ui-input">
-                                <i class="user-ui-input-txt" :class="{'error_text':(!isValidate && business.fees.other_fee.value === '')}">元</i>
+                                <div class="user-ui-number">
+                                  <input type="number" placeholder="GPS 押金" :class="{'error_input':(!isValidate && business.fees.other_fee.value === '')}" v-model="business.fees.other_fee.value" class="user-ui-input">
+                                  <i class="user-ui-input-txt" :class="{'error_text':(!isValidate && business.fees.other_fee.value === '')}">元</i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,7 +243,6 @@
         </ul>
       </div>
       <div class="const_wraper">
-
           <div class="cost_item" v-for="(item,index) in repay_schema">
               <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu[index].isOpen}">
                   <span @click.stop="showMenu(!dropMenu[index].isOpen,index)">{{'第' + item.term + '期'}}</span>
@@ -234,12 +253,16 @@
                   </ul>
               </div>
               <div class="const_money">
-                  <input type="number" placeholder="综合管理费" v-model="item.interest" class="user-ui-input"/>
-                  <i class="user-ui-input-txt">元</i>
+                  <div class="user-ui-number">
+                    <input type="number" placeholder="综合管理费" v-model="item.interest" class="user-ui-input"/>
+                    <i class="user-ui-input-txt">元</i>
+                  </div>
               </div>
               <div class="const_money">
-                  <input type="number" placeholder="还本金额" v-model="item.capital" class="user-ui-input"/>
-                  <i class="user-ui-input-txt">元</i>
+                  <div class="user-ui-number">
+                      <input type="number" placeholder="还本金额" v-model="item.capital" class="user-ui-input"/>
+                      <i class="user-ui-input-txt">元</i>
+                  </div>
               </div>
               <button class="form-group-btn" v-if="index==0" @click="addRecord(1)">+</button>
               <button class="form-group-btn btn_gray" v-else @click="removeRecord(index)">-</button>
@@ -262,6 +285,8 @@
       term_unit:<%-business.term_unit%>,
       salesman:'<%-business.salesman_id%>',
       repay_type:<%-business.repay_type%>,
+
+      repay_schema:<%-JSON.stringify(business.repay_schema)%>,
       interest_rate:'<%-business.interest_rate%>',
 
       cover_pic:<%-JSON.stringify(business.cover_pic)%>,

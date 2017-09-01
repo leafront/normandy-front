@@ -34,7 +34,7 @@ var recharge = new Vue({
 
 			Lizard.ajax({
 				type: "POST",
-				url: '/account/recharge',
+				url: '/api/recharge',
 				data:{
 					amount: this.rechargeAmount,
 					pay_method: '0'
@@ -98,7 +98,28 @@ var cashPopup = new Vue({
 		},
 		saveRecharge(){
 
-			$('#cashForm').submit();
+			Lizard.ajax({
+				type:'POST',
+				url:'/api/withdrawal',
+				data:{
+					amount: this.withdrawalAmount
+				},
+				success: (data) =>{
+
+					var re = new RegExp(/<form [\s\S]*<\/form>/);
+
+					var formStr = data.match(re)[0];
+
+					$(formStr).insertAfter('#recharge');
+
+					this.saveBtn = false;
+
+					$('#form1').submit();
+				}
+
+
+			})
+
 		}
 
 	}
@@ -118,7 +139,7 @@ var vueConfig = new Vue({
 		accountAction (url) {
 
 			Lizard.ajax({
-				type: "POST",
+				type: "GET",
 				url:url,
 				success(data) {
 

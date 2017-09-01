@@ -49,7 +49,7 @@ var vueConfig = new Vue({
 
 			var data = this.params;
 
-			pagination.showPage(event,'/business/list',data,listTpl,{
+			pagination.showPage(event,'/api/borrowings',data,listTpl,{
 				termUnit,
 				borrowingStatus,
 				autoReviewStatus,
@@ -158,7 +158,7 @@ var vueConfig = new Vue({
 
 			var formData = Object.assign({ page }, data );
 
-			pagination.pageList('/business/list',formData,listTpl,{
+			pagination.pageList('/api/borrowings',formData,listTpl,{
 				termUnit,
 				borrowingStatus,
 				autoReviewStatus,

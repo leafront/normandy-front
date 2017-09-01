@@ -106,8 +106,8 @@ var vueConfig = new Vue({
 
 	created(){
 		Lizard.ajax({
-			type: 'POST',
-			url:'/business/borrowers',
+			type: 'GET',
+			url:'/api/borrowers',
 			success:(data) =>{
 
 				var results = data.results;
@@ -174,11 +174,8 @@ var vueConfig = new Vue({
 			$('#vehicleName').text('请选择车辆');
 
 			Lizard.ajax({
-				type: 'POST',
-				url:'/business/vehicles',
-				data:{
-					id
-				},
+				type: 'GET',
+				url:`/api/borrowers/${id}/vehicles`,
 				success: (data) =>{
 
 					var results = data.results;
@@ -338,7 +335,7 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:'/business/loan/add',
+				url:'/api/applications',
 				data:formData,
 				success:(data) =>{
 

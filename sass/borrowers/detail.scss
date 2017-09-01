@@ -62,9 +62,9 @@
 
 .popup_wraper{
 
-	width:960rem/$rem;
+	width:1300rem/$rem;
 
-	margin-left:-960rem/2/$rem;
+	margin-left:-1300rem/2/$rem;
 }
 
 .popup_submit{
@@ -72,26 +72,31 @@
 	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
 }
 .popup_cont{
+
+	height:600rem/$rem;
 	padding-left:40rem/$rem;
 
 	padding-right:40rem/$rem;
 }
 .popup_menu{
+	margin-left:15rem/$rem;
 	li{
 		line-height:68rem/$rem;
 		height:68rem/$rem;
-		width:240rem/$rem;
+		width:260rem/$rem;
 		font-size:16px;
 		color:#666;
 		float:left;
-		margin-right:32rem/$rem;
-		&:first-child{
 
-			width:208rem/$rem;
-		}
+		margin-right:28rem/$rem;
+
 		&:last-child{
 			margin-right:0;
 		}
+	}
+	.menu_type,.menu_status{
+		width:210rem/$rem;
+
 	}
 }
 .drop_menu_stage{
@@ -107,15 +112,8 @@
 	position:relative;
 	margin-left:28rem/$rem;
 	.user-ui-input{
-		width:240rem/$rem;
+		width:260rem/$rem;
 		margin-left:0;
-	}
-	.user-ui-input-txt{
-		width:34px;
-		position:absolute;
-		right:1px;
-		left:inherit;
-		top:1px;
 	}
 }
 
@@ -161,7 +159,5 @@
 	}
 }
 .const_wraper{
-	max-height:6rem;
 	width:100%;
-	overflow:auto;
 }

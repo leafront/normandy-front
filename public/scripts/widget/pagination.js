@@ -38,7 +38,7 @@ var pagination = {
 		var showPage = 5;
 
 		Lizard.ajax({
-			type: 'POST',
+			type: 'GET',
 			url: url,
 			data: formData,
 			success: function (data) {

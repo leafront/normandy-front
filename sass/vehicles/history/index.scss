@@ -1,0 +1,116 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../layui/index.scss';
+
+.map_popup{
+
+	width:250px;
+}
+.map_item{
+
+	margin-top:10px;
+
+	overflow:hidden;
+
+	font-size:14px;
+	color:#333;
+	label{
+		float:left;
+
+		font-weight:bold;
+	}
+	span{
+		float:left;
+	}
+	.map_ques{
+
+		font-weight:bold;
+
+		color:#f00;
+
+		margin-left:8px;
+
+		cursor:pointer;
+
+	}
+}
+
+.history{
+
+	width:100%;
+
+	height:50px;
+
+	background:#fff;
+
+	padding-top:15px;
+
+	z-index:10000;
+
+	display:flex;
+
+	justify-content: center;
+
+	position:fixed;
+
+	top:0;
+
+	left:0;
+}
+
+#container{
+	top:60px;
+	height:calc(100% - 60px);
+}
+
+.user-ui-calendar{
+
+	em{
+		padding-left:15rem/$rem;
+
+		padding-right:0;
+	}
+}
+
+.date_list{
+	label{
+		font-size:14px;
+		color:#333;
+		display:inline-block;
+	}
+}
+
+.history_btn{
+
+	padding:0 15px;
+
+	margin-left:12px;
+
+	height:28px;
+
+	line-height:28px;
+
+	background:#53cac3;
+
+	color:#fefefe;
+
+	font-size:14px;
+
+	@include borderRadius(5);
+
+	@include boxShadow(4);
+
+	cursor:pointer;
+
+	&:disabled{
+
+		background:#eef1f5;
+
+		color:#666;
+
+		cursor:not-allowed;
+	}
+
+}

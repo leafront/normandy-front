@@ -18,7 +18,6 @@ const {
 var vueConfig = new Vue({
 
 	el:'#app',
-
 	data:  {
 		"self": {
 			"cohabitation": [],
@@ -163,13 +162,13 @@ var vueConfig = new Vue({
 
 			this.isValidate = validateEle;
 
-			//if (!isValidate) {
-			//
-			//	Lizard.showToast('请完善电核信息填写');
-			//
-			//	return;
-			//
-			//}
+			if (!isValidate) {
+
+				Lizard.showToast('请完善电核信息填写');
+
+				return;
+
+			}
 
 			var validateEle = ['self','rel','col','fri','emer'];
 
@@ -183,7 +182,6 @@ var vueConfig = new Vue({
 
 			}
 
-			console.log(JSON.stringify(remark,null,2));
 
 			var formData = {
 
@@ -196,11 +194,8 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:'/business/phone/submit',
-				data:{
-					id:phoneId,
-					data:submitData
-				},
+				url:`/api/applications/${phoneId}/phone-reviews`,
+				data:submitData,
 				success: (data) =>{
 
 					if (data) {

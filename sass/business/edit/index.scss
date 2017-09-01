@@ -35,10 +35,12 @@
 
 .form-group-rows:first-child{
 
-	width:750rem/$rem;
+	width:800rem/$rem;
+
 }
 .vehicle_info_wraper{
-	padding:28px 0 0 100rem/$rem;
+	padding:28px 0 0 30rem/$rem;
+
 
 	&:last-of-type{
 		padding-bottom:28px;
@@ -115,15 +117,6 @@
 	}
 }
 
-.vehicles-base-input{
-
-	.user-ui-input-txt{
-
-		width:54px;
-
-		left:-59px;
-	}
-}
 .edit-ui-input{
 	width:520rem/$rem;
 }
@@ -138,8 +131,8 @@
 	}
 }
 .user-ui-cost{
-	width:240rem/$rem;
-}
+	 width:240rem/$rem;
+ }
 
 .drop_menu_term{
 
@@ -157,7 +150,7 @@
 			margin-top:0;
 			padding:0;
 			background:#51a5e2;
-			margin-left:-63px;
+			margin-left:0;
 			width:80rem/$rem;
 			height:34px;
 			line-height:34px;

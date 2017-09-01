@@ -75,13 +75,13 @@ var roleAuth = {
 
 		popup.showContent('#addPopup');
 	},
-	submitRole (type,url,roleIds){ //提交角色修改
+	submitRole (type,url,roleIds,submitType){ //提交角色修改
 
 		var tips = type == 1 ? '修改' : '添加';
 
 		Lizard.ajax({
 			url: url,
-			type: 'POST',
+			type: submitType,
 			data: roleIds,
 			success: function (data) {
 
@@ -89,7 +89,7 @@ var roleAuth = {
 
 				setTimeout(function(){
 
-					location.reload();
+					//location.reload();
 
 				},500)
 			}
@@ -99,7 +99,7 @@ var roleAuth = {
 
 		Lizard.ajax({
 			url: url,
-			type: 'POST',
+			type: 'GET',
 			async: false,
 			success: (data) =>{
 
@@ -116,7 +116,7 @@ var roleAuth = {
 
 		Lizard.ajax({
 			url:url,
-			type:'POST',
+			type:'GET',
 			data:{
 				roleId:roleId
 			},

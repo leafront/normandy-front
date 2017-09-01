@@ -10,130 +10,15 @@ var dataModel = require('../../../../model/data');
 
 const {
 
-	repaymentType
+	repaymentType,
+	termUnit
 
-} = dataModel
-
-
-var popupConfig = new Vue({
-
-	el:'#popup',
-	data:{
-		stage: 5,
-		isStage:false,
-		repay_schema:[
-			{"term":1,"interest":"","capital":""},
-			{"term":2,"interest":"","capital":""},
-			{"term":3,"interest":"","capital":""},
-			{"term":4,"interest":"","capital":""},
-			{"term":5,"interest":"","capital":""}
-		],
-		dropMenu:[
-			{isOpen:false,value:'请选择'},
-			{isOpen:false,value:'请选择'},
-			{isOpen:false,value:'请选择'},
-			{isOpen:false,value:'请选择'},
-			{isOpen:false,value:'请选择'}
-		]
-	},
-	methods: {
-
-		checkValue (property, value) {
-
-			this.repay_schema[property] = value;
-
-		},
-
-		hidePopup () {
-
-			popup.hideContent('#popup');
-
-			this.isStage = false;
-
-		},
-
-		addStage () {
-
-			var isValidate = true;
-
-			this.repay_schema.forEach((item) =>{
-
-				for (var attr in item) {
-
-					if (item[attr] === "") {
-
-						Lizard.showToast('请完善借款信息');
-
-						isValidate = false;
-
-						return;
-
-					}
-				}
-
-			})
-
-			if (isValidate) {
-
-				this.isStage = true;
-
-				popup.hideContent('#popup');
-
-			}
-
-		},
-		addRecord (value) {
-
-			var stage = this.stage;
-
-			this.stage += value;
-
-			this.repay_schema.push({"term": this.stage,"interest":"","capital":""});
-
-			this.dropMenu.push({"isOpen": false,value:"请选择"})
-
-		},
-		removeRecord (index) {
-
-			this.repay_schema.splice(index,1);
-
-			this.dropMenu.splice(index,1);
-
-		},
-		showMenu (isOpen,index) {
+} = dataModel;
 
 
-			this.dropMenu[index].isOpen = isOpen;
+const business = Object.assign({},editBusiness);
 
-		},
-		selectValue (index,value){
-
-			this.dropMenu[index].isOpen = false;
-
-			var isValidate = true;
-
-			this.repay_schema.forEach((item) =>{
-
-				if (item.term == value){
-
-					Lizard.showToast(`当前已选择第${value}期`);
-
-					isValidate = false;
-
-				}
-
-			})
-
-
-			if (isValidate) {
-
-				this.repay_schema[index].term = value;
-
-			}
-
-		}
-	}
-})
+const repay_schema = Object.assign([],editBusiness.repay_schema).length || [{"term": 1,"interest":"","capital":""}];
 
 
 var vueConfig = new Vue({
@@ -142,15 +27,16 @@ var vueConfig = new Vue({
 
 	data:  {
 		repaymentType,
-		business:editBusiness,
+		termUnit,
+		business:business,
 
 		salesmenList:[],
 
 		salesmanName:'',
 
-		stage: 5,
-
 		loanType:'请选择',
+
+		term:'请选择',
 
 		isValidate: true
 
@@ -159,8 +45,8 @@ var vueConfig = new Vue({
 	created() {
 
 		Lizard.ajax({
-			type:'POST',
-			url:'/business/salesmen',
+			type:'GET',
+			url:'/api/salesmen',
 			success:(data) =>{
 
 				var results = data.results;
@@ -235,6 +121,12 @@ var vueConfig = new Vue({
 				this.loanType = this.repaymentType[business.repay_type].name;
 
 			}
+
+			if (business.term_unit !== "") {
+
+				this.term = this.termUnit[business.term_unit].name;
+
+			}
 		},
 
 		checkValue (property,value) {
@@ -257,7 +149,7 @@ var vueConfig = new Vue({
 
 			var origin_rotate = rotateItem.rotate || 0;
 
-			var new_rotate = ( + 90) % 360;
+			var new_rotate = (origin_rotate + 90) % 360;
 
 			img.css('transform', 'rotate('+ new_rotate +'deg)');
 
@@ -328,8 +220,8 @@ var vueConfig = new Vue({
 
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/business/oss-key',
+				type:'GET',
+				url:'/api/oss-key',
 				data: fileInfo,
 				success:(data) => {
 
@@ -387,20 +279,22 @@ var vueConfig = new Vue({
 		},
 		submitAction (borrowingId) {
 
-			var { repay_schema, isStage } =  popupConfig;
+			var { isStage } =  popupConfig;
+
+
 
 			if (!isStage) {
 
-				repay_schema = [];
+				popupConfig.repay_schema = [];
 			}
 
 			var isValidate = this.validateForm();
 
 			var formData = this.business;
 
-			var formJSON = ['apply_pics','call_records','contract_pics','supporting_pics','violation_records','fees','repay_schema'];
+			var formJSON = ['apply_pics','cover_pic','call_records','contract_pics','supporting_pics','violation_records','fees','repay_schema'];
 
-			var submitData = Object.assign({repay_schema},formData);
+			var submitData = Object.assign({repay_schema: popupConfig.repay_schema},formData);
 
 			formJSON.forEach((item) =>{
 
@@ -418,15 +312,10 @@ var vueConfig = new Vue({
 
 			}
 
-			console.log(JSON.stringify(submitData,null,2))
-
 			Lizard.ajax({
-				type:'POST',
-				url:'/business/edit',
-				data:{
-					id:borrowingId,
-					data:submitData
-				},
+				type:'PATCH',
+				url:`/api/borrowings/${borrowingId}`,
+				data:submitData,
 				success: (data) =>{
 
 					if (data) {
@@ -462,5 +351,154 @@ var vueConfig = new Vue({
 	}
 })
 
+
+
+var popupConfig = new Vue({
+
+	el:'#popup',
+	data:{
+		isStage:false,
+
+		iStage:editBusiness.repay_schema.length || 1,
+		repay_schema:editBusiness.repay_schema || [{"term": this.iStage,"interest":"","capital":""}],
+		dropMenu:[]
+	},
+	created() {
+
+		var dropMenu = [];
+
+		this.repay_schema.forEach(function(){
+
+			dropMenu.push({isOpen:false,value:'请选择'})
+
+		})
+
+		this.dropMenu = dropMenu;
+
+	},
+	computed: {
+
+		stage () {
+
+			var business = vueConfig.business
+
+			if (business.term_unit == 0 && business.term) {
+
+
+				return 1;
+
+			} else if (business.term_unit == 1 && business.term ){
+
+				return business.term;
+
+			}
+
+		}
+
+	},
+	methods: {
+
+		checkValue (property, value) {
+
+			this.repay_schema[property] = value;
+
+		},
+
+		hidePopup () {
+
+			popup.hideContent('#popup');
+
+			this.isStage = false;
+
+			this.iStage = repay_schema.length;
+
+			this.repay_schema = repay_schema;
+
+		},
+
+		addStage () {
+
+			var isValidate = true;
+
+			this.repay_schema.forEach((item) =>{
+
+				for (var attr in item) {
+
+					if (item[attr] === "") {
+
+						Lizard.showToast('请完善借款信息');
+
+						isValidate = false;
+
+						return;
+
+					}
+				}
+
+			})
+
+			if (isValidate) {
+
+				this.isStage = true;
+
+				popup.hideContent('#popup');
+
+			}
+
+		},
+		addRecord (value) {
+
+			this.iStage += 1;
+
+			if (this.repay_schema.length < this.stage ) {
+
+				this.repay_schema.push({"term": this.iStage,"interest":"","capital":""});
+
+				this.dropMenu.push({"isOpen": false,value:"请选择"})
+
+			}
+
+		},
+		removeRecord (index) {
+
+			this.repay_schema.splice(index,1);
+
+			this.dropMenu.splice(index,1);
+
+		},
+		showMenu (isOpen,index) {
+
+
+			this.dropMenu[index].isOpen = isOpen;
+
+		},
+		selectValue (index,value){
+
+			this.dropMenu[index].isOpen = false;
+
+			var isValidate = true;
+
+			this.repay_schema.forEach((item) =>{
+
+				if (item.term == value){
+
+					Lizard.showToast(`当前已选择第${value}期`);
+
+					isValidate = false;
+
+				}
+
+			})
+
+
+			if (isValidate) {
+
+				this.repay_schema[index].term = value;
+
+			}
+
+		}
+	}
+})
 
 

@@ -18,7 +18,7 @@ Page({
 
 	ajax(){
 
-		roleAuth.adminAuthority({url:'/personnel/role'});
+		roleAuth.adminAuthority({url:'/api/users/roles'});
 
 	},
 
@@ -32,7 +32,7 @@ Page({
 
 		$('.pagination_list').on('click','.js_page',(event) => {
 
-			pagination.showPage(event,'/personnel/list', null, listTpl, null);
+			pagination.showPage(event,'/api/users', null, listTpl, null);
 
 		})
 
@@ -61,7 +61,7 @@ Page({
 
 			$('.js_editConfirm').data('id',roleId);
 
-			roleAuth.editRole(roleId,'/personnel/edit/roles','roles');
+			roleAuth.editRole(roleId,`/api/users/${roleId}`,'roles');
 
 		})
 
@@ -128,11 +128,10 @@ Page({
 				btn:['确定','取消']
 			},function(){
 				Lizard.ajax({
-					url: '/personnel/role/switch',
-					type: 'POST',
+					url: `/api/users/${id}/status`,
+					type: 'PATCH',
 					data: {
-						status:status,
-						id:id
+						status:status
 					},
 					success:function(data){
 
@@ -151,7 +150,7 @@ Page({
 	sendMessage(id){
 		Lizard.ajax({
 			type:'POST',
-			url:'/personnel/activation',
+			url:`/api/users/${id}/activation`,
 			data:{
 				id:id
 			},
@@ -171,13 +170,13 @@ Page({
 
 		var roleIds = roleAuth.getRoleIds(roleType);
 
-		var url = '/personnel/edit';
+		var url = `/api/users/${id}/roles`;
 
 		var data = {id:id,roles:roleIds};
 
 		var type = 1;
 
-		roleAuth.submitRole(type,url,data);
+		roleAuth.submitRole(type,url,data,'PATCH');
 	},
 	addSubmit(roleType){
 
@@ -212,10 +211,10 @@ Page({
 
 		var data = {name:roleName,mobile:mobile,roles:roleIds};
 
-		var url = '/personnel/add';
+		var url = '/api/users';
 
 		var type = 2;
 
-		roleAuth.submitRole(type,url,data);
+		roleAuth.submitRole(type,url,data,'POST');
 	}
 })

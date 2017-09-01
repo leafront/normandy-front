@@ -55,8 +55,10 @@
                             </div>
                             <div class="form-group-rows vehicles-base-input">
                                 <label>总千瓦数</label>
-                                <input type="number" class="user-ui-input" id="kilowatt" placeholder="总千瓦数"/>
-                                <i class="user-ui-input-txt">千瓦</i>
+                                <div class="user-ui-number">
+                                  <input type="number" class="user-ui-input" id="kilowatt" placeholder="总千瓦数"/>
+                                  <i class="user-ui-input-txt">千瓦</i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
@@ -76,13 +78,18 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>车牌价格</label>
-                                <input type="number" class="user-ui-input" id="licensePrice" placeholder="车牌价格"/>
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input" id="licensePrice" placeholder="车牌价格"/>
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
+
                             </div>
                             <div class="form-group-rows vehicles-base-input">
                                 <label>行驶里程</label>
-                                <input type="number" class="user-ui-input" id="mileage" placeholder="行驶里程"/>
-                                <i class="user-ui-input-txt">公里</i>
+                                <div class="user-ui-number">
+                                  <input type="number" class="user-ui-input" id="mileage" placeholder="行驶里程"/>
+                                   <i class="user-ui-input-txt">公里</i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -93,8 +100,11 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows vehicle-ui-ico">
                                 <label>购买时间</label>
-                                <input type="text" class="user-ui-input" readonly="readonly" id="buyTime" placeholder="购买时间"/>
-                                <i class="user-ui-input-txt"> &nbsp;</i>
+                                <div class="user-ui-number">
+                                  <input type="text" class="user-ui-input" readonly="readonly" id="buyTime" placeholder="购买时间"/>
+                                  <i class="user-ui-input-txt"> &nbsp;</i>
+                                </div>
+
                             </div>
                             <div class="form-group-rows vehicle-ui-ico">
                                 <label>过户时间</label>
@@ -123,39 +133,52 @@
                             </div>
                             <div class="form-group-rows">
                                 <label>购买价格</label>
-                                <input type="number" class="user-ui-input" id="purchasePrice" placeholder="购买价格"/>
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input" id="purchasePrice" placeholder="购买价格"/>
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>购车贷款金额</label>
-                                <input type="number" class="user-ui-input js_amount" id="loanAmount" placeholder="购车贷款金额"/>
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input js_amount" id="loanAmount" placeholder="购车贷款金额"/>
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
                             <div class="form-group-rows">
                                 <label>剩余未还金额</label>
-                                <input type="number" class="user-ui-input js_amount" id="loanPendingAmount" placeholder="剩余未还金额"/>
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input js_amount" id="loanPendingAmount" placeholder="剩余未还金额"/>
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>购车贷款总期数</label>
-                                <input type="number" class="user-ui-input js_amount" id="loanTerms" placeholder="购车贷款总期数"/>
-                                <i class="user-ui-input-txt">期</i>
+                                <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input js_amount" id="loanTerms" placeholder="购车贷款总期数"/>
+                                    <i class="user-ui-input-txt">期</i>
+                                </div>
                             </div>
                              <div class="form-group-rows">
                                 <label>剩余未还期数</label>
-                                <input type="number" class="user-ui-input js_amount" id="loanPendingTerms" placeholder="剩余未还期数"/>
-                                <i class="user-ui-input-txt">期</i>
+                                 <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input js_amount" id="loanPendingTerms" placeholder="剩余未还期数"/>
+                                    <i class="user-ui-input-txt">期</i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>历史抵押次数</label>
-                                <input type="number" class="user-ui-input" id="collateralTimes" placeholder="历史抵押次数"/>
-                                <i class="user-ui-input-txt">次</i>
+                                <div class="user-ui-number">
+                                    <input type="number" class="user-ui-input" id="collateralTimes" placeholder="历史抵押次数"/>
+                                    <i class="user-ui-input-txt">次</i>
+                                </div>
                             </div>
                             <div class="form-group-rows">
                                 <label>最近解抵押</label>
@@ -272,8 +295,10 @@
                             </div>
                             <div class="form-group-rows">
                                 <label>评估价格</label>
-                                <input type="text" class="user-ui-input" id="evaluatePrice" placeholder="评估价格"/>
-                                <i class="user-ui-input-txt">元</i>
+                                <div class="user-ui-number">
+                                    <input type="text" class="user-ui-input" id="evaluatePrice" placeholder="评估价格"/>
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group vehicle_run clearfix">

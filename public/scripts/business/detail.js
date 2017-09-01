@@ -138,11 +138,8 @@ Page({
 		if (roleList.indexOf('CREDIT_READ') > -1) {
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/business/vehicles/risks',
-				data:{
-					id: this.borrowingsId
-				},
+				type:'GET',
+				url:`/api/borrowings/${this.borrowingsId}/risks`,
 				success:function(data){
 
 					if(data) {
@@ -163,10 +160,7 @@ Page({
 
 		Lizard.ajax({
 			type:'POST',
-			url:'/business/purchase',
-			data:{
-				id: this.borrowingsId
-			},
+			url:`/api/borrowings/${this.borrowingsId}/type`,
 			success(data){
 
 				if(data) {
@@ -194,11 +188,8 @@ Page({
 	getRisks(){
 
 		Lizard.ajax({
-			type:'POST',
-			url:'/business/risks',
-			data:{
-				id: this.borrowingsId
-			},
+			type:'GET',
+			url:`/api/borrowings/${this.borrowingsId}/vehicles/risks`,
 			success:function(data){
 
 				if(data) {
@@ -216,11 +207,8 @@ Page({
 	getApprovals(){
 
 		Lizard.ajax({
-			type:'POST',
-			url:'/business/approvals',
-			data:{
-				id: this.borrowingsId
-			},
+			type:'GET',
+			url:`/api/borrowings/${this.borrowingsId}/approvals`,
 			success:function(data){
 
 				var results = data.results;

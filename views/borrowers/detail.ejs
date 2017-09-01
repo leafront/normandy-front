@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>首页</title>
+    <title>客户--用户详情</title>
     <link rel="stylesheet" href="/styles/borrowers/detail.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
@@ -57,10 +57,10 @@
                         <span>操作</span>
                     </dt>
                     <%if(borrowersList && borrowersList.length){%>
-                    <% borrowersList.forEach(function(item){%>
+                    <% borrowersList.forEach(function(item,index){%>
                     <dd>
                         <span class="borrowers_num"><%-item.model%></span>
-                        <div class="borrowers_gps"><span class="borrowers_gps_action" @click="showPopup('#addPopup')">添加 GPS 设备</span><span class="borrowers_gps_action"> / 查看设备</span></div>
+                        <div class="borrowers_gps"><span class="borrowers_gps_action" @click="showPopup('#addPopup',<%-index%>,'<%-item.id%>')">添加/查看GPS设备</span></div>
                         <span class="borrowers_color"><%-colorList[item.color].name%></span>
                         <span class="borrowers_time"><%-item.created_at%></span>
                         <div class="borrowers_action">
@@ -78,41 +78,45 @@
         <% include ../common/footer.ejs%>
     </div>
 </div>
+
 <div class="popup_wraper" id="addPopup">
     <div class="popup_title">
-        <h4>添加GPS设备</h4>
+        <h4>添加/修改GPS设备</h4>
     </div>
     <div class="popup_cont">
         <div class="popup_cont_type">
             <ul class="popup_menu">
                 <li>供应商</li>
                 <li>设备号（IMEI）</li>
-                <li>设备类型</li>
+                <li class="menu_type">设备类型</li>
+                <li class="menu_status">状态</li>
             </ul>
         </div>
         <div class="const_wraper">
 
-            <div class="cost_item" v-for="(item,index) in repay_schema">
-                <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu == index}">
-                    <span @click.stop="selectValue(index)">谷米</span>
-                    <ul class="drop_menu_list">
-                        <li @click="checkValue('type',item.value)">
-                            <a href="javascript:;">谷米</a>
-                        </li>
-                    </ul>
+            <div class="cost_item" v-for="(item,index) in gps_devices">
+
+                <input type="text" :value="item.supplier" disabled="disabled" class="user-ui-input"/>
+
+                <div class="const_money">
+                    <input type="number" placeholder="请输入设备号" v-model="item.imei" class="user-ui-input"/>
                 </div>
                 <div class="const_money">
-                    <input type="number" placeholder="请输入设备号" v-model="item.interest" class="user-ui-input"/>
-                </div>
-                <div class="const_money">
-                    <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu == index}">
-                        <span @click.stop="selectValue(index)">有线</span>
+                    <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu[index].deviceOpen}">
+                        <span @click.stop="selectValue(index,'deviceOpen')">{{device_type[item.type].name}}</span>
                         <ul class="drop_menu_list">
-                            <li @click="checkValue('type',item.value)">
-                                <a href="javascript:;">有线</a>
+                            <li v-for="child in device_type" @click="checkValue(index,'type','deviceOpen',child.value)">
+                                <a href="javascript:;">{{child.name}}</a>
                             </li>
-                            <li @click="checkValue('type',item.value)">
-                                <a href="javascript:;">无线</a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="const_money">
+                    <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu[index].statusOpen}">
+                        <span @click.stop="selectValue(index,'statusOpen')">{{gpsStatus[item.status].name}}</span>
+                        <ul class="drop_menu_list">
+                            <li v-for="child in gpsStatus" @click="checkValue(index,'status','statusOpen',child.value)">
+                                <a href="javascript:;">{{child.name}}</a>
                             </li>
                         </ul>
                     </div>
@@ -123,7 +127,7 @@
         </div>
     </div>
     <div class="popup_submit clearfix">
-        <button class="btn_confirm">添加</button>
+        <button class="btn_confirm" @click="addGps('#addPopup')">添加</button>
         <button class="btn_cancel" @click="hidePopup('#addPopup')">取消</button>
     </div>
 </div>

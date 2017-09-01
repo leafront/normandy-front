@@ -126,12 +126,17 @@
     <div class="carPopup">
        <div class="carPopup_nav">
          <ul class="carNav_list">
+             <li v-for="(item,index) in letterNav"><a href="javascript:;">{{item}}</a></li>
          </ul>
        </div>
 
       <div class="carPopup_item">
           <h4>请选择车辆品牌</h4>
         <div class="carList_wraper" id="brandList">
+            <dl v-for="(item,index) in brandList" class="carList" :id="'letter-'item.initial">
+                <dt><a href="javascript:;">{{item.initial}}</a></dt>
+                <dd v-for="(child,cIndex) in item.results" :class="{'active':index==0 && cIndex==0}"><a href="javascript:;">{{child.name}}</a></dd>
+            </dl>
         </div>
       </div>
       <div class="carPopup_item">
@@ -145,9 +150,6 @@
         </div>
       </div>
     </div>
-    <input type="hidden" id="brandName" value=""/>
-    <input type="hidden" id="typeName" value=""/>
-    <input type="hidden" id="modelName" value=""/>
 
     <input type="hidden" id="detailId" value="<%-detailId%>">
     <div class="popup_submit clearfix">

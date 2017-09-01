@@ -53,11 +53,8 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:'/business/approval/review',
-				data:{
-					id:window.borrowingsId,
-					data:this.formData
-				},
+				url:`/api/borrowings/${borrowingsId}/approvals/master_review`,
+				data:this.formData,
 				success (data){
 
 					if (data) {
@@ -66,7 +63,7 @@ var vueConfig = new Vue({
 
 						setTimeout(function(){
 
-							//location.href = '/business/' + window.borrowingsId;
+							location.href = '/business/' + window.borrowingsId;
 
 						},500)
 					}

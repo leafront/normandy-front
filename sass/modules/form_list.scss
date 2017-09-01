@@ -4,36 +4,13 @@
 
 	.user-ui-input-txt{
 
-		background:url(/images/ico_sprite.png) no-repeat #eee -218px -32px;
+		width:35px;
+
+		background:url(/images/ico_sprite.png) no-repeat -218px -32px;
 	}
 }
 
 
-.user-ui-input-txt{
-
-	display:inline-block;
-	position:relative;
-	left:-38px;
-	top:1px;
-	width:33px;
-
-	height:32px;
-	background:#eee;
-
-	border-left:1px solid #ccc;
-
-
-	border-right:0;
-
-	font-size:14px;
-
-	color:#333;
-	line-height:34px;
-
-	text-align:center;
-
-
-}
 .vehicle_tab_wraper{
 
 	padding: 28px 0 28px 20px;
@@ -57,6 +34,35 @@
 
 	color:#53cac3;
 
+}
+
+.user-ui-number{
+
+	position:relative;
+
+	display:inline-block;
+
+	.user-ui-input-txt{
+		padding:0 10px;
+		position:absolute;
+		right:1px;
+		top:1px;
+		left:inherit;
+		height:32px;
+		background-color:#eee;
+
+		border-left:1px solid #ccc;
+
+
+		border-right:0;
+
+		font-size:14px;
+
+		color:#333;
+		line-height:34px;
+
+		text-align:center;
+	}
 }
 
 

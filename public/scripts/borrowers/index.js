@@ -33,7 +33,7 @@ var vueConfig = new Vue({
 
 			var data = this.params;
 
-			pagination.showPage(event,'/borrowers/list', data, listTpl, null);
+			pagination.showPage(event,'/api/borrowers', data, listTpl, null);
 
 		})
 

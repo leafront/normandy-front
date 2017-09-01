@@ -79,6 +79,14 @@ var transmissionStatus = [
 	}
 ]
 
+var deviceType = [{
+	name: '有线',
+	value: '0'
+},{
+	name: '无线',
+	value: '1'
+}];
+
 var engineStatus =  [
 	{
 		"name": "正常",
@@ -441,6 +449,7 @@ var borrowingStatus = {
 	'-2': {'title': '主审拒绝', 'color': 'list_btn4'},
 	'3': {'title': '待复审', "stage": "复审", 'color': 'list_btn2'},
 	'-3': {'title': '财审拒绝', 'color': 'list_btn4'},
+	'null':{'title':'未上标','color':'list_btn4'},
 	'4': {'title': '还款中', 'color': 'list_btn'},
 	'-4': {'title': '复审拒绝', 'color': 'list_btn4'},
 	'5': {'title': '还款完成', 'color': 'list_btn'},
@@ -977,9 +986,9 @@ var loanType = [{
 	"value": 1
 }];
 
-var subjectStatus = [{
+var gpsStatus = [{
 
-	name:'全部',
+	name:'正常',
 	value:0
 },{
 	name:'异常',
@@ -988,12 +997,13 @@ var subjectStatus = [{
 	name:'预警',
 	value:2
 },{
-	name:'无异常',
+	name:'未安装',
 	value:3
 }];
 
 module.exports = {
-	subjectStatus,
+	deviceType,
+	gpsStatus,
 	loanType,
 	seniority,
 	companyScale,

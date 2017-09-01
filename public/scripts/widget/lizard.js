@@ -159,7 +159,6 @@
 
 			$.ajax({
 				type:obj.type,
-				dataType: 'json',
 				url: obj.url,
 				async:async,
 				data:resData,

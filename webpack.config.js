@@ -58,9 +58,13 @@ module.exports = {
 
 		'vehicles/trace/index':'./public/scripts/vehicles/trace/index',
 
+		'vehicles/history/index':'./public/scripts/vehicles/history/index',
+
 		'personnel/index':'./public/scripts/personnel/index',
 
 		'message/index':'./public/scripts/message/index',
+
+		'revenue/index':'./public/scripts/revenue/index',
 
 		'account/index':'./public/scripts/account/index'
 

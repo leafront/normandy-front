@@ -12,7 +12,8 @@ var querystring = require('querystring');
 const {
 	colorList,
 	borrowingStatus,
-	subjectStatus,
+	deviceType,
+	gpsStatus,
 	carType,
 	driverType
 	} = data;
@@ -54,7 +55,8 @@ router.get('/', async (ctx,next) => {
 		roleList,
 		vehiclesList,
 		borrowingStatus,
-		subjectStatus,
+		deviceType,
+		gpsStatus,
 		colorList,
 		showPage,
 		totalPage,
@@ -163,11 +165,22 @@ router.get('/trace/:id', async (ctx,next) => {
 
 router.get('/history/:id', async (ctx,next) => {
 
-	const id = ctx.params.id;
+	const deviceId = ctx.params.id;
 
+	const { data: location } =  await common.getInterface(ctx,{
+		type: 'GET',
+		url: 'http://192.168.1.250/api/history',
+		data: {
+			imei:"868120137374499",
+			begin_time:"2017-08-27 12:39:18",
+			end_time: "2017-08-29 12:39:18"
+		}
+
+	})
 
 	await ctx.render('vehicles/history/index',{
-
+		location,
+		deviceId
 	})
 
 })

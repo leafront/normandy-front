@@ -216,6 +216,8 @@ router.get('/:id', async (ctx,next) => {
 		url:`/api/borrowers/${detailId}`
 	})
 
+	console.log(borrowersList)
+
 	await ctx.render('borrowers/detail',{
 		pathName: ctx.path,
 		authority,
@@ -336,26 +338,6 @@ router.post('/bind',async (ctx,next) => {
 })
 
 
-router.post('/list',async (ctx,next) => {
-
-	const body = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/borrowers`,
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
 
 
 router.post('/brand',async (ctx,next) => {
@@ -452,6 +434,33 @@ router.post('/vehicles/conditions',async (ctx,next) => {
 		ctx.body = body;
 
 	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
+
+
+
+router.post('/gps/add',async (ctx,next) => {
+
+	const { data, id } = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		data:data,
+		url:`/api/vehicles/${id}`
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		console.log(JSON.stringify(err,null,2));
 
 		ctx.status =  err.response.statusCode;
 
