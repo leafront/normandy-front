@@ -1,0 +1,152 @@
+@import 'common.scss';
+
+.list_container{
+	padding-left:14px;
+}
+
+.list_top{
+	margin-top:24px;
+}
+.list_item{
+
+	margin-bottom:22rem/$rem;
+
+	height:34px;
+
+	&:last-child{
+		margin-bottom:0;
+	}
+}
+.cont_list{
+
+	.list_action{
+		color:#248ad4;
+		font-size:14px;
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+	.user_action{
+		float:left;
+	}
+	.user_status{
+		float:left;
+		span{
+			padding:0 14rem/$rem 0;
+
+			height:38px;
+
+			margin-top:10px;
+
+			line-height:38px;
+
+			@include borderRadius(5);
+
+			font-size:14px;
+			color:#fefefe;
+			background:#c3cbd8;
+			&.disable_btn{
+				background:#ffc76c;
+			}
+			&.usable_btn{
+				background:#53cac3;
+			}
+		}
+
+	}
+	dt{
+		background:#53cac3;
+		height:58rem/$rem;
+
+		line-height:58rem/$rem;
+		font-size:16px;
+		color:#fff;
+		padding-left:40rem/$rem;
+		span{
+			font-size:16px;
+			color:#fff;
+			float:left;
+		}
+
+	}
+	dd{
+		width:100%;
+		overflow: hidden;
+		line-height:58px;
+		font-size:16px;
+		color:#fff;
+		padding-left:40rem/$rem;
+		span{
+			font-size:16px;
+			color:#fff;
+			float:left;
+		}
+	}
+	dd{
+		span{
+			color:#333;
+			font-size:14px;
+		}
+		&:nth-child(odd){
+			background:#f9f9f9;
+		}
+	}
+}
+.cont_list{
+	.list_status{
+		width:430rem/$rem;
+		overflow:hidden;
+		float:left;
+		padding-bottom:10px;
+		span{
+			margin-top:10px;
+			padding:0 14rem/$rem;
+			@include borderRadius(5);
+			height:38px;
+			line-height:38px;
+			font-size:14px;
+			color:#fefefe;
+			text-align:center;
+			float:left;
+			margin-right:8px;
+			&.list_btn{
+				background:#c3cbd8;
+			}
+			&.list_btn1{
+				background:#84c0eb;
+			}
+			&.list_btn2{
+				background:#64decf;
+			}
+			&.list_btn3{
+				background:#ffc76c;
+			}
+			&.list_btn4{
+				background:#ed6b75;
+			}
+		}
+	}
+}
+
+
+.list_empty{
+
+	text-align:center;
+
+	padding-top:118rem/$rem;
+
+	padding-bottom:20px;
+	img{
+
+		width:256px;
+		height:204px;
+
+	}
+
+	span{
+		font-size:18px;
+		color:#999;
+		display:block;
+		margin-top:18px;
+	}
+}

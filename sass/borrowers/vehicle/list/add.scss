@@ -1,0 +1,105 @@
+@import '../../../modules/reset.scss';
+
+@import '../../../modules/common.scss';
+
+@import '../../../modules/dropMenu.scss';
+
+@import '../../../modules/confirm_button.scss';
+
+@import '../../../widget/calendar.scss';
+
+@import '../../common.scss';
+
+@import '../../../modules/form_list.scss';
+
+.modify-button{
+	padding-top:15px;
+	padding-left:530rem/$rem;
+}
+
+
+.user-ui-input{
+
+	width:440rem/$rem;
+
+
+}
+.user-ui-explain{
+
+	width:300rem/$rem;
+}
+.vehicle_item_check{
+
+	display:inline-block;
+
+	strong{
+
+		top:0;
+	}
+}
+.form-group{
+
+	.vehicle_checkbox{
+
+		&:before{
+
+			border-radius:2px;
+
+			-webkit-box-radius:2px;
+		}
+	}
+
+}
+.vehicle_checkbox_wraper{
+	display:inline-block;
+	padding-top:3px;
+
+	width: 500rem/$rem;
+
+	strong{
+		width:120rem/$rem;
+		margin-bottom:15px;
+
+	}
+}
+
+.vehicle_certificate{
+	width:320px;
+}
+
+.drop_menu_mortgage{
+
+	width:440rem/$rem;
+
+	.drop_menu_list{
+
+		width:440rem/$rem;
+	}
+}
+
+
+.vehicle_run{
+
+	label{
+
+		width:140px;
+	}
+}
+.vehicle_run_des{
+
+	display:inline-block;
+
+	margin-left:15rem/$rem;
+
+	width:1200rem/$rem;
+
+	height:140px;
+
+	border:1px solid #ccc;
+
+	padding:10px;
+	&:focus{
+		border:1px solid #53cac3
+
+	}
+}

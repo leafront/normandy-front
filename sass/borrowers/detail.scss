@@ -1,0 +1,163 @@
+@import '../modules/reset.scss';
+@import '../modules/common.scss';
+
+@import '../modules/list.scss';
+
+@import '../layui/index.scss';
+
+@import '../modules/popup.scss';
+
+@import '../modules/dropMenu.scss';
+
+.borrower_detail{
+	padding:35px 0 35px 0;
+	overflow:hidden;
+
+}
+.borrower_item{
+	float:left;
+	font-size:16px;
+	color:#248ad4;
+	margin-left:135rem/$rem;
+	label{
+		font-weight:bold;
+		float:left;
+	}
+	p{
+		float:left;
+		margin-left:18rem/$rem;
+	}
+}
+.list_borrowers{
+	padding:20px 0;
+}
+.cont_list{
+	.borrowers_num{
+		width:420rem/$rem;
+	}
+	.borrowers_gps{
+		width:285rem/$rem;
+
+		float:left;
+
+	}
+	.borrowers_gps_action{
+		font-size:14px;
+		color:#248ad4;
+		float:left;
+		cursor: pointer;
+	}
+	.borrowers_color{
+		width:216rem/$rem;
+	}
+	.borrowers_time{
+		width:355rem/$rem;
+	}
+	.borrowers_action{
+		float:left;
+	}
+}
+
+
+
+.popup_wraper{
+
+	width:1300rem/$rem;
+
+	margin-left:-1300rem/2/$rem;
+}
+
+.popup_submit{
+
+	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
+}
+.popup_cont{
+
+	height:600rem/$rem;
+	padding-left:40rem/$rem;
+
+	padding-right:40rem/$rem;
+}
+.popup_menu{
+	margin-left:15rem/$rem;
+	li{
+		line-height:68rem/$rem;
+		height:68rem/$rem;
+		width:260rem/$rem;
+		font-size:16px;
+		color:#666;
+		float:left;
+
+		margin-right:28rem/$rem;
+
+		&:last-child{
+			margin-right:0;
+		}
+	}
+	.menu_type,.menu_status{
+		width:210rem/$rem;
+
+	}
+}
+.drop_menu_stage{
+	width:208rem/$rem;
+	margin-left:0;
+	.drop_menu_list{
+		width:208rem/$rem;
+	}
+}
+.const_money{
+	display:inline-block;
+
+	position:relative;
+	margin-left:28rem/$rem;
+	.user-ui-input{
+		width:260rem/$rem;
+		margin-left:0;
+	}
+}
+
+.cost_item{
+	margin-bottom:18px;
+	&:last-child{
+		margin-bottom: 0;
+	}
+	.form-group-btn{
+
+		width:30px;
+		height:30px;
+
+		border-radius:50%;
+
+		background:#53cac3;
+
+		font-size:22px;
+
+		padding:0;
+
+		line-height:30px;
+
+		margin-left:30rem/$rem;
+
+		font-weight:bold;
+
+		text-align:center;
+
+		cursor:pointer;
+
+		color:#fff;
+
+		margin-top:0;
+
+		position:relative;
+
+		top:2px;
+
+	}
+	.btn_gray{
+		background:#999;
+	}
+}
+.const_wraper{
+	width:100%;
+}

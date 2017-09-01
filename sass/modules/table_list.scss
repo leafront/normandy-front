@@ -1,0 +1,40 @@
+.business_table_list{
+
+	border-top:1px solid #ccc;
+
+	border-left:1px solid #ccc;
+	font-size:16px;
+	color:#263238;
+
+	dt,dd{
+		display:flex;
+
+		span{
+			border-bottom:1px solid #ccc;
+			line-height:54px;
+
+			padding-left:20px;
+
+			border-right:1px solid #ccc;
+
+			flex:1;
+
+			button{
+				padding:0 12px;
+
+				height:32px;
+
+				line-height:32px;
+				font-size:16px;
+				color:#fff;
+
+
+			}
+
+			&:first-child{
+				flex:2
+			}
+		}
+
+	}
+}

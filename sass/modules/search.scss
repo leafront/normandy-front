@@ -1,0 +1,74 @@
+@import 'common.scss';
+.search{
+	padding-top:26rem/$rem;
+	padding-bottom:50rem/$rem;
+}
+.search_item{
+	float:left;
+	padding:0 25rem/$rem;
+	&:last-child{
+		padding-right:0;
+	}
+	label{
+		font-size:14px;
+		color:#333;
+		display:inline-block;
+		width:56px;
+		text-align:right;
+	}
+}
+.search_submit{
+	width:280px;
+	margin:45rem/$rem auto 0;
+	button{
+		width:118px;
+		height:38px;
+		line-height:38px;
+
+		@include borderRadius(5);
+
+		@include boxShadow(4);
+		font-size: 14px;
+		padding-left:20px;
+		color:#fefefe;
+		float:left;
+		position:relative;
+		cursor: pointer;
+		&:first-child{
+			background:#53cac3;
+			margin-right:42px;
+			&:hover{
+				background:#6adbcf;
+			}
+			&:before{
+				width:17px;
+				height:17px;
+				content:'';
+				display:block;
+				position:absolute;
+				left:28px;
+				top:10px;
+				background:url(/images/ico_sprite.png) no-repeat -182px -68px;
+
+			}
+		}
+		&:last-child{
+			background:#84c0eb;
+			&:hover{
+				background:#97c4ea;
+			}
+			&:before{
+				width:14px;
+				height:17px;
+				content:'';
+				display:block;
+				position:absolute;
+				left:28px;
+				top:10px;
+				background:url(/images/ico_sprite.png) no-repeat -147px -91px;
+			}
+		}
+
+	}
+
+}

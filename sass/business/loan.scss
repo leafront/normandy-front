@@ -1,0 +1,170 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/dropMenu.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../modules/form_list.scss';
+
+@import '../widget/calendar.scss';
+
+@import '../layui/index.scss';
+
+.user-ui-input{
+	width:520rem/$rem;
+}
+
+
+.form-group-salary{
+
+	display: inline-block;
+
+	width:2.47rem;
+
+	position:relative;
+
+	.user-ui-input-txt{
+		width:54px;
+		position:absolute;
+		right:1px;
+		left:inherit;
+		top:1px;
+	}
+}
+.drop_menu_loan{
+	width:520rem/$rem;
+
+	//position:relative;
+	//
+	//top:10px;
+	//
+	//span{
+	//	@include ellipsis;
+	//}
+
+	.drop_menu_list{
+
+		width:520rem/$rem;
+	}
+}
+
+.vehicle_title{
+
+	width:100rem/$rem;
+
+	height:34px;
+}
+.form-group {
+	.form-group-rows {
+		label {
+			width: 120rem/$rem;
+		}
+	}
+}
+.user-ui-province{
+
+	width:290rem/$rem;
+}
+
+.user-ui-address{
+
+	width:650rem/$rem;
+}
+.user-ui-salary{
+
+	width:250rem/$rem;
+}
+
+.form-group{
+	.form-group-address{
+		width:100%;
+	}
+	.form-group-phone{
+
+		width:100%;
+		.user-ui-input{
+			width:285rem/$rem;
+		}
+	}
+	.form-group-btn{
+
+		width:30px;
+		height:30px;
+
+		border-radius:50%;
+
+		background:#53cac3;
+
+		font-size:22px;
+
+		padding:0;
+
+		line-height:30px;
+
+		margin-left:10rem/$rem;
+
+		font-weight:bold;
+
+		text-align:center;
+
+		cursor:pointer;
+		margin-top:0;
+
+		position:relative;
+
+		top:2px;
+
+	}
+	.btn_gray{
+		background:#999;
+	}
+}
+.drop_menu_assets{
+
+	width:300rem/$rem;
+
+	.drop_menu_list{
+
+		width:300rem/$rem;
+	}
+}
+.user-ui-money{
+	width:300rem/$rem;
+}
+
+.user-ui-des{
+
+	width:460rem/$rem;
+
+}
+.user-ui-area{
+
+	width:320rem/$rem;
+}
+.form-group{
+	.form-group-assets{
+		width:380rem/$rem;
+	}
+}
+
+.drop_menu_times{
+
+	width:265rem/$rem;
+
+	.drop_menu_list{
+
+		width:265rem/$rem;
+	}
+}
+
+.loan_submit{
+
+	display:flex;
+
+	justify-content: center;
+
+
+	padding-bottom:30px;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>门店管理</title>
+    <link rel="stylesheet" href="/styles/shop/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>门店管理</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>门店管理</span>
+                <a href="javascript:;" class="title-btn1 js_add">添加门店</a>
+            </div>
+            <div class="list_container list_top">
+              <% include list.ejs %>
+            </div>
+            <div class="pagination">
+                <ul class="pagination_list">
+                    <% include ../common/pagination.ejs %>
+                </ul>
+            </div>
+        </div>
+        <% include ../common/footer.ejs%>
+    </div>
+</div>
+<div class="popup_wraper" id="editPopup">
+    <input type="hidden" id="createTime"/>
+    <input type="hidden" id="isActive"/>
+    <div class="popup_title">
+        <h4>编辑</h4>
+    </div>
+    <div class="popup_input">
+        <label>名称</label>
+        <input type="text" class="user-ui-input" id="edit_name" placeholder="请输入门店名称" value=""/>
+    </div>
+    <div class="popup_input">
+        <label>简称</label>
+        <input type="text" class="user-ui-input" id="edit_abbreviation" placeholder="请输入门店简称"/>
+    </div>
+    <div class="popup_input">
+        <label>城市</label>
+        <div class="drop_menu drop_menu_city">
+            <span class="active js_select js_province" id="js_editProvince">北京</span>
+            <ul class="drop_menu_list shop_province"></ul>
+        </div>
+        <div class="drop_menu drop_menu_city">
+            <span class="active js_select js_city" id="js_editCity">北京</span>
+            <ul class="drop_menu_list shop_city"></ul>
+        </div>
+    </div>
+    <div class="popup_input">
+        <label>地址</label>
+        <input type="text" class="user-ui-input" id="edit_address" placeholder="请输入地址"/>
+    </div>
+    <div class="popup_input">
+        <label>电话</label>
+        <input type="text" class="user-ui-input" id="edit_phone" placeholder="请输入电话"/>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm js_editConfirm">确定</button>
+        <button class="btn_cancel js_cancel" data-popup="#editPopup">取消</button>
+    </div>
+</div>
+<div class="popup_mask"></div>
+
+<div class="popup_wraper" id="addPopup">
+    <div class="popup_title">
+        <h4>添加</h4>
+    </div>
+    <div class="popup_input">
+        <label>名称</label>
+        <input type="text" class="user-ui-input" id="add_name" placeholder="请输入门店名称"/>
+    </div>
+    <div class="popup_input">
+        <label>简称</label>
+        <input type="text" class="user-ui-input" id="add_abbreviation" placeholder="请输入门店简称"/>
+    </div>
+    <div class="popup_input">
+        <label>城市</label>
+        <div class="drop_menu drop_menu_city">
+            <span class="active js_select js_province" id="js_adProvince">北京</span>
+            <ul class="drop_menu_list shop_province"></ul>
+        </div>
+        <div class="drop_menu drop_menu_city">
+            <span class="active js_select js_city" id="js_addCity">北京</span>
+            <ul class="drop_menu_list shop_city"></ul>
+        </div>
+    </div>
+    <div class="popup_input">
+        <label>地址</label>
+        <input type="text" class="user-ui-input" id="add_address" placeholder="请输入地址"/>
+    </div>
+    <div class="popup_input">
+        <label>电话</label>
+        <input type="text" class="user-ui-input" id="add_phone" placeholder="请输入电话"/>
+    </div>
+    <div class="popup_input">
+    <label>管理员手机号</label>
+    <input type="text" class="user-ui-input" id="add_adminPhone" placeholder="请输入管理员手机号"/>
+    </div>
+    <div class="popup_input">
+    <label>管理员姓名</label>
+    <input type="text" class="user-ui-input" id="add_adminName" placeholder="请输入管理员姓名"/>
+    </div>
+
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm js_addConfirm">确定</button>
+        <button class="btn_cancel js_cancel" data-popup="#addPopup">取消</button>
+    </div>
+
+</div>
+<div class="popup_mask"></div>
+<script type="text/javascript" src="/dist/scripts/shop/index.js"></script>
+</body>
+</html>
+

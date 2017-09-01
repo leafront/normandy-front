@@ -1,0 +1,392 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../modules/dropMenu.scss';
+
+@import '../../modules/confirm_button.scss';
+
+@import '../../modules/form_list.scss';
+
+@import '../../layui/index.scss';
+
+@import '../../modules/popup.scss';
+
+.vehicle_info_title{
+
+	padding-left:20px;
+	padding-top:28px;
+
+}
+
+
+.form-group {
+	.form-group-rows {
+		label {
+			width: 90px;
+		}
+	}
+
+}
+
+.vehicle_item{
+	width:100%;
+}
+
+.form-group-rows:first-child{
+
+	width:800rem/$rem;
+
+}
+.vehicle_info_wraper{
+	padding:28px 0 0 30rem/$rem;
+
+
+	&:last-of-type{
+		padding-bottom:28px;
+	}
+}
+
+.business_status {
+	height:40px;
+	border-bottom: 1px solid #ececec;
+	h4 {
+		font-size: 16px;
+		line-height: 40px;
+
+		color: #263238;
+		float: left;
+	}
+}
+
+
+
+.borrower_detail{
+	padding-top:35px;
+	overflow:hidden;
+
+}
+
+.borrowers_rows{
+
+	margin-bottom:30px;
+
+	&:last-child{
+
+		margin-bottom:0;
+	}
+}
+
+.borrower_item{
+
+	&:last-child{
+
+  	width:50%;
+
+		margin-left:0;
+
+		p{
+			width:80%;
+		}
+	}
+}
+
+
+.borrower_item{
+
+	width:45%;
+	float:left;
+	font-size:16px;
+	color:#248ad4;
+	margin-left:5%;
+
+	&:last-child{
+
+
+	}
+	label{
+		width:80px;
+
+		text-align:right;
+		font-weight:bold;
+		float:left;
+	}
+	p{
+		float:left;
+		margin-left:18rem/$rem;
+	}
+}
+
+.edit-ui-input{
+	width:520rem/$rem;
+}
+.user-ui-month{
+
+	width:440rem/$rem;
+}
+.drop_menu_edit{
+	width:520rem/$rem;
+	.drop_menu_list{
+		width:520rem/$rem;
+	}
+}
+.user-ui-cost{
+	 width:240rem/$rem;
+ }
+
+.drop_menu_term{
+
+	width:240rem/$rem;
+
+	.drop_menu_list{
+
+		width:240rem/$rem;
+	}
+}
+.form-group-rows{
+
+	button{
+		&.edit_btn_custom{
+			margin-top:0;
+			padding:0;
+			background:#51a5e2;
+			margin-left:0;
+			width:80rem/$rem;
+			height:34px;
+			line-height:34px;
+			text-align:center;
+		}
+	}
+
+}
+
+
+.business_upload_img{
+
+	margin-right:24px;
+
+	position:relative;
+
+	width:300px;
+
+	border:1px solid #ccc;
+
+	float:left;
+
+	@include borderRadius(3);
+
+	img{
+		width:100%;
+
+		height:300px;
+
+		vertical-align: top;
+	}
+
+	> span{
+
+		line-height:48px;
+
+		font-size:14px;
+
+		color:#666;
+
+		display:block;
+
+		text-align:center;
+	}
+	i{
+
+		width:22px;
+
+		height:22px;
+
+		display:block;
+
+		border-radius:50%;
+
+		position:absolute;
+
+		background:url(/images/ico_sprite.png) rgba(102,102,102,0.74) no-repeat;
+	}
+	.business_close{
+
+		right:8px;
+
+		top:15px;
+
+		background-position:-226px -60px;
+	}
+	.business_rotate{
+
+		background-position:-193px -113px;
+		bottom:15px;
+		right:8px;
+
+		cursor:pointer;
+
+	}
+}
+
+.business_upload_btn{
+
+	.business_upload_add{
+		width:40px;
+		height:40px;
+		line-height:20px;
+		border-radius:50%;
+		border:2px solid #53cac3;
+		font-size:30px;
+		color:#53cac3;
+	}
+	strong{
+		display:block;
+
+		font-size:16px;
+		color:#a2a2a2;
+		margin-top:12px;
+	}
+}
+
+.business_upload{
+	float:left;
+
+	width:300px;
+
+	padding-top:115px;
+
+	text-align:center;
+
+	border:2px dashed #ccc;
+
+	height:300px;
+
+	position:relative;
+}
+
+.business_submit{
+
+	border-top:1px solid #ececec;
+
+	display:flex;
+
+	justify-content:center;
+	padding-top:20px;
+
+	padding-bottom:30px;
+}
+.business_upload_file{
+	width:300px;
+	height:300px;
+	position:absolute;
+	left:0;
+	top:0;
+	opacity:0;
+	filter:alpha(opacity=0);
+
+}
+.popup_wraper{
+
+	width:960rem/$rem;
+
+	margin-left:-950rem/2/$rem;
+}
+
+.popup_submit{
+
+	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
+}
+.popup_cont{
+	padding-left:40rem/$rem;
+
+	padding-right:40rem/$rem;
+}
+.popup_menu{
+	li{
+		line-height:68rem/$rem;
+		height:68rem/$rem;
+		width:240rem/$rem;
+		font-size:16px;
+		color:#666;
+		float:left;
+		margin-right:32rem/$rem;
+		&:first-child{
+
+			width:208rem/$rem;
+		}
+		&:last-child{
+			margin-right:0;
+		}
+	}
+}
+.drop_menu_stage{
+	width:208rem/$rem;
+	margin-left:0;
+	.drop_menu_list{
+		width:208rem/$rem;
+	}
+}
+.const_money{
+	display:inline-block;
+
+	position:relative;
+	margin-left:28rem/$rem;
+	.user-ui-input{
+		width:240rem/$rem;
+		margin-left:0;
+	}
+	.user-ui-input-txt{
+		width:34px;
+		position:absolute;
+		right:1px;
+		left:inherit;
+		top:1px;
+	}
+}
+
+.cost_item{
+	margin-bottom:18px;
+	&:last-child{
+		margin-bottom: 0;
+	}
+	.form-group-btn{
+
+		width:30px;
+		height:30px;
+
+		border-radius:50%;
+
+		background:#53cac3;
+
+		font-size:22px;
+
+		padding:0;
+
+		line-height:30px;
+
+		margin-left:30rem/$rem;
+
+		font-weight:bold;
+
+		text-align:center;
+
+		cursor:pointer;
+
+		color:#fff;
+
+		margin-top:0;
+
+		position:relative;
+
+		top:2px;
+
+	}
+	.btn_gray{
+		background:#999;
+	}
+}
+.const_wraper{
+	max-height:6rem;
+	width:100%;
+	overflow:auto;
+}

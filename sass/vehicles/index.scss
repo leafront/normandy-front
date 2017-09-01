@@ -1,0 +1,188 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/search.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/dropMenu.scss';
+
+@import '../widget/calendar.scss';
+
+@import '../modules/pagination.scss';
+
+@import '../layui/index.scss';
+
+.cont_list{
+	.vehicles_name{
+
+		width:122rem/$rem;
+	}
+	.vehicles_color{
+		width:260rem/$rem;
+	}
+	.vehicles_times{
+		width:160rem/$rem;
+	}
+	.vehicles_status{
+		width:114rem/$rem;
+	}
+	.vehicles_vin{
+		width:240rem/$rem;
+		float:left;
+	}
+	.vehicles_subject{
+		width:144rem/$rem;
+	}
+	.vehicles_gpsStatus{
+
+		float:left;
+		width:250rem/$rem;
+		position:relative;
+
+		span{
+			width:250rem/$rem;
+			display:block;
+			height:58px;
+			cursor:default;
+		}
+		.gps_error{
+
+			color:#d90000;
+		}
+		.gps_warning{
+
+			color:#ffba00;
+		}
+	}
+	.gps_action{
+
+		cursor:pointer;
+
+		color:#248ad4;
+	}
+	.vehicles_tips{
+		position:absolute;
+
+		left:40px;
+
+		width:140px;
+		top:10px;
+
+		background-color:rgba(0,0,0,0.52);
+
+		@include borderRadius(3);
+
+		@include boxShadow(4);
+
+		display:none;
+
+		padding:10px;
+
+		&.active{
+
+			display:block;
+		}
+		&:after{
+			position:absolute;
+			content:" ";
+			width: 0;
+			height: 0;
+			left:-8px;
+			top:14px;
+			border-top: 4px solid transparent;
+			border-right: 8px solid  rgba(0,0,0,0.52);
+			border-bottom: 4px solid transparent;
+		}
+			p{
+			line-height:20px;
+			font-size:13px;
+		}
+	}
+
+	dd{
+
+		overflow:visible;
+
+		height:58px;
+	}
+}
+
+.drop-menu-loan{
+	width:260rem/$rem;
+	.drop_menu_list{
+		width:260rem/$rem;
+	}
+}
+.gps_btn{
+	text-align:right;
+	padding-bottom:10px;
+
+	border-bottom:1px solid #ececec;
+	margin-bottom:10px;
+	button{
+
+		height:38px;
+		line-height:38px;
+
+		@include borderRadius(5);
+
+		@include boxShadow(4);
+		font-size: 14px;
+		padding-left:40px;
+		padding-right:20px;
+		color:#fefefe;
+		cursor: pointer;
+		position:relative;
+
+		background:#ed6b75;
+
+		&:hover{
+			background:#ef5d5d;
+		}
+		&:before{
+			width:14px;
+			height:17px;
+			content:'';
+			display:block;
+			position:absolute;
+			left:20px;
+			top:10px;
+			background:url(/images/ico_sprite.png) no-repeat -147px -91px;
+		}
+	}
+}
+
+.vehicles_gps{
+	width: 440rem/$rem;
+	height:34px;
+	float:left;
+}
+
+.drop-menu-gps{
+	width: 400rem/$rem;
+	margin-top:12px;
+	margin-left:0;
+	.gps_info{
+
+		cursor:pointer;
+	}
+	.disabled{
+		color:#999;
+	}
+
+}
+.drop_menu_list{
+	width: 400rem/$rem;
+	li{
+		&:hover{
+			strong{
+				color:#fff;
+			}
+		}
+		strong{
+			color:#666;
+		}
+	}
+}

@@ -1,0 +1,134 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../modules/form_list.scss';
+
+@import '../../modules/popup.scss';
+
+.map_location{
+
+	width:100%;
+
+	background:#fff;
+
+	height:42px;
+
+	position:fixed;
+
+	left:0;
+	top:0;
+	z-index:999999;
+	padding-left:20px;
+	@include boxShadow(5);
+
+	p{
+		line-height:42px;
+
+		font-size:16px;
+
+		color:#333;
+
+	}
+}
+
+.map_popup{
+
+	width:250px;
+
+	h4{
+		font-size:14px;
+		color:#333;
+
+		font-weight:bold;
+	}
+}
+.map_item{
+
+	margin-top:10px;
+
+	overflow:hidden;
+
+	font-size:14px;
+	color:#333;
+	label{
+		float:left;
+
+		font-weight:bold;
+	}
+	span{
+		float:left;
+	}
+	.map_ques{
+
+		font-weight:bold;
+
+		color:#f00;
+
+		margin-left:8px;
+
+		cursor:pointer;
+
+	}
+}
+
+.popup_wraper{
+
+	width:900rem/$rem;
+
+	margin-left:-900rem/2/$rem;
+}
+
+.popup_submit{
+
+	display:flex;
+
+	justify-content: flex-end;
+
+	padding:30rem/$rem 45rem/$rem 30rem/$rem 0;
+
+	button{
+		margin-right:0;
+	}
+}
+.help_info {
+
+	width: 380px;
+
+	border-radius: 5px;
+
+	-webkit-border-radius: 5px;
+
+	border: 1px solid #f2c32b;
+
+	background: #fdfacc;
+
+	height: 115px;
+	position: absolute;
+
+	left: 200px;
+	top: 100px;
+
+	padding-left:15px;
+
+	padding-top:15px;
+
+	display:none;
+
+	&.active{
+
+		display:block;
+	}
+
+	p{
+		font-size: 16px;
+		color:#333;
+		margin-bottom:10px;
+	}
+}
+#container{
+
+	top:42px;
+
+	height:calc(100% - 42px);
+}

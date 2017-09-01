@@ -1,0 +1,63 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../layui/index.scss';
+
+@import './common.scss';
+
+.modify_pass{
+
+	width:500rem/$rem;
+
+	position:relative;
+
+	left:-80rem/$rem;
+
+}
+.modify-button{
+
+	padding-left:150rem/$rem;
+}
+
+.user-card{
+
+	display:inline-block;
+
+	height:34px;
+
+	position:relative;
+
+
+
+
+	&:after{
+
+		display:inline-block;
+
+		width:42px;
+
+		height:32px;
+
+		position:absolute;
+
+		content:'';
+
+		top:0;
+
+		right:0;
+
+		border:1px solid #ccc;
+
+		background: url(/images/ico_sprite.png) no-repeat -216px 2px #eee;
+	}
+}
+.user-ui-card{
+
+	width:384rem/$rem;
+
+	border-right:0;
+
+}

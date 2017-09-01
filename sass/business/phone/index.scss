@@ -1,0 +1,232 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../modules/dropMenu.scss';
+
+@import '../../modules/confirm_button.scss';
+
+@import '../../modules/form_list.scss';
+
+@import '../../layui/index.scss';
+
+.vehicle_info_title{
+
+	padding-left:20px;
+	padding-top:28px;
+
+}
+
+.vehicle_item{
+	width:100%;
+}
+
+.form-group-rows:first-child{
+
+	width:700rem/$rem;
+}
+.vehicle_info_wraper{
+	padding:28px 0 0 100rem/$rem;
+
+	&:last-of-type{
+		padding-bottom:28px;
+	}
+}
+.business_status {
+	height:40px;
+	border-bottom: 1px solid #ececec;
+	h4 {
+		font-size: 16px;
+		line-height: 40px;
+
+		color: #263238;
+		float: left;
+	}
+}
+
+
+.form-group {
+	.form-group-rows {
+		label {
+			width: 150px;
+		}
+	}
+}
+
+.form-group-loan{
+
+	display:inline-block;
+
+	margin-left:80rem/$rem;
+}
+
+.drop_menu_phone{
+
+	width:300rem/$rem;
+
+	.drop_menu_list{
+
+		width:300rem/$rem;
+
+	}
+}
+
+.vehicles-base-input {
+
+	.user-ui-input-txt {
+
+		width: 54px;
+
+		left: -59px;
+	}
+}
+.form-group{
+
+	.vehicle_checkbox{
+
+		&:before{
+
+			border-radius:2px;
+
+			-webkit-box-radius:2px;
+		}
+	}
+
+}
+
+.vehicle_checkbox_wraper{
+	display:inline-block;
+
+	width:320px;
+	padding-top:3px;
+
+	strong{
+		width:100px;
+		margin-bottom:15px;
+
+	}
+}
+.form-group-live{
+
+	label{
+
+		position:relative;
+
+		top:-30px;
+	}
+}
+.user-ui-salary{
+
+	width:300rem/$rem;
+}
+.form_income{
+
+	display:inline-block;
+
+	i{
+
+		width:17px;
+
+		height:17px;
+
+		display:inline-block;
+
+		border:1px solid #c1c1c1;
+
+		border-radius:2px;
+
+		position:relative;
+
+		top:2px;
+
+		margin-left:15rem/$rem;
+
+		&.active{
+
+			border:1px solid #53cac3;
+
+			background:url(/images/ico_sprite.png) no-repeat #53cac3 -179px -109px;
+		}
+	}
+}
+
+
+.form_noIncome{
+
+	padding-left:154px;
+
+	i{
+		width:15px;
+
+		height:15px;
+
+		display:inline-block;
+
+		border:1px solid #c1c1c1;
+
+		border-radius:2px;
+
+		position:relative;
+
+		top:2px;
+
+		margin-left:15rem/$rem;
+		&.active{
+
+			border:1px solid #53cac3;
+
+			background:url(/images/ico_sprite.png) no-repeat #53cac3 -179px -109px;
+		}
+	}
+	span{
+		margin-left:15rem/$rem;
+	}
+}
+
+.form-group-des{
+
+	label{
+
+		float:left;
+	}
+}
+.phone_des{
+	width:470rem/$rem;
+	margin-left:16rem/$rem;
+	border:1px solid #ccc;
+
+	height:140px;
+
+	resize:vertical;
+
+	padding:5px;
+
+	&:focus{
+		border:1px solid #53cac3;
+	}
+}
+.form-group-ellipsis{
+
+	label{
+		float:left;
+
+		line-height:22px;
+	}
+}
+.phone_submit{
+
+	display:flex;
+
+	justify-content:center;
+	padding-top:20px;
+
+	padding-bottom:30px;
+}
+.business_status{
+
+	.drop_menu{
+
+		float:right;
+
+	}
+}

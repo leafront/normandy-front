@@ -1,0 +1,19 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../layui/index.scss';
+
+@import '../../modules/form_list.scss';
+
+.vehicle_detail{
+
+	padding:50rem/$rem 0 50rem/$rem 130rem/$rem;
+
+
+}
+.form-group-rows:first-child{
+
+	width:400rem/$rem;
+}
+

@@ -1,0 +1,89 @@
+@import 'common.scss';
+
+@import 'confirm_button.scss';
+
+.popup_mask{
+
+	width:100%;
+	height:100%;
+
+	background:rgba(0,0,0,0.6);
+
+	position:fixed;
+
+	display:none;
+
+	left:0;
+	top:0;
+	z-index:1010;
+
+	&.active{
+
+
+		display:block;
+	}
+
+
+}
+
+
+.popup_wraper{
+	width:850rem/$rem;
+	z-index:1050;
+	background:#fff;
+	@include borderRadius(5);
+
+	position:fixed;
+
+	top:0;
+
+	opacity: 0;
+
+	z-index:-10;
+
+	left:50%;
+
+	margin-left:-850rem/2/$rem;
+
+	transform:translateY(-100%);
+
+	-webkit-transform:translateY(-100%);
+
+	transition: transform .3s linear;
+
+	&.active{
+
+		opacity: 1;
+
+		z-index:1100;
+
+		transform:translateY(100rem/$rem);
+
+		-webkit-transform:translateY(100rem/$rem);
+
+	}
+
+}
+
+.popup_title{
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+
+	height:55rem/$rem;
+
+	padding-left:30rem/$rem;
+
+	line-height:55rem/$rem;
+
+	background:#53cac3;
+
+	h4{
+		font-size:14px;
+
+		color:#fff;
+	}
+
+}
+/********/
+
+

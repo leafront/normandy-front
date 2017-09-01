@@ -1,0 +1,85 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/pagination.scss';
+
+@import '../modules/popup.scss';
+
+@import '../modules/dropMenu.scss';
+
+
+
+.cont_list{
+	.shop_name{
+		width:210rem/$rem;
+	}
+	.shop_abbreviation{
+		width:230rem/$rem;
+	}
+	.shop_address{
+		width:190rem/$rem;
+	}
+	.shop_phone{
+		width:220rem/$rem;
+	}
+	.user_status{
+
+		width:228rem/$rem;
+	}
+	.shop_time{
+		width:258rem/$rem;
+	}
+	.shop_action{
+		float:left;
+	}
+}
+
+.user-ui-input{
+	width:382rem/$rem;
+}
+.drop_menu_city{
+
+	width:182rem/$rem;
+
+	.drop_menu_list{
+
+
+		width:182rem/$rem;
+	}
+
+
+}
+
+
+
+.popup_list_wraper{
+	width:220rem/$rem;
+
+	height:280rem/$rem;
+
+	overflow:auto;
+
+	float:left;
+	@include borderRadius(3);
+	border:1px solid #ccc;
+}
+.popup_submit{
+
+	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
+}
+
+
+.popup_input{
+	padding-left:114rem/$rem;
+	padding-top:32rem/$rem;
+	label{
+		font-size:14px;
+		color:#333;
+		display:inline-block;
+		width:84px;
+		text-align:right;
+	}
+}

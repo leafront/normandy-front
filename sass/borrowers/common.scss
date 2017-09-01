@@ -1,0 +1,23 @@
+@import '../modules/common.scss';
+
+
+.modify_pass{
+	width:350px;
+	margin:0 auto;
+	padding-top:60px;
+	padding-bottom:100px;
+}
+.modify-item{
+	label{
+		width:70px;
+		text-align:right;
+		display:inline-block;
+		font-size:14px;
+		color:#666;
+	}
+	margin-bottom:28px;
+}
+.modify-button{
+	padding-top:15px;
+	padding-left:70px;
+}

@@ -1,0 +1,41 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+
+@import '../modules/list.scss';
+
+@import '../modules/pagination.scss';
+
+@import '../modules/popup.scss';
+
+@import '../layui/index.scss';
+
+
+.authority_role{
+
+	width:246rem/$rem;
+}
+
+.authority_action{
+	float:left;
+}
+.authority_type{
+
+	width:1090rem/$rem;
+
+	float:left;
+	strong{
+		margin-top:10px;
+		float:left;
+		margin-right:10rem/$rem;
+		font-size:14px;
+		color:#333;
+		line-height:38px;
+		height:38px;
+		&:last-child{
+			margin-right:0;
+		}
+	}
+}
+

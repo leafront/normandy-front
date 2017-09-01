@@ -1,0 +1,46 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/search.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/pagination.scss';
+
+@import '../modules/dropMenu.scss';
+
+@import '../widget/calendar.scss';
+
+
+.drop-menu-loan{
+	width:260rem/$rem;
+	.drop_menu_list{
+		width:260rem/$rem;
+	}
+}
+.cont_list{
+	.business_num{
+
+		width:140rem/$rem;
+	}
+	.business_name{
+		width:115rem/$rem;
+
+	}
+	.business_type{
+		width:140rem/$rem;
+	}
+	.business_money{
+		width:142rem/$rem;
+	}
+	.business_term{
+		width:136rem/$rem;
+	}
+	.business_time{
+		width:240rem/$rem;
+	}
+
+}
+
+
