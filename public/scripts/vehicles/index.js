@@ -18,7 +18,7 @@ var data = require('../../../model/data');
 var Vue = require('../lib/vue');
 
 const {
-
+	deviceType,
 	colorList,
 	borrowingStatus,
 	gpsStatus
@@ -46,20 +46,12 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
-		$('.pagination_list').on('click','.js_page',(event) => {
 
-			var data = this.params;
-
-			pagination.showPage(event,'/api/vehicles', data, listTpl, {colorList});
-
-		})
-
-		$(document).click(() =>{
+		document.documentElement.addEventListener('click',() => {
 
 			this.dropMenu = -1;
 
 		})
-
 
 
 	},
@@ -75,8 +67,6 @@ var vueConfig = new Vue({
 
 			},200)
 
-
-
 		},function(){
 
 			setTimeout(() =>{
@@ -85,11 +75,6 @@ var vueConfig = new Vue({
 
 			},200)
 
-		})
-
-		$('.drop_menu_list li').click(function(e){
-
-			e.stopPropagation();
 		})
 
 	},
@@ -126,7 +111,6 @@ var vueConfig = new Vue({
 
 				return '请选择';
 			}
-
 
 		}
 	},
@@ -177,40 +161,38 @@ var vueConfig = new Vue({
 				url: '/api/gps/tracking',
 				data: {
 					imei_ids:imei_ids
-				},
-				traditional: true,
-				success: (data) =>{
-
-					var results = data.data;
-
-					var gpsInfo = {};
-
-					if (results && results.length) {
-
-						results.forEach((item) => {
-
-							gpsInfo[item.imei] = {
-
-								device_info: item.device_info,
-
-								device_info_new: item.device_info_new
-
-							}
-
-						})
-
-						this.gpsInfo = gpsInfo;
-
-						this.dropMenu = vin;
-
-					} else {
-
-						this.gpsInfo = {};
-
-						Lizard.showToast('当前无GPS设备状态信息');
-					}
-
 				}
+			}).then((data) => {
+
+				var results = data.data;
+
+				var gpsInfo = {};
+
+				if (results && results.length) {
+
+					results.forEach((item) => {
+
+						gpsInfo[item.imei] = {
+
+							device_info: item.device_info,
+
+							device_info_new: item.device_info_new
+
+						}
+
+					})
+
+					this.gpsInfo = gpsInfo;
+
+					this.dropMenu = vin;
+
+				} else {
+
+					this.gpsInfo = {};
+
+					Lizard.showToast('当前无GPS设备状态信息');
+				}
+
 			})
 
 		},
@@ -223,26 +205,25 @@ var vueConfig = new Vue({
 				traditional: true,
 				data:{
 					vehicle_ids: formData
-				},
-				success: (data) => {
+				}
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						var gpsList = [];
+					var gpsList = [];
 
-						for (var attr in data) {
+					for (var attr in data) {
 
-							gpsList.push(data[attr]);
-
-						}
-
-						this.gpsList = gpsList;
-
-						fn && fn();
+						gpsList.push(data[attr]);
 
 					}
 
+					this.gpsList = gpsList;
+
+					fn && fn();
+
 				}
+
 			})
 
 		},
@@ -271,25 +252,24 @@ var vueConfig = new Vue({
 				traditional: true,
 				data:{
 					vehicle_ids: [vehiclesId]
-				},
-				success: (data) => {
+				}
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						var gpsList = [];
+					var gpsList = [];
 
-						for (var attr in data) {
+					for (var attr in data) {
 
-							gpsList.push(data[attr]);
+						gpsList.push(data[attr]);
 
-						}
-
-						this.gpsList.splice(index,1,gpsList[0]);
-
-						Lizard.showToast('刷新GPS状态成功');
 					}
 
+					this.gpsList.splice(index,1,gpsList[0]);
+
+					Lizard.showToast('刷新GPS状态成功');
 				}
+
 			})
 
 		},

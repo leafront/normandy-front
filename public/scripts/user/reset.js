@@ -8,14 +8,14 @@ var validate = require('../widget/validate');
 
 var local = require('../widget/local');
 
-
+var verify = require('./widget/verify');
 
 function startRestPass (){
 
 
 	$('.login-submit').click(function(){
 
-		actionForget()
+		actionForget();
 
 	})
 }
@@ -101,7 +101,7 @@ function actionForget (){ //开始重置密码
 		},
 		error:function(){
 
-			common.updateVerify();
+			verify.updateVerify();
 
 		}
 	})

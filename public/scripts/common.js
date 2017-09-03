@@ -1,49 +1,79 @@
-var $ = require('./lib/jquery');
-
 var Lizard = require('./widget/lizard');
 
 var common = {
 
 	headerMenu: function(){
 
-		$('.js_narrow').click(function(){
 
-			$('.header-logo').toggleClass('header_menu_scale');
+		var headerLogo = document.querySelector('.header-logo');
 
-			$('.aside-menu').toggleClass('header_menu_scale');
+		var asideMenu = document.querySelector('.aside-menu');
 
-			$('.header_logo_img').toggle();
+		var logoImg = document.querySelector('.header_logo_img');
 
-			$('.js_nav_link').toggle();
+		var navLink = document.querySelectorAll('.js_nav_link');
 
-			$('.header-top').toggleClass('header_menu_toggle');
+		var headerTop = document.querySelector('.header-top');
 
-			$('.right-container').toggleClass('header_menu_toggle');
+		var rightContainer = document.querySelector('.right-container');
+
+		document.querySelector('.js_narrow').addEventListener('click',() =>{
+
+			Lizard.toggleClass(headerLogo,'header_menu_scale');
+
+			Lizard.toggleClass(asideMenu,'header_menu_scale');
+
+			Lizard.toggleClass(logoImg,'active');
+
+			for (let i = 0, len = navLink.length; i < len; i++) {
+
+				Lizard.toggleClass(navLink[i],'active');
+
+			}
+
+			Lizard.toggleClass(headerTop,'header_menu_toggle');
+
+			Lizard.toggleClass(rightContainer,'header_menu_toggle');
+
+		})
+
+		var clientHeight = document.documentElement.clientHeight;
+
+		document.querySelector('.container').style.height = clientHeight + 'px';
+
+		document.querySelector('.right-container').style.minHeight = clientHeight + 'px';
+
+
+		var message = document.querySelector('.header_message_list');
+
+		var notice  = document.querySelector('.header_notice');
+
+		var logout = document.querySelector('.js_logout');
+
+		var userBtn = document.querySelector('.js_user');
+
+		var userInfo = document.querySelector('.user_info');
+
+
+		message.addEventListener('click',function(event){
+
+			event.stopPropagation();
+
+			notice.classList.add('active');
 
 		})
 
 
-		document.querySelector('.container').style.height = $(window).height() + 'px';
+		document.documentElement.addEventListener('click',() =>{
 
-		document.querySelector('.right-container').style.minHeight = $(window).height() + 'px';
+			notice.classList.remove('active');
 
-		$('.header_message_list li').click(function(e){
-
-			e.stopPropagation();
-
-			$('.header_notice').toggle();
+			userInfo.classList.remove('active');
 
 		})
 
-		$(document).click(function(){
 
-			$('.header_notice').hide();
-
-		})
-
-		//退出登录
-
-		$('.js_logout').click(function(){
+		logout.addEventListener('click',() =>{ //退出登录
 
 			Lizard.clearCookie();
 
@@ -51,70 +81,71 @@ var common = {
 
 		})
 
-		//用户信息
 
-		$('.js_user').click(function(){
+		userBtn.addEventListener('click',(event) =>{ //用户信息
 
-			$('.user_info').toggle();
+			event.stopPropagation();
+
+			Lizard.toggleClass(userInfo,'active');
 
 		})
 
-		getMessage();
+		this.getMessage();
 
-		function getMessage(){
 
-			var userName = $('.authority_name').text();
 
-			Lizard.ajax({
-				type:'POST',
-				url:'/user/message',
-				success:function(data){
-
-					var msgList = data.content;
-
-					if(data && msgList.length){
-
-						var getDateDiff = Lizard.getDateDiff;
-
-						var html = msgList.map((item) => {
-							return `
-							<dd>
-									<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>
-									<div class="notice_cont fr">
-									<div class="notice_txt">
-									<strong>${userName}</strong>
-									<time>${getDateDiff(item.created_at)}</time>
-									</div>
-									<p>${item.content}</p>
-								</div>
-								</dd>`
-						}).join('');
-
-						$('.notice_list').html(html);
-
-						$('.js_msgNume').show();
-
-						$('.js_msgNume').text(msgList.length);
-
-					} else {
-
-						$('.js_msgNume').text('0');
-
-						$('.notice_list').html('<dd><p>当前无信息</p></dd>');
-					}
-				}
-			})
-
-		}
 	},
-	getVerify: function () { //获取验证码
+	getMessage(){
 
-		$('#captcha-img').click(function(){
+		var userName = document.querySelector('.authority_name').innerHTML;
+
+		Lizard.ajax({
+			type:'POST',
+			url:'/user/message',
+			success:function(data){
+
+				var msgList = data.content;
+
+				if(data && msgList.length){
+
+					var getDateDiff = Lizard.getDateDiff;
+
+					var html = msgList.map((item) => {
+						return `
+								<dd>
+										<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>
+										<div class="notice_cont fr">
+										<div class="notice_txt">
+										<strong>${userName}</strong>
+										<time>${getDateDiff(item.created_at)}</time>
+										</div>
+										<p>${item.content}</p>
+									</div>
+									</dd>`
+					}).join('');
+
+					document.querySelector('.notice_list').innerHTML = html;
+
+					var msgName = document.querySelectorAll('.js_msgNume');
+
+					msgName[0].style.display = 'block';
+
+					Array.prototype.slice.apply(msgName).forEach((item) => {
+
+						item.innerHTML = msgList.length;
+
+					})
 
 
-			common.updateVerify();
+				} else {
 
+					msgName[1].innerHTML = 0;
+
+					document.querySelector('.notice_list').innerHTML = '<dd><p>当前无信息</p></dd>';
+				}
+			}
 		})
+
 	},
 	getPage: function (page,showPage) {
 
@@ -135,53 +166,24 @@ var common = {
 	},
 	dropMenu: function  () {
 
-		$('.js_select').click(function(e){
+		var selectMenu = Array.prototype.slice.apply(document.querySelectorAll('.js_select'));
 
-			e.stopPropagation();
+		selectMenu.forEach((item) =>{
+
+			item.addEventListener('click', function(event){
+
+				e.stopPropagation();
 
 
-			$(this).toggleClass('active');
+				Lizard.toggleClass(event.currentTarget,'active');
 
-			$(this).parent('.drop_menu').toggleClass('active');
+				Lizard.toggleClass(event.currentTarget.parentNode(),'active');
 
-		})
 
-		$('.drop_menu_list').on('click','li',function(e){
-
-			e.stopPropagation();
-
-			var value = $(this).data('value');
-
-			$(this).parent().prev('.js_select').text($(this).text()).data('value',value).addClass('active').parents('.drop_menu').removeClass('active');
+			})
 
 		})
 
-		$(document).click(function(){
-
-			$('.drop_menu').removeClass('active');
-
-		})
-	},
-
-	clearForm(){
-
-		$('.js_select').data('value',0).text('请选择');
-
-
-	},
-	updateVerify: function(){
-		Lizard.ajax({
-			type: 'POST',
-			gateway:'gatewayExt',
-			url: '/user/verify',
-			success: function (data) {
-
-				$('#captcha-img').attr('src',data.img_url);
-
-				$('#captcha_key').val(data.key);
-
-			}
-		})
 	},
 	isEmptyObject (value){
 

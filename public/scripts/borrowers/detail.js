@@ -1,5 +1,3 @@
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
@@ -45,29 +43,28 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'GET',
-				url:`/api/vehicles/${vehiclesId}`,
-				success: (data) =>{
+				url:`/api/vehicles/${vehiclesId}`
+			}).then((data) => {
 
-					var results = data.gps_devices;
+				var results = data.gps_devices;
 
-					if (data && results.length) {
+				if (data && results.length) {
 
 
-						var dropMenu = [];
+					var dropMenu = [];
 
-						results.forEach((item) => {
+					results.forEach((item) => {
 
-							dropMenu.push({deviceOpen: false, statusOpen: false})
+						dropMenu.push({deviceOpen: false, statusOpen: false})
 
-						})
+					})
 
-						popupConfig.dropMenu = dropMenu;
+					popupConfig.dropMenu = dropMenu;
 
-						popupConfig.gps_devices = results;
-
-					}
+					popupConfig.gps_devices = results;
 
 				}
+
 			})
 
 		}
@@ -140,20 +137,18 @@ var popupConfig = new Vue({
 				url:`/api/vehicles/${vehiclesId}`,
 				data:	{
 					gps_devices: JSON.stringify(gps_devices)
-				},
-				success:(data) =>{
+				}
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						Lizard.showToast('添加/修改成功');
+					Lizard.showToast('添加/修改成功');
 
-						setTimeout(() =>{
+					setTimeout(() =>{
 
-							popup.hideContent(ele);
+						popup.hideContent(ele);
 
-						},200)
-
-					}
+					},200)
 
 				}
 

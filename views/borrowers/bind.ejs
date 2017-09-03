@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>首页</title>
+    <title>借款--新增借款人</title>
     <link rel="stylesheet" href="/styles/borrowers/bind.css?v=20170901222619"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
@@ -19,7 +19,7 @@
             <em class="navigation_ico"></em>
             <span>新增借款人信息</span>
         </div>
-        <div class="content">
+        <div class="content" id="app">
             <div class="cont-title">
                 <i></i>
                 <span>新增借款人</span>
@@ -30,12 +30,12 @@
                 <div class="modify-item">
                     <label>身份证号</label>
                     <div class="user-card">
-                      <input type="text" class="user-ui-input user-ui-card" id="card" placeholder="身份证号"/>
+                      <input type="text" class="user-ui-input user-ui-card" v-model="params.id_no" placeholder="身份证号"/>
                     </div>
                 </div>
                 <div class="modify-button clearfix">
-                    <button class="btn_confirm js_submit">确认</button>
-                    <button class="btn_confirm js_cancel">放弃</button>
+                    <button class="btn_confirm" @click="bindBorrowers">确认</button>
+                    <button class="btn_confirm" @click="cancelBorrowers">放弃</button>
                 </div>
             </div>
         </div>

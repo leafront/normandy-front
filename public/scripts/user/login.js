@@ -11,6 +11,8 @@ var local = require('../widget/local');
 
 var Page = require('../widget/page');
 
+var verify = require('./widget/verify');
+
 
 Page({
 	bindEvents(){
@@ -24,7 +26,7 @@ Page({
 	},
 	onShow () {
 
-		common.getVerify();
+		verify.getVerify();
 	},
 	actionLogin (){ //开始登录
 
@@ -80,6 +82,7 @@ Page({
 
 		this.userLogin(data);
 
+
 	},
 
 	userLogin(data){
@@ -87,18 +90,22 @@ Page({
 		Lizard.ajax({
 			type: 'POST',
 			url: '/user/login',
-			gateway:'gatewayExt',
 			data: data,
-			success: (data) =>{
+			error () {
 
-				this.authLogin(data.jwt);
-
-			},
-			error(){
-
-				common.updateVerify();
-
+				verify.updateVerify();
 			}
+		}).then((results) => {
+
+			if (results && results.jwt) {
+
+				this.authLogin(results.jwt);
+
+			} else {
+
+				Lizard.showToast('登录失败');
+			}
+
 		})
 	},
 	loginSuccess (data,jwt,returnurl){ //登录成功跳转
@@ -146,24 +153,20 @@ Page({
 
 		var returnurl = Lizard.query('returnurl') || '/';
 
-		$.ajax({
+		console.log(jwt);
+
+		Lizard.ajax({
 			url:'/user/auth/jwt',
 			type:'POST',
 			dataType:'json',
 			headers: {
 				Authorization: 'Bearer ' + jwt
-			},
-			success:(data) =>{
-
-				this.loginSuccess(data,jwt,returnurl);
-			},
-			error (error){
-
-				var msg = JSON.parse(error.responseText);
-
-				Lizard.showToast(msg.error.message);
-
 			}
+		})
+		.then((data) => {
+
+			this.loginSuccess(data,jwt,returnurl);
+
 		})
 	}
 })

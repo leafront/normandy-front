@@ -1,4 +1,3 @@
-var $ = require('../lib/jquery');
 
 var common = require('../common');
 
@@ -8,109 +7,84 @@ var popup = require('../widget/popup');
 
 var roleAuth = require('../widget/roleAuth');
 
-var Page = require('../widget/page');
+var validate = require('../widget/validate');
 
 var pagination = require('../widget/pagination');
 
+var Vue = require('../lib/vue');
+
 var listTpl =  require('./templates/list');
 
-Page({
 
-	ajax(){
 
-		roleAuth.adminAuthority({url:'/api/users/roles'});
+var vueConfig = new Vue({
+	el: '#app',
+	data: {
+
+		adminRole:[],
+
+		hasRole: [],
+
+		editRole:[],
+
+		roleId:''
+	},
+
+	created () {
+
+		roleAuth.adminAuthority.call(this,'/api/users/roles');
 
 	},
 
-	onShow(){
+	mounted () {
+
+		document.querySelector('.pagination_list').addEventListener("click",function(event) {
+
+			if(e.target && e.target.nodeName.toUpperCase == "LI") {
+
+				pagination.showPage(event,'/api/users', null, listTpl, null);
+
+			}
+		})
 
 		common.headerMenu();
 
-
-	},
-	bindEvents(){
-
-		$('.pagination_list').on('click','.js_page',(event) => {
-
-			pagination.showPage(event,'/api/users', null, listTpl, null);
-
-		})
-
-		this.showSwitch();
-
-		this.pageAction();
-
-
 	},
 
-	pageAction(){
+	methods: {
 
-		var This = this;
+		addPersonnel (ele) {
 
-		$('.js_addConfirm').click(function(){
+			popup.showContent(ele);
 
-			var roleType = $(this).data('roletype');
+		},
 
-			This.addSubmit(roleType);
+		sendMessage (id){
 
-		})
+			Lizard.ajax({
+				type:'POST',
+				url:`/api/users/${id}/activation`,
+				success:function(data){
 
-		$('.cont_list').on('click','.js_authEdit',function(){
+					if (data && data.key) {
 
-			var roleId = $(this).data('id');
+						Lizard.showToast('发送成功');
+					}
+				}
+			})
 
-			$('.js_editConfirm').data('id',roleId);
+		},
 
-			roleAuth.editRole(roleId,`/api/users/${roleId}`,'roles');
+		editPersonnel (ele,roleId) {
 
-		})
+			popup.showContent(ele);
 
-		$('.js_cancel').click(function(){  //取消
+			this.roleId = roleId;
 
-			var popupEle = $(this).data('popup');
+			roleAuth.editRole.call(this,roleId,`/api/users/${roleId}`,'roles');
+		},
 
-			popup.hideContent(popupEle);
-
-		})
-
-		$('.popup_mask').click(function(){ //弹层消失
-
-			popup.hideContent('.popup_wraper');
-
-		})
-
-		$('.js_editConfirm').click(function(){ //确认提交
-
-			var id = $(this).data('id');
-
-			var roleType = $(this).data('roletype');
-
-			This.editSubmit(id,roleType);
-		})
-
-
-		$('.js_add').click(() => { //添加角色
-
-			roleAuth.renderAddAuth();
-
-		})
-
-		$('.cont_list').on('click','.js_message',function(){
-
-			var id = $(this).data('id');
-
-			This.sendMessage(id);
-
-		})
-		roleAuth.selectRole();
-	},
-	showSwitch(){ //开启启用和禁用
-
-		$('.cont_list').on('click','.js_switch',function(){
-
-			var status = $(this).data('status');
-
-			var id = $(this).data('id');
+		isDisabled (status,id){
 
 			if (status == 1 || status == 0) {
 
@@ -133,7 +107,7 @@ Page({
 					data: {
 						status:status
 					},
-					success:function(data){
+					success (data){
 
 						if (data){
 
@@ -144,77 +118,160 @@ Page({
 					}
 				})
 			})
-		})
+    }
+
+	}
+
+})
+
+
+var addPopup = new Vue ({
+
+	el: '#addPopup',
+	data: {
+
+		adminRole: vueConfig.adminRole,
+		addRole:[],
+		name: '',
+		mobile: ''
 	},
 
-	sendMessage(id){
-		Lizard.ajax({
-			type:'POST',
-			url:`/api/users/${id}/activation`,
-			data:{
-				id:id
-			},
-			success:function(data){
+	methods: {
 
-				if (data && data.key) {
+		selectRole (index) {
 
-					Lizard.showToast('发送成功');
-				}
+			var item = this.adminRole.splice(index,1);
+
+			this.addRole.push(item[0]);
+
+		},
+
+		deleteRole (index) {
+
+
+			var item = this.addRole.splice(index,1);
+
+			this.adminRole.push(item[0]);
+
+		},
+
+		hidePopup (el) {
+
+			popup.hideContent(el);
+
+		},
+		addSubmit(roleType){
+
+			var roleIds = [];
+
+			this.addRole.forEach((item) => {
+
+				roleIds.push(item.id);
+
+			})
+
+
+			var name = this.name;
+
+			var mobile = this.mobile;
+
+			if (!name) {
+
+				Lizard.showToast('请输入姓名');
+
+				return;
+
 			}
-		})
 
+			if (!mobile) {
+
+				Lizard.showToast('请输入手机号');
+
+				return;
+
+			}
+			if(!validate.isMobile(mobile)){
+
+				Lizard.showToast('请输入正确的手机号');
+
+				return;
+
+			}
+
+			var data = {name, mobile, roles: roleIds};
+
+			var type = 2;
+
+			roleAuth.submitRole(type,'/api/users',data,'POST');
+		}
+
+	}
+})
+
+
+var editPopup = new Vue ({
+
+	el: '#editPopup',
+	computed: {
+
+		hasRole () {
+
+			return vueConfig.hasRole;
+
+		},
+
+		editRole () {
+
+			return vueConfig.editRole;
+		},
+
+		roleId () {
+
+			return vueConfig.roleId;
+		}
 	},
 
+	methods: {
 
-	editSubmit(id,roleType){
+		selectRole (index) {
 
-		var roleIds = roleAuth.getRoleIds(roleType);
+			var item = this.hasRole.splice(index,1);
 
-		var url = `/api/users/${id}/roles`;
+			this.editRole.push(item[0]);
 
-		var data = {id:id,roles:roleIds};
+		},
 
-		var type = 1;
+		deleteRole (index) {
 
-		roleAuth.submitRole(type,url,data,'PATCH');
-	},
-	addSubmit(roleType){
+			var item = this.editRole.splice(index,1);
 
-		var roleIds = roleAuth.getRoleIds(roleType);
+			this.hasRole.push(item[0]);
 
-		var roleName = $.trim($('#roleName').val());
+		},
 
-		var mobile = $.trim($('#mobile').val());
+		hidePopup (el) {
 
-		if (!roleName) {
+			popup.hideContent(el);
 
-			Lizard.showToast('请输入姓名');
+		},
+		editSubmit(){
 
-			return;
+			var id = this.roleId;
 
+			var roleIds = [];
+
+			this.editRole.forEach((item) => {
+
+				roleIds.push(item.id);
+
+			})
+
+		  var data = {id:id,roles:roleIds};
+
+		  var type = 1;
+
+			roleAuth.submitRole(type,`/api/users/${id}/roles`,data,'PATCH');
 		}
 
-		if (!mobile) {
-
-			Lizard.showToast('请输入手机号');
-
-			return;
-
-		}
-		if(!Lizard.isMobile(mobile)){
-
-			Lizard.showToast('请输入正确的手机号');
-
-			return;
-
-		}
-
-		var data = {name:roleName,mobile:mobile,roles:roleIds};
-
-		var url = '/api/users';
-
-		var type = 2;
-
-		roleAuth.submitRole(type,url,data,'POST');
 	}
 })

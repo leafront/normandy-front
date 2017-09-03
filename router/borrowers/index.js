@@ -315,27 +315,6 @@ router.post('/add',async (ctx,next) => {
 
 })
 
-router.post('/bind',async (ctx,next) => {
-
-	const body = ctx.request.body;
-
-	await baseModel.post(ctx,{
-		type:'POST',
-		url:'/api/borrowers',
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
 
 
 

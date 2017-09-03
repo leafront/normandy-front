@@ -1,4 +1,3 @@
-
 var $ = require('../lib/jquery');
 
 var common = require('../common');
@@ -8,6 +7,8 @@ var local = require('../widget/local');
 var validate = require('../widget/validate');
 
 var Lizard = require('../widget/lizard');
+
+var verify = require('./widget/verify');
 
 
 function startRestPass (){
@@ -81,7 +82,7 @@ function actionForget (){ //开始验证用户
 	})
 }
 
-common.getVerify();
+verify.getVerify();
 
 startRestPass();
 

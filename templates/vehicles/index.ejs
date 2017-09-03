@@ -109,14 +109,15 @@
                               <div class="drop_menu drop-menu-gps" :class="{'active':dropMenu == '<%-item.id%>'}">
                                 <span @click.stop='selectDropMenu("<%-item.id%>",<%-JSON.stringify(item.gps_devices)%>)' v-cloak><%if(item.gps_devices.length){%>查看设备状态<%}else{%>当前无GPS设备状态信息<%}%></span>
                                 <ul class="drop_menu_list">
-                                    <% if (item.gps_devices && item.gps_devices.length ){ %>
+                                    <% if (item.gps_devices && item.gps_devices.length > 0 ){ %>
                                         <% item.gps_devices.forEach(function(child,cIndex){%>
                                           <li>
                                             <a href="javascript:;"><%-child.imei%></a>
-                                            <strong>（<%-deviceType[child.type].name%>）</strong>
+                                            <strong>（<%-deviceType[child.type] && deviceType[child.type].name%>）</strong>
                                              <% if (child.status == 0){%>
                                                 <strong class="disabled">监控（报废）</strong>
                                              <%} else{%>
+                                              <% if (child.imei) {%>
                                                <template v-if= "gpsInfo[<%-child.imei%>]">
                                                  <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info_new,<%-child.imei%>)" class="gps_info" v-if="gpsInfo[<%-child.imei%>].device_info == 0 && gpsInfo[<%-child.imei%>].device_info_new == 4">
                                                     监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info_new].name}}）
@@ -131,6 +132,7 @@
                                                    </strong>
                                                </template>
                                              <%}%>
+                                            <%}%>
                                           </li>
 
                                         <%})%>

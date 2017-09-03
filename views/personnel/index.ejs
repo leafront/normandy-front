@@ -12,7 +12,7 @@
 
 <div class="container clearfix">
     <% include ../common/aside_menu.ejs %>
-    <div class="right-container fr">
+    <div class="right-container fr" id="app">
         <div class="navigation">
             <a href="/" class="home_ico"></a>
             <em class="navigation_ico"></em>
@@ -22,11 +22,58 @@
             <div class="cont-title">
                 <i></i>
                 <span>员工管理</span>
-                <a href="javascript:;" class="title-btn1 js_add">添加员工</a>
+                <a href="javascript:;" class="title-btn1" @click="addPersonnel('#addPopup')">添加员工</a>
             </div>
             <div class="list_container list_top">
                 <dl class="cont_list">
-                    <% include list.ejs %>
+                    <dt>
+                        <span class="personnel_name">姓名</span>
+                        <span class="personnel_phone">手机号</span>
+                        <span class="personnel_auth">认证</span>
+                        <span class="personnel_time">创建时间</span>
+                        <span class="personnel_role">角色</span>
+                        <span class="user_status">状态</span>
+                        <span>操作</span>
+                    </dt>
+                    <% if(list && list.length){%>
+                    <% list.forEach(function(item){%>
+                    <dd>
+                        <span class="personnel_name"><%-item.user.name%></span>
+                        <span class="personnel_phone"><%-item.user.mobile%></span>
+                        <div class="personnel_auth">
+                            <i class="ico1"></i>
+                            <i class="ico2"></i>
+                            <i class="ico3"></i>
+                        </div>
+                        <span class="personnel_time"><%-item.user.created_at%></span>
+                        <div class="list_status">
+                            <%if(item.roles && item.roles.length){%>
+                            <% item.roles.forEach(function(item){%>
+                            <span class="list_btn"><%-item.name%></span>
+                            <%})%>
+                            <%}else{%>
+                            <span class="list_btn3">未设置</span>
+                            <%}%>
+                        </div>
+                        <div class="user_status">
+                            <%if (item.status == 0) {%>
+                            <span>待激活</span>
+                            <%} else if(item.status == 1){%>
+                            <span class="usable_btn">可用</span>
+                            <%} else if(item.status == 2){%>
+                            <span class="disable_btn">不可用</span>
+                            <%}%>
+
+                        </div>
+                        <div class="personnel_action">
+                            <a class="list_action" @click="isDisabled(<%-item.status%>,'<%-item.user.id%>')" href="javascript:;">
+                                <%if(item.status===1 || item.status==0){%>禁用<%}else if(item.status===2){%>启用<%}%></a>
+                            <a class="list_action" @click="editPersonnel('#editPopup','<%-item.user.id%>')" href="javascript:;"> / 编辑角色 </a>
+                            <%if(item.status == 0){%> <a class="list_action" @click="sendMessage('<%-item.user.id%>')" href="javascript:;"> / 重新发送 </a><%}%>
+                        </div>
+                    </dd>
+                    <%})%>
+                    <%}%>
                 </dl>
             </div>
             <div class="pagination">
@@ -46,24 +93,25 @@
     <div class="popup_cont clearfix">
         <span>待选角色</span>
         <div class="popup_list_wraper">
-            <ul class="popup_list popup_admin" id="popup_has_role">
-
+            <ul class="popup_list">
+                <li v-for="(item,index) in hasRole" @click="selectRole(index)">
+                    <a href="javascript:;">{{item.name}}</a>
+                </li>
             </ul>
         </div>
-
-
         <strong></strong>
-
         <div class="popup_list_wraper">
-            <ul class="popup_list popup_role" id="popup_edit_role">
-
+            <ul class="popup_list">
+                <li v-for="(item,index) in editRole" @click="deleteRole(index)">
+                    <a href="javascript:;">{{item.name}}</a>
+                </li>
             </ul>
         </div>
     </div>
 
     <div class="popup_submit clearfix">
-        <button class="btn_confirm js_editConfirm" data-roletype="#popup_edit_role">确定</button>
-        <button class="btn_cancel js_cancel" data-popup="#editPopup">取消</button>
+        <button class="btn_confirm js_editConfirm" @click="editSubmit">确定</button>
+        <button class="btn_cancel js_cancel" @click="hidePopup('#editPopup')">取消</button>
     </div>
 </div>
 
@@ -73,33 +121,35 @@
     </div>
     <div class="popup_input">
         <label>姓名</label>
-        <input type="text" class="user-ui-input" id="roleName" placeholder="请输入员工名称"/>
+        <input type="text" class="user-ui-input" v-model="name" placeholder="请输入员工名称"/>
     </div>
     <div class="popup_input">
         <label>手机号</label>
-        <input type="text" class="user-ui-input" id="mobile" placeholder="请输入手机号"/>
+        <input type="text" class="user-ui-input" v-model="mobile" placeholder="请输入手机号"/>
     </div>
     <div class="popup_cont clearfix">
         <span>特选权限</span>
         <div class="popup_list_wraper">
-            <ul class="popup_list popup_admin" id="popup_all_role">
-
+            <ul class="popup_list">
+                <li v-for="(item,index) in adminRole" @click="selectRole(index)">
+                    <a href="javascript:;">{{item.name}}</a>
+                </li>
             </ul>
         </div>
 
-
         <strong></strong>
-
         <div class="popup_list_wraper">
-            <ul class="popup_list popup_role" id="popup_add_role">
-
+            <ul class="popup_list">
+                <li v-for="(item,index) in addRole" @click="deleteRole(index)">
+                    <a href="javascript:;">{{item.name}}</a>
+                </li>
             </ul>
         </div>
     </div>
 
     <div class="popup_submit clearfix">
-        <button class="btn_confirm js_addConfirm" data-roletype="#popup_add_role">添加</button>
-        <button class="btn_cancel js_cancel" data-popup="#addPopup">取消</button>
+        <button class="btn_confirm js_addConfirm" @click="addSubmit">添加</button>
+        <button class="btn_cancel js_cancel" @click="hidePopup('#addPopup')">取消</button>
     </div>
 
 </div>

@@ -1,5 +1,3 @@
-var $ = require('../../lib/jquery');
-
 var common = require('../../common');
 
 var Lizard = require('../../widget/lizard');
@@ -293,9 +291,16 @@ var popupConfig = new Vue({
 
 		selectBrand (event,{id, name}) {
 
-			$('#carBrand dd').removeClass('active');
+			var ele = Array.prototype.slice.apply(document.querySelectorAll('#carBrand dd'));
 
-			$(event.currentTarget).addClass('active');
+			ele.forEach((item) => {
+
+				item.classList.remove('active');
+
+			})
+
+
+			event.currentTarget.classList.add('active');
 
 			this.formData.brand = name;
 
@@ -305,9 +310,16 @@ var popupConfig = new Vue({
 
 		selectType (event,{id, name}) {
 
-			$('#carType dd').removeClass('active');
 
-			$(event.currentTarget).addClass('active');
+			var ele = Array.prototype.slice.apply(document.querySelectorAll('#carType dd'));
+
+			ele.forEach((item) => {
+
+				item.classList.remove('active');
+
+			})
+
+			event.currentTarget.classList.add('active');
 
 			this.formData.series = name;
 
@@ -317,9 +329,15 @@ var popupConfig = new Vue({
 
 		selectModel (event,{id, name}) {
 
-			$('#carModel dd').removeClass('active');
+			var ele = Array.prototype.slice.apply(document.querySelectorAll('#carModel dd'));
 
-			$(event.currentTarget).addClass('active');
+			ele.forEach((item) => {
+
+				item.classList.remove('active');
+
+			})
+
+			event.currentTarget.classList.add('active');
 
 			this.formData.model = name;
 
@@ -329,35 +347,35 @@ var popupConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:'/borrowers/brand',
-				success:(data) =>{
+				url:'/borrowers/brand'
+			}).then((data) => {
 
-					var results = data.results;
+				var results = data.results;
 
-					if (data && results.length) {
+				if (data && results.length) {
 
-						var letterNav = [];
+					var letterNav = [];
 
-						results.forEach((item, i) => {
+					results.forEach((item, i) => {
 
-							if (letterNav.indexOf(item.initial) === -1) {
+						if (letterNav.indexOf(item.initial) === -1) {
 
-								letterNav.push(item.initial)
-							}
+							letterNav.push(item.initial)
+						}
 
-						})
+					})
 
-						var list = this.getGroupArr(results,'initial');
+					var list = this.getGroupArr(results,'initial');
 
-						this.letterNav = letterNav;
+					this.letterNav = letterNav;
 
-						this.brandList = list;
+					this.brandList = list;
 
-						this.formData.brand = list[0].results[0].name;
+					this.formData.brand = list[0].results[0].name;
 
-						this.getCarType(results[0].id);
-					}
+					this.getCarType(results[0].id);
 				}
+
 			})
 		},
 		getCarType(brandId){
@@ -365,48 +383,44 @@ var popupConfig = new Vue({
 			Lizard.ajax({
 				type:'POST',
 				url:'/borrowers/carType',
-				data:{
-					brandId
-				},
-				success:(data) =>{
+				data:{ brandId }
+			}).then((data) => {
 
-					var results = data.results;
+				var results = data.results;
 
+				if (data && results.length) {
 
-					if (data && results.length) {
+					var list = this.getGroupArr(results, 'group_name');
 
-						var list = this.getGroupArr(results,'group_name');
+					this.typeList = list;
 
-						this.typeList = list;
+					this.formData.series = list[0].results[0].name;
 
-						this.formData.series = list[0].results[0].name;
-
-						this.getCarModel(results[0].id);
-					}
+					this.getCarModel(results[0].id);
 				}
 			})
+
 	  },
 		getCarModel(typeId){
 
-		 Lizard.ajax({
+			Lizard.ajax({
 				type:'POST',
 				url:'/borrowers/carModel',
 				data:{
 					typeId
-				},
-				success:(data) =>{
+				}
+			}).then((data) => {
 
-					var results = data.results;
+				var results = data.results;
 
-					if (data && results.length) {
+				if (data && results.length) {
 
-						var list = this.getGroupArr(results,'year');
+					var list = this.getGroupArr(results,'year');
 
-						this.modelList = list;
+					this.modelList = list;
 
-						this.formData.model = list[0].results[0].name;
+					this.formData.model = list[0].results[0].name;
 
-					}
 				}
 			})
 		}

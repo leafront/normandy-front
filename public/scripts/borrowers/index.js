@@ -29,13 +29,7 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
-		$('.pagination_list').on('click','.js_page',(event) => {
-
-			var data = this.params;
-
-			pagination.showPage(event,'/api/borrowers', data, listTpl, null);
-
-		})
+		pagination.showPage('/api/borrowers', this.params, listTpl, null);
 
 	},
 	methods: {
@@ -61,9 +55,7 @@ var vueConfig = new Vue({
 				calendarItem.showCalendar();
 			})
 
-
 		},
-
 
 		fetch (data) {
 

@@ -1,45 +1,43 @@
 
-var $ = require('../../lib/jquery');
+var $ = require('../lib/jquery');
 
-var common = require('../../common');
+var common = require('../common');
 
-var Lizard = require('../../widget/lizard');
+var local = require('../widget/local');
 
-var validate = require('../../widget/validate');
+var validate = require('../widget/validate');
 
-var local = require('../../widget/local');
+var Lizard = require('../widget/lizard');
 
-var verify = require('../widget/verify');
+var Page = require('../widget/page');
 
-var Page = require('../../widget/page');
+var verify = require('./widget/verify');
+
 
 Page({
 
-	onShow(){
+	onShow (){
 
 		verify.getVerify();
 
-	},
+		this.startRestPass();
 
-	bindEvents(){
+	},
+	startRestPass (){
 
 		$('.login-submit').click(() =>{
 
-			this.actionRegister()
+			this.actionForget()
 
 		})
-	},
-
-	actionRegister (){ //开始注册
+  },
+	actionForget (){ //开始验证用户
 
 		var mobile = $.trim($('#mobile').val());
-
-		var password = $.trim($('#password').val());
 
 		var captcha_code = $.trim($('#captcha_code').val());
 
 		var captcha_key = $.trim($('#captcha_key').val());
-
 
 		if (!mobile) {
 
@@ -54,12 +52,6 @@ Page({
 			return;
 		}
 
-		if (!password) {
-
-			Lizard.showToast('请输入密码');
-
-			return;
-		}
 
 		if (!captcha_code) {
 
@@ -79,33 +71,26 @@ Page({
 
 		Lizard.ajax({
 			type: 'POST',
-			url: '/user/register/mobile',
+			url: '/api/reset/validator',
 			gateway:'gatewayExt',
 			data: {
 				mobile: mobile,
-				password: password,
 				captcha_code: captcha_code,
 				captcha_key: captcha_key
 			},
-			success: function (data) {
-
-				local.set('userInfo',{
-					mobile:mobile,
-					password:password,
-					mobile_key:data.key
-				})
-				location.href = '/user/register/' + data.key;
-
-			},
-			error: function(){
+			error (){
 
 				verify.updateVerify();
 
 			}
 		})
+		.then((data)=> {
+
+			local.set('mobile_hide',mobile);
+
+			window.location.href = '/user/forget/' + data.key;
+		})
 	}
 
 })
-
-
 
