@@ -172,12 +172,12 @@ var common = {
 
 			item.addEventListener('click', function(event){
 
-				e.stopPropagation();
+				event.stopPropagation();
 
 
-				Lizard.toggleClass(event.currentTarget,'active');
+				Lizard.toggleClass(event.target,'active');
 
-				Lizard.toggleClass(event.currentTarget.parentNode(),'active');
+				Lizard.toggleClass(event.target.parentNode,'active');
 
 
 			})

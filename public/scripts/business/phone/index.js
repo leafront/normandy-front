@@ -195,22 +195,20 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type:'POST',
 				url:`/api/applications/${phoneId}/phone-reviews`,
-				data:submitData,
-				success: (data) =>{
+				data:submitData
+			}).then((data) => {
+				if (data) {
 
-					if (data) {
+					Lizard.showToast('电核成功, 跳转至标的列表页...');
 
-						Lizard.showToast('电核成功, 跳转至标的列表页...');
+					setTimeout(() =>{
 
-						setTimeout(() =>{
+						location.href = '/business';
 
-							location.href = '/business';
-
-						},500)
-
-					}
+					},500)
 
 				}
+
 			})
 
 

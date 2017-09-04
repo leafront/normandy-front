@@ -139,16 +139,14 @@ Page({
 
 			Lizard.ajax({
 				type:'GET',
-				url:`/api/borrowings/${this.borrowingsId}/risks`,
-				success:function(data){
+				url:`/api/borrowings/${this.borrowingsId}/risks`
+			}).then((data) => {
 
-					if(data) {
+				if(data) {
 
-						var html = ejs.render(creditTpl,{list:credit,risks:data});
+					var html = ejs.render(creditTpl,{list:credit,risks:data});
 
-						$('#vehicleList').html(html);
-					}
-
+					$('#vehicleList').html(html);
 				}
 			})
 
@@ -161,22 +159,20 @@ Page({
 		Lizard.ajax({
 			type:'POST',
 			url:`/api/borrowings/${this.borrowingsId}/type`,
-			success(data){
-
-				if(data) {
-
-					credit[index].is_active = true;
-
-					Lizard.showToast('提交成功');
-				}
-
-			},
 			error(){
 
 				credit[index].is_active = true;
 
 			}
 
+		}).then((data) => {
+
+			if(data) {
+
+				credit[index].is_active = true;
+
+				Lizard.showToast('提交成功');
+			}
 		})
 
 	},
@@ -189,17 +185,16 @@ Page({
 
 		Lizard.ajax({
 			type:'GET',
-			url:`/api/borrowings/${this.borrowingsId}/vehicles/risks`,
-			success:function(data){
+			url:`/api/borrowings/${this.borrowingsId}/vehicles/risks`
+		}).then((data) => {
 
-				if(data) {
+			if(data) {
 
-					var html = ejs.render(creditTpl,{list:credit,risks:data});
+				var html = ejs.render(creditTpl,{list:credit,risks:data});
 
-					$('#creditList').html(html);
-				}
-
+				$('#creditList').html(html);
 			}
+
 		})
 
 	},
@@ -208,19 +203,18 @@ Page({
 
 		Lizard.ajax({
 			type:'GET',
-			url:`/api/borrowings/${this.borrowingsId}/approvals`,
-			success:function(data){
+			url:`/api/borrowings/${this.borrowingsId}/approvals`
+		}).then((data) => {
 
-				var results = data.results;
+			var results = data.results;
 
-				if (data && results.length){
+			if (data && results.length){
 
-					var html = ejs.render(approvalTpl,{list:results,borrowingStage,borrowingResult,borrowingRating,carType});
+				var html = ejs.render(approvalTpl,{list:results,borrowingStage,borrowingResult,borrowingRating,carType});
 
-					$('#approvals').html(html);
-				}
-
+				$('#approvals').html(html);
 			}
+
 		})
 	},
 	showTab(){

@@ -81,7 +81,6 @@ Page({
 			error (){
 
 				verify.updateVerify();
-
 			}
 		})
 		.then((data)=> {

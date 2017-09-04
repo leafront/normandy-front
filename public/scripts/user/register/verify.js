@@ -54,20 +54,20 @@ Page({
 				password: password,
 				mobile_code: mobile_code,
 				mobile_key: mobile_key
-			},
-			success: function (data) {
-
-				Lizard.showToast('注册成功');
-
-				local.remove('userInfo');
-
-				setTimeout(function(){
-
-					location.href = '/user/login';
-
-				},1000)
-
 			}
+		}).then((data) => {
+
+
+			Lizard.showToast('注册成功');
+
+			local.remove('userInfo');
+
+			setTimeout(() => {
+
+				location.href = '/user/login';
+
+			},1000)
+
 		})
 	}
 })

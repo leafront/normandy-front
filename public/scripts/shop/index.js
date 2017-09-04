@@ -111,20 +111,19 @@ Page({
 
 		Lizard.ajax({
 			type:'POST',
-			url:'/shop/provinces',
-			success:(data) => {
+			url:'/shop/provinces'
+		}).then((data) => {
 
-				var list = data.results;
+			var list = data.results;
 
-				var html = ejs.render(tpl,{list:list});
+			var html = ejs.render(tpl,{list:list});
 
-				$('.shop_province').html(html);
+			$('.shop_province').html(html);
 
-				this.getCityList(list[0].province_id);
+			this.getCityList(list[0].province_id);
 
-				$('.js_province').text(list[0].province_name);
+			$('.js_province').text(list[0].province_name);
 
-			}
 		})
 	},
 	getCityList(id){
@@ -141,19 +140,22 @@ Page({
 			url:'/shop/citys',
 			data:{
 				id: id
-			},
-			success:function(data){
-
-				var list = data.results;
-
-				var html = ejs.render(tpl,{list:list});
-
-				$('.shop_city').html(html);
-
-				$('.js_city').text(list[0].city_name).addClass('active').data('item',list[0]);
-
-
 			}
+		}).then((data) => {
+
+			var list = data.results;
+
+			var html = ejs.render(tpl,{list:list});
+
+
+			$('.shop_city').html(html);
+
+			$('.js_city').text(list[0].city_name).addClass('active').data('item',list[0]);
+
+		}).catch((err) => {
+
+			Lizard.showToast(err);
+
 		})
 
 	},
@@ -165,35 +167,33 @@ Page({
 			url:'/shop/edit',
 			data:{
 				id:id
-			},
-			success:(data) => {
-
-				var area = data.area;
-
-				$('#edit_name').val(data.name);
-
-				$('#edit_abbreviation').val(data.short_name);
-
-				$('#js_editProvince').text(area.province_name);
-
-
-				$('#edit_address').val(data.address);
-
-				$('#createTime').val(data.created_at);
-
-				$('#isActive').val(data.is_active);
-
-				$('#edit_phone').val(data.phone);
-
-				this.getCityList(area.province_id);
-
-				$('#js_editCity').text(area.city_name).data('item',area);
-
-
-				popup.showContent('#editPopup');
-
-
 			}
+		}).then((data) => {
+
+			var area = data.area;
+
+			$('#edit_name').val(data.name);
+
+			$('#edit_abbreviation').val(data.short_name);
+
+			$('#js_editProvince').text(area.province_name);
+
+
+			$('#edit_address').val(data.address);
+
+			$('#createTime').val(data.created_at);
+
+			$('#isActive').val(data.is_active);
+
+			$('#edit_phone').val(data.phone);
+
+			this.getCityList(area.province_id);
+
+			$('#js_editCity').text(area.city_name).data('item',area);
+
+
+			popup.showContent('#editPopup');
+
 		})
 	},
 	editShopList(id){
@@ -305,17 +305,17 @@ Page({
 		Lizard.ajax({
 			type:'POST',
 			url:url,
-			data:data,
-			success:function(data){
+			data:data
+		}).then((data) => {
 
-				Lizard.showToast(tips + '成功');
+			Lizard.showToast(tips + '成功');
 
-				setTimeout(function(){
+			setTimeout(() => {
 
-					location.reload();
+				location.reload();
 
-				},500)
-			}
+			},500)
+
 		})
 	}
 })

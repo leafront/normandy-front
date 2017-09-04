@@ -1,6 +1,8 @@
 
 var $ = require('../lib/jquery');
 
+var util = require('../lib/util/index');
+
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
@@ -25,12 +27,24 @@ const {
 
 } = data;
 
+var queryParams = {
+
+	vin: Lizard.query('vin') || '',
+	status: Lizard.query('status') || '',
+	name: Lizard.query('name') || '',
+	from: Lizard.query('from') || '',
+	to: Lizard.query('to') || '',
+	gps_status: Lizard.query('gps_status') || '',
+	ralated_borrowing_status: Lizard.query('ralated_borrowing_status') || ''
+}
+
+
 
 var vueConfig = new Vue({
 
 	el:'#app',
 	data:{
-		params:{ vin:"",status:"", name:"", from:"", to:"", gps_status:'', ralated_borrowing_status:''},
+		params:queryParams,
 		dropMenu: -1,
 		borrowingStatus,
 		gpsStatus,
@@ -46,6 +60,34 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
+		var paginationList = document.querySelector('.pagination_list');
+
+		if (paginationList) {
+
+			paginationList.addEventListener("click",function(event) {
+
+				if(event.target && event.target.className == "js_page") {
+
+					event.preventDefault();
+
+					var params = Lizard.query();
+
+					var href = event.target.getAttribute('href');
+
+					var page = href.split('?')[1];
+
+					page = parseInt(page.split('=')[1]);
+
+					params.page = page;
+
+					params = util.queryStringify(params);
+
+					location.href = `/vehicles?${params}`;
+
+				}
+			})
+
+		}
 
 		document.documentElement.addEventListener('click',() => {
 
@@ -338,11 +380,15 @@ var vueConfig = new Vue({
 
 		fetch (data) {
 
-			var page = Lizard.query('page') || {};
+			var page = Lizard.query('page');
 
-			var formData = Object.assign({ page }, data );
+			page = page ? { page: page} : {};
 
-			pagination.pageList('/api/vehicles',formData,listTpl,{colorList})
+			var formData = Object.assign(page, data );
+
+			formData = util.queryStringify(formData);
+
+			location.href = `/vehicles?${formData}`;
 		},
 
 		query () {

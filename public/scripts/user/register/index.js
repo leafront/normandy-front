@@ -87,21 +87,21 @@ Page({
 				captcha_code: captcha_code,
 				captcha_key: captcha_key
 			},
-			success: function (data) {
-
-				local.set('userInfo',{
-					mobile:mobile,
-					password:password,
-					mobile_key:data.key
-				})
-				location.href = '/user/register/' + data.key;
-
-			},
-			error: function(){
+			error (){
 
 				verify.updateVerify();
 
 			}
+		}).then((data) => {
+
+			local.set('userInfo',{
+				mobile:mobile,
+				password:password,
+				mobile_key:data.key
+			})
+
+			location.href = '/user/register/' + data.key;
+
 		})
 	}
 

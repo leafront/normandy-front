@@ -11,7 +11,7 @@
 
 <div class="container clearfix">
     <% include ../common/aside_menu.ejs %>
-    <div class="right-container fr">
+    <div class="right-container fr" id="app">
         <div class="navigation">
             <a href="/" class="home_ico"></a>
             <em class="navigation_ico"></em>
@@ -21,7 +21,7 @@
             <div class="cont-title">
                 <i></i>
                 <span>权限管理</span>
-                <a href="javascript:;" class="title-btn1 js_add">添加角色</a>
+                <a href="javascript:;" class="title-btn1" @click="addAuthority('#addPopup')">添加角色</a>
             </div>
             <div class="list_container list_top">
                 <dl class="cont_list">
@@ -41,8 +41,8 @@
                                 <%})%>
                             </div>
                             <div class="authority_action">
-                                <a class="list_action js_authEdit" data-id="<%-item.id%>" href="javascript:;">编辑权限</a>
-                                <a class="list_action js_delete" data-id="<%-item.id%>" href="javascript:;"> / 删除 </a>
+                                <a class="list_action"  @click="editAuthority('#editPopup','<%-item.id%>')" href="javascript:;">编辑权限</a>
+                                <a class="list_action" @click="deleteRole('<%-item.id%>')" href="javascript:;"> / 删除 </a>
                             </div>
                         </dd>
 
@@ -62,8 +62,10 @@
    <div class="popup_cont clearfix">
       <span>特选权限</span>
       <div class="popup_list_wraper">
-          <ul class="popup_list popup_admin" id="popup_has_role">
-
+          <ul class="popup_list">
+              <li v-for="(item,index) in hasRole" @click="selectRole(index)">
+                  <a href="javascript:;">{{item.name}}</a>
+              </li>
           </ul>
       </div>
 
@@ -71,15 +73,17 @@
        <strong></strong>
 
        <div class="popup_list_wraper">
-           <ul class="popup_list popup_role" id="popup_edit_role">
-
+           <ul class="popup_list">
+               <li v-for="(item,index) in editRole" @click="deleteRole(index)">
+                   <a href="javascript:;">{{item.name}}</a>
+               </li>
            </ul>
        </div>
    </div>
 
    <div class="popup_submit clearfix">
-      <button class="js_editConfirm" data-roletype="#popup_edit_role">确定</button>
-      <button class="js_cancel" data-popup="#editPopup">取消</button>
+       <button class="btn_confirm" @click="editSubmit">确定</button>
+       <button class="btn_cancel" @click="hidePopup('#editPopup')">取消</button>
    </div>
 
 </div>
@@ -90,13 +94,15 @@
 </div>
 <div class="popup_input">
     <label>名称</label>
-    <input type="text" class="user-ui-input" id="roleName" placeholder="请输入角色名称"/>
+    <input type="text" class="user-ui-input" v-model="name" placeholder="请输入角色名称"/>
 </div>
 <div class="popup_cont clearfix">
     <span>特选权限</span>
     <div class="popup_list_wraper">
-        <ul class="popup_list popup_admin" id="popup_all_role">
-
+        <ul class="popup_list">
+            <li v-for="(item,index) in adminRole" @click="selectRole(index)">
+                <a href="javascript:;">{{item.name}}</a>
+            </li>
         </ul>
     </div>
 
@@ -104,15 +110,17 @@
     <strong></strong>
 
     <div class="popup_list_wraper">
-        <ul class="popup_list popup_role" id="popup_add_role">
-
+        <ul class="popup_list">
+            <li v-for="(item,index) in addRole" @click="deleteRole(index)">
+                <a href="javascript:;">{{item.name}}</a>
+            </li>
         </ul>
     </div>
 </div>
 
 <div class="popup_submit clearfix">
-    <button class="btn_confirm js_addConfirm" data-roletype="#popup_add_role">添加</button>
-    <button class="btn_cancel js_cancel" data-popup="#addPopup">取消</button>
+    <button class="btn_confirm" @click="addSubmit">添加</button>
+    <button class="btn_cancel" @click="hidePopup('#addPopup')">取消</button>
 </div>
 
 </div>

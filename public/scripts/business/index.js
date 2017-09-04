@@ -45,20 +45,14 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
-		$('.pagination_list').on('click','.js_page',(event) =>{
 
-			var data = this.params;
-
-			pagination.showPage(event,'/api/borrowings',data,listTpl,{
-				termUnit,
-				borrowingStatus,
-				autoReviewStatus,
-				phoneReviewStatus,
-				borrowingType
-			})
-
+		pagination.showPage('/api/borrowings',data,listTpl,{
+			termUnit,
+			borrowingStatus,
+			autoReviewStatus,
+			phoneReviewStatus,
+			borrowingType
 		})
-
 
 		document.documentElement.onclick = ()=>{
 

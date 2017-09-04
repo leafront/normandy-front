@@ -88,22 +88,21 @@ function actionForget (){ //开始重置密码
 			mobile_key: mobile_key,
 			mobile_hide: mobile_hide
 		},
-		success: function (data) {
-
-			local.remove('mobile_hide');
-
-			Lizard.showToast('密码重置成功');
-
-			setTimeout(function(){
-				location.href = '/user/login';
-			},1000)
-
-		},
-		error:function(){
+		error (){
 
 			verify.updateVerify();
 
 		}
+	}).then((data) => {
+
+		local.remove('mobile_hide');
+
+		Lizard.showToast('密码重置成功');
+
+		setTimeout(function(){
+			location.href = '/user/login';
+		},1000)
+
 	})
 }
 

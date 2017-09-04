@@ -46,29 +46,29 @@ var vueConfig = new Vue({
 
 		Lizard.ajax({
 			type:'GET',
-			url:'/api/salesmen',
-			success:(data) =>{
+			url:'/api/salesmen'
+		}).then((data) => {
 
-				var results = data.results;
+			var results = data.results;
 
-				if (results && results.length) {
+			if (results && results.length) {
 
-					this.salesmenList = results;
-
-
-					results.forEach((item) =>{
-
-						if (item.user.id == this.business.salesman) {
+				this.salesmenList = results;
 
 
-							this.salesmanName = item.user.name;
+				results.forEach((item) =>{
 
-						}
+					if (item.user.id == this.business.salesman) {
 
-					})
 
-				}
+						this.salesmanName = item.user.name;
+
+					}
+
+				})
+
 			}
+
 		})
 
 		this.initValue();
@@ -222,11 +222,11 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type:'GET',
 				url:'/api/oss-key',
-				data: fileInfo,
-				success:(data) => {
+				data: fileInfo
+			}).then((data) => {
 
-					this.uploadImg(data,file,uploadType);
-				}
+				this.uploadImg(data,file,uploadType);
+
 			})
 
 		},
@@ -234,6 +234,7 @@ var vueConfig = new Vue({
 		deleteImg (type,index) {
 
 			this.business[type].splice(index,1);
+
 		},
 		uploadImg (data,file,uploadType) {
 
@@ -315,22 +316,21 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type:'PATCH',
 				url:`/api/borrowings/${borrowingId}`,
-				data:submitData,
-				success: (data) =>{
+				data:submitData
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						Lizard.showToast('修改成功, 跳转至借款列表...');
+					Lizard.showToast('修改成功, 跳转至借款列表...');
 
-						setTimeout(() =>{
+					setTimeout(() =>{
 
-							location.href = '/business';
+						location.href = '/business';
 
-						},500)
-
-					}
+					},500)
 
 				}
+
 			})
 
 

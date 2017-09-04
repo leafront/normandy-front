@@ -42,6 +42,8 @@ var vueConfig = new Vue({
 
 			if(e.target && e.target.nodeName.toUpperCase == "LI") {
 
+				event.preventDefault();
+
 				pagination.showPage(event,'/api/users', null, listTpl, null);
 
 			}
@@ -63,14 +65,14 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:`/api/users/${id}/activation`,
-				success:function(data){
+				url:`/api/users/${id}/activation`
+			}).then((data) => {
 
-					if (data && data.key) {
+				if (data && data.key) {
 
-						Lizard.showToast('发送成功');
-					}
+					Lizard.showToast('发送成功');
 				}
+
 			})
 
 		},
@@ -100,22 +102,22 @@ var vueConfig = new Vue({
 			Lizard.prompt({
 				tips:'确定'+tipTxt+'该员工吗?',
 				btn:['确定','取消']
-			},function(){
+			},() => {
 				Lizard.ajax({
 					url: `/api/users/${id}/status`,
 					type: 'PATCH',
 					data: {
 						status:status
-					},
-					success (data){
-
-						if (data){
-
-							Lizard.showToast(tipTxt + '成功');
-
-							location.reload();
-						}
 					}
+				}).then((data) => {
+
+					if (data){
+
+						Lizard.showToast(tipTxt + '成功');
+
+						location.reload();
+					}
+
 				})
 			})
     }
@@ -129,11 +131,18 @@ var addPopup = new Vue ({
 
 	el: '#addPopup',
 	data: {
-
-		adminRole: vueConfig.adminRole,
 		addRole:[],
 		name: '',
 		mobile: ''
+	},
+
+	computed: {
+
+		adminRole () {
+
+			return vueConfig.adminRole
+
+		}
 	},
 
 	methods: {

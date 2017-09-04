@@ -35,18 +35,17 @@ router.get('/', async (ctx,next) => {
 
 	const currentPage = parseInt(params.page) || 1;
 
+	params.page = currentPage;
+
 	const { results: vehiclesList,page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
 		url:'/api/vehicles',
-		data:{
-			page:currentPage
-		}
+		data:params
 	})
 
 
 	const showPage = 5;
 
 	const iPage = getPage(currentPage,showPage);
-
 
 	await ctx.render('vehicles',{
 		pathName: ctx.path,

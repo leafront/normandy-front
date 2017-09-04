@@ -68,17 +68,17 @@ function actionForget (){ //开始验证用户
 			captcha_code: captcha_code,
 			captcha_key: captcha_key
 		},
-		success: function (data) {
+		error (){
 
-			local.set('mobile_hide',mobile);
-
-			window.location.href = '/user/forget/' + data.key;
-		},
-		error:function(){
-
-			common.updateVerify();
+			verify.updateVerify();
 
 		}
+	}).then((data) => {
+
+		local.set('mobile_hide',mobile);
+
+		window.location.href = '/user/forget/' + data.key;
+
 	})
 }
 

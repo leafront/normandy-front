@@ -107,16 +107,14 @@ var vueConfig = new Vue({
 	created(){
 		Lizard.ajax({
 			type: 'GET',
-			url:'/api/borrowers',
-			success:(data) =>{
+			url:'/api/borrowers'
+		}).then((data) => {
 
-				var results = data.results;
+			var results = data.results;
 
-				if (data && results.length) {
+			if (data && results.length) {
 
-					this.borrowersData = results;
-
-				}
+				this.borrowersData = results;
 
 			}
 		})
@@ -175,20 +173,19 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type: 'GET',
-				url:`/api/borrowers/${id}/vehicles`,
-				success: (data) =>{
+				url:`/api/borrowers/${id}/vehicles`
+			}).then((data) => {
 
-					var results = data.results;
+				var results = data.results;
 
-					this.vehicleData = results;
+				this.vehicleData = results;
 
-					if (!results.length){
+				if (!results.length){
 
-						this.formData.vehicle = '';
-
-					}
+					this.formData.vehicle = '';
 
 				}
+
 			})
 		},
 
@@ -336,20 +333,20 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type:'POST',
 				url:'/api/applications',
-				data:formData,
-				success:(data) =>{
+				data:formData
 
-					if (data) {
+			}).then((data) => {
 
-						Lizard.showToast('申请成功, 跳转至借款列表...');
+				if (data) {
 
-						setTimeout(() =>{
+					Lizard.showToast('申请成功, 跳转至借款列表...');
 
-							location.href = '/business';
+					setTimeout(() =>{
 
-						},500)
+						location.href = '/business';
 
-					}
+					},500)
+
 				}
 
 			})

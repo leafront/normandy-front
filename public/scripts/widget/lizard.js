@@ -199,6 +199,17 @@ var Lizard = {
 
 				resolve(results);
 
+			}).catch((err) => {
+
+				console.log(err)
+
+				if (err) {
+
+					Lizard.showToast(err.error.message);
+
+					options.error && options.error();
+				}
+
 			})
 
 		})

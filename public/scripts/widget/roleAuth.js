@@ -2,6 +2,8 @@ var popup = require('./popup');
 
 var ejs = require('../lib/ejs');
 
+var Lizard = require('../widget/lizard');
+
 var Vue = require('../lib/vue');
 
 var roleAuth = {
@@ -13,16 +15,15 @@ var roleAuth = {
 		Lizard.ajax({
 			url: url,
 			type: 'GET',
-			async: false,
-			success: (data) =>{
+			async: false
+		}).then((data) => {
 
-				if (data && data.results) {
+			if (data && data.results) {
 
-					this.adminRole = data.results;
-
-				}
+				this.adminRole = data.results;
 
 			}
+
 		})
 	},
 
@@ -65,37 +66,36 @@ var roleAuth = {
 			type:'GET',
 			data:{
 				roleId:roleId
-			},
-			success:(data) =>{
-
-				var roleList = data[type];
-
-				if (data && roleList ) {
-
-					roleAuth.renderEditAuth.call(this,roleList);
-
-				}
 			}
+		}).then((data) => {
+
+			var roleList = data[type];
+
+			if (data && roleList ) {
+
+				roleAuth.renderEditAuth.call(this,roleList);
+
+			}
+
 		})
 	},
-	submitRole (type,url,roleIds,submitType){ //提交角色修改
+	submitRole (type,url,formData,submitType){ //提交角色修改
 
 		var tips = type == 1 ? '修改' : '添加';
 
 		Lizard.ajax({
 			url: url,
 			type: submitType,
-			data: roleIds,
-			success (data) {
+			data: formData
+		}).then((data) => {
 
-				Lizard.showToast(tips + '成功');
+			Lizard.showToast(tips + '成功');
 
-				setTimeout(function(){
+			setTimeout(() =>{
 
-					//location.reload();
+				location.reload();
 
-				},500)
-			}
+			},500)
 		})
 	}
 }
