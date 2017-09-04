@@ -93,38 +93,52 @@
         var marker = new BMap.Marker(centerPoint, {icon: new BMap.Icon("/images/car.png", new BMap.Size(67, 50), {imageOffset: new BMap.Size(0, 0)})});
         marker.setLabel(label);
 
-        var sContent = `
-          <div class="map_popup">
-            <h4>后荣桂 </h4>
-            <div class="map_item">
-              <label>里程：</label>
-              <span>300米</span>
-            </div>
-            <% if (monitor[0].device_info == 0){%>
-             <div class="map_item">
-              <label>速度：</label>
-              <span><%-monitor[0].speed%>公里/小时</span>
-            </div>
-            <%} else if(monitor[0].device_info == 3 || device_info_new == 4) {%>
-             <div class="map_item">
-              <label>状态：</label>
-              <span><%-monitor[0].speed%>公里/小时</span>
-            </div>
-            <%}%>
-            <div class="map_item">
-              <label>信号：</label>
-              <span><%-dateFormat(monitor[0].heart_time * 1000,'yyyy-MM-dd hh:mm:ss')%> </span>
-              <strong class="map_ques" onmouseenter="showHelpInfo(event)" onmouseleave="hideHelpInfo()">[?]</strong>
-            </div>
-            <div class="map_item">
-              <label>定位：</label>
-              <span><%-dateFormat(monitor[0].gps_time * 1000, 'yyyy-MM-dd hh:mm:ss')%></span>
-            </div>
-            <div class="map_item">
-              <label>ACC：</label>
-              <span><%if(monitor[0].acc == "-1"){%>关闭<%}else{%>开启<%}%></span>
-            </div>
-          </div>`;
+        var sContent = '\
+          <div class="map_popup">\
+            <h4>后荣桂 </h4>\
+            <div class="map_item">\
+              <label>里程：</label>\
+              <span>300米</span>\
+            </div>\
+           <% if(monitor[0].device_info == 0 && monitor[0].device_info_new == 4){%>\
+            <div class="map_item">\
+              <label>状态：</label>\
+              <span>静止<%-monitor[0].speed%>公里/小时</span>\
+            </div>\
+           <%} else if(monitor[0].device_info == 0){%>\
+           <div class="map_item">\
+              <label>速度：</label>\
+               <span>\
+                <% var speed = monitor[0].speed%>\
+                <%if(speed == -1){%>\
+                    设备过期\
+                 <%}else if(speed == -9){%>\
+                    设备还未上线\
+                 <%}else{%>\
+                  <%-speed%>公里/小时\
+                <%}%>\
+               </span>\
+            </div>\
+            <%} else if(monitor[0].device_info == 3){%>\
+            <div class="map_item">\
+              <label>状态：</label>\
+              <span>离线<%-monitor[0].speed%>公里/小时</span>\
+            </div>\
+            <%}%>\
+            <div class="map_item">\
+              <label>信号：</label>\
+              <span><%-dateFormat(monitor[0].heart_time * 1000,'yyyy-MM-dd hh:mm:ss')%> </span>\
+              <strong class="map_ques" onmouseenter="showHelpInfo(event)" onmouseleave="hideHelpInfo()">[?]</strong>\
+            </div>\
+            <div class="map_item">\
+              <label>定位：</label>\
+              <span><%-dateFormat(monitor[0].gps_time * 1000, 'yyyy-MM-dd hh:mm:ss')%></span>\
+            </div>\
+            <div class="map_item">\
+              <label>ACC：</label>\
+              <span><%if(monitor[0].acc == "-1"){%>关闭<%}else{%>开启<%}%></span>\
+            </div>\
+          </div>';
 
 
         map.addOverlay(marker);

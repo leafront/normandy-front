@@ -113,6 +113,31 @@ router.post('/register/mobile',async (ctx,next) => {
 
 })
 
+
+
+router.post('/reset/validator',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type: 'POST',
+		gateway:'gatewayExt',
+		url:'/api/reset/validator',
+		data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
 router.post('/register',async (ctx,next) => {
 
 	const data = ctx.request.body;
@@ -135,6 +160,33 @@ router.post('/register',async (ctx,next) => {
 	})
 
 })
+router.post('/reset/password',async (ctx,next) => {
+
+	const data = ctx.request.body;
+
+
+	await baseModel.post(ctx,{
+		type: 'POST',
+		url:'/api/reset/password',
+		gateway:'gatewayExt',
+		data:data
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+
+})
+
+
+
 
 router.post('/auth/jwt',async (ctx,next) => {
 

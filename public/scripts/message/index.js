@@ -34,10 +34,9 @@ function showPage(){
 		var currentPage = parseInt(page.split('=')[1]);
 
 		Lizard.ajax({
-			type: 'POST',
-			url: '/message/list',
+			type: 'GET',
+			url: `/api/${userId}/msgs`,
 			data:{
-				userId:userId,
 				page:currentPage
 			}
 		}).then((data) => {
@@ -148,10 +147,9 @@ function readMessage(msg_ids,fn){
 	var userId = getUserId();
 
 	Lizard.ajax({
-		url:'/message/read',
+		url:`/api/${userId}/msgs`,
 		type:'POST',
 		data:{
-			userId:userId,
 			msg_ids:msg_ids
 		}
 	}).then((data) => {

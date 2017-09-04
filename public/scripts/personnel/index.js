@@ -15,8 +15,6 @@ var Vue = require('../lib/vue');
 
 var listTpl =  require('./templates/list');
 
-
-
 var vueConfig = new Vue({
 	el: '#app',
 	data: {
@@ -38,16 +36,7 @@ var vueConfig = new Vue({
 
 	mounted () {
 
-		document.querySelector('.pagination_list').addEventListener("click",function(event) {
-
-			if(e.target && e.target.nodeName.toUpperCase == "LI") {
-
-				event.preventDefault();
-
-				pagination.showPage(event,'/api/users', null, listTpl, null);
-
-			}
-		})
+		pagination.showPage('/api/users', null, listTpl, null);
 
 		common.headerMenu();
 

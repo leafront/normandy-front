@@ -83,7 +83,7 @@ Page({
 
 		Lizard.ajax({
 			type:'POST',
-			url:'/borrowers/vehicles/conditions',
+			url:`/api/vehicles/${id}/conditions`,
 			data:submitData
 		}).then((data) => {
 

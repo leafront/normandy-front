@@ -164,12 +164,15 @@
 	width: 400rem/$rem;
 	margin-top:12px;
 	margin-left:0;
+	.disabled{
+		color:#999;
+	}
+
 	.gps_info{
 
 		cursor:pointer;
-	}
-	.disabled{
-		color:#999;
+
+		color:#248ad4;
 	}
 }
 .drop_menu_list{

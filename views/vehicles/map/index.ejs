@@ -30,77 +30,45 @@
         <h4>设备信息</h4>
     </div>
     <div class="device_popup">
-        <div class="form-group clearfix">
-            <div class="form-group-rows">
-                <label>设备类型</label>
-                <input type="text" readonly="readonly" class="user-ui-input" placeholder="GT02D"/>
 
-            </div>
-            <div class="form-group-rows">
-                <label>设备号（IMEI）</label>
-                <input type="text" readonly="readonly" class="user-ui-input" placeholder="868120137401169"/>
-            </div>
-        </div>
-        <div class="form-group clearfix">
-            <div class="form-group-rows">
-                <label>开通时间</label>
-                <input type="text" readonly="readonly" class="user-ui-input" placeholder="2016-05-23"/>
-
-            </div>
-            <div class="form-group-rows">
-                <label>用户到期</label>
-                <input type="text" readonly="readonly" class="user-ui-input" placeholder="2018-05-23"/>
-            </div>
-        </div>
-        <div class="form-group clearfix">
-            <div class="form-group-rows">
-                <label>名称</label>
-                <input type="text" readonly="readonly" class="user-ui-input" placeholder="56 胡斌"/>
-
-            </div>
-            <div class="form-group-rows">
-                <label>车牌号</label>
-                <input type="text" readonly="readonly" class="user-ui-input" placeholder="沪A269E6"/>
-            </div>
-        </div>
     </div>
     <div class="popup_submit clearfix">
-        <button class="btn_confirm js_confirm">关闭</button>
+        <button class="btn_confirm" onclick="hideContent('#popup')">关闭</button>
     </div>
 </div>
 <div class="popup_mask"></div>
 
 <div class="help_info">
-  <p>信号: 设备最近一次和平台通信时间</p>
-  <p>定位: 设备最近一次GPS卫星定位时间</p>
-  <p>在线设备静止时不定位，但仍会与平台通信</p>
+    <p>信号: 设备最近一次和平台通信时间</p>
+    <p>定位: 设备最近一次GPS卫星定位时间</p>
+    <p>在线设备静止时不定位，但仍会与平台通信</p>
 </div>
 <script type="text/javascript">
 
 
     function init() {
 
-      var map = new BMap.Map("container");
+        var map = new BMap.Map("container");
 
-      var monitor = <%-JSON.stringify(monitor)%>;
+        var monitor = <%-JSON.stringify(monitor)%>;
 
-      var centerPoint = new BMap.Point(116.404, 39.915);
+        var centerPoint = new BMap.Point(116.404, 39.915);
 
-      map.centerAndZoom(centerPoint,5);
+        map.centerAndZoom(centerPoint,5);
 
-      if (monitor && monitor[0] && monitor[0].lng) {
+        if (monitor && monitor[0] && monitor[0].lng) {
 
-        centerPoint = new BMap.Point(monitor[0].lng,monitor[0].lat);
+            centerPoint = new BMap.Point(monitor[0].lng,monitor[0].lat);
 
-        map.centerAndZoom(centerPoint,13);
+            map.centerAndZoom(centerPoint,13);
 
-      } else {
+        } else {
 
-        return;
-       }
+            return;
+        }
 
 
-       //初始化地图,选取第一个点为起始点
+        //初始化地图,选取第一个点为起始点
         map.enableScrollWheelZoom();
         map.addControl(new BMap.NavigationControl());
         map.addControl(new BMap.ScaleControl());
@@ -111,9 +79,10 @@
         map.addOverlay(car);
 
         var sContent = '\
+          <% var device_info = monitor[0].device_info;var device_info_new= monitor[0].device_info_new; %>\
           <div class="map_popup">\
-            <h4>后荣桂 </h4>\
-            <% if(monitor[0].device_info == 0 && monitor[0].device_info_new == 4){%>\
+            <h4>***** </h4>\
+            <% if((device_info == 0 && device_info_new == 4) || device_info == 3 || device_info == 4 ){%>\
             <div class="map_item">\
               <label>状态：</label>\
               <span>静止/离线(<%-timeComputed(monitor[0].acc_seconds)%>)</span>\
@@ -132,29 +101,24 @@
                 <%}%>\
                </span>\
             </div>\
-            <%}else if(monitor[0].device_info == 3 || monitor[0].device_info == 4){%>\
-            <div class="map_item">\
-              <label>状态：</label>\
-              <span>静止/离线(<%-timeComputed(monitor[0].acc_seconds)%>)</span>\
-            </div>\
             <%}%>\
             <div class="map_item">\
               <label>信号：</label>\
-              <span><%-dateFormat(monitor[0].heart_time * 1000,'yyyy-MM-dd hh:mm:ss')%></span>\
+              <span><%-dateFormat(monitor[0].heart_time * 1000,'yyyy-MM-dd HH:mm:ss')%></span>\
               <strong class="map_ques" onmouseenter="showHelpInfo(event)" onmouseleave="hideHelpInfo()">[?]</strong>\
             </div>\
             <div class="map_item">\
               <label>定位：</label>\
-              <span><%-dateFormat(monitor[0].gps_time * 1000, 'yyyy-MM-dd hh:mm:ss')%></span>\
+              <span><%-dateFormat(monitor[0].gps_time * 1000, 'yyyy-MM-dd HH:mm:ss')%></span>\
             </div>\
             <div class="map_item">\
               <label>ACC：</label>\
               <span><%if(monitor[0].acc == "-1"){%>关闭<%}else{%>开启<%}%></span>\
             </div>\
             <div class="map_link">\
-              <a href="/vehicles/trace/<%-deviceId%>">跟踪</a>\
-              <a href="/vehicles/history/<%-deviceId%>">回放</a>\
-              <a class="device_btn" onclick="showDeviceInfo()">设备信息</a>\
+              <a target="_blank" href="/vehicles/trace/<%-deviceId%>">跟踪</a>\
+              <a target="_blank" href="/vehicles/history/<%-deviceId%>">回放</a>\
+              <a target="_blank" class="device_btn" onclick="showDeviceInfo(\'#popup\')">设备信息</a>\
             </div>\
           </div>';
 
@@ -172,78 +136,54 @@
 
 </script>
 <script type="text/javascript" src="/scripts/lib/jquery.js?v=20170901222619"></script>
+<script type="text/javascript" src="/scripts/lib/ejs.js?v=20170901222619"></script>
 <script type="text/javascript">
-
-    function showDeviceInfo() {
-
-        $('.popup_mask').addClass('active');
-
-        $('#popup').addClass('active');
-
-        $('body').addClass('overflow');
-
-        $.ajax({
-          type: 'POST',
-          url: '/vehicles/api/devinfo',
-          data: {
-           target:'北京朝阳店'
-          },
-          success:function(data){
-
-              var results = data.data;
-
-              if (results && results.length) {
-
-
-
-              }
-
-          }
-        })
-
-    }
 
     var hoverTimer, outTimer;
 
     function showHelpInfo (event) {
 
-      var pos_top = $(event.currentTarget).offset().top + 20;
+        var pos_top = $(event.target).offset().top + 20;
 
-      var pos_left = $(event.currentTarget).offset().left + 10 ;
+        var pos_left = $(event.target).offset().left + 10 ;
 
-      clearTimeout(outTimer);
+        clearTimeout(outTimer);
 
-      hoverTimer = setTimeout(function(){
-          $('.help_info').css?v=20170901222619({'left':pos_left,'top':pos_top}).addClass('active');
+        hoverTimer = setTimeout(function(){
 
-      },200)
+            $('.help_info').css?v=20170901222619({'left':pos_left,'top':pos_top}).addClass('active');
+
+        },200)
 
     }
+
 
 
     function hideHelpInfo (event) {
 
-      clearTimeout(hoverTimer);
+        clearTimeout(hoverTimer);
 
-      outTimer = setTimeout(function() {
+        outTimer = setTimeout(function() {
 
-       $('.help_info').removeClass('active');
+            $('.help_info').removeClass('active');
 
-      },200)
+        },200)
 
     }
     !function(){
 
-      $('.popup_mask,.js_confirm').click(function(){
+        $('.popup_mask,.js_confirm').click(function(){
 
-          $('.popup_mask').removeClass('active');
+            $('.popup_mask').removeClass('active');
 
-          $('#popup').removeClass('active');
+            $('#popup').removeClass('active');
 
-          $('body').removeClass('overflow');
-      })
+            $('body').removeClass('overflow');
+        })
     }();
 </script>
+
+<script type="text/javascript" src="/scripts/vehicles/map/index.js?v=20170901222619"></script>
 </body>
 </html>
 

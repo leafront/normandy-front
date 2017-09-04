@@ -39,40 +39,38 @@ var recharge = new Vue({
 					amount: this.rechargeAmount,
 					pay_method: '0'
 				},
-				success:(data) => {
-
-					this.rechargeAmount = '';
-
-					popup.hideContent('#rechargePopup');
-
-					var formData = {}
-
-					Object.keys(data).forEach((item) =>{
-
-						if (item !== 'sina_pay_online_pay_gate') {
-
-							formData[item] = data[item];
-
-						}
-
-					})
-
-					this.formData = formData;
-
-					this.sinaPayLink = data.sina_pay_online_pay_gate;
-
-					Vue.nextTick( ()=>{
-
-						$('#recharge').submit();
-
-					})
-
-
-				},
 				error: () =>{
 
 					this.saveBtn = false;
 				}
+			}).then((data) => {
+
+				this.rechargeAmount = '';
+
+				popup.hideContent('#rechargePopup');
+
+				var formData = {}
+
+				Object.keys(data).forEach((item) =>{
+
+					if (item !== 'sina_pay_online_pay_gate') {
+
+						formData[item] = data[item];
+
+					}
+
+				})
+
+				this.formData = formData;
+
+				this.sinaPayLink = data.sina_pay_online_pay_gate;
+
+				Vue.nextTick( ()=>{
+
+					$('#recharge').submit();
+
+				})
+
 			})
 		}
 
@@ -103,20 +101,18 @@ var cashPopup = new Vue({
 				url:'/api/withdrawal',
 				data:{
 					amount: this.withdrawalAmount
-				},
-				success: (data) =>{
-
-					var re = new RegExp(/<form [\s\S]*<\/form>/);
-
-					var formStr = data.match(re)[0];
-
-					$(formStr).insertAfter('#recharge');
-
-					this.saveBtn = false;
-
-					$('#form1').submit();
 				}
+			}).then((data) => {
 
+				var re = new RegExp(/<form [\s\S]*<\/form>/);
+
+				var formStr = data.match(re)[0];
+
+				$(formStr).insertAfter('#recharge');
+
+				this.saveBtn = false;
+
+				$('#form1').submit();
 
 			})
 
@@ -140,17 +136,14 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type: "GET",
-				url:url,
-				success(data) {
+				url:url
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						location.href = data.redirect_url;
-
-					}
+					location.href = data.redirect_url;
 
 				}
-
 			})
 		},
 		showPopup (ele) {

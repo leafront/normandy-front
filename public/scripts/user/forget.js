@@ -10,79 +10,84 @@ var Lizard = require('../widget/lizard');
 
 var verify = require('./widget/verify');
 
+var Page = require('../widget/page');
 
-function startRestPass (){
+Page ({
 
+	onShow () {
 
-	$('.login-submit').click(function(){
+		verify.getVerify();
 
-		actionForget()
+	},
+	bindEvents () {
 
-	})
-}
+		$('.login-submit').click(() =>{
 
-function actionForget (){ //开始验证用户
+			this.actionForget()
 
-	var mobile = $.trim($('#mobile').val());
+		})
+	},
+	actionForget (){ //开始验证用户
 
-	var captcha_code = $.trim($('#captcha_code').val());
+		var mobile = $.trim($('#mobile').val());
 
-	var captcha_key = $.trim($('#captcha_key').val());
+		var captcha_code = $.trim($('#captcha_code').val());
 
-	if (!mobile) {
+		var captcha_key = $.trim($('#captcha_key').val());
 
-		Lizard.showToast('请输入手机号');
+		if (!mobile) {
 
-		return;
-	}
-	if (!validate.isMobile(mobile)) {
+			Lizard.showToast('请输入手机号');
 
-		Lizard.showToast('请输入正确的手机号');
+			return;
+		}
+		if (!validate.isMobile(mobile)) {
 
-		return;
-	}
+			Lizard.showToast('请输入正确的手机号');
 
-
-	if (!captcha_code) {
-
-		Lizard.showToast('请输入验证码');
-
-		return;
-	}
+			return;
+		}
 
 
-	if (!validate.isVerify(captcha_code)) {
+		if (!captcha_code) {
 
-		Lizard.showToast('请输入正确的验证码');
+			Lizard.showToast('请输入验证码');
 
-		return;
+			return;
+		}
 
-	}
 
-	Lizard.ajax({
-		type: 'POST',
-		url: '/api/reset/validator',
-		gateway:'gatewayExt',
-		data: {
-			mobile: mobile,
-			captcha_code: captcha_code,
-			captcha_key: captcha_key
-		},
-		error (){
+		if (!validate.isVerify(captcha_code)) {
 
-			verify.updateVerify();
+			Lizard.showToast('请输入正确的验证码');
+
+			return;
 
 		}
-	}).then((data) => {
 
-		local.set('mobile_hide',mobile);
+		Lizard.ajax({
+			type: 'POST',
+			url: '/user/reset/validator',
+			gateway:'gatewayExt',
+			data: {
+				mobile: mobile,
+				captcha_code: captcha_code,
+				captcha_key: captcha_key
+			},
+			error (){
 
-		window.location.href = '/user/forget/' + data.key;
+				verify.updateVerify();
 
-	})
-}
+			}
+		}).then((data) => {
 
-verify.getVerify();
+			local.set('mobile_hide',mobile);
 
-startRestPass();
+			window.location.href = '/user/forget/' + data.key;
+
+		})
+	}
+
+})
+
 

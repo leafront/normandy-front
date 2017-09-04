@@ -346,8 +346,8 @@ var popupConfig = new Vue({
 		getBrandList() {
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/borrowers/brand'
+				type:'GET',
+				url:'/api/brands'
 			}).then((data) => {
 
 				var results = data.results;
@@ -381,9 +381,11 @@ var popupConfig = new Vue({
 		getCarType(brandId){
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/borrowers/carType',
-				data:{ brandId }
+				type:'GET',
+				url:`/api/series`,
+				data: {
+					brand_id:brandId
+				}
 			}).then((data) => {
 
 				var results = data.results;
@@ -404,10 +406,10 @@ var popupConfig = new Vue({
 		getCarModel(typeId){
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/borrowers/carModel',
-				data:{
-					typeId
+				type:'GET',
+				url:'/api/models',
+				data: {
+					series_id: typeId
 				}
 			}).then((data) => {
 

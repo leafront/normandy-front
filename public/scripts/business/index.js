@@ -46,7 +46,7 @@ var vueConfig = new Vue({
 		this.showCalendar();
 
 
-		pagination.showPage('/api/borrowings',data,listTpl,{
+		pagination.showPage('/api/borrowings',this.params,listTpl,{
 			termUnit,
 			borrowingStatus,
 			autoReviewStatus,

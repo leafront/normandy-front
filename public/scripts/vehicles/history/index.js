@@ -1,5 +1,7 @@
 
-window.$ = require('../../lib/jquery');
+var $ = require('../../lib/jquery.min');
+
+var ejs = require('../../lib/ejs');
 
 var Page = require('../../widget/page');
 
@@ -17,6 +19,67 @@ var timer;     //定时器
 var index = 0; //记录播放到第几个point
 
 var points = [];
+
+var historyList = [];
+
+var starTime = '';
+
+var endTime = '';
+
+var diffTime = '';
+
+var distance = 0;
+
+
+function timeDifference (startTime,endTime) {
+
+	var diffTime = endTime - startTime;   //时间差的毫秒数
+
+//计算出相差天数
+
+	var days = Math.floor(diffTime/(24 * 3600 * 1000));
+
+//计算出小时数
+
+	var leave1 = diffTime %(24*3600*1000);
+
+	var hours = Math.floor(leave1/(3600*1000));
+
+//计算相差分钟数
+
+	var leave2 = leave1 % (3600*1000);
+
+	var minutes = Math.floor(leave2/(60*1000));
+
+	var leave3 = leave2%(60*1000); //计算分钟数后剩余的毫秒数
+
+	var seconds = Math.round(leave3/1000);
+
+	if (days) {
+
+		return days + " 天" + hours + " 小时 " + minutes + " 分钟" + seconds + " 秒";
+
+	}
+
+	if (hours) {
+
+		return hours + " 小时 " + minutes + " 分钟" + seconds + " 秒";
+
+	}
+
+	if (minutes) {
+
+		return minutes + " 分钟" + seconds + " 秒";
+
+	}
+
+	if (seconds) {
+
+		return minutes + " 分钟" + seconds + " 秒";
+
+	}
+
+}
 
 
 Page({
@@ -38,44 +101,52 @@ Page({
 
 		if (!begin_time) {
 
-			Lizard.showToast('请选择开始时间');
+			//Lizard.showToast('请选择开始时间');
 
-			return;
+			//return;
 
 		}
 
 		if (!end_time) {
 
-			Lizard.showToast('请选择结束时间');
+			//Lizard.showToast('请选择结束时间');
 
-			return;
+			//return;
 
 		}
 
-		var results = []
+		var jwt = Lizard.getCookie('jwt');
 
-		Lizard.ajax({
+		var org_id = Lizard.getCookie('org_id');
+
+		var results = "";
+
+		$.ajax({
 			type:'POST',
-			url:`/api/gps/history/868120142583340`,
-			async:false,
+			url:`/api/gps/history/868120125415197`,
+			async: false,
+			headers: {
+				"Authorization": 'Bearer ' + jwt,
+				"X-Org": org_id
+			},
 			data:{
-				begin_time,//: '2017-07-04 14:07:12',
-				end_time,//: '2017-07-05 14:07:12',
+				begin_time: '2017-09-04 00:00:00',
+				end_time: '2017-09-04 17:00:00',
 				limit: 1000
 			},
-			success: (data) =>{
+			success: (data) => {
 
 				results = data.data;
 
-			}
+				historyList = results;
 
+			}
 		})
 
 		if (!results.length) {
 
 			return false;
 		}
-
 
 		results.forEach(function (item) {
 
@@ -129,10 +200,21 @@ Page({
 		map.addOverlay(carStart);
 
 		map.addOverlay(carEnd);
+
+		$('#play').prop('disabled',false);
+
+		$('#reset').prop('disabled',false);
 	},
 
 	play() {
+
 		var point = points[index];
+
+		$('#play').prop('disabled',true);
+
+		$('#stop').prop('disabled',false);
+
+		var historyItem = historyList[index];
 
 		if (index > 0) {
 			map.addOverlay(new BMap.Polyline([points[index - 1], point], {
@@ -143,64 +225,77 @@ Page({
 		}
 		car.setPosition(point);
 
-		$('#speed').text('ere');
+		if (index < points.length-1) {
 
-		$('#mileage').text('werew');
+			$('#speed').text(historyItem.speed + '公里/小时');
 
-		$('#runTime').text('werew');
+			starTime = historyItem.gps_time;
 
-		$('#signal').text('werewr');
+			endTime = historyList[index + 1].gps_time + diffTime;
+
+			var runTime = timeDifference(starTime*1000,endTime*1000);
+
+			diffTime = endTime - starTime;
+
+			var startPoint =  points[index];
+
+			var endPoint = points[index + 1];
+
+			var diffDistance = map.getDistance(startPoint,endPoint) / 1000;
+
+			distance += diffDistance;
+
+			$('#mileage').text(distance.toFixed(2) + '公里');
+
+			$('#runTime').text(runTime);
+
+			var signalTime = Lizard.dateFormat(historyItem.gps_time * 1000,'yyyy-MM-dd HH:mm:ss');
+
+			$('#signal').text(signalTime);
+
+		}
 
 		index++;
-
-		//map.panTo(point);
 
 
 		if (index < points.length) {
 
-			$('#play').prop('disabled',true);
-
-			$('#stop').prop('disabled',false);
-
-			$('#reset').prop('disabled',false);
-
 
 			timer = setTimeout(() =>{
+
 				this.play();
-			}, 50);
+
+			}, 200);
 
 		} else {
+
+
+			$('#play').prop('disabled',true);
+
+			$('#stop').prop('disabled',true);
 
 			map.panTo(point);
 		}
 
 		if (index == points.length - 1) {
 
-			$('#play').prop('disabled',false);
-			$('#stop').prop('disabled',true);
-			$('#reset').prop('disabled',true);
-
 			var sContent = `
 				<div class="map_popup">
 					<div class="map_item">
 						<label>总时间：</label>
-						<span id="speed">18公里/小时</span>
+						<span>${runTime}</span>
 					</div>
 
 					<div class="map_item">
 						<label>里程：</label>
-						<span id="mileage">5.291公里</span>
+						<span>${distance.toFixed(2)}公里</span>
 					</div>
+
 					<div class="map_item">
-						<label>运行：</label>
-						<span id="runTime">3分10秒</span>
-					</div>
-					<div class="map_item">
-						<label>停留：</label>
-						<span id="stopTime">42432</span>
+						<label>信号：</label>
+						<span>${signalTime}</span>
 					</div>
 			 </div>`;
-
 
 			map.addOverlay(car);
 
@@ -242,7 +337,9 @@ Page({
 				if(timer) {
 					window.clearTimeout(timer);
 				}
+
 				index = 0;
+
 				car.setPosition(points[0]);
 				//map.panTo(centerPoint);
 
@@ -267,20 +364,20 @@ Page({
 				<div class="map_popup">
 					<div class="map_item">
 						<label>速度：</label>
-						<span id="speed">18公里/小时</span>
+						<span id="speed"></span>
 					</div>
 
 					<div class="map_item">
 						<label>里程：</label>
-						<span id="mileage">5.291公里</span>
+						<span id="mileage"></span>
 					</div>
 					<div class="map_item">
 						<label>信号：</label>
-						<span id="signal">3分10秒</span>
+						<span id="signal"></span>
 					</div>
 					<div class="map_item">
 						<label>运行：</label>
-						<span id="runTime">42432</span>
+						<span id="runTime"></span>
 					</div>
 			 </div>`;
 
@@ -290,6 +387,10 @@ Page({
 			var infoWindow = new BMap.InfoWindow(sContent);
 
 			car.openInfoWindow(infoWindow);
+
+			car.addEventListener("click", function(){
+				this.openInfoWindow(infoWindow);
+			});
 
 			This.play();
 

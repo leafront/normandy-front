@@ -63,7 +63,7 @@ var vueConfig = new Vue({
 
 			var formData = Object.assign({ page }, data );
 
-			pagination.pageList('/borrowers/list',formData,listTpl,null)
+			pagination.pageList('/api/borrowers',formData,listTpl,null)
 		},
 
 		query () {

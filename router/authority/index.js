@@ -26,48 +26,6 @@ router.get('/', async (ctx,next) => {
 })
 
 
-router.post('/admin',async (ctx,next) => {
-
-	await baseModel.get(ctx,{
-		url:'/api/admins/permissions'
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-router.post('/edit/roles',async (ctx,next) => {
-
-	const roleId = ctx.request.body.roleId;
-
-	await baseModel.get(ctx,{
-
-		url:`/api/admins/roles/${roleId}/permissions`
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		console.log(err)
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
 
 
 

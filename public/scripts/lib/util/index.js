@@ -36,8 +36,6 @@ var util = {
 
 		var options = {
 
-			async: true,
-
 			timeout: 5000,
 			dataType: 'json'
 
@@ -45,11 +43,9 @@ var util = {
 
 		options = Object.assign(options,optionsAjax);
 
-		options.async = options.async === false ? false : true;
-
-		var xhr = new XMLHttpRequest();
-
 		var ajax = new Promise((resolve, reject) => {
+
+			var xhr = new XMLHttpRequest();
 
 			var data = util.queryStringify(options.data);
 

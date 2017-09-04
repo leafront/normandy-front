@@ -120,8 +120,6 @@ router.get('/map/:id', async (ctx,next) => {
 
 	})
 
-	console.log(monitor)
-
 	await ctx.render('vehicles/map/index',{
 		monitor,
 		location,
@@ -143,8 +141,9 @@ router.get('/trace/:id', async (ctx,next) => {
 		data: {
 			imei_ids: [deviceId]
 		}
-
 	})
+
+	console.log(monitor)
 
 	const { result:location } =  await common.getInterface(ctx,{
 		type: 'GET',

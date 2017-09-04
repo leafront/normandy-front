@@ -175,7 +175,8 @@ var vueConfig = new Vue({
 	},
 	methods: {
 
-		deviceInfo (gps_device,vin) {
+		deviceInfo (id,gps_device) {
+
 
 			var imei_ids = [];
 
@@ -226,7 +227,7 @@ var vueConfig = new Vue({
 
 					this.gpsInfo = gpsInfo;
 
-					this.dropMenu = vin;
+					this.dropMenu = id;
 
 				} else {
 
@@ -244,7 +245,6 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type: 'POST',
 				url: '/api/vehicles/gps/tracking',
-				traditional: true,
 				data:{
 					vehicle_ids: formData
 				}
@@ -355,17 +355,17 @@ var vueConfig = new Vue({
 
 		},
 
-		selectDropMenu (vin, gps_devices) {
+		selectDropMenu (id, gps_devices) {
 
 			var dropMenu  = this.dropMenu;
 
-			if (dropMenu == vin) {
+			if (dropMenu == id) {
 
 				this.dropMenu = -1;
 
 			} else {
 
-				this.deviceInfo(gps_devices,vin);
+				this.deviceInfo(id,gps_devices);
 
 			}
 

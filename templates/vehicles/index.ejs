@@ -122,8 +122,8 @@
                                                  <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info_new,<%-child.imei%>)" class="gps_info" v-if="gpsInfo[<%-child.imei%>].device_info == 0 && gpsInfo[<%-child.imei%>].device_info_new == 4">
                                                     监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info_new].name}}）
                                                  </strong>
-                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info,<%-child.imei%>)" :class="{'gps_info':[0,3,4].indexOf(gpsInfo[<%-child.imei%>].device_info) > -1,'disabled':[1,2].indexOf(gpsInfo[<%-child.imei%>].device_info > -1)}" v-else>
-                                                     监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info].name}})
+                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info,<%-child.imei%>)" class="disabled" :class="{'gps_info':[0,3,4].indexOf(gpsInfo[<%-child.imei%>].device_info) > -1}" v-else>
+                                                   监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info].name}})
                                                  </strong>
                                                </template>
                                                <template v-else>

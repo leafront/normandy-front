@@ -96,7 +96,7 @@ var pagination = {
 
 				var listHtml = ejs.render(listTpl,list);
 
-				//document.querySelector('.pagination_list').innerHTML = html;
+				document.querySelector('.pagination_list').innerHTML = html;
 
 				document.querySelector('.cont_list').innerHTML = listHtml;
 
