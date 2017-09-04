@@ -5,317 +5,461 @@ var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
-var ejs = require('../lib/ejs');
-
 var popup = require('../widget/popup');
 
 var listTpl =  require('./templates/list');
 
-var Page = require('../widget/page');
+var validate = require('../widget/validate');
 
 var pagination = require('../widget/pagination');
 
-Page({
+var Vue = require('../lib/vue');
 
-	ajax(){
+var vueConfig = new Vue ({
+
+	el: '#app',
+	data: {
+
+		province: [],
+		provinceId: '',
+		cityList: [],
+		provinceName:'',
+		cityName: '',
+		editShop:{},
+		cityId:'',
+		shopId:''
+	},
+
+	created () {
 
 		this.showProvinces();
 
 	},
-	onShow(){
+	methods: {
 
-		common.headerMenu();
+		showPopup (ele) {
 
-		common.dropMenu();
+			popup.showContent(ele);
 
-	},
-	bindEvents(){
-
-		var This = this;
-
-		$('.pagination_list').on('click','.js_page',(event) =>{
-
-			pagination.showPage(event,'/shop/list',null,listTpl,null);
-
-		})
+		},
+		deleteShop (id) {
 
 
-		$('.shop_province').on('click','li',function(){
 
-			var id = $(this).data('id');
+		},
+		showProvinces () {
 
-			This.getCityList(id);
+			Lizard.ajax({
+				type:'GET',
+				url:'/api/provinces'
+			}).then((data) => {
 
-		})
+			 var results = data.results;
 
-		$('.js_editConfirm').click(function(){
+			 if (results && results.length) {
 
-			var id = $(this).data('id');
-
-			This.editShopList(id);
-
-		})
-
-		$('.js_addConfirm').click(function(){
-
-			This.addShopList();
-
-		})
+				 this.province = results;
 
 
-		$('.js_edit').click(function(){
+				 this.getCityList(results[0].province_id,results[0].province_name,null);
 
-			var id = $(this).data('id');
+			 }
 
-			$('.js_editConfirm').data('id',id);
+			}).catch((err) => {
 
-			This.getShopEdit(id);
+				console.log(err);
+			})
+		},
+		getCityList(province_id,province_name,cityName){
 
-		})
+			Lizard.ajax({
+				type:'GET',
+				url:`/api/provinces/${province_id}/cities`
+			}).then((data) => {
 
+				var results = data.results;
 
-		$('.js_cancel').click(function(){ //取消
+				if (results && results.length) {
 
-			var popupEle= $(this).data('popup');
+					this.cityList = results;
 
-			popup.hideContent(popupEle);
+					this.provinceName = province_name;
 
-		})
+					this.cityName = cityName || results[0].city_name;
 
-		$('.shop_city').each(function(){
-
-			$(this).on('click','li',function(){
-
-				var item = $(this).data('item');
-
-				$(this).parent().prev('.js_city').data('item',item);
+				}
 
 			})
-		})
 
+		},
+		editPopup (ele,id) {
 
-		$('.js_add').click(function(){ //添加
+			this.shopId = id;
 
-			popup.showContent('#addPopup');
+			Lizard.ajax({
+				type:'GET',
+				url:`/api/admin/shops/${id}`,
+			}).then((data) => {
 
-		})
+				if (data) {
+
+					var area = data.area;
+
+					this.getCityList(area.province_id,area.province_name,area.city_name);
+
+					this.editShop = data;
+
+					this.cityId = area.city_id;
+
+					popup.showContent(ele);
+
+				}
+
+			}).catch((err) => {
+
+				console.log(err);
+			})
+
+		}
+
+	}
+})
+
+var addPopup = new Vue ({
+
+	el: '#addPopup',
+	data: {
+
+		dropMenu: -1,
+
+		formData: {
+			city:"",
+			name:"",
+			short_name:"",
+			address:"",
+			phone:"",
+			admin_phone:"",
+			admin_name:""
+
+		}
 
 	},
-	showProvinces (){
-		var tpl = `
-			<% list.forEach(function(item){%>
-			<li data-id="<%-item.province_id%>">
-				<a href="javascript:;"><%-item.province_name%></a>
-			</li>
-			<%})%>`;
 
-		Lizard.ajax({
-			type:'POST',
-			url:'/shop/provinces'
-		}).then((data) => {
+	computed: {
 
-			var list = data.results;
+		province () {
 
-			var html = ejs.render(tpl,{list:list});
 
-			$('.shop_province').html(html);
+			return vueConfig.province;
 
-			this.getCityList(list[0].province_id);
+		},
 
-			$('.js_province').text(list[0].province_name);
+		provinceName () {
 
-		})
+			return vueConfig.provinceName;
+
+		},
+
+		cityName () {
+
+			return vueConfig.cityName;
+		},
+
+		cityList () {
+
+			return vueConfig.cityList;
+		}
 	},
-	getCityList(id){
+	methods: {
 
-		var tpl =`
-			<% list.forEach(function(item){%>
-			<li data-item=<%-JSON.stringify(item)%>>
-				<a href="javascript:;"><%-item.city_name%></a>
-			</li>
-			<%})%>`;
+		hidePopup (ele) {
 
-		Lizard.ajax({
-			type:'POST',
-			url:'/shop/citys',
-			data:{
-				id: id
+			popup.hideContent(ele);
+
+		},
+
+		selectMenu (value) {
+
+
+			if (this.dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu =  value;
 			}
-		}).then((data) => {
 
-			var list = data.results;
+		},
 
-			var html = ejs.render(tpl,{list:list});
+		selectProvince (province_id,province_name) {
+
+			vueConfig.getCityList.call(vueConfig,province_id,province_name,null);
+
+			this.dropMenu = -1;
+
+		},
+		selectCity (cityId,cityName) {
+
+			this.formData.city = cityId;
+
+			this.dropMenu = -1;
+
+			vueConfig.cityName = cityName;
+
+		},
+		addShopList:function(){
 
 
-			$('.shop_city').html(html);
+			const formData = Object.assign({},this.formData);
 
-			$('.js_city').text(list[0].city_name).addClass('active').data('item',list[0]);
 
-		}).catch((err) => {
+			const {name, address, short_name, phone,admin_phone, admin_name } = formData;
 
-			Lizard.showToast(err);
 
-		})
+			if (!name) {
 
-	},
+				Lizard.showToast('请输入门店名称');
 
-	getShopEdit(id){
-
-		Lizard.ajax({
-			type:'POST',
-			url:'/shop/edit',
-			data:{
-				id:id
+				return;
 			}
-		}).then((data) => {
-
-			var area = data.area;
-
-			$('#edit_name').val(data.name);
-
-			$('#edit_abbreviation').val(data.short_name);
-
-			$('#js_editProvince').text(area.province_name);
 
 
-			$('#edit_address').val(data.address);
+			if (!short_name) {
 
-			$('#createTime').val(data.created_at);
+				Lizard.showToast('请输入门店简称');
 
-			$('#isActive').val(data.is_active);
+				return;
+			}
 
-			$('#edit_phone').val(data.phone);
+			if (!phone) {
 
-			this.getCityList(area.province_id);
+				Lizard.showToast('请输入电话');
 
-			$('#js_editCity').text(area.city_name).data('item',area);
+				return;
+			}
 
+			if (!admin_phone) {
 
-			popup.showContent('#editPopup');
+				Lizard.showToast('请输入管理员手机号');
 
-		})
-	},
-	editShopList(id){
+				return;
+			}
 
-		var url = '/shop/edit/list';
+			if (!validate.isMobile(admin_phone)) {
 
-		var name = $.trim($('#edit_name').val());
+				Lizard.showToast('请输入正确的管理员手机号');
 
-		var abbreviation = $.trim($('#edit_abbreviation').val());
-
-		var address = $.trim($('#edit_address').val());
-
-		var phone = $.trim($('#edit_phone').val());
-
-		var item = $('#js_editCity').data('item');
-
-		var createTime = $('#createTime').val();
-
-		var is_active = $('#isActive').val();
+				return;
+			}
 
 
+			if (!admin_name) {
 
-		if (!name) {
+				Lizard.showToast('请输入管理员姓名');
 
-			Lizard.showToast('请输入门店名称');
+				return;
+			}
 
-			return;
+
+			var url = '/api/admin/shops';
+
+			var type = 2;
+
+			this.submitShop(type,url,'POST',formData);
+		},
+		submitShop(type,url,method,data){
+
+			var tips = type == 1 ? '修改' : '添加';
+
+			Lizard.ajax({
+				type:method,
+				url:url,
+				data:data
+			}).then((data) => {
+
+				Lizard.showToast(tips + '成功');
+
+				setTimeout(() => {
+
+					location.reload();
+
+				},500)
+
+			})
 		}
+	}
 
 
-		if (!abbreviation) {
+})
 
-			Lizard.showToast('请输入门店简称');
 
-			return;
-		}
+var editPopup = new Vue ({
 
-		if (!address) {
+	el: '#editPopup',
+	data: {
 
-			Lizard.showToast('请输入电话');
-
-			return;
-		}
-
-		if (!phone) {
-
-			Lizard.showToast('请输入电话');
-
-			return;
-		}
-
-		var data = {
-
-			city: item.city_id,
-			name:name,
-			area:item,
-			created_at:createTime,
-			address:address,
-			id:id,
-			is_active:is_active,
-			phone:phone,
-			short_name:abbreviation
-		}
-
-		var type = 1;
-
-		this.submitShop(type,url,data);
+		dropMenu: -1,
+		city:''
 	},
 
-	addShopList:function(){
+	computed: {
 
-		var name = $.trim($('#add_name').val());
+		formData () {
 
-		var abbreviation = $.trim($('#add_abbreviation').val());
-
-		var address = $.trim($('#add_address').val());
-
-		var phone = $.trim($('#add_phone').val());
-
-		var admin_phone = $.trim($('#add_adminPhone').val());
-
-		var admin_name = $.trim($('#add_adminName').val());
-
-		var item = $('#js_editCity').data('item');
+			var editShop = vueConfig.editShop;
 
 
-		var data = {
 
-			city:item.city_id,
-			name:name,
-			short_name:abbreviation,
-			address:address,
-			phone:phone,
-			admin_phone:admin_phone,
-			admin_name:admin_name
+			var params = {
+				city: vueConfig.cityId,
+				name: editShop.name,
+				created_at: editShop.created_at,
+				address: editShop.address,
+				id:vueConfig.shopId,
+				is_active: editShop.is_active,
+				phone: editShop.phone,
+				short_name: editShop.short_name
 
+			}
+
+			return params;
+
+		},
+
+		province () {
+
+			return vueConfig.province;
+
+		},
+
+		provinceName () {
+
+			return vueConfig.provinceName;
+
+		},
+
+		cityName () {
+
+			return vueConfig.cityName;
+		},
+
+		cityList () {
+
+			return vueConfig.cityList;
+		},
+		editShop () {
+
+			return vueConfig.editShop;
 		}
-
-		var url = '/shop/add/list';
-
-		var type = 2;
-
-		this.submitShop(type,url,data);
 	},
-	submitShop(type,url,data){
 
-		var tips = type == 1 ? '修改' : '添加';
+	methods: {
 
-		Lizard.ajax({
-			type:'POST',
-			url:url,
-			data:data
-		}).then((data) => {
+		hidePopup (ele) {
 
-			Lizard.showToast(tips + '成功');
+			popup.hideContent(ele);
 
-			setTimeout(() => {
+		},
 
-				location.reload();
+		selectMenu (value) {
 
-			},500)
+			if (this.dropMenu == value) {
 
-		})
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu =  value;
+			}
+
+		},
+
+		selectProvince (province_id,province_name) {
+
+			vueConfig.getCityList.call(vueConfig,province_id,province_name);
+
+			this.dropMenu = -1;
+
+		},
+		selectCity (cityId,cityName) {
+
+			vueConfig.cityId = cityId;
+
+			this.dropMenu = -1;
+
+			vueConfig.cityName  = cityName;
+
+		},
+
+		editShopList () {
+
+			const formData = Object.assign({},this.formData);
+
+			const shopId = this.shopId;
+
+			const { name, short_name, address, phone, id } = formData;
+
+
+			if (!name) {
+
+				Lizard.showToast('请输入门店名称');
+
+				return;
+			}
+
+
+			if (!short_name) {
+
+				Lizard.showToast('请输入门店简称');
+
+				return;
+			}
+
+			if (!address) {
+
+				Lizard.showToast('请输入地址');
+
+				return;
+			}
+
+			if (!phone) {
+
+				Lizard.showToast('请输入电话');
+
+				return;
+			}
+			if (!validate.isMobile(phone)) {
+
+				Lizard.showToast('请输入正确的电话');
+
+				return;
+			}
+
+			var type = 1;
+
+			this.submitShop(type,`/api/admin/shops/${id}`,'PATCH',formData);
+		},
+
+		submitShop(type,url,method,data){
+
+			var tips = type == 1 ? '修改' : '添加';
+
+			Lizard.ajax({
+				type: method,
+				url: url,
+				data: data
+			}).then((data) => {
+
+				Lizard.showToast(tips + '成功');
+
+				setTimeout(() => {
+
+					//location.reload();
+
+				}, 500)
+
+			})
+		}
 	}
 })

@@ -34,14 +34,8 @@ var util = {
 
 	ajax (optionsAjax){
 
-		var options = {
 
-			timeout: 5000,
-			dataType: 'json'
-
-		}
-
-		options = Object.assign(options,optionsAjax);
+		var options = Object.assign({},optionsAjax);
 
 		var ajax = new Promise((resolve, reject) => {
 
@@ -49,9 +43,10 @@ var util = {
 
 			var data = util.queryStringify(options.data);
 
+
 			if (options.type == "GET") {
 
-				options.url =  options.data == '' ? options.url : options.url + '?' + data;
+				options.url =  options.data ?  options.url + '?' + data: options.url;
 
 			}
 

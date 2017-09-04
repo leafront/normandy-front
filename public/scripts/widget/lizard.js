@@ -175,10 +175,15 @@ var Lizard = {
 		var options = {
 			async: true,
 			headers: {
-				"Authorization": 'Bearer ' + jwt,
-				"X-Org": org_id
+				"Authorization": 'Bearer ' + jwt
 			}
 		}
+
+		if (org_id) {
+
+			options.headers['X-Org'] = org_id;
+		}
+
 
 		options = Object.assign(options,ajaxOptions);
 

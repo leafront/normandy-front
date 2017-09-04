@@ -74,47 +74,6 @@ router.post('/list',async (ctx,next) => {
 })
 
 
-router.post('/provinces',async (ctx,next) => {
-
-	const { page } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:'/api/provinces',
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-router.post('/citys',async (ctx,next) => {
-
-	const { id } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/provinces/${id}/cities`,
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
 
 router.post('/edit',async (ctx,next) => {
 
@@ -147,28 +106,6 @@ router.post('/edit/list',async (ctx,next) => {
 	await baseModel.post(ctx,{
 		type:'PATCH',
 		url:`/api/admin/shops/${id}`,
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-router.post('/add/list',async (ctx,next) => {
-
-	const body = ctx.request.body;
-
-	await baseModel.post(ctx,{
-		type:'POST',
-		url:'/api/admin/shops',
 		data:body
 	}).then((body) => {
 
