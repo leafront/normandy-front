@@ -6,7 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Track</title>
-    <link rel="stylesheet" href="/styles/vehicles/map/index.css?v=20170901222619"/>
+    <link rel="stylesheet" href="/styles/vehicles/map/index.css?v=20170905211426"/>
     <script type="text/javascript">
         !function(){
             document.documentElement.style.fontSize = document.documentElement.clientWidth / 19.2 + 'px';
@@ -75,7 +75,7 @@
         map.addControl(new BMap.OverviewMapControl({isOpen: true}));
 
         //显示小车子
-        var car = new BMap.Marker(centerPoint, {icon: new BMap.Icon("/images/car.png?v=20170901222619", new BMap.Size(67, 50), {imageOffset: new BMap.Size(0, 0)})});
+        var car = new BMap.Marker(centerPoint, {icon: new BMap.Icon("/images/car.png?v=20170905211426", new BMap.Size(67, 50), {imageOffset: new BMap.Size(0, 0)})});
         map.addOverlay(car);
 
         var sContent = '\
@@ -135,8 +135,8 @@
     init();
 
 </script>
-<script type="text/javascript" src="/scripts/lib/jquery.js?v=20170901222619"></script>
-<script type="text/javascript" src="/scripts/lib/ejs.js?v=20170901222619"></script>
+<script type="text/javascript" src="/scripts/lib/jquery.js?v=20170905211426"></script>
+<script type="text/javascript" src="/scripts/lib/ejs.js?v=20170905211426"></script>
 <script type="text/javascript">
 
     var hoverTimer, outTimer;
@@ -151,7 +151,7 @@
 
         hoverTimer = setTimeout(function(){
 
-            $('.help_info').css?v=20170901222619({'left':pos_left,'top':pos_top}).addClass('active');
+            $('.help_info').css?v=20170905211426({'left':pos_left,'top':pos_top}).addClass('active');
 
         },200)
 
@@ -183,7 +183,7 @@
     }();
 </script>
 
-<script type="text/javascript" src="/scripts/vehicles/map/index.js?v=20170901222619"></script>
+<script type="text/javascript" src="/scripts/vehicles/map/index.js?v=20170905211426"></script>
 </body>
 </html>
 

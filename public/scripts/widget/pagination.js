@@ -81,8 +81,8 @@ var pagination = {
 					page,
 					iPage:iPage,
 					pathName:location.pathname,
-					isFirstPage: (page - 1 ) == 0,
-					isLastPage: page * pageSize > totalCount,
+					isFirstPage:(totalPage - 1 ) == 0,
+					isLastPage:totalPage * pageSize > totalCount,
 					data
 				}
 

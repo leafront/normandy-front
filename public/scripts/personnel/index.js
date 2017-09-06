@@ -9,11 +9,7 @@ var roleAuth = require('../widget/roleAuth');
 
 var validate = require('../widget/validate');
 
-var pagination = require('../widget/pagination');
-
 var Vue = require('../lib/vue');
-
-var listTpl =  require('./templates/list');
 
 var vueConfig = new Vue({
 	el: '#app',
@@ -35,8 +31,6 @@ var vueConfig = new Vue({
 	},
 
 	mounted () {
-
-		pagination.showPage('/api/users', null, listTpl, null);
 
 		common.headerMenu();
 

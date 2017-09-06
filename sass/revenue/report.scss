@@ -1,0 +1,45 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/confirm_button.scss';
+
+
+.cont_list{
+	width:115%;
+	dd,dt{
+		span{
+			text-align:center;
+			width:115rem/$rem;
+		}
+	}
+}
+
+.revenue_total{
+
+	display:flex;
+	justify-content: flex-end;
+}
+
+.revenue_submit{
+
+	padding-top:20px;
+
+	display:flex;
+
+	justify-content: flex-end;
+
+	padding-bottom:20px;
+
+	.btn_confirm{
+
+		margin-right:0;
+	}
+}
+
+#wrapper{
+	width:100%;
+	overflow:auto;
+}

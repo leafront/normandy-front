@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>门店管理</title>
-    <link rel="stylesheet" href="/styles/shop/index.css?v=20170901222619"/>
+    <link rel="stylesheet" href="/styles/shop/index.css?v=20170905211426"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -83,17 +83,17 @@
     <div class="popup_input">
         <label>城市</label>
         <div class="drop_menu drop_menu_city" :class="{'active': dropMenu == 1}">
-            <span @click="selectMenu(1)">{{provinceName}}</span>
+            <span @click.stop="selectMenu(1)">{{provinceName}}</span>
             <ul class="drop_menu_list">
-                <li v-for="(item,index) in province" @click="selectProvince(item.province_id,item.province_name)">
+                <li v-for="(item,index) in province" @click.stop="selectProvince(item.province_id,item.province_name)">
                     <a href="javascript:;">{{item.province_name}}</a>
                 </li>
             </ul>
         </div>
         <div class="drop_menu drop_menu_city" :class="{'active':dropMenu == 2}">
-            <span @click="selectMenu(2)">{{cityName}}</span>
+            <span @click.stop="selectMenu(2)">{{cityName}}</span>
             <ul class="drop_menu_list">
-                <li v-for="item in cityList" @click="selectCity(item.city_id,item.city_name)">
+                <li v-for="item in cityList" @click.stop="selectCity(item.city_id,item.city_name)">
                     <a href="javascript:;">{{item.city_name}}</a>
                 </li>
             </ul>
@@ -130,17 +130,17 @@
     <div class="popup_input">
         <label>城市</label>
         <div class="drop_menu drop_menu_city" :class="{'active': dropMenu == 1}">
-            <span @click="selectMenu(1)">{{provinceName}}</span>
+            <span @click.stop="selectMenu(1)">{{provinceName}}</span>
             <ul class="drop_menu_list">
-                <li v-for="(item,index) in province" @click="selectProvince(item.province_id,item.province_name)">
+                <li v-for="(item,index) in province" @click.stop="selectProvince(item.province_id,item.province_name)">
                     <a href="javascript:;">{{item.province_name}}</a>
                 </li>
             </ul>
         </div>
         <div class="drop_menu drop_menu_city" :class="{'active':dropMenu == 2}">
-            <span @click="selectMenu(2)">{{cityName}}</span>
+            <span @click.stop="selectMenu(2)">{{cityName}}</span>
             <ul class="drop_menu_list">
-              <li v-for="item in cityList" @click="selectCity(item.city_id,item.city_name)">
+              <li v-for="item in cityList" @click.stop="selectCity(item.city_id,item.city_name)">
                 <a href="javascript:;">{{item.city_name}}</a>
               </li>
             </ul>
@@ -170,7 +170,7 @@
 
 </div>
 <div class="popup_mask"></div>
-<script type="text/javascript" src="/dist/scripts/shop/index.js?v=20170901222619"></script>
+<script type="text/javascript" src="/dist/scripts/shop/index.js?v=20170905211426"></script>
 </body>
 </html>
 

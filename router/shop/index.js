@@ -42,84 +42,11 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		isFirstPage:(currentPage - 1 ) == 0,
-		isLastPage:currentPage * pageSize > totalCount
+		isFirstPage:(totalPage - 1 ) == 0,
+		isLastPage:totalPage * pageSize > totalCount
 	})
 
 
 })
-
-
-router.post('/list',async (ctx,next) => {
-
-	const { page } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:'/api/admin/shops',
-		data:{
-			page
-		}
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-
-router.post('/edit',async (ctx,next) => {
-
-	const { id } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/admin/shops/${id}`,
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-
-router.post('/edit/list',async (ctx,next) => {
-
-	const body = ctx.request.body;
-
-	const { id } = body;
-
-	await baseModel.post(ctx,{
-		type:'PATCH',
-		url:`/api/admin/shops/${id}`,
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
 
 module.exports = router;

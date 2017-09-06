@@ -37,6 +37,8 @@ router.get('/', async (ctx,next) => {
 
 	const iPage = getPage(currentPage,showPage);
 
+	console.log(totalPage,pageSize,totalCount)
+
 	await ctx.render('personnel',{
 		pathName: ctx.path,
 		authority,
@@ -47,8 +49,8 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		isFirstPage:(currentPage - 1 ) == 0,
-		isLastPage:currentPage * pageSize > totalCount
+		isFirstPage:(totalPage - 1 ) == 0,
+		isLastPage:totalPage * pageSize > totalCount
 	})
 })
 

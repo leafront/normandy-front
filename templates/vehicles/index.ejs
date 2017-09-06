@@ -96,7 +96,7 @@
                             <a class="vehicles_vin list_action" href="/vehicles/<%-item.id%>"><%-item.vin%></a>
                             <span class="vehicles_subject"><%-item.plate_number%></span>
                             <span class="vehicles_name"><%-item.borrower.name%></span>
-                            <span class="vehicles_times"><%-item.created_at.toString().slice(0,-10)%></span>
+                            <span class="vehicles_times"><%-item.created_at.toString().slice(0,-9)%></span>
                             <span class="vehicles_status">
                                 <% if(borrowingStatus[item.borrowing_status]) {%>
                                   <%-borrowingStatus[item.borrowing_status] && borrowingStatus[item.borrowing_status].title%>
@@ -140,15 +140,15 @@
                                 </ul>
                               </div>
                             </div>
-                            <div class="vehicles_gpsStatus" v-if="gpsList.length">
-                                <span :class="{'gps_error':gpsList[<%-index%>].status == 1,'gps_warning':gpsList[<%-index%>].status == 2}" >{{gpsStatus[gpsList[<%-index%>].status].name}}</span>
-                                <div class="vehicles_tips" v-if="gpsList[<%-index%>].status == 1">
-                                   <p>{{gpsList[<%-index%>].msg}}</p>
-                                   <p>解决方案：{{gpsList[<%-index%>].solve}}</p>
+                            <div class="vehicles_gpsStatus" v-if="gpsList['<%-item.id%>']">
+                                <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{deviceStatus[gpsList['<%-item.id%>'].status].name}}</span>
+                                <div class="vehicles_tips" v-if="gpsList['<%-item.id%>'].status == 1">
+                                    <p>{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].msg}}</p>
+                                    <p>解决方案：{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].solve}}</p>
                                 </div>
                             </div>
                             <div class="vehicles_gpsStatus" v-else>
-                                <span>状态正在更新...</span>
+                                <span>GPS当前没有状态</span>
                             </div>
                             <span class="gps_action" @click="oneRefreshGps(<%-index%>,'<%-item.id%>')">刷新GPS状态</span>
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>计算收支--明细</title>
+    <link rel="stylesheet" href="/styles/revenue/report.css?v=20170905211426"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr" id="app">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>计算收支明细</span>
+        </div>
+        <div class="content">
+            <div class="cont-title">
+                <i></i>
+                <span>计算收支明细报表</span>
+            </div>
+            <div class="list_container list_top" id="wrapper">
+                <dl class="cont_list" id="scroller">
+                    <dt class="revenue_list">
+                        <span>日期</span>
+                        <span>中介费</span>
+                        <span>评估费</span>
+                        <span>其他费用</span>
+                        <span>违章押金</span>
+                        <span>GPS押金</span>
+                        <span>风险押金</span>
+                        <span>其他押金</span>
+                        <span>停车费</span>
+                        <span>GPS使用费</span>
+                        <span>综合服务费</span>
+                        <span>账户管理费</span>
+                        <span>保证金</span>
+                        <span>每期收益</span>
+                        <span>总支出</span>
+                        <span>总收益</span>
+                    </dt>
+                    <dd>
+                        <span>2017/08/21</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                    </dd>
+                    <dd>
+                        <span>2017/08/21</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                    </dd>
+                    <dd>
+                        <span>2017/08/21</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                    </dd>
+                    <dd class="revenue_total">
+                        <span>总计</span>
+                        <span>¥20000.00</span>
+                        <span>¥20000.00</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="revenue_submit">
+                <button class="btn_confirm" @click="saveCalc">保存</button>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/revenue/report.js?v=20170905211426"></script>
+</body>
+</html>
+

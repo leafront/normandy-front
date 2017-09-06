@@ -7,18 +7,34 @@ var validate = {
 	 * @example
 	 * validate.isMobile('15821907685')
 	 */
-	isMobile: function (text) {
+	isMobile (text) {
 
 		var pattern = /^1[3-8]\d{9}$/;
 
 		return pattern.test(text);
 
 	},
-	isZipCode: function(text){
+	isZipCode (text){
 
 		var pattern = /^[1-9][0-9]{5}$/;
 
 		return pattern.test(text);
+	},
+
+	isNumber (text) {
+
+		var pattern = /^[1-9]\d{0,6}$/;
+
+		return pattern.test(text);
+
+	},
+
+	isPercent (text) {
+
+		var pattern = /^([1-9]{1,2}\d$)|(^\d{1,2}\.\d{1,2}$)/;
+
+		return pattern.test(text);
+
 	},
 	/**
 	 * 邮箱验证

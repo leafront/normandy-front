@@ -1,17 +1,12 @@
-
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
 var popup = require('../widget/popup');
 
-var listTpl =  require('./templates/list');
-
 var validate = require('../widget/validate');
 
-var pagination = require('../widget/pagination');
+var Promise = require('es6-promise').Promise;
 
 var Vue = require('../lib/vue');
 
@@ -34,6 +29,13 @@ var vueConfig = new Vue ({
 
 		this.showProvinces();
 
+
+	},
+
+	mounted () {
+
+		common.headerMenu();
+
 	},
 	methods: {
 
@@ -44,7 +46,27 @@ var vueConfig = new Vue ({
 		},
 		deleteShop (id) {
 
+			Lizard.ajax({
+				type: 'DELETE',
+				url:`/api//admin/shops/${id}`
+			}).then((data) => {
 
+				if (data) {
+
+					Lizard.showToast('删除成功');
+
+					setTimeout(() => {
+
+						location.reload();
+
+					},500)
+
+				}
+			}).catch((err) => {
+
+				Lizard.showToast(err);
+
+			})
 
 		},
 		showProvinces () {
@@ -60,8 +82,7 @@ var vueConfig = new Vue ({
 
 				 this.province = results;
 
-
-				 this.getCityList(results[0].province_id,results[0].province_name,null);
+				 this.getCityList(results[0].province_id,results[0].province_name);
 
 			 }
 
@@ -70,26 +91,34 @@ var vueConfig = new Vue ({
 				console.log(err);
 			})
 		},
-		getCityList(province_id,province_name,cityName){
+		getCityList(province_id,province_name){
 
-			Lizard.ajax({
-				type:'GET',
-				url:`/api/provinces/${province_id}/cities`
-			}).then((data) => {
+			var cityList = new Promise ((resolve,reject) => {
 
-				var results = data.results;
+				Lizard.ajax({
+					type:'GET',
+					url:`/api/provinces/${province_id}/cities`
+				}).then((data) => {
 
-				if (results && results.length) {
+					var results = data.results;
 
-					this.cityList = results;
+					if (results && results.length) {
 
-					this.provinceName = province_name;
+						this.cityList = results;
 
-					this.cityName = cityName || results[0].city_name;
+						this.provinceName = province_name;
 
-				}
+						this.cityName = results[0].city_name;
+
+						this.cityId = results[0].city_id;
+
+					}
+
+				})
 
 			})
+
+			return cityList;
 
 		},
 		editPopup (ele,id) {
@@ -99,25 +128,30 @@ var vueConfig = new Vue ({
 			Lizard.ajax({
 				type:'GET',
 				url:`/api/admin/shops/${id}`,
-			}).then((data) => {
+			})
+			.then((data) => {
 
 				if (data) {
 
 					var area = data.area;
 
-					this.getCityList(area.province_id,area.province_name,area.city_name);
+					this.getCityList(
+						area.province_id,
+						area.province_name
+					).then((data) => {
+
+						this.cityName = area.city_name;
+
+						this.cityId = area.city_id;
+
+					})
 
 					this.editShop = data;
-
-					this.cityId = area.city_id;
 
 					popup.showContent(ele);
 
 				}
 
-			}).catch((err) => {
-
-				console.log(err);
 			})
 
 		}
@@ -149,7 +183,6 @@ var addPopup = new Vue ({
 
 		province () {
 
-
 			return vueConfig.province;
 
 		},
@@ -169,6 +202,15 @@ var addPopup = new Vue ({
 
 			return vueConfig.cityList;
 		}
+	},
+	mounted () {
+
+		document.documentElement.addEventListener('click',() =>{
+
+			this.dropMenu = -1;
+
+		})
+
 	},
 	methods: {
 
@@ -194,14 +236,14 @@ var addPopup = new Vue ({
 
 		selectProvince (province_id,province_name) {
 
-			vueConfig.getCityList.call(vueConfig,province_id,province_name,null);
+			vueConfig.getCityList.call(vueConfig,province_id,province_name);
 
 			this.dropMenu = -1;
 
 		},
 		selectCity (cityId,cityName) {
 
-			this.formData.city = cityId;
+			vueConfig.cityId = cityId;
 
 			this.dropMenu = -1;
 
@@ -210,6 +252,7 @@ var addPopup = new Vue ({
 		},
 		addShopList:function(){
 
+			this.formData.city  = 	vueConfig.cityId;
 
 			const formData = Object.assign({},this.formData);
 
@@ -302,14 +345,20 @@ var editPopup = new Vue ({
 		dropMenu: -1,
 		city:''
 	},
+	mounted () {
 
+		document.documentElement.addEventListener('click',() =>{
+
+			this.dropMenu = -1;
+
+		})
+
+	},
 	computed: {
 
 		formData () {
 
 			var editShop = vueConfig.editShop;
-
-
 
 			var params = {
 				city: vueConfig.cityId,
@@ -443,6 +492,7 @@ var editPopup = new Vue ({
 
 		submitShop(type,url,method,data){
 
+
 			var tips = type == 1 ? '修改' : '添加';
 
 			Lizard.ajax({
@@ -451,14 +501,20 @@ var editPopup = new Vue ({
 				data: data
 			}).then((data) => {
 
-				Lizard.showToast(tips + '成功');
+				if (data) {
 
-				setTimeout(() => {
+					Lizard.showToast(tips + '成功');
 
-					//location.reload();
+					setTimeout(() => {
 
-				}, 500)
+						location.reload();
 
+					}, 500)
+				}
+
+			}).catch((err) =>{
+
+				console.log(err);
 			})
 		}
 	}

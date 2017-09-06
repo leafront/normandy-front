@@ -10,8 +10,6 @@ var verify = {
 		})
 		.then((data) => {
 
-			console.log(data);
-
 			document.getElementById('captcha-img').setAttribute('src',data.img_url);
 
 			document.getElementById('captcha_key').value = data.key;

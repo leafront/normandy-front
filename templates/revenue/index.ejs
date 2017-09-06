@@ -10,67 +10,64 @@
 <%include ../common/header.ejs%>
 <div class="container clearfix">
     <% include ../common/aside_menu.ejs %>
-    <div class="right-container fr">
+    <div class="right-container fr" id="app">
         <div class="navigation">
             <a href="/" class="home_ico"></a>
             <em class="navigation_ico"></em>
             <span>计算收支明细</span>
         </div>
-        <div class="content" id="app">
+        <div class="content">
             <div class="cont-title">
                 <i></i>
-                <span>计算收支明细</span>
+                <span>计算收支明细列表</span>
             </div>
             <div class="revenue_add">
                <div class="vehicle_info_title">
                    <div class="business_status">
                        <h4>借款信息</h4>
+                       <span class="text_tips">(*此项为必填项)</span>
                    </div>
                </div>
                 <div class="vehicle_info_wraper clearfix">
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && revenue.amount === '')}">
-                                <label>借款金额</label>
+                            <div class="form-group-rows">
+                                <label>借款金额<em class="text_require">*</em></label>
                                 <div class="user-ui-number">
-                                  <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="借款金额">
+                                  <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="借款金额">
                                    <i class="user-ui-input-txt">元</i>
                                 </div>
 
                             </div>
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && revenue.repay_type === '')}">
-                                <label>还款类型</label>
-                                <div class="drop_menu drop_menu_edit">
-                                    <span class="js_select">{{ loanType }}</span>
+                            <div class="form-group-rows">
+                                <label>还款类型<em class="text_require">*</em></label>
+                                <div class="drop_menu drop_menu_edit" :class="{'active':dropMenu == 1}">
+                                    <span @click.stop="selectMenu(1)">{{ repayType }}</span>
                                     <ul class="drop_menu_list">
-                                        <% repaymentType.forEach(function(item){%>
-                                        <li @click="checkValue('repay_type',<%-item.value%>)">
-                                            <a href="javascript:;"><%-item.name%></a>
+                                        <li v-for="item in repaymentType" @click.stop="checkValue('repay_type',item.value)">
+                                            <a href="javascript:;">{{item.name}}</a>
                                         </li>
-                                        <%})%>
                                     </ul>
                                  </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label :class="{'error_text':(!isValidate && revenue.term === '')}">借款期限</label>
-                                <input type="number" class="user-ui-input" :class="{'error_input':(!isValidate && revenue.term === '')}" v-model="revenue.term" placeholder="借款期限"/>
-                                <div class="drop_menu drop_menu_term" :class="{'form-group-error':(!isValidate && revenue.term_unit === '')}">
-                                    <span class="js_select">请选择</span>
+                                <label>借款期限<em class="text_require">*</em></label>
+                                <input type="number" class="user-ui-input" v-model="revenue.term" placeholder="借款期限"/>
+                                <div class="drop_menu drop_menu_term" :class="{'active':dropMenu == 2}">
+                                    <span @click.stop="selectMenu(2)">{{termUnitType}}</span>
                                     <ul class="drop_menu_list">
-                                        <% termUnit.forEach(function(item){%>
-                                        <li @click="checkValue('term_unit',<%-item.value%>)">
-                                            <a href="javascript:;"><%-item.name%></a>
+                                        <li v-for="item in termUnit" @click.stop="checkValue('term_unit',item.value)">
+                                            <a href="javascript:;">{{item.name}}</a>
                                         </li>
-                                        <%})%>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="form-group-rows vehicles-base-input" :class="{'form-group-error':(!isValidate && revenue.interest_rate === '')}">
-                                <label>综合服务费率</label>
+                            <div class="form-group-rows vehicles-base-input">
+                                <label>综合服务费率<em class="text_require">*</em></label>
                                 <div class="user-ui-number">
-                                    <input type="text" class="user-ui-input user-ui-month" v-model="revenue.interest_rate" placeholder="综合服务费率">
+                                    <input type="text" class="user-ui-input user-ui-month" v-model="revenue.borrow_rate" placeholder="综合服务费率">
                                     <i class="user-ui-input-txt">% / 期</i>
                                 </div><button class="edit_btn_custom" @click="customStage">自定义</button>
                             </div>
@@ -81,23 +78,23 @@
                 <div class="vehicle_info_title">
                     <div class="business_status">
                         <h4>费用收</h4>
-                        <span>(相应项留空即无该费用)</span>
+                        <span class="text_tips">(*此项为必填项)</span>
                     </div>
                 </div>
                 <div class="vehicle_info_wraper clearfix">
                   <div class="vehicle_item">
                     <div class="form-group clearfix">
-                        <div class="form-group-rows" :class="{'form-group-error':(!isValidate && revenue.amount === '')}">
+                        <div class="form-group-rows">
                             <label>中介费(预收)</label>
                             <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="中介费">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.agency" placeholder="中介费">
                               <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
-                        <div class="form-group-rows" :class="{'form-group-error':(!isValidate && revenue.repay_type === '')}">
+                        <div class="form-group-rows">
                             <label>评估费(预收)</label>
                             <div class="user-ui-number">
-                                <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="评估费">
+                                <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.assessment" placeholder="评估费">
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
@@ -106,14 +103,14 @@
                       <div class="form-group-rows">
                           <label>违章押金(押金)</label>
                           <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="违章押金">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.illegal_deposit" placeholder="违章押金">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                       </div>
                       <div class="form-group-rows">
                           <label>GPS押金(押金)</label>
                           <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="GPS押金">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.GPS_deposit" placeholder="GPS押金">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                       </div>
@@ -122,14 +119,14 @@
                       <div class="form-group-rows">
                           <label>停车费用(每期收)</label>
                           <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="停车费用">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.parking" placeholder="停车费用">
                               <i class="user-ui-input-txt">元/月</i>
                           </div>
                       </div>
                       <div class="form-group-rows">
                           <label>GPS费用(每期收)</label>
                           <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="GPS费用">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.GPS_using" placeholder="GPS费用">
                               <i class="user-ui-input-txt">元/月</i>
                           </div>
                       </div>
@@ -138,49 +135,53 @@
                       <div class="form-group-rows">
                           <label>风险押金(押金)</label>
                           <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="风险押金">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.risk_deposit" placeholder="风险押金">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                       </div>
                       <div class="form-group-rows">
                           <label>风险押金费率</label>
                           <div class="user-ui-number">
-                              <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="留空使用综合服务费用">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.risk_deposit_rate" placeholder="留空使用综合服务费用">
                               <i class="user-ui-input-txt">% / 期</i>
                           </div>
                       </div>
                     </div>
-                    <div class="form-group clearfix">
+
+                    <div class="form-group clearfix" v-for="(item,index) in revenue.advanced_in_others">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
-                          <label :class="{'error_text':(!isValidate && revenue.fees.other_fee.name === '')}">自定费用</label>
-                          <input type="text" placeholder="费用名称" :class="{'error_input':(!isValidate && revenue.fees.other_fee.name === '')}" v-model="revenue.fees.other_fee.name" class="user-ui-input  edit-ui-input">
+                          <label>其他费用(预收)</label>
+                          <input type="text" placeholder="收款原因" v-model="item.amount" v-model="item.amount" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                            <input type="number" placeholder="自定费用" :class="{'error_input':(!isValidate && revenue.fees.other_fee.value === '')}" v-model="revenue.fees.other_fee.value" class="user-ui-input  edit-ui-input">
-                            <i class="user-ui-input-txt" :class="{'error_text':(!isValidate && revenue.fees.other_fee.value === '')}">元</i>
+                            <input type="number" placeholder="其他费用" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                            <i class="user-ui-input-txt">元</i>
                           </div>
-                          <button class="form-group-btn">+</button>
+                          <button v-if="index == 0" class="form-group-btn" @click="addRecord('advanced_in_others')">+</button>
+                          <button class="form-group-btn btn_gray" v-else @click="removeRecord('advanced_in_others',index)">-</button>
                       </div>
                     </div>
-                    <div class="form-group clearfix">
+                    <div class="form-group clearfix" v-for="(item,index) in revenue.advanced_in_other_deposit ">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
-                          <label :class="{'error_text':(!isValidate && revenue.fees.other_fee.name === '')}">其他押金(押金)</label>
-                          <input type="text" placeholder="收款原因" :class="{'error_input':(!isValidate && revenue.fees.other_fee.name === '')}" v-model="revenue.fees.other_fee.name" class="user-ui-input  edit-ui-input">
+                          <label>其他押金(预收)</label>
+                          <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                              <input type="number" placeholder="其他押金" :class="{'error_input':(!isValidate && revenue.fees.other_fee.value === '')}" v-model="revenue.fees.other_fee.value" class="user-ui-input  edit-ui-input">
-                              <i class="user-ui-input-txt" :class="{'error_text':(!isValidate && revenue.fees.other_fee.value === '')}">元</i>
+                              <input type="number" placeholder="其他押金" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                              <i class="user-ui-input-txt">元</i>
                           </div>
-                          <button class="form-group-btn">+</button>
+                          <button v-if="index == 0" class="form-group-btn" @click="addRecord('advanced_in_other_deposit')">+</button>
+                          <button class="form-group-btn btn_gray" v-else @click="removeRecord('advanced_in_other_deposit',index)">-</button>
                       </div>
                     </div>
-                    <div class="form-group clearfix">
+                    <div class="form-group clearfix" v-for="(item,index) in revenue.others_each_term">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
-                          <label :class="{'error_text':(!isValidate && revenue.fees.other_fee.name === '')}">其他费用(每期收)</label>
-                          <input type="text" placeholder="收款原因" :class="{'error_input':(!isValidate && revenue.fees.other_fee.name === '')}" v-model="revenue.fees.other_fee.name" class="user-ui-input  edit-ui-input">
+                          <label>其他费用(每期收)</label>
+                          <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                              <input type="number" placeholder="其他费用" :class="{'error_input':(!isValidate && revenue.fees.other_fee.value === '')}" v-model="revenue.fees.other_fee.value" class="user-ui-input  edit-ui-input">
-                              <i class="user-ui-input-txt" :class="{'error_text':(!isValidate && revenue.fees.other_fee.value === '')}">元</i>
+                              <input type="number" placeholder="其他费用" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                              <i class="user-ui-input-txt">元</i>
                           </div>
-                          <button class="form-group-btn">+</button>
+                          <button v-if="index==0" class="form-group-btn" @click="addRecord('advanced_in_others')">+</button>
+                          <button class="form-group-btn btn_gray" v-else @click="removeRecord('advanced_in_others',index)">-</button>
                       </div>
                     </div>
                   </div>
@@ -189,7 +190,7 @@
                 <div class="vehicle_info_title">
                     <div class="business_status">
                         <h4>费用付</h4>
-                        <span>(相应项留空即无该费用)</span>
+                        <span class="text_tips">(*此项为必填项)</span>
                     </div>
                 </div>
                 <div class="vehicle_info_wraper clearfix">
@@ -198,45 +199,79 @@
                             <div class="form-group-rows">
                                 <label>账户管理费用(预付)</label>
                                 <div class="user-ui-number">
-                                    <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="账户管理费用">
+                                    <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.account_manage" placeholder="账户管理费用">
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
                             </div>
                             <div class="form-group-rows">
                                 <label>保证金(押金)</label>
                                 <div class="user-ui-number">
-                                    <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="保证金">
+                                    <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.bond" placeholder="保证金">
                                     <i class="user-ui-input-txt">元/月</i>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>资方费率</label>
+                                <label>资方费率<em class="text_require">*</em></label>
                                 <div class="user-ui-number">
-                                    <input type="text" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="账户管理费用">
+                                    <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.lend_rate" placeholder="账户管理费用">
                                     <i class="user-ui-input-txt">%/期</i>
                                 </div>
                             </div>
                             <div class="form-group-rows">
-                                <label>资方还款方式</label>
-                                <div class="drop_menu drop_menu_edit">
-                                    <span class="js_select">{{ loanType }}</span>
+                                <label>资方还款方式<em class="text_require">*</em></label>
+                                <div class="drop_menu drop_menu_edit" :class="{'active':dropMenu == 3}">
+                                    <span @click.stop="selectMenu(3)">{{outType}}</span>
                                     <ul class="drop_menu_list">
-                                        <% repaymentType.forEach(function(item){%>
-                                        <li @click="checkValue('repay_type',<%-item.value%>)">
-                                            <a href="javascript:;"><%-item.name%></a>
+                                        <li v-for="item in repaymentType" @click.stop="checkValue('out_type',item.value)">
+                                            <a href="javascript:;">{{item.name}}</a>
                                         </li>
-                                        <%})%>
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in revenue.out_others">
+                            <div class="form-group-rows form-group-fee vehicles-base-input">
+                                <label>其他费用(预付)</label>
+                                <input type="text" placeholder="收款原因" v-model="item.amount" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                                <div class="user-ui-number">
+                                    <input type="number" placeholder="其他费用" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
+                                <button v-if="index == 0" class="form-group-btn" @click="addRecord('out_others')">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('out_others',index)">-</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in revenue.out_others_deposit ">
+                            <div class="form-group-rows form-group-fee vehicles-base-input">
+                                <label>其他押金(预付)</label>
+                                <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                                <div class="user-ui-number">
+                                    <input type="number" placeholder="其他押金" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
+                                <button v-if="index == 0" class="form-group-btn" @click="addRecord('out_others_deposit')">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('out_others_deposit',index)">-</button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" v-for="(item,index) in revenue.out_others_each_team">
+                            <div class="form-group-rows form-group-fee vehicles-base-input">
+                                <label>其他费用(每期付)</label>
+                                <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                                <div class="user-ui-number">
+                                    <input type="number" placeholder="其他费用" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                                    <i class="user-ui-input-txt">元</i>
+                                </div>
+                                <button v-if="index==0" class="form-group-btn" @click="addRecord('out_others_each_team')">+</button>
+                                <button class="form-group-btn btn_gray" v-else @click="removeRecord('out_others_each_team',index)">-</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="revenue_submit">
-                <button class="btn_confirm">申请</button>
+                <button class="btn_confirm" @click="submitCalc('<%-shop.id%>')">提交</button>
                 <button class="btn_cancel">放弃</button>
             </div>
         </div>
@@ -253,31 +288,21 @@
             <ul class="popup_menu">
                 <li>指定期</li>
                 <li>综合管理费</li>
-                <li>还本金额</li>
             </ul>
         </div>
         <div class="const_wraper">
-
-
-
             <div class="cost_item" v-for="(item,index) in repay_schema">
                 <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu[index].isOpen}">
                     <span @click.stop="showMenu(!dropMenu[index].isOpen,index)">{{'第' + item.term + '期'}}</span>
                     <ul class="drop_menu_list">
-                        <li v-for="child in stage" @click="selectValue(index,child)">
-                            <a href="javascript:;">第{{child}}期</a>
-                        </li>
+                      <li v-for="child in stage" @click="selectValue(index,child)">
+                        <a href="javascript:;">第{{child}}期</a>
+                      </li>
                     </ul>
                 </div>
                 <div class="const_money">
                     <div class="user-ui-number">
-                        <input type="number" placeholder="综合管理费" v-model="item.interest" class="user-ui-input"/>
-                        <i class="user-ui-input-txt">元</i>
-                    </div>
-                </div>
-                <div class="const_money">
-                    <div class="user-ui-number">
-                        <input type="number" placeholder="还本金额" v-model="item.capital" class="user-ui-input"/>
+                        <input type="number" placeholder="综合管理费" v-model="item.amount" class="user-ui-input"/>
                         <i class="user-ui-input-txt">元</i>
                     </div>
                 </div>

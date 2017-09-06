@@ -41,7 +41,14 @@ var util = {
 
 			var xhr = new XMLHttpRequest();
 
-			var data = util.queryStringify(options.data);
+			var data = options.data;
+
+
+			if (options.headers['Content-type'] == "application/x-www-form-urlencoded") {
+
+				data = util.queryStringify(data);
+
+			}
 
 
 			if (options.type == "GET") {
@@ -60,9 +67,6 @@ var util = {
 				xhr.setRequestHeader(k, options.headers[k]);
 			}
 
-			xhr.setRequestHeader("Accept", "application/json");
-
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 			xhr.onprogress = options.onprogress;
 
@@ -87,7 +91,7 @@ var util = {
 
 			}
 
-			options.type == "GET" ? xhr.send() : 	xhr.send(data);
+			options.type == "GET" ? xhr.send(null) : 	xhr.send(data);
 
 		})
 

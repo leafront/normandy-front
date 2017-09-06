@@ -1,3 +1,6 @@
+
+var $ = require('./lib/jquery');
+
 var Lizard = require('./widget/lizard');
 
 var common = {
@@ -166,21 +169,30 @@ var common = {
 	},
 	dropMenu: function  () {
 
-		var selectMenu = Array.prototype.slice.apply(document.querySelectorAll('.js_select'));
+		$('.js_select').click(function(e){
 
-		selectMenu.forEach((item) =>{
-
-			item.addEventListener('click', function(event){
-
-				event.stopPropagation();
+			e.stopPropagation();
 
 
-				Lizard.toggleClass(event.target,'active');
+			$(this).toggleClass('active');
 
-				Lizard.toggleClass(event.target.parentNode,'active');
+			$(this).parent('.drop_menu').toggleClass('active');
 
+		})
 
-			})
+		$('.drop_menu_list').on('click','li',function(e){
+
+			e.stopPropagation();
+
+			var value = $(this).data('value');
+
+			$(this).parent().prev('.js_select').text($(this).text()).data('value',value).addClass('active').parents('.drop_menu').removeClass('active');
+
+		})
+
+		document.documentElement.addEventListener('click',() => {
+
+			this.dropMenu =  -1;
 
 		})
 
@@ -208,7 +220,43 @@ var common = {
 		}
 
 		return object;
+	},
+
+	deleteEmptyArray (object,arr,property) {
+
+		arr.forEach((item) => {
+
+			for (var attr in item) {
+
+				var value = item[attr];
+
+				if (value === '' || value === null || value === undefined) {
+
+					delete item[attr];
+				}
+
+			}
+		})
+
+		object.forEach((item,index) => {
+
+			item[property].forEach((child) => {
+
+
+				if (child) {
+
+					object[index][property] = [];
+
+				}
+
+			})
+
+
+		})
 	}
 }
+
+
+window.common = common;
 
 module.exports = common;

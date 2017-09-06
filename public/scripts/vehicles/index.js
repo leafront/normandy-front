@@ -49,7 +49,7 @@ var vueConfig = new Vue({
 		borrowingStatus,
 		gpsStatus,
 		gpsInfo: {},
-		gpsList:[],
+		gpsList:{},
 		vehicle_ids: [],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
@@ -163,9 +163,13 @@ var vueConfig = new Vue({
 
 		vehiclesList.forEach( (item) =>{
 
-			vehicle_ids.push(item.id);
+			if (item.gps_devices.length) {
+
+				vehicle_ids.push(item.id);
+			}
 
 		})
+
 
 		this.vehicle_ids = vehicle_ids;
 
@@ -182,7 +186,7 @@ var vueConfig = new Vue({
 
 			gps_device.forEach( (item) => {
 
-				if (item.status == 1) {
+				if (item.status && item.status== 1) {
 
 					imei_ids.push(item.imei);
 
@@ -190,7 +194,7 @@ var vueConfig = new Vue({
 
 			})
 
-			if (!gps_device.length) {
+			if (!imei_ids.length) {
 
 				Lizard.showToast('当前无GPS设备状态信息');
 
@@ -252,15 +256,8 @@ var vueConfig = new Vue({
 
 				if (data) {
 
-					var gpsList = [];
 
-					for (var attr in data) {
-
-						gpsList.push(data[attr]);
-
-					}
-
-					this.gpsList = gpsList;
+					this.gpsList = data;
 
 					fn && fn();
 
@@ -299,17 +296,17 @@ var vueConfig = new Vue({
 
 				if (data) {
 
-					var gpsList = [];
+					if (data[vehiclesId]) {
 
-					for (var attr in data) {
+						this.gpsList.vehiclesId = data[vehiclesId];
 
-						gpsList.push(data[attr]);
+						Lizard.showToast('刷新GPS状态成功');
 
+					} else {
+
+						Lizard.showToast('刷新GPS状态失败');
 					}
 
-					this.gpsList.splice(index,1,gpsList[0]);
-
-					Lizard.showToast('刷新GPS状态成功');
 				}
 
 			})

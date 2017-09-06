@@ -14,8 +14,7 @@ var roleAuth = {
 
 		Lizard.ajax({
 			url: url,
-			type: 'GET',
-			async: false
+			type: 'GET'
 		}).then((data) => {
 
 			if (data && data.results) {

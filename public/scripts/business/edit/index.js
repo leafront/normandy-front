@@ -1,4 +1,4 @@
-var $ = require('../../lib/jquery');
+var $ = require('../../lib/jquery.min');
 
 var common = require('../../common');
 
@@ -18,7 +18,7 @@ const {
 
 const business = Object.assign({},editBusiness);
 
-const repay_schema = Object.assign([],editBusiness.repay_schema).length || [{"term": 1,"interest":"","capital":""}];
+const repay_schema = Object.assign([],editBusiness.repay_schema).length ? Object.assign([],editBusiness.repay_schema) : [{"term": 1,"interest":"","capital":""}];
 
 
 var vueConfig = new Vue({
@@ -26,20 +26,78 @@ var vueConfig = new Vue({
 	el:'#app',
 
 	data:  {
+		dropMenu: -1,
 		repaymentType,
 		termUnit,
 		business:business,
 
 		salesmenList:[],
 
-		salesmanName:'',
-
-		loanType:'请选择',
-
-		term:'请选择',
-
 		isValidate: true
 
+	},
+
+	computed: {
+
+		termUnitType () {
+
+			var term_unit = this.business.term_unit;
+
+			if (term_unit !== "") {
+
+				var value = this.termUnit[term_unit].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		repayType () {
+
+			var repay_type = this.business.repay_type;
+
+			if (repay_type !== "") {
+
+				var value = this.repaymentType[repay_type].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		salesmanName () {
+
+			var salesman = this.business.salesman;
+
+			var value = "请选择";
+
+			if (salesman !== "") {
+
+				this.salesmenList.forEach((item) =>{
+
+					if (item.user.id == salesman) {
+
+
+						value = item.user.name;
+
+					}
+
+				})
+
+				return value;
+
+
+			} else {
+
+				return value;
+			}
+		}
 	},
 
 	created() {
@@ -55,18 +113,6 @@ var vueConfig = new Vue({
 
 				this.salesmenList = results;
 
-
-				results.forEach((item) =>{
-
-					if (item.user.id == this.business.salesman) {
-
-
-						this.salesmanName = item.user.name;
-
-					}
-
-				})
-
 			}
 
 		})
@@ -80,6 +126,20 @@ var vueConfig = new Vue({
 		}
 	},
 	methods:{
+
+		selectMenu (value) {
+
+			if (this.dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+
+			}
+
+		},
 
 		initValue (){
 
@@ -115,23 +175,12 @@ var vueConfig = new Vue({
 					}
 				}
 			}
-
-			if (business.repay_type !== "") {
-
-				this.loanType = this.repaymentType[business.repay_type].name;
-
-			}
-
-			if (business.term_unit !== "") {
-
-				this.term = this.termUnit[business.term_unit].name;
-
-			}
 		},
 
 		checkValue (property,value) {
 
 			this.business[property] = value;
+
 
 		},
 
@@ -267,12 +316,12 @@ var vueConfig = new Vue({
 				success: () =>{
 
 					this.business[uploadType].push({
-					source_link: data.uri,
-					key: data.key,
-					filename: file.name,
-					size: file.size,
-					rotate: 0
-				})
+						source_link: data.uri,
+						key: data.key,
+						filename: file.name,
+						size: file.size,
+						rotate: 0
+					})
 
 				}
 			})
@@ -347,7 +396,8 @@ var vueConfig = new Vue({
 
 		common.headerMenu();
 
-		common.dropMenu();
+		common.dropMenu.call(this);
+
 	}
 })
 
@@ -360,12 +410,13 @@ var popupConfig = new Vue({
 		isStage:false,
 
 		iStage:editBusiness.repay_schema.length || 1,
-		repay_schema:editBusiness.repay_schema || [{"term": this.iStage,"interest":"","capital":""}],
+		repay_schema:repay_schema,
 		dropMenu:[]
 	},
 	created() {
 
 		var dropMenu = [];
+
 
 		this.repay_schema.forEach(function(){
 
@@ -398,9 +449,24 @@ var popupConfig = new Vue({
 	},
 	methods: {
 
+		selectMenu (value) {
+
+			if (this.dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+
+			}
+		},
+
 		checkValue (property, value) {
 
 			this.repay_schema[property] = value;
+
+			this.dropMenu = -1;
 
 		},
 
@@ -410,7 +476,7 @@ var popupConfig = new Vue({
 
 			this.isStage = false;
 
-			this.iStage = repay_schema.length;
+			this.iStage = 1;
 
 			this.repay_schema = repay_schema;
 

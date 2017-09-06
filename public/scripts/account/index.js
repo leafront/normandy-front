@@ -1,5 +1,5 @@
 
-var $ = require('../lib/jquery');
+var $ = require('../lib/jquery.min');
 
 var common = require('../common');
 
@@ -99,11 +99,13 @@ var cashPopup = new Vue({
 			Lizard.ajax({
 				type:'POST',
 				url:'/api/withdrawal',
+				dataType:'text',
 				data:{
 					amount: this.withdrawalAmount
 				}
 			}).then((data) => {
 
+						console.log(data);
 				var re = new RegExp(/<form [\s\S]*<\/form>/);
 
 				var formStr = data.match(re)[0];

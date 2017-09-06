@@ -172,20 +172,29 @@ var Lizard = {
 
 		var org_id = Lizard.getCookie('org_id');
 
+		var headers = {
+			"Content-type":"application/x-www-form-urlencoded",
+			"Accept": "application/json",
+			"Authorization": 'Bearer ' + jwt
+		};
+
+		headers = Object.assign(headers,ajaxOptions.headers);
+
 		var options = {
 			async: true,
-			headers: {
-				"Authorization": 'Bearer ' + jwt
-			}
+			headers,
+			dataType:'json'
 		}
 
 		if (org_id) {
 
 			options.headers['X-Org'] = org_id;
+
 		}
 
-
 		options = Object.assign(options,ajaxOptions);
+
+		options.headers = headers;
 
 
 		var ajax = new Promise((resolve, reject) => {
@@ -196,7 +205,7 @@ var Lizard = {
 
 				url:options.url,
 
-				dataType:'json',
+				dataType:options.dataType,
 
 				async: options.async,
 
