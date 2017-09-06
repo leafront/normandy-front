@@ -9,6 +9,7 @@ var validate = require('../../widget/validate');
 
 var local = require('../../widget/local');
 
+var verify = require('../widget/verify');
 
 var Page = require('../../widget/page');
 
@@ -16,7 +17,7 @@ Page({
 
 	onShow(){
 
-		common.getVerify();
+		verify.getVerify();
 
 	},
 
@@ -86,21 +87,21 @@ Page({
 				captcha_code: captcha_code,
 				captcha_key: captcha_key
 			},
-			success: function (data) {
+			error (){
 
-				local.set('userInfo',{
-					mobile:mobile,
-					password:password,
-					mobile_key:data.key
-				})
-				location.href = '/user/register/' + data.key;
-
-			},
-			error: function(){
-
-				common.updateVerify();
+				verify.updateVerify();
 
 			}
+		}).then((data) => {
+
+			local.set('userInfo',{
+				mobile:mobile,
+				password:password,
+				mobile_key:data.key
+			})
+
+			location.href = '/user/register/' + data.key;
+
 		})
 	}
 

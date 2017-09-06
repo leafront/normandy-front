@@ -1,0 +1,35 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/list.scss';
+
+
+.cont_list{
+	.revenue_money{
+
+		width:208rem/$rem;
+
+	}
+	.revenue_term{
+
+		width:206rem/$rem;
+	}
+	.revenue_rate{
+		width:210rem/$rem;
+	}
+	.revenue_way{
+		width:188rem/$rem;
+	}
+	.revenue_loan_rate{
+		width:208rem/$rem;
+	}
+	.revenue_loan_way{
+		width:206rem/$rem;
+	}
+	.revenue_times{
+		width:236rem/$rem;
+	}
+
+
+}

@@ -261,7 +261,7 @@ var colorList = [
 	{
 		'name': '灰色',
 		'value': 3,
-		color:'#808080'
+		 color:'#808080'
 	},
 	{
 		'name': '红色',

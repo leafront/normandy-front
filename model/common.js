@@ -37,9 +37,9 @@ module.exports = {
 
 			}).catch((err) =>{
 
-				resolve ({ roleList:[], shop:{}, authority:{} })
+				ctx.redirect('/user/login?returnurl=' + ctx.path);
 
-				//reject(err);
+				resolve ({ roleList:[], shop:{}, authority:{} })
 
 			})
 
@@ -147,6 +147,33 @@ module.exports = {
 
 			})
 		})
+	},
+
+
+	timeComputed (times) {
+
+		if (times >= 0 && times < 60 )  {
+
+			return times + '秒';
+
+		} else if (times > 60 && times < 3600){
+
+			return parseInt(times/60) + '分钟';
+
+		}else if (times >= 3600 &&  times < 60 * 60 * 24) {
+
+			return parseInt(times/60/60) + '小时';
+
+		} else if (times >= 60 * 60 * 24 && times < 60 * 60 * 24 * 60) {
+
+			return parseInt(times/60/60/24) + '天';
+
+		} else if (times > 60 * 60 * 24 * 60) {
+
+			return '大于60天';
+
+		}
+
 	},
 	getPage(page,showPage) {
 

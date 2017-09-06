@@ -12,6 +12,7 @@
 
 @import '../../widget/calendar.scss';
 
+
 .user-ui-input-txt{
 
 	display:inline-block;
@@ -36,6 +37,17 @@
 	text-align:center;
 
 
+}
+
+
+.vehicle-ui-ico{
+
+	.user-ui-input-txt{
+
+		width:35px;
+
+		background:url(/images/ico_sprite.png) no-repeat -218px -32px;
+	}
 }
 
 .modify-button{

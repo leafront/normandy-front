@@ -1,4 +1,3 @@
-var $ = require('../lib/jquery');
 
 var common = require('../common');
 
@@ -6,83 +5,92 @@ var Lizard = require('../widget/lizard');
 
 var validate = require('../widget/validate');
 
-var Page = require('../widget/page');
+var Vue = require('../lib/vue');
 
 
-Page({
+var vueConfig = new Vue ({
 
-	onShow(){
+	el: '#app',
 
-		common.headerMenu();
+	data: {
+		params: {
+			name: '',
+			mobile: '',
+			email: ''
+		}
 
 	},
-	bindEvents(){
+	methods: {
 
-		$('.js_submit').click(() =>{
+		cancelBorrowers () {
 
-			this.addBorrowers();
+			location.href = '/borrowers';
 
-		})
-	},
-	addBorrowers(){
+		},
 
-		var borrowers_name = $.trim($('#borrowers_name').val());
+		addBorrowers(){
 
-		var phone = $.trim($('#borrowers_phone').val());
+			const formData = Object.assign({},this.params);
 
-		var email = $.trim($('#borrowers_email').val());
+			const { name, mobile, email } = formData;
 
-		if (!borrowers_name) {
+			if (!name) {
 
-			Lizard.showToast('请输入姓名');
+				Lizard.showToast('请输入姓名');
 
-			return;
-		}
+				return;
+			}
 
-		if (!phone) {
+			if (!mobile) {
 
-			Lizard.showToast('请输入手机号');
+				Lizard.showToast('请输入手机号');
 
-			return;
-		}
+				return;
+			}
 
-		if (!validate.isMobile(phone)) {
+			if (!validate.isMobile(mobile)) {
 
-			Lizard.showToast('请输入正确的手机号');
+				Lizard.showToast('请输入正确的手机号');
 
-			return;
-		}
+				return;
+			}
 
-		if (email && !validate.isEmail(email)){
+			if (email && !validate.isEmail(email)){
 
-			Lizard.showToast('请输入正确的邮箱地址');
+				Lizard.showToast('请输入正确的邮箱地址');
 
-		}
-		var data = {
-			name: borrowers_name,
-			phone: phone,
-			email: email
-		}
+				return;
 
-		this.borrowersSubmit(data);
+			}
 
-	},
-	borrowersSubmit(data){
-		Lizard.ajax({
-			type:'POST',
-			url:'/borrowers/bind',
-			data:data,
-			success:function(){
+			this.borrowersSubmit(formData);
+
+		},
+
+		borrowersSubmit (data){
+
+			Lizard.ajax({
+				type:'POST',
+				url:'/api/user-bind-borrower',
+				data: data
+			}).then((data) => {
 
 				Lizard.showToast('添加成功');
 
 				setTimeout(() =>{
 
-					//location.href = '/borrowers';
+					location.href = '/borrowers';
 
 				},500)
+			})
+		}
 
-			}
-		})
+	},
+	mounted () {
+
+		common.headerMenu();
+
 	}
 })
+
+

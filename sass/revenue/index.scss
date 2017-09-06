@@ -6,6 +6,8 @@
 
 @import '../modules/form_list.scss';
 
+@import '../modules/list.scss';
+
 @import '../modules/confirm_button.scss';
 
 @import '../modules/popup.scss';
@@ -40,6 +42,10 @@
 		color:#53cac3;
 
 		margin-left:10px;
+	}
+	.text_tips{
+
+		color:#d90000;
 	}
 }
 
@@ -116,6 +122,13 @@
 }
 
 .form-group-rows{
+	.text_require{
+		color:#d90000;
+		position:relative;
+
+		left:5px;
+		top:2px;
+	}
 
 	button{
 		&.edit_btn_custom{
@@ -175,14 +188,14 @@
 
 .popup_wraper{
 
-	width:960rem/$rem;
+	width:650rem/$rem;
 
-	margin-left:-950rem/2/$rem;
+	margin-left:-650rem/2/$rem;
 }
 
 .popup_submit{
 
-	padding:30rem/$rem 0 30rem/$rem 500rem/$rem;
+	padding:30rem/$rem 0 30rem/$rem 300rem/$rem;
 }
 .popup_cont{
 	padding-left:40rem/$rem;
@@ -285,7 +298,6 @@
 	display:flex;
 
 	justify-content: center;
-
-
 	padding-bottom:30px;
 }
+

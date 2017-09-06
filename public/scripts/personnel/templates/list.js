@@ -39,7 +39,7 @@ module.exports = `
 
     </div>
     <div class="personnel_action">
-        <a class="list_action js_switch" data-status="<%-item.status%>" data-id="<%-item.user.id%>" href="javascript:;">
+        <a class="list_action" @click="isDisabled(<%-item.status%>,<%-item.user.id%>)" href="javascript:;">
           <%if(item.status===1 || item.status==0){%>禁用<%}else if(item.status===2){%>启用<%}%></a>
         <a class="list_action js_authEdit" data-id="<%-item.user.id%>"  href="javascript:;"> / 编辑角色 </a>
        <%if(item.status == 0){%> <a class="list_action js_message" data-id="<%-item.user.id%>"  href="javascript:;"> / 重新发送 </a><%}%>

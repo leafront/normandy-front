@@ -66,10 +66,11 @@ module.exports = {
 
 		'revenue/index':'./public/scripts/revenue/index',
 
+		'revenue/report':'./public/scripts/revenue/report',
+
+		'revenue/list':'./public/scripts/revenue/list',
+
 		'account/index':'./public/scripts/account/index'
-
-
-
 
   },
   output: {

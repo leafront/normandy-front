@@ -8,7 +8,7 @@
     "start": "./node_modules/.bin/nodemon server",
     "dev": "NODE_ENV=develop webpack -d -w --progress --colors",
     "build": "NODE_ENV=production BABEL_ENV=production webpack -p",
-    "watch": "browser-sync start --proxy '127.0.0.1:3000' --files 'public, views, routes,server.js'"
+    "watch": "browser-sync start --proxy '127.0.0.1:8088' --files 'public, templates, views, routes,server.js'"
   },
   "author": "",
   "license": "ISC",
@@ -27,11 +27,13 @@
     "webpack-dev-server": "1.14.1"
   },
   "devDependencies": {
+    "Promise": "^1.0.5",
     "babel-core": "^6.9.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "browser-sync": "^2.18.13",
     "ejs-loader": "^0.3.0",
+    "es6-promise": "^4.1.1",
     "gulp": "3.9.1",
     "gulp-ejs": "^3.0.1",
     "gulp-replace": "^0.6.1",
@@ -41,7 +43,8 @@
     "koa-body": "^2.3.0",
     "koa-views": "^6.0.2",
     "request-promise": "^4.2.1",
-    "webpack": "^3.5.3"
+    "webpack": "^3.5.3",
+    "whatwg-fetch": "^2.0.3"
   },
   "babel": {
     "presets": [

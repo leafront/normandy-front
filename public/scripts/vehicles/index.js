@@ -1,5 +1,7 @@
 
-window.$ = require('../lib/jquery');
+var $ = require('../lib/jquery');
+
+var util = require('../lib/util/index');
 
 var common = require('../common');
 
@@ -18,24 +20,36 @@ var data = require('../../../model/data');
 var Vue = require('../lib/vue');
 
 const {
-
+	deviceType,
 	colorList,
 	borrowingStatus,
 	gpsStatus
 
 } = data;
 
+var queryParams = {
+
+	vin: Lizard.query('vin') || '',
+	status: Lizard.query('status') || '',
+	name: Lizard.query('name') || '',
+	from: Lizard.query('from') || '',
+	to: Lizard.query('to') || '',
+	gps_status: Lizard.query('gps_status') || '',
+	ralated_borrowing_status: Lizard.query('ralated_borrowing_status') || ''
+}
+
+
 
 var vueConfig = new Vue({
 
 	el:'#app',
 	data:{
-		params:{ vin:"",status:"", name:"", from:"", to:"", gps_status:'', ralated_borrowing_status:''},
+		params:queryParams,
 		dropMenu: -1,
 		borrowingStatus,
 		gpsStatus,
 		gpsInfo: {},
-		gpsList:[],
+		gpsList:{},
 		vehicle_ids: [],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
@@ -46,20 +60,40 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
-		$('.pagination_list').on('click','.js_page',(event) => {
+		var paginationList = document.querySelector('.pagination_list');
 
-			var data = this.params;
+		if (paginationList) {
 
-			pagination.showPage(event,'/api/vehicles', data, listTpl, {colorList});
+			paginationList.addEventListener("click",function(event) {
 
-		})
+				if(event.target && event.target.className == "js_page") {
 
-		$(document).click(() =>{
+					event.preventDefault();
+
+					var params = Lizard.query();
+
+					var href = event.target.getAttribute('href');
+
+					var page = href.split('?')[1];
+
+					page = parseInt(page.split('=')[1]);
+
+					params.page = page;
+
+					params = util.queryStringify(params);
+
+					location.href = `/vehicles?${params}`;
+
+				}
+			})
+
+		}
+
+		document.documentElement.addEventListener('click',() => {
 
 			this.dropMenu = -1;
 
 		})
-
 
 
 	},
@@ -74,8 +108,6 @@ var vueConfig = new Vue({
 				$(this).next('.vehicles_tips').addClass('active');
 
 			},200)
-
-
 
 		},function(){
 
@@ -122,7 +154,6 @@ var vueConfig = new Vue({
 				return '请选择';
 			}
 
-
 		}
 	},
 
@@ -132,9 +163,13 @@ var vueConfig = new Vue({
 
 		vehiclesList.forEach( (item) =>{
 
-			vehicle_ids.push(item.id);
+			if (item.gps_devices.length) {
+
+				vehicle_ids.push(item.id);
+			}
 
 		})
+
 
 		this.vehicle_ids = vehicle_ids;
 
@@ -144,17 +179,22 @@ var vueConfig = new Vue({
 	},
 	methods: {
 
-		deviceInfo (gps_device,vin) {
+		deviceInfo (id,gps_device) {
+
 
 			var imei_ids = [];
 
 			gps_device.forEach( (item) => {
 
-				imei_ids.push(item.imei);
+				if (item.status && item.status== 1) {
+
+					imei_ids.push(item.imei);
+
+				}
 
 			})
 
-			if (!gps_device.length) {
+			if (!imei_ids.length) {
 
 				Lizard.showToast('当前无GPS设备状态信息');
 
@@ -168,40 +208,38 @@ var vueConfig = new Vue({
 				url: '/api/gps/tracking',
 				data: {
 					imei_ids:imei_ids
-				},
-				traditional: true,
-				success: (data) =>{
-
-					var results = data.data;
-
-					var gpsInfo = {};
-
-					if (results && results.length) {
-
-						results.forEach((item) => {
-
-							gpsInfo[item.imei] = {
-
-								device_info: item.device_info,
-
-								device_info_new: item.device_info_new
-
-							}
-
-						})
-
-						this.gpsInfo = gpsInfo;
-
-						this.dropMenu = vin;
-
-					} else {
-
-						this.gpsInfo = {};
-
-						Lizard.showToast('当前无GPS设备状态信息');
-					}
-
 				}
+			}).then((data) => {
+
+				var results = data.data;
+
+				var gpsInfo = {};
+
+				if (results && results.length) {
+
+					results.forEach((item) => {
+
+						gpsInfo[item.imei] = {
+
+							device_info: item.device_info,
+
+							device_info_new: item.device_info_new
+
+						}
+
+					})
+
+					this.gpsInfo = gpsInfo;
+
+					this.dropMenu = id;
+
+				} else {
+
+					this.gpsInfo = {};
+
+					Lizard.showToast('当前无GPS设备状态信息');
+				}
+
 			})
 
 		},
@@ -211,29 +249,20 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type: 'POST',
 				url: '/api/vehicles/gps/tracking',
-				traditional: true,
 				data:{
 					vehicle_ids: formData
-				},
-				success: (data) => {
+				}
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						var gpsList = [];
 
-						for (var attr in data) {
+					this.gpsList = data;
 
-							gpsList.push(data[attr]);
-
-						}
-
-						this.gpsList = gpsList;
-
-						fn && fn();
-
-					}
+					fn && fn();
 
 				}
+
 			})
 
 		},
@@ -262,25 +291,24 @@ var vueConfig = new Vue({
 				traditional: true,
 				data:{
 					vehicle_ids: [vehiclesId]
-				},
-				success: (data) => {
+				}
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						var gpsList = [];
+					if (data[vehiclesId]) {
 
-						for (var attr in data) {
-
-							gpsList.push(data[attr]);
-
-						}
-
-						this.gpsList.splice(index,1,gpsList[0]);
+						this.gpsList.vehiclesId = data[vehiclesId];
 
 						Lizard.showToast('刷新GPS状态成功');
+
+					} else {
+
+						Lizard.showToast('刷新GPS状态失败');
 					}
 
 				}
+
 			})
 
 		},
@@ -324,17 +352,17 @@ var vueConfig = new Vue({
 
 		},
 
-		selectDropMenu (vin, gps_devices) {
+		selectDropMenu (id, gps_devices) {
 
 			var dropMenu  = this.dropMenu;
 
-			if (dropMenu == vin) {
+			if (dropMenu == id) {
 
 				this.dropMenu = -1;
 
 			} else {
 
-				this.deviceInfo(gps_devices,vin);
+				this.deviceInfo(id,gps_devices);
 
 			}
 
@@ -349,11 +377,15 @@ var vueConfig = new Vue({
 
 		fetch (data) {
 
-			var page = Lizard.query('page') || {};
+			var page = Lizard.query('page');
 
-			var formData = Object.assign({ page }, data );
+			page = page ? { page: page} : {};
 
-			pagination.pageList('/api/vehicles',formData,listTpl,{colorList})
+			var formData = Object.assign(page, data );
+
+			formData = util.queryStringify(formData);
+
+			location.href = `/vehicles?${formData}`;
 		},
 
 		query () {

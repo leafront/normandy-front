@@ -34,45 +34,43 @@ function showPage(){
 		var currentPage = parseInt(page.split('=')[1]);
 
 		Lizard.ajax({
-			type: 'POST',
-			url: '/message/list',
+			type: 'GET',
+			url: `/api/${userId}/msgs`,
 			data:{
-				userId:userId,
 				page:currentPage
-			},
-			success: function (data) {
-
-				var totalPage = data.total_page;
-
-				var pageSize = data.page_size;
-
-				var totalCount = data.total_count;
-
-				var iPage = common.getPage(currentPage,showPage);
-
-				var messageList = data.results;
-
-				var pagination = {
-					showPage:showPage,
-					totalPage:totalPage,
-					page:currentPage,
-					iPage:iPage,
-					pathName:location.pathname,
-					isFirstPage: (currentPage - 1 ) == 0,
-					isLastPage: currentPage * pageSize > totalCount
-				}
-
-				var html = ejs.render(paginationTpl,pagination);
-
-				$('.pagination_list').html(html);
-
-				var listHtml = ejs.render(listTpl,{messageList:messageList});
-
-				$('.message_list').html(listHtml);
-
-				setReadyStatus();
-
 			}
+		}).then((data) => {
+
+			var totalPage = data.total_page;
+
+			var pageSize = data.page_size;
+
+			var totalCount = data.total_count;
+
+			var iPage = common.getPage(currentPage,showPage);
+
+			var messageList = data.results;
+
+			var pagination = {
+				showPage:showPage,
+				totalPage:totalPage,
+				page:currentPage,
+				iPage:iPage,
+				pathName:location.pathname,
+				isFirstPage: (currentPage - 1 ) == 0,
+				isLastPage: currentPage * pageSize > totalCount
+			}
+
+			var html = ejs.render(paginationTpl,pagination);
+
+			$('.pagination_list').html(html);
+
+			var listHtml = ejs.render(listTpl,{messageList:messageList});
+
+			$('.message_list').html(listHtml);
+
+			setReadyStatus();
+
 		})
 
 	})
@@ -149,20 +147,17 @@ function readMessage(msg_ids,fn){
 	var userId = getUserId();
 
 	Lizard.ajax({
-		url:'/message/read',
+		url:`/api/${userId}/msgs`,
 		type:'POST',
 		data:{
-			userId:userId,
 			msg_ids:msg_ids
-		},
-		success:function(data) {
-
-			fn && fn();
-
-			setReadyStatus();
-
-
 		}
+	}).then((data) => {
+
+		fn && fn();
+
+		setReadyStatus();
+
 	})
 }
 

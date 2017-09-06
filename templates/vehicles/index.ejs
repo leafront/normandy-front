@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>借款人列表</title>
+    <link rel="stylesheet" href="/styles/vehicles/index.css"/>
+</head>
+<body>
+
+<% include ../common/header.ejs %>
+
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>车辆列表</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>车辆列表</span>
+            </div>
+            <div class="search">
+                <div class="search_wraper clearfix">
+                  <div class="list_item">
+                    <div class="search_item">
+                        <label>车架号</label>
+                        <input type="text" class="user-ui-input" v-model="params.vin" placeholder="请输入车架号"/>
+                    </div>
+                    <div class="search_item">
+                        <label>姓名</label>
+                        <input type="text" class="user-ui-input" v-model="params.name" placeholder="请输入姓名"/>
+                    </div>
+                    <div class="search_item">
+                      <label>注册时间</label>
+                      <div class="user-ui-calendar">
+                        <input type="text" class="user-ui-input" readonly="readonly" v-model="params.from" id="fromTime" placeholder="请输入开始时间"/>
+                          </div>
+                        <em>至</em>
+                      <div class="user-ui-calendar">
+                          <input type="text" class="user-ui-input" readonly="readonly" v-model="params.to" id="endTime" placeholder="请输入结束时间"/>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="list_item">
+                    <div class="search_item">
+                        <label>标的状态</label>
+                        <div class="drop_menu drop-menu-loan" :class="{'active':dropMenu == 3}">
+                            <span @click.stop="selectValue(3)" v-cloak>{{loanStatus}}</span>
+                            <ul class="drop_menu_list">
+                                <% for(var attr in borrowingStatus) {%>
+                                <li  @click="checkValue('ralated_borrowing_status',<%-attr%>)"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                                <%}%>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="search_item">
+                        <label>GPS状态</label>
+                        <div class="drop_menu drop-menu-loan" :class="{'active':dropMenu == 4}">
+                            <span @click.stop="selectValue(4)" v-cloak>{{gpsMenuStatus}}</span>
+                            <ul class="drop_menu_list">
+                                <%gpsStatus.forEach(function(item){%>
+                                <li @click="checkValue('gps_status',<%-item.value%>)"><a href="javascript:;"><%-item.name%></a></li>
+                                <%})%>
+                            </ul>
+                        </div>
+                      </div>
+                </div>
+                </div>
+                <div class="search_submit clearfix">
+                    <button type="button" @click="query">查询</button>
+                    <button type="reset" @click="reset">重置</button>
+                </div>
+            </div>
+            <div class="gps_btn">
+               <button @click="refreshGps">一键刷新GPS状态</button>
+            </div>
+            <div class="list_container">
+                <dl class="cont_list">
+                    <dt>
+                        <span class="vehicles_vin">车架号</span>
+                        <span class="vehicles_subject">车牌号</span>
+                        <span class="vehicles_name">借款人</span>
+                        <span class="vehicles_times">添加时间</span>
+                        <span class="vehicles_status">标的状态</span>
+                        <span class="vehicles_gps">GPS设备</span>
+                        <span class="vehicles_gpsStatus">GPS状态</span>
+                        <span>操作</span>
+
+                    </dt>
+                    <% if(vehiclesList && vehiclesList.length){%>
+                        <%vehiclesList.forEach(function(item,index){%>
+                        <dd>
+                            <a class="vehicles_vin list_action" href="/vehicles/<%-item.id%>"><%-item.vin%></a>
+                            <span class="vehicles_subject"><%-item.plate_number%></span>
+                            <span class="vehicles_name"><%-item.borrower.name%></span>
+                            <span class="vehicles_times"><%-item.created_at.toString().slice(0,-9)%></span>
+                            <span class="vehicles_status">
+                                <% if(borrowingStatus[item.borrowing_status]) {%>
+                                  <%-borrowingStatus[item.borrowing_status] && borrowingStatus[item.borrowing_status].title%>
+                                <%} else {%>
+                                  <%-'未上标'%>
+                                <%}%>
+
+                            </span>
+                            <div class="vehicles_gps">
+                              <div class="drop_menu drop-menu-gps" :class="{'active':dropMenu == '<%-item.id%>'}">
+                                <span @click.stop='selectDropMenu("<%-item.id%>",<%-JSON.stringify(item.gps_devices)%>)' v-cloak><%if(item.gps_devices.length){%>查看设备状态<%}else{%>当前无GPS设备状态信息<%}%></span>
+                                <ul class="drop_menu_list">
+                                    <% if (item.gps_devices && item.gps_devices.length > 0 ){ %>
+                                        <% item.gps_devices.forEach(function(child,cIndex){%>
+                                          <li>
+                                            <a href="javascript:;"><%-child.imei%></a>
+                                            <strong>（<%-deviceType[child.type] && deviceType[child.type].name%>）</strong>
+                                             <% if (child.status == 0){%>
+                                                <strong class="disabled">监控（报废）</strong>
+                                             <%} else{%>
+                                              <% if (child.imei) {%>
+                                               <template v-if= "gpsInfo[<%-child.imei%>]">
+                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info_new,<%-child.imei%>)" class="gps_info" v-if="gpsInfo[<%-child.imei%>].device_info == 0 && gpsInfo[<%-child.imei%>].device_info_new == 4">
+                                                    监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info_new].name}}）
+                                                 </strong>
+                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info,<%-child.imei%>)" class="disabled" :class="{'gps_info':[0,3,4].indexOf(gpsInfo[<%-child.imei%>].device_info) > -1}" v-else>
+                                                   监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info].name}})
+                                                 </strong>
+                                               </template>
+                                               <template v-else>
+                                                   <strong class="disabled">
+                                                      当前无设备信息
+                                                   </strong>
+                                               </template>
+                                             <%}%>
+                                            <%}%>
+                                          </li>
+
+                                        <%})%>
+                                    <%}%>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="vehicles_gpsStatus" v-if="gpsList['<%-item.id%>']">
+                                <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{deviceStatus[gpsList['<%-item.id%>'].status].name}}</span>
+                                <div class="vehicles_tips" v-if="gpsList['<%-item.id%>'].status == 1">
+                                    <p>{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].msg}}</p>
+                                    <p>解决方案：{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].solve}}</p>
+                                </div>
+                            </div>
+                            <div class="vehicles_gpsStatus" v-else>
+                                <span>GPS当前没有状态</span>
+                            </div>
+                            <span class="gps_action" @click="oneRefreshGps(<%-index%>,'<%-item.id%>')">刷新GPS状态</span>
+
+                        </dd>
+                        <%})%>
+                    <%}else{%>
+                     <% include ../common/list_empty.ejs %>
+                    <%}%>
+                </dl>
+            </div>
+            <% if(vehiclesList && vehiclesList.length){%>
+            <div class="pagination">
+                <ul class="pagination_list">
+                    <% include ../common/pagination.ejs %>
+                </ul>
+            </div>
+            <%}%>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<div class="ui-calendar" id="calendar"></div>
+<script type="text/javascript">
+    var vehiclesList = <%-JSON.stringify(vehiclesList)%>;
+</script>
+<script type="text/javascript" src="/dist/scripts/vehicles/index.js"></script>
+</body>
+</html>
+

@@ -1,25 +1,23 @@
 
-var $ = require('../lib/jquery');
-
 var popup = {
 
 	showContent (ele){ //显示弹层
 
-		$('.popup_mask').addClass('active');
+		document.querySelector('.popup_mask').classList.add('active');
 
-		$(ele).addClass('active');
+		document.querySelector(ele).classList.add('active');
 
-		$('body').addClass('overflow');
+		document.body.classList.add('overflow');
 
  },
 
 	hideContent (ele){ //隐藏弹层
 
-		$('.popup_mask').removeClass('active');
+		document.querySelector('.popup_mask').classList.remove('active');
 
-		$(ele).removeClass('active');
+		document.querySelector(ele).classList.remove('active');
 
-		$('body').removeClass('overflow');
+		document.body.classList.remove('overflow');
 
 	}
 }

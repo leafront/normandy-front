@@ -37,6 +37,7 @@ gulp.task('ejs',function() {
 	return gulp.src('./templates/**/*.ejs')
 		.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
 		.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
+		.pipe(replace(/\.png\b/g, '.png?v=' + dataString))
 		.pipe(gulp.dest('./views/'))
 
 })
@@ -46,6 +47,7 @@ gulp.task('sass', function () {
 		.pipe(sourcemaps.init())
 	  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(sourcemaps.write('/'))
+		.pipe(replace(/\.png\b/g, '.png?v=' + dataString))
 		.pipe(gulp.dest('./public/styles'))
 })
 

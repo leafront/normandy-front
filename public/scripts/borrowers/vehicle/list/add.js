@@ -1,5 +1,5 @@
 
-window.$ = require('../../../lib/jquery');
+var $ = require('../../../lib/jquery');
 
 var common = require('../../../common');
 
@@ -83,16 +83,16 @@ Page({
 
 		Lizard.ajax({
 			type:'POST',
-			url:'/borrowers/vehicles/conditions',
-			data:submitData,
-			success(data){
+			url:`/api/vehicles/${id}/conditions`,
+			data:submitData
+		}).then((data) => {
 
-				if (data) {
+			if (data) {
 
-					location.href = `/borrowers/vehicle/list/${vehicleId}?id=${detailId}`;
+				location.href = `/borrowers/vehicle/list/${vehicleId}?id=${detailId}`;
 
-				}
 			}
+
 		})
 
 	},

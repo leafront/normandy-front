@@ -124,8 +124,8 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		isFirstPage:(currentPage - 1 ) == 0,
-		isLastPage:currentPage * pageSize > totalCount
+		isFirstPage:(totalPage - 1 ) == 0,
+		isLastPage:totalPage * pageSize > totalCount
 	})
 
 })
@@ -333,9 +333,7 @@ router.get('/edit/:id', async (ctx,next) => {
 		business,
 		uploadImg,
 		loanType,
-		termUnit,
 		booleanOptions,
-		repaymentType,
 		mobileEncrypt,
 		idCardEncrypt
 	})

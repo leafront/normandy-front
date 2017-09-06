@@ -19,7 +19,7 @@ const {
 	} = data;
 
 const {
-
+	timeComputed,
 	getPage,
 	dateFormat
 
@@ -35,18 +35,17 @@ router.get('/', async (ctx,next) => {
 
 	const currentPage = parseInt(params.page) || 1;
 
+	params.page = currentPage;
+
 	const { results: vehiclesList,page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
 		url:'/api/vehicles',
-		data:{
-			page:currentPage
-		}
+		data:params
 	})
 
 
 	const showPage = 5;
 
 	const iPage = getPage(currentPage,showPage);
-
 
 	await ctx.render('vehicles',{
 		pathName: ctx.path,
@@ -62,8 +61,8 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		isFirstPage:(currentPage - 1 ) == 0,
-		isLastPage:currentPage * pageSize > totalCount
+		isFirstPage:(totalPage - 1 ) == 0,
+		isLastPage:totalPage * pageSize > totalCount
 	})
 
 })
@@ -100,11 +99,11 @@ router.get('/map/:id', async (ctx,next) => {
 
 	const deviceId = ctx.params.id;
 
-	const { data: monitor } = await common.getInterface(ctx,{
-		type: 'GET',
-		url: 'http://192.168.1.250/api/tracking',
+	const { data: monitor } = await baseModel.post(ctx,{
+		type: 'POST',
+		url: '/api/gps/tracking',
 		data: {
-			imeis: '693916032657362'
+			imei_ids: [deviceId]
 		}
 
 	})
@@ -124,7 +123,9 @@ router.get('/map/:id', async (ctx,next) => {
 	await ctx.render('vehicles/map/index',{
 		monitor,
 		location,
-		deviceId
+		deviceId,
+		dateFormat,
+		timeComputed
 	})
 
 })
@@ -132,16 +133,17 @@ router.get('/map/:id', async (ctx,next) => {
 
 router.get('/trace/:id', async (ctx,next) => {
 
-	const id = ctx.params.id;
+	const deviceId = ctx.params.id;
 
-	const { data: monitor } = await common.getInterface(ctx,{
-		type: 'GET',
-		url: 'http://192.168.1.250/api/tracking',
+	const { data: monitor } = await baseModel.post(ctx,{
+		type: 'POST',
+		url: '/api/gps/tracking',
 		data: {
-			imeis: '668613120071423'
+			imei_ids: [deviceId]
 		}
-
 	})
+
+	console.log(monitor)
 
 	const { result:location } =  await common.getInterface(ctx,{
 		type: 'GET',
@@ -167,31 +169,19 @@ router.get('/history/:id', async (ctx,next) => {
 
 	const deviceId = ctx.params.id;
 
-	const { data: location } =  await common.getInterface(ctx,{
-		type: 'GET',
-		url: 'http://192.168.1.250/api/history',
-		data: {
-			imei:"868120137374499",
-			begin_time:"2017-08-27 12:39:18",
-			end_time: "2017-08-29 12:39:18"
-		}
-
-	})
-
 	await ctx.render('vehicles/history/index',{
-		location,
 		deviceId
 	})
 
 })
 
 
-router.post('/list',async (ctx,next) => {
+router.post('/api/devinfo',async (ctx,next) => {
 
 	const body = ctx.request.body;
 
-	await baseModel.get(ctx,{
-		url:'/api/vehicles',
+	await common.getInterface(ctx,{
+		url:'http://192.168.1.250/api/devinfo',
 		data:body
 	}).then((body) => {
 

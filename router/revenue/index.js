@@ -4,13 +4,6 @@ var common = require('../../model/common');
 
 var data = require('../../model/data');
 
-const {
-
-	repaymentType,
-	termUnit
-
-} = data;
-
 router.get('/', async (ctx,next) => {
 
 	const { roleList, shop, authority } = await common.authority(ctx,{
@@ -20,11 +13,36 @@ router.get('/', async (ctx,next) => {
 		pathName: ctx.path,
 		authority,
 		shop,
-		roleList,
-		termUnit,
-		repaymentType
+		roleList
 	})
 
+})
+
+router.get('/report', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('revenue/report',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
+
+})
+
+router.get('/list', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('revenue/list',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
 
 })
 
