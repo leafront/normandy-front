@@ -101,17 +101,17 @@ Page({
 
 		if (!begin_time) {
 
-			//Lizard.showToast('请选择开始时间');
+			Lizard.showToast('请选择开始时间');
 
-			//return;
+			return;
 
 		}
 
 		if (!end_time) {
 
-			//Lizard.showToast('请选择结束时间');
+			Lizard.showToast('请选择结束时间');
 
-			//return;
+			return;
 
 		}
 
@@ -123,15 +123,15 @@ Page({
 
 		$.ajax({
 			type:'POST',
-			url:`/api/gps/history/868120125415197`,
+			url:`/api/gps/history/${deviceId}`,
 			async: false,
 			headers: {
 				"Authorization": 'Bearer ' + jwt,
 				"X-Org": org_id
 			},
 			data:{
-				begin_time: '2017-09-04 00:00:00',
-				end_time: '2017-09-04 17:00:00',
+				begin_time,
+				end_time,
 				limit: 1000
 			},
 			success: (data) => {

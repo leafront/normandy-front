@@ -169,8 +169,19 @@ router.get('/history/:id', async (ctx,next) => {
 
 	const deviceId = ctx.params.id;
 
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const time = params.time;
+
+	const endTime = time;
+
+	const startTime = (time - 3600);
+
 	await ctx.render('vehicles/history/index',{
-		deviceId
+		deviceId,
+		startTime,
+		endTime,
+		dateFormat
 	})
 
 })

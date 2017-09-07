@@ -70,6 +70,8 @@ module.exports = {
 
 		'revenue/list':'./public/scripts/revenue/list',
 
+		'revenue/detail':'./public/scripts/revenue/detail',
+
 		'account/index':'./public/scripts/account/index'
 
   },

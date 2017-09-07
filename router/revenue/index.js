@@ -41,6 +41,7 @@ router.get('/report', async (ctx,next) => {
 
 })
 
+
 router.get('/list', async (ctx,next) => {
 
 	const { roleList, shop, authority } = await common.authority(ctx,{
@@ -54,7 +55,6 @@ router.get('/list', async (ctx,next) => {
 		}
 	})
 
-	console.log(list)
 	await ctx.render('revenue/list',{
 		pathName: ctx.path,
 		authority,
@@ -64,6 +64,64 @@ router.get('/list', async (ctx,next) => {
 		shopId:shop.id,
 		termUnit,
 		repaymentType
+	})
+
+})
+
+router.get('/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	const id = ctx.params.id;
+
+	const {display_view: list } = await baseModel.get(ctx,{
+		url:'/api/calculator/cal_and_get_view',
+		data:{
+			id:id
+		}
+	})
+
+	let listTit = [];
+
+	let results = [];
+
+	for (let attr in list[0]){
+
+		listTit.push(attr);
+
+	}
+
+
+	for (let i = 0,len = list.length -1; i <len; i++) {
+
+		var value = [];
+
+		for (let attr in list[i]){
+
+			value.push(list[i][attr]);
+
+		}
+
+		results[i] = value;
+
+	}
+
+
+	const totalPay = list[list.length - 1]['总收入'];
+
+	const totalIncome = list[list.length - 1]['总支出'];
+
+	await ctx.render('revenue/detail',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		listTit,
+		results,
+		totalPay,
+		totalIncome
 	})
 
 })

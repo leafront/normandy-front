@@ -22,11 +22,11 @@
     <div class="date_list">
         <label>从：</label>
         <div class="user-ui-calendar">
-            <input class="user-ui-input" readonly="readonly" placeholder="请输入开始时间" id="start"/>
+            <input class="user-ui-input" readonly="readonly" placeholder="请输入开始时间" value="<%-dateFormat(startTime * 1000,'yyyy-MM-dd HH:mm:ss')%>"  id="start"/>
         </div>
         <div class="user-ui-calendar">
             <em>至</em>
-            <input class="user-ui-input" readonly="readonly" placeholder="请输入结束时间" id="end"/>
+            <input class="user-ui-input" readonly="readonly" placeholder="请输入结束时间" value="<%-dateFormat(endTime * 1000,'yyyy-MM-dd HH:mm:ss')%>" id="end"/>
         </div>
         <button class="history_btn" id="play">开始回放</button>
         <button class="history_btn" id="stop" disabled>停止回放</button>

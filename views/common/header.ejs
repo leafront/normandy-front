@@ -4,10 +4,36 @@
       document.documentElement.style.fontSize = document.documentElement.clientWidth / 19.2 + 'px';
     }();
 </script>
+<script type="text/javascript">
+    !function () {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+        var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+
+        if (isIE) {
+
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+
+            reIE.test(userAgent);
+
+            var fIEVersion = parseFloat(RegExp["$1"]);
+
+            if (fIEVersion < 11) {
+
+                alert("您的浏览器版本过低，为了保证您能正常使用该网站,请您使用IE11及以上版本浏览器，或谷歌、火狐等浏览器，若您正在使用的是360、搜狗等国产浏览器，请切换至极速模式浏览！");
+
+                document.body.style.display = 'none';
+
+                return;
+
+            }
+        }
+    }();
+</script>
 
 <div class="header">
   <div class="header-logo fl">
-    <img src="/images/header_logo.png?v=20170907124648" class="header_logo_img active fl"/>
+    <img src="/images/header_logo.png?v=20170907130643" class="header_logo_img active fl"/>
     <span class="js_narrow"></span>
   </div>
   <div class="header-top fr">
@@ -15,7 +41,7 @@
      <% if(shop.name){%><i class="location_ico"></i><span><%-shop.name%></span><%}%>
     </div>
     <div class="header_user js_user fr">
-      <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png?v=20170907124648" class="fl"/>
+      <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png?v=20170907130643" class="fl"/>
       <div class="header_user_txt fl">
         <span class="authority_name"><%-authority.name%></span>
         <i class="user_arrowDown"></i>
@@ -39,7 +65,7 @@
            <div class="notice_title"><span>您有<b><strong class="js_msgNume">i</strong>条消息</b></span><a class="notice_link" href="/message/<%-authority.id%>">查看所有</a></div>
             <dl class="notice_list">
                 <dd>
-                    <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png?v=20170907124648" class="notice_img fl"/>
+                    <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png?v=20170907130643" class="notice_img fl"/>
                     <div class="notice_cont fr">
                     </div>
                 </dd>

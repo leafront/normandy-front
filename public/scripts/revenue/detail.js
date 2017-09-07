@@ -10,10 +10,7 @@ var vueConfig = new Vue ({
 
 	el:'#app',
 	data:{
-		list:[],
-		listTit: [],
-		totalPay: '',
-		totalIncome:''
+		list:[]
 	},
 
 	created () {
@@ -39,45 +36,7 @@ var vueConfig = new Vue ({
 
 				if (data) {
 
-					var list = data.display_view;
-
-					let listTit = [];
-
-					let results = [];
-
-					for (let attr in list[0]){
-
-						listTit.push(attr);
-
-					}
-
-
-					for (let i = 0,len = list.length -1; i <len; i++) {
-
-						var value = [];
-
-						for (let attr in list[i]){
-
-							value.push(list[i][attr]);
-
-						}
-
-						results[i] = value;
-
-					}
-
-
-					const totalPay = list[list.length - 1]['总收入'];
-
-					const totalIncome = list[list.length - 1]['总支出'];
-
-					this.list = results;
-
-					this.listTit = listTit;
-
-					this.totalPay = totalPay;
-
-					this.totalIncome = totalIncome;
+					this.list = data.display_view;
 
 				}
 
@@ -114,7 +73,7 @@ var vueConfig = new Vue ({
 		}
 	},
 
-	updated () {
+	mounted () {
 
 
 		var revenueList = document.querySelectorAll('.revenue_list span');

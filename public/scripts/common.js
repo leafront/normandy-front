@@ -104,17 +104,17 @@ var common = {
 
 		Lizard.ajax({
 			type:'POST',
-			url:'/user/message',
-			success:function(data){
+			url:'/user/message'
+		}).then((data) => {
 
-				var msgList = data.content;
+			var msgList = data.content;
 
-				if(data && msgList.length){
+			if(data && msgList.length){
 
-					var getDateDiff = Lizard.getDateDiff;
+				var getDateDiff = Lizard.getDateDiff;
 
-					var html = msgList.map((item) => {
-						return `
+				var html = msgList.map((item) => {
+					return `
 								<dd>
 										<img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="notice_img fl"/>
 										<div class="notice_cont fr">
@@ -125,28 +125,28 @@ var common = {
 										<p>${item.content}</p>
 									</div>
 									</dd>`
-					}).join('');
+				}).join('');
 
-					document.querySelector('.notice_list').innerHTML = html;
+				document.querySelector('.notice_list').innerHTML = html;
 
-					var msgName = document.querySelectorAll('.js_msgNume');
+				var msgName = document.querySelectorAll('.js_msgNume');
 
-					msgName[0].style.display = 'block';
+				msgName[0].style.display = 'block';
 
-					Array.prototype.slice.apply(msgName).forEach((item) => {
+				Array.prototype.slice.apply(msgName).forEach((item) => {
 
-						item.innerHTML = msgList.length;
+					item.innerHTML = msgList.length;
 
-					})
+				})
 
 
-				} else {
+			} else {
 
-					msgName[1].innerHTML = 0;
+				msgName[1].innerHTML = 0;
 
-					document.querySelector('.notice_list').innerHTML = '<dd><p>当前无信息</p></dd>';
-				}
+				document.querySelector('.notice_list').innerHTML = '<dd><p>当前无信息</p></dd>';
 			}
+
 		})
 
 	},

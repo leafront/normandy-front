@@ -2,9 +2,6 @@
 
 @import '../../modules/common.scss';
 
-@import '../../modules/form_list.scss';
-
-@import '../../modules/popup.scss';
 
 .map_location{
 
@@ -86,13 +83,6 @@
 	}
 }
 
-.popup_wraper{
-
-	width:900rem/$rem;
-
-	margin-left:-900rem/2/$rem;
-}
-
 .popup_submit{
 
 	display:flex;
@@ -104,40 +94,6 @@
 	button{
 		margin-right:0;
 	}
-}
-.form-group{
-
-
-	.form-group-rows {
-
-		&:last-child{
-
-			float:right;
-
-		}
-	}
-
-}
-
-.popup_wraper{
-
-	&.active{
-
-		transform:translateY(260rem/$rem);
-
-		-webkit-transform:translateY(260rem/$rem);
-	}
-}
-.form-group-rows:first-child{
-	width:430rem/$rem;
-
-}
-.form-group .form-group-rows label{
-	width:100px;
-}
-.device_popup{
-	padding-top:35rem/$rem;
-	padding-right:45rem/$rem;
 }
 
 .help_info {

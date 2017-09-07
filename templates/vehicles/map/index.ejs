@@ -118,8 +118,7 @@
             </div>\
             <div class="map_link">\
               <a target="_blank" href="/vehicles/trace/<%-deviceId%>">跟踪</a>\
-              <a target="_blank" href="/vehicles/history/<%-deviceId%>">回放</a>\
-              <a target="_blank" class="device_btn" onclick="showDeviceInfo(\'#popup\')">设备信息</a>\
+              <a target="_blank" href="/vehicles/history/<%-deviceId%>?time=<%-monitor[0].gps_time%>">回放</a>\
             </div>\
           </div>';
 
@@ -137,7 +136,6 @@
 
 </script>
 <script type="text/javascript" src="/scripts/lib/jquery.js"></script>
-<script type="text/javascript" src="/scripts/lib/ejs.js"></script>
 <script type="text/javascript">
 
     var hoverTimer, outTimer;

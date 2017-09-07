@@ -56,41 +56,42 @@ if (process.env.NODE_ENV == 'production') {
 
 
 
-app.use(async (ctx, next) => {
+//app.use(async (ctx, next) => {
+//
+//	try {
+//
+//		await next();
+//
+//		if (ctx.status == 404) {
+//
+//			ctx.redirect('/error/404?path='+ctx.path);
+//
+//		}
+//
+//	} catch (err) {
+//
+//		console.log(err)
+//
+//
+//		if (err.statusCode == 401) {
+//
+//			ctx.redirect('/user/login?returnurl=' + ctx.path);
+//
+//		} else if (err.statusCode == 403 || err.statusCode == 404) {
+//
+//			ctx.redirect('/error/404?path='+ctx.path);
+//
+//		} else if (err.statusCode == 500) {
+//
+//			ctx.redirect('/error/500?path='+ctx.path);
+//
+//		} else {
+//
+//			ctx.redirect('/error/500?path='+ctx.path);
+//		}
+//	}
+//})
 
-	try {
-
-		await next();
-
-		if (ctx.status == 404) {
-
-			ctx.redirect('/error/404?path='+ctx.path);
-
-		}
-
-	} catch (err) {
-
-		console.log(err)
-
-
-		if (err.statusCode == 401) {
-
-			ctx.redirect('/user/login?returnurl=' + ctx.path);
-
-		} else if (err.statusCode == 403 || err.statusCode == 404) {
-
-			ctx.redirect('/error/404?path='+ctx.path);
-
-		} else if (err.statusCode == 500) {
-
-			ctx.redirect('/error/500?path='+ctx.path);
-
-		} else {
-
-			ctx.redirect('/error/500?path='+ctx.path);
-		}
-	}
-})
 router.use('/',index.routes());
 
 router.use('/error',error.routes());
