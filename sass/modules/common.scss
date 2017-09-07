@@ -25,6 +25,7 @@ $rem:100;
 
 body{
 	background: #081c27;
+	min-width:1270px;
 }
 
 .overflow{
@@ -78,11 +79,6 @@ body{
 	background:#ed6b75;
 }
 
-
-.time-ui-input{
-	@extend .user-ui-input;
-	width:156rem/$rem;
-}
 .user-ui-calendar{
 	position:relative;
 	display:inline-block;
@@ -99,7 +95,8 @@ body{
 }
 .search_item{
 	em{
-		padding:0 12px;
+		padding-left:15rem/$rem;
+
 	}
 }
 

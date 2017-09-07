@@ -37,8 +37,6 @@ router.get('/', async (ctx,next) => {
 
 	const iPage = getPage(currentPage,showPage);
 
-	console.log(totalPage,pageSize,totalCount)
-
 	await ctx.render('personnel',{
 		pathName: ctx.path,
 		authority,

@@ -23,13 +23,14 @@
 		width:260rem/$rem;
 	}
 	.vehicles_times{
-		width:160rem/$rem;
+		width:190rem/$rem;
 	}
 	.vehicles_status{
 		width:114rem/$rem;
 	}
 	.vehicles_vin{
-		width:240rem/$rem;
+		width:260rem/$rem;
+		@include ellipsis;
 		float:left;
 	}
 	.vehicles_subject{

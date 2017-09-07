@@ -216,7 +216,6 @@ router.get('/:id', async (ctx,next) => {
 		url:`/api/borrowers/${detailId}`
 	})
 
-	console.log(borrowersList)
 
 	await ctx.render('borrowers/detail',{
 		pathName: ctx.path,

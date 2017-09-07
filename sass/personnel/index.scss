@@ -13,11 +13,12 @@
 
 .cont_list{
 	.personnel_name{
-		width:90rem/$rem;
+		width:140rem/$rem;
 		height:58px;
+		@include ellipsis;
 	}
 	.personnel_phone{
-		width:140rem/$rem;
+		width:180rem/$rem;
 	}
 	.personnel_auth{
 		width:125rem/$rem;
@@ -60,7 +61,7 @@
 	}
 
 	.list_status{
-		width:625rem/$rem;
+		width:500rem/$rem;
 		@include borderRadius(5);
 		.list_btn{
 			margin-right:0;

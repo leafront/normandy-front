@@ -33,39 +33,19 @@
                         <span class="revenue_times">标的生成时间</span>
                         <span>操作</span>
                     </dt>
+                 <% list.forEach(function(item){%>
                     <dd>
-                        <span class="revenue_money">¥20000.00</span>
-                        <span class="revenue_term">3个月</span>
-                        <span class="revenue_rate">0.04</span>
-                        <span class="revenue_way">先息后本</span>
-                        <span class="revenue_loan_rate">0.02</span>
-                        <span class="revenue_loan_way">先息后本</span>
-                        <span class="revenue_times">2017-8-29</span>
+                        <span class="revenue_money">¥<%-item.amount%></span>
+                        <span class="revenue_term"><%-item.term + termUnit[item.term_unit].name%></span>
+                        <span class="revenue_rate"><%-item.borrow_rate%></span>
+                        <span class="revenue_way"><%-repaymentType[item.repay_type].name%></span>
+                        <span class="revenue_loan_rate"><%-item.lend_rate%></span>
+                        <span class="revenue_loan_way"><%-repaymentType[item.out_type].name%></span>
+                        <span class="revenue_times"><%-item.created_at%></span>
                         <a href="javascript:;" class="list_action">查看详情</a>
-                        <a href="javascript:;" class="list_action"> / 下载</a>
+                        <a href="javascript:;" @click="download" class="list_action"> / 下载</a>
                     </dd>
-                    <dd>
-                        <span class="revenue_money">¥20000.00</span>
-                        <span class="revenue_term">3个月</span>
-                        <span class="revenue_rate">0.04</span>
-                        <span class="revenue_way">先息后本</span>
-                        <span class="revenue_loan_rate">0.02</span>
-                        <span class="revenue_loan_way">先息后本</span>
-                        <span class="revenue_times">2017-8-29</span>
-                        <a href="javascript:;" class="list_action">查看详情</a>
-                        <a href="javascript:;" class="list_action"> / 下载</a>
-                    </dd>
-                    <dd>
-                        <span class="revenue_money">¥20000.00</span>
-                        <span class="revenue_term">3个月</span>
-                        <span class="revenue_rate">0.04</span>
-                        <span class="revenue_way">先息后本</span>
-                        <span class="revenue_loan_rate">0.02</span>
-                        <span class="revenue_loan_way">先息后本</span>
-                        <span class="revenue_times">2017-8-29</span>
-                        <a href="javascript:;" class="list_action">查看详情</a>
-                        <a href="javascript:;" class="list_action"> / 下载</a>
-                    </dd>
+                 <%})%>
                 </dl>
             </div>
         </div>
