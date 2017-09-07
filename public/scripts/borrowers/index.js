@@ -59,7 +59,7 @@ var vueConfig = new Vue({
 
 		fetch (data) {
 
-			var page = Lizard.query('page') || {};
+			var page = Lizard.query('page') || 1;
 
 			var formData = Object.assign({ page }, data );
 
