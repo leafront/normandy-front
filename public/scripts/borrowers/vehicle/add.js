@@ -19,13 +19,14 @@ const {
 
 } = dataModel;
 
+var carTypeObject = common.changeObject(carType);
 
 var vueConfig = new Vue({
 
 	el:'#app',
 	data:{
 		dropMenu: -1,
-		carType,
+		carTypeObject,
 		colorList,
 		formData: {
 			type:'', car_name:'', plate_number:'',
@@ -42,7 +43,7 @@ var vueConfig = new Vue({
 
 			if (type !== "") {
 
-				var value = this.carType[type].name;
+				var value = this.carTypeObject[type];
 
 				return value;
 

@@ -222,6 +222,20 @@ var common = {
 		return object;
 	},
 
+	changeObject (arr) {
+
+		var object = {};
+
+		arr.forEach((item) =>{
+
+			object[item.value] = item.name;
+
+		})
+
+		return object;
+
+	},
+
 	deleteEmptyArray (object,arr,property) {
 
 		arr.forEach((item) => {

@@ -151,7 +151,7 @@
 				display:inline-block;
 				width:60px;
 
-				text-align:right;
+
 
 				margin-right:10px;
 			}
@@ -161,6 +161,20 @@
 				a{
 					color:#666;
 				}
+			}
+		}
+	}
+}
+
+.drop_menu_color{
+
+	.drop_menu_list{
+
+		li {
+
+			a{
+
+				text-align:right;
 			}
 		}
 	}
