@@ -19,7 +19,7 @@ const {
 
 } = dataModel;
 
-var carTypeObject = common.changeObject(carType,'name','value');
+var carTypeObject = common.changeObject(carType,'value','name');
 
 var vueConfig = new Vue({
 
@@ -40,6 +40,8 @@ var vueConfig = new Vue({
 		carTypeStatus () {
 
 			var type = this.formData.type;
+
+			console.log(this.carTypeObject)
 
 			if (type !== "") {
 
