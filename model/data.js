@@ -343,15 +343,15 @@ var carType = [{
 },{
 	name:'拖拉机', value:14
 },{
-	name:'挂车', value:15,index:0
+	name:'挂车', value:15
 },{
-	name:'教练汽车',value:16,index:0
+	name:'教练汽车',value:16
 },{
-	name:'教练摩托车',value:17,index:0
+	name:'教练摩托车',value:17
 },{
-	name: '香港入境车', value: 26,index:0
+	name: '香港入境车', value: 26
 },{
-	name: '澳门入境车', value: 27,index:0
+	name: '澳门入境车', value: 27
 }];
 
 var surfaceStatus =[{

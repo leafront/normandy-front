@@ -19,7 +19,7 @@ const {
 
 } = dataModel;
 
-var carTypeObject = common.changeObject(carType,'name','value');
+var carTypeObject = common.changeObject(carType,'value','name');
 
 var vueConfig = new Vue({
 
