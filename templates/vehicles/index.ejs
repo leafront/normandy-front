@@ -53,7 +53,7 @@
                             <span @click.stop="selectValue(3)" v-cloak>{{loanStatus}}</span>
                             <ul class="drop_menu_list">
                                 <% for(var attr in borrowingStatus) {%>
-                                <li  @click="checkValue('ralated_borrowing_status',<%-attr%>)"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                                <li  @click="checkValue('ralated_borrowing_status','<%-attr%>')"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
                                 <%}%>
                             </ul>
                         </div>

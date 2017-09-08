@@ -16,11 +16,11 @@ var centerPoint;
 
 var timer;     //定时器
 
+var historyList = [];
+
 var index = 0; //记录播放到第几个point
 
 var points = [];
-
-var historyList = [];
 
 var starTime = '';
 
@@ -220,6 +220,7 @@ Page({
 
 			starTime = historyItem.gps_time;
 
+
 			endTime = historyList[index + 1].gps_time + diffTime;
 
 			var runTime = timeDifference(starTime*1000,endTime*1000);
@@ -310,12 +311,24 @@ Page({
 			$('#stop').prop('disabled',true);
 
 			if(timer) {
+
 				window.clearTimeout(timer);
 			}
+			points = [];
 
 		})
 
 		$('#reset').click(function(){
+
+				starTime = '';
+
+				endTime = '';
+
+				diffTime = '';
+
+				distance = 0;
+
+				index = 0;
 
 				$('#play').prop('disabled',false);
 
@@ -324,12 +337,13 @@ Page({
 			  $('#reset').prop('disabled',true);
 
 				if(timer) {
+
 					window.clearTimeout(timer);
 				}
 
-				index = 0;
-
 				car.setPosition(points[0]);
+
+			  points = [];
 
 
 		})

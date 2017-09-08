@@ -384,7 +384,16 @@ var vueConfig = new Vue({
 
 			formData = util.queryStringify(formData);
 
-			location.href = `/vehicles?${formData}`;
+			if (formData == "") {
+
+				location.href = `/vehicles`;
+
+			} else {
+
+				location.href = `/vehicles?${formData}`;
+
+			}
+
 		},
 
 		query () {

@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Track</title>
-    <link rel="stylesheet" href="/styles/vehicles/map/index.css?v=20170908141750"/>
+    <link rel="stylesheet" href="/styles/vehicles/map/index.css?v=20170908150447"/>
     <script type="text/javascript">
         !function(){
             document.documentElement.style.fontSize = document.documentElement.clientWidth / 19.2 + 'px';
@@ -76,13 +76,12 @@
         map.addControl(new BMap.OverviewMapControl({isOpen: true}));
 
         //显示小车子
-        var car = new BMap.Marker(centerPoint, {icon: new BMap.Icon("/images/car.png?v=20170908141750", new BMap.Size(67, 50), {imageOffset: new BMap.Size(0, 0)})});
+        var car = new BMap.Marker(centerPoint, {icon: new BMap.Icon("/images/car.png?v=20170908150447", new BMap.Size(67, 50), {imageOffset: new BMap.Size(0, 0)})});
         map.addOverlay(car);
 
         var sContent = '\
           <% var device_info = monitor[0].device_info;var device_info_new= monitor[0].device_info_new; %>\
           <div class="map_popup">\
-            <h4>***** </h4>\
             <% if((device_info == 0 && device_info_new == 4) || device_info == 3 || device_info == 4 ){%>\
             <div class="map_item">\
               <label>状态：</label>\
@@ -135,7 +134,7 @@
     init();
 
 </script>
-<script type="text/javascript" src="/scripts/lib/jquery.js?v=20170908141750"></script>
+<script type="text/javascript" src="/scripts/lib/jquery.js?v=20170908150447"></script>
 <script type="text/javascript">
 
     var hoverTimer, outTimer;
@@ -150,7 +149,7 @@
 
         hoverTimer = setTimeout(function(){
 
-            $('.help_info').css?v=20170908141750({'left':pos_left,'top':pos_top}).addClass('active');
+            $('.help_info').css?v=20170908150447({'left':pos_left,'top':pos_top}).addClass('active');
 
         },200)
 
@@ -182,7 +181,7 @@
     }();
 </script>
 
-<script type="text/javascript" src="/scripts/vehicles/map/index.js?v=20170908141750"></script>
+<script type="text/javascript" src="/scripts/vehicles/map/index.js?v=20170908150447"></script>
 </body>
 </html>
 

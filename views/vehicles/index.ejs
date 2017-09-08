@@ -5,7 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>借款人列表</title>
-    <link rel="stylesheet" href="/styles/vehicles/index.css?v=20170908141750"/>
+    <link rel="stylesheet" href="/styles/vehicles/index.css?v=20170908150447"/>
 </head>
 <body>
 
@@ -53,7 +53,7 @@
                             <span @click.stop="selectValue(3)" v-cloak>{{loanStatus}}</span>
                             <ul class="drop_menu_list">
                                 <% for(var attr in borrowingStatus) {%>
-                                <li  @click="checkValue('ralated_borrowing_status',<%-attr%>)"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                                <li  @click="checkValue('ralated_borrowing_status','<%-attr%>')"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
                                 <%}%>
                             </ul>
                         </div>
@@ -174,7 +174,7 @@
 <script type="text/javascript">
     var vehiclesList = <%-JSON.stringify(vehiclesList)%>;
 </script>
-<script type="text/javascript" src="/dist/scripts/vehicles/index.js?v=20170908141750"></script>
+<script type="text/javascript" src="/dist/scripts/vehicles/index.js?v=20170908150447"></script>
 </body>
 </html>
 
