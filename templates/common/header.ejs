@@ -5,30 +5,7 @@
     }();
 </script>
 <script type="text/javascript">
-    !function () {
-        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-        var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
-        var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
 
-        if (isIE) {
-
-            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-
-            reIE.test(userAgent);
-
-            var fIEVersion = parseFloat(RegExp["$1"]);
-
-            if (fIEVersion < 11) {
-
-                alert("您的浏览器版本过低，为了保证您能正常使用该网站,请您使用IE11及以上版本浏览器，或谷歌、火狐等浏览器，若您正在使用的是360、搜狗等国产浏览器，请切换至极速模式浏览！");
-
-                document.body.style.display = 'none';
-
-                return;
-
-            }
-        }
-    }();
 </script>
 
 <div class="header">

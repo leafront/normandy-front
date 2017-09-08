@@ -5,7 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>业务--借款编辑</title>
-    <link rel="stylesheet" href="/styles/business/edit/index.css?v=20170907130643"/>
+    <link rel="stylesheet" href="/styles/business/edit/index.css?v=201709080105623"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -86,7 +86,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.salesman_id === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.salesman === '')}">
                                 <label>业务员 </label>
                                 <div class="drop_menu drop_menu_edit" :class="{'active':dropMenu == 2 }">
                                     <span @click.stop="selectMenu(2)">{{ salesmanName }}</span>
@@ -303,7 +303,7 @@
 
     }
 </script>
-<script type="text/javascript" src="/dist/scripts/business/edit/index.js?v=20170907130643"></script>
+<script type="text/javascript" src="/dist/scripts/business/edit/index.js?v=201709080105623"></script>
 </body>
 </html>
 

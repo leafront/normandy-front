@@ -1,6 +1,3 @@
-
-var $ = require('./lib/jquery');
-
 var Lizard = require('./widget/lizard');
 
 var common = {
@@ -169,27 +166,6 @@ var common = {
 	},
 	dropMenu: function  () {
 
-		$('.js_select').click(function(e){
-
-			e.stopPropagation();
-
-
-			$(this).toggleClass('active');
-
-			$(this).parent('.drop_menu').toggleClass('active');
-
-		})
-
-		$('.drop_menu_list').on('click','li',function(e){
-
-			e.stopPropagation();
-
-			var value = $(this).data('value');
-
-			$(this).parent().prev('.js_select').text($(this).text()).data('value',value).addClass('active').parents('.drop_menu').removeClass('active');
-
-		})
-
 		document.documentElement.addEventListener('click',() => {
 
 			this.dropMenu =  -1;
@@ -222,13 +198,13 @@ var common = {
 		return object;
 	},
 
-	changeObject (arr) {
+	changeObject (arr,key,value) {
 
 		var object = {};
 
 		arr.forEach((item) =>{
 
-			object[item.value] = item.name;
+			object[item[key]] = item[value];
 
 		})
 
@@ -270,7 +246,5 @@ var common = {
 	}
 }
 
-
-window.common = common;
 
 module.exports = common;

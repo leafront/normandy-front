@@ -167,17 +167,6 @@ Page({
 		map.addControl(new BMap.ScaleControl());
 		map.addControl(new BMap.OverviewMapControl({isOpen: true}));
 
-		//通过DrivingRoute获取一条路线的point
-		//var driving = new BMap.DrivingRoute(map);
-		//driving.search(points[0], points[points.length - 1]);
-		//driving.setSearchCompleteCallback(function () {
-			//得到路线上的所有point
-
-			//points = driving.getResults().getPlan(0).getRoute(0).getPath();
-
-
-
-		//})
 
 
 		$('#play').prop('disabled',false);
@@ -341,7 +330,7 @@ Page({
 				index = 0;
 
 				car.setPosition(points[0]);
-				//map.panTo(centerPoint);
+
 
 		})
 

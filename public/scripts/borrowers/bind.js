@@ -67,11 +67,11 @@ var vueConfig = new Vue({
 			}).then((results) => {
 
 
-				Lizard.showToast('添加成功');
+				Lizard.showToast('绑定成功, 跳转至用户列表...');
 
 				setTimeout(() =>{
 
-					//location.href = '/borrowers';
+					location.href = '/borrowers';
 
 				},500)
 			})

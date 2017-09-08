@@ -75,11 +75,11 @@ var vueConfig = new Vue ({
 				data: data
 			}).then((data) => {
 
-				Lizard.showToast('添加成功');
+				Lizard.showToast('新增成功, 跳转至实名认证页面...');
 
 				setTimeout(() =>{
 
-					location.href = '/borrowers';
+					location.href = `/borrowers/real/name?mobile=${data.mobile}`;
 
 				},500)
 			})

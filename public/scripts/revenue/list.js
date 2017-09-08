@@ -17,24 +17,14 @@ var vueConfig = new Vue({
 			var org_id = Lizard.getCookie('org_id');
 
 
-			$.ajax({
-				type: 'GET',
+			Lizard.ajax({
+				type: 'POST',
 				url:'/api/calculator/down',
-				contentType:'application/json',
-				beforeSend: function(xhr) {
-					xhr.setRequestHeader("Authorization", 'Bearer ' + jwt);
-					xhr.setRequestHeader('X-Org',org_id)
-				},
-				data: {
-					id:id,
-					shop_id:shopId
+				data: {id:id}
+			}).then((data) =>{
 
-				},
-				success (data) {
+				console.log(data);
 
-					console.log(data)
-
-				}
 			})
 
 		}

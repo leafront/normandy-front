@@ -11,13 +11,43 @@ var Calendar = require('../../../widget/calendar');
 
 var Page = require('../../../widget/page');
 
+function dropMenu () {
+
+	$('.js_select').click(function(e){
+
+		e.stopPropagation();
+
+
+		$(this).toggleClass('active');
+
+		$(this).parent('.drop_menu').toggleClass('active');
+
+	})
+
+	$('.drop_menu_list').on('click','li',function(e){
+
+		e.stopPropagation();
+
+		var value = $(this).data('value');
+
+		$(this).parent().prev('.js_select').text($(this).text()).data('value',value).addClass('active').parents('.drop_menu').removeClass('active');
+
+	})
+
+	$(document).click(function(){
+
+		$('.drop_menu').removeClass('active');
+
+	})
+}
+
 Page({
 
 	onShow(){
 
 		common.headerMenu();
 
-		common.dropMenu();
+		dropMenu();
 
 		this.widgetCalendar();
 	},

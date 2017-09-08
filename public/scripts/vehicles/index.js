@@ -7,8 +7,6 @@ var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
-var listTpl =  require('./templates/list');
-
 var paginationTpl = require('../templates/pagination');
 
 var pagination = require('../widget/pagination');

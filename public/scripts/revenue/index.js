@@ -457,6 +457,7 @@ var popupConfig = new Vue({
 
 			var revenue = vueConfig.revenue;
 
+
 			if (revenue.term_unit == 0 && revenue.term) {
 
 				return 1;

@@ -10,9 +10,19 @@ var Calendar = require('../widget/calendar');
 
 var Lizard = require('../widget/lizard');
 
-common.headerMenu();
+function changeObject (arr) {
 
+	var object = {};
 
+	arr.forEach((item) =>{
+
+		object[item['id']] = item['brand'] + item['series'] + item['model'];
+
+	})
+
+	return object;
+
+}
 const {
 
 	maritalStatusList,
@@ -21,16 +31,21 @@ const {
 	salaryType,
 	nation,
 	purposeType,
+	education,
 	borrowingSeriesType,
 	termUnit
 
-} = modelData;
+	} = modelData;
+
+var nationObject = common.changeObject(nation,'value','title');
+
 
 var vueConfig = new Vue({
 
 	el:'#app',
 
 	data:{
+		education,
 
 		formData:{
 			borrower:'',
@@ -81,14 +96,19 @@ var vueConfig = new Vue({
 			term_unit:''
 
 		},
+		purposeType,
 
-		dropMenu:{
+		dropMenuList:{
 
 			"houseProperties":[{isOpen:false,value:'请选择'}],
 
 			"cars":[{isOpen:false,value:'请选择'}]
 
 		},
+		dropMenu: -1,
+		borrowersObject:{},
+		vehicleObject:{},
+		nationObject,
 		nation,
 		purposeType,
 		termUnit,
@@ -116,12 +136,14 @@ var vueConfig = new Vue({
 
 				this.borrowersData = results;
 
+				this.borrowersObject  = common.changeObject(results,'id','name');
+
 			}
 		})
 
 	},
 	watch: {
-		'dropMenu.cars':{
+		'dropMenuList.cars':{
 
 			handler: function (val, oldVal) {
 
@@ -131,17 +153,134 @@ var vueConfig = new Vue({
 		}
 	},
 
+	computed: {
+
+		borrowersName () {
+
+			var borrower = this.formData.borrower;
+
+			if (borrower !== "") {
+
+				var value = this.borrowersObject[borrower];
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		nationName () {
+
+			var nation = this.formData.nation;
+
+			if (nation !== "") {
+
+				var value = this.nationObject[nation];
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		vehicleName () {
+
+			var vehicle = this.formData.vehicle;
+
+			if (vehicle !== "") {
+
+				var value = this.vehicleObject[vehicle];
+
+				if (value.length > 38) {
+
+					value = value.slice(0,38);
+				}
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		educationName () {
+
+			var education = this.formData.education;
+
+			if (education !== "") {
+
+				var value = this.education[education].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		purposeName () {
+
+			var purpose = this.formData.purpose;
+
+			if (purpose !== "") {
+
+				var value = this.purposeType[purpose].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		borrowingSeriesName () {
+
+			var borrowing_type = this.formData.borrowing_type;
+
+			if (borrowing_type !== "") {
+
+				var value = this.borrowingSeriesType[borrowing_type].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+		}
+	},
 	mounted(){
 
-		common.dropMenu();
+		common.dropMenu.call(this);
 
 		this.showCalendar();
 	},
 	methods:{
 
+		selectMenu (value) {
+
+			if (this.dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+
+			}
+
+		},
+
 		showCalendar(){
 
-			var cars = this.dropMenu.cars;
+			var cars = this.dropMenuList.cars;
 
 			cars.forEach((item,index) => {
 
@@ -169,8 +308,6 @@ var vueConfig = new Vue({
 
 			this.formData.borrower = id;
 
-			$('#vehicleName').text('请选择车辆');
-
 			Lizard.ajax({
 				type: 'GET',
 				url:`/api/borrowers/${id}/vehicles`
@@ -179,6 +316,8 @@ var vueConfig = new Vue({
 				var results = data.results;
 
 				this.vehicleData = results;
+
+				this.vehicleObject = changeObject(results);
 
 				if (!results.length){
 
@@ -210,9 +349,9 @@ var vueConfig = new Vue({
 
 				this.formData[recordType][property].push(typeList[property]);
 
-				if (this.dropMenu[property]) {
+				if (this.dropMenuList[property]) {
 
-					this.dropMenu[property].push({isOpen:false,value:'请选择'});
+					this.dropMenuList[property].push({isOpen:false,value:'请选择'});
 				}
 
 			} else {
@@ -226,7 +365,7 @@ var vueConfig = new Vue({
 		showDropMenu (property,index,value) {
 
 
-			this.dropMenu[property][index].isOpen = value;
+			this.dropMenuList[property][index].isOpen = value;
 
 		},
 
@@ -237,7 +376,7 @@ var vueConfig = new Vue({
 
 			if (recordType == 'recordType') {
 
-				this.dropMenu[recordType].splice(index,1);
+				this.dropMenuList[recordType].splice(index,1);
 			}
 
 		},
@@ -245,9 +384,9 @@ var vueConfig = new Vue({
 
 			this.formData[recordType][property][index][type] = value;
 
-			this.dropMenu[property][index].isOpen = isOpen;
+			this.dropMenuList[property][index].isOpen = isOpen;
 
-			this.dropMenu[property][index].value = name;
+			this.dropMenuList[property][index].value = name;
 
 		},
 
