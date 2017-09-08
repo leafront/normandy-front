@@ -2,8 +2,6 @@ var Lizard = require('../widget/lizard');
 
 var common = require('../common');
 
-var $ = require('../lib/jquery.min');
-
 var Vue = require('../lib/vue');
 
 var vueConfig = new Vue({

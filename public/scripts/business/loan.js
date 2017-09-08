@@ -1,5 +1,3 @@
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Vue = require('../lib/vue');
