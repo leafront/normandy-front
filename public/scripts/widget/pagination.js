@@ -110,10 +110,6 @@ var pagination = {
 
 			}
 
-		}).catch((err) => {
-
-			console.log(err);
-
 		})
 	}
 }

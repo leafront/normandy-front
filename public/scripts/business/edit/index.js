@@ -1,5 +1,3 @@
-var $ = require('../../lib/jquery.min');
-
 var common = require('../../common');
 
 var Vue = require('../../lib/vue');
@@ -17,6 +15,7 @@ const {
 
 
 const business = Object.assign({},editBusiness);
+
 
 const repay_schema = Object.assign([],editBusiness.repay_schema).length ? Object.assign([],editBusiness.repay_schema) : [{"term": 1,"interest":"","capital":""}];
 
@@ -82,7 +81,6 @@ var vueConfig = new Vue({
 				this.salesmenList.forEach((item) =>{
 
 					if (item.user.id == salesman) {
-
 
 						value = item.user.name;
 
@@ -192,7 +190,7 @@ var vueConfig = new Vue({
 
 		rotateImg(event,property,index) {
 
-			var img = $(event.currentTarget).prev();
+			var img = event.target.previousElementSibling;
 
 			var rotateItem =  this.business[property][index];
 
@@ -200,7 +198,7 @@ var vueConfig = new Vue({
 
 			var new_rotate = (origin_rotate + 90) % 360;
 
-			img.css('transform', 'rotate('+ new_rotate +'deg)');
+			img.style.transform =  'rotate('+ new_rotate +'deg)';
 
 			rotateItem.rotate = new_rotate;
 
@@ -306,32 +304,26 @@ var vueConfig = new Vue({
 
 			}
 
-			$.ajax({
+			Lizard.ajax({
 				type:'POST',
 				url:'http://private-q.oss-cn-beijing.aliyuncs.com',
 				data:formData,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: () =>{
+				isHeader:false,
+			}).then(() => {
 
-					this.business[uploadType].push({
-						source_link: data.uri,
-						key: data.key,
-						filename: file.name,
-						size: file.size,
-						rotate: 0
-					})
-
-				}
+				this.business[uploadType].push({
+					source_link: data.uri,
+					key: data.key,
+					filename: file.name,
+					size: file.size,
+					rotate: 0
+				})
 			})
 
 		},
 		submitAction (borrowingId) {
 
 			var { isStage } =  popupConfig;
-
-
 
 			if (!isStage) {
 
@@ -342,6 +334,8 @@ var vueConfig = new Vue({
 
 			var formData = this.business;
 
+			var { term, term_unit } = formData;
+
 			var formJSON = ['apply_pics','cover_pic','call_records','contract_pics','supporting_pics','violation_records','fees','repay_schema'];
 
 			var submitData = Object.assign({repay_schema: popupConfig.repay_schema},formData);
@@ -351,6 +345,14 @@ var vueConfig = new Vue({
 				submitData[item]  = JSON.stringify(submitData[item]);
 
 			})
+
+			if (term > 100 && term_unit == 1) {
+
+				Lizard.showToast('借款期限不能大于100个月');
+
+				return;
+
+			}
 
 			this.isValidate = isValidate;
 
@@ -402,7 +404,6 @@ var vueConfig = new Vue({
 })
 
 
-
 var popupConfig = new Vue({
 
 	el:'#popup',
@@ -411,7 +412,7 @@ var popupConfig = new Vue({
 
 		iStage:editBusiness.repay_schema.length || 1,
 		repay_schema:repay_schema,
-		dropMenu:[]
+		dropMenu:[],
 	},
 	created() {
 
@@ -431,17 +432,22 @@ var popupConfig = new Vue({
 
 		stage () {
 
-			var business = vueConfig.business
 
 			if (business.term_unit == 0 && business.term) {
-
 
 				return 1;
 
 			} else if (business.term_unit == 1 && business.term ){
 
-				return business.term;
+				var term = business.term;
 
+				if (term > 50 ) {
+
+					term = 50;
+
+				}
+
+				return term;
 			}
 
 		}

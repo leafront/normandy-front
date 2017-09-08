@@ -10,7 +10,10 @@ var vueConfig = new Vue ({
 
 	el:'#app',
 	data:{
-		list:[]
+		list:[],
+		listTit: [],
+		totalPay: '',
+		totalIncome:''
 	},
 
 	created () {
@@ -36,7 +39,45 @@ var vueConfig = new Vue ({
 
 				if (data) {
 
-					this.list = data.display_view;
+					var list = data.display_view;
+
+					let listTit = [];
+
+					let results = [];
+
+					for (let attr in list[0]){
+
+						listTit.push(attr);
+
+					}
+
+
+					for (let i = 0,len = list.length -1; i <len; i++) {
+
+						var value = [];
+
+						for (let attr in list[i]){
+
+							value.push(list[i][attr]);
+
+						}
+
+						results[i] = value;
+
+					}
+
+
+					const totalPay = list[list.length - 1]['总收入'];
+
+					const totalIncome = list[list.length - 1]['总支出'];
+
+					this.list = results;
+
+					this.listTit = listTit;
+
+					this.totalPay = totalPay;
+
+					this.totalIncome = totalIncome;
 
 				}
 
@@ -80,7 +121,7 @@ var vueConfig = new Vue ({
 
 		var revenueLen = revenueList.length;
 
-		document.querySelector('.cont_list').style.width = ((40 + revenueLen * 115) / 100 ) + 'rem';
+		document.querySelector('.cont_list').style.width = ((40 + revenueLen * 150) / 100 ) + 'rem';
 
 
 		common.headerMenu();

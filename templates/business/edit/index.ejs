@@ -86,7 +86,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.salesman_id === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && business.salesman === '')}">
                                 <label>业务员 </label>
                                 <div class="drop_menu drop_menu_edit" :class="{'active':dropMenu == 2 }">
                                     <span @click.stop="selectMenu(2)">{{ salesmanName }}</span>

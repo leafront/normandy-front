@@ -288,4 +288,28 @@ router.get('/vehicle/:id', async (ctx,next) => {
 
 })
 
+
+router.get('/real/name', async (ctx,next) => {
+
+	const detailId = ctx.params.id;
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const mobile = params.mobile;
+
+	await ctx.render('borrowers/real/name',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		mobile
+	})
+
+})
+
+
 module.exports = router;

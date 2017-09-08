@@ -23,6 +23,14 @@ Page({
 
 		})
 
+		$('#captcha_code').keydown((event) =>{
+
+			if (event.keyCode == 13)
+
+			this.actionLogin();
+
+		})
+
 	},
 	onShow () {
 

@@ -150,6 +150,27 @@
                          </div>
                      </div>
                  <%})%>
+                 <% if(business.repay_schema.length){%>
+                 <div class="vehicle_tab_wraper clearfix">
+                     <h4>自定义计划书</h4>
+                     <div class="business_table">
+                         <dl class="business_table_list">
+                             <dt>
+                                 <span>指定期</span>
+                                 <span>综合管理费</span>
+                                 <span>还本金额</span>
+                             </dt>
+                            <%business.repay_schema.forEach(function(item){%>
+                             <dd>
+                                 <span><%-item.term%></span>
+                                 <span><%-item.interest%></span>
+                                 <span><%-item.capital%></span>
+                             </dd>
+                             <%})%>
+                         </dl>
+                     </div>
+                 </div>
+                 <%}%>
                  <div class="vehicle_tab_wraper clearfix">
                     <div id="approvals"></div>
                      <div class="business_submit">

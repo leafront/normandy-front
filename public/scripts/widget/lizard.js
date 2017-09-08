@@ -172,27 +172,36 @@ var Lizard = {
 
 		var org_id = Lizard.getCookie('org_id');
 
-		var headers = {
-			"Content-type":"application/x-www-form-urlencoded",
-			"Accept": "application/json",
-			"Authorization": 'Bearer ' + jwt
-		};
 
-		headers = Object.assign(headers,ajaxOptions.headers);
 
 		var options = {
+			isHeader:true,
 			async: true,
 			headers,
 			dataType:'json'
 		}
 
+
+		options = Object.assign(options,ajaxOptions);
+
+		var headers = {};
+
+		if (options.isHeader) {
+
+			headers["Content-type"] = "application/x-www-form-urlencoded";
+
+			headers.Accept = 'application/json';
+
+			headers.Authorization = 'Bearer ' + jwt;
+		}
+
 		if (org_id) {
 
-			options.headers['X-Org'] = org_id;
+			headers['X-Org'] = org_id;
 
 		}
 
-		options = Object.assign(options,ajaxOptions);
+		headers = Object.assign(headers,ajaxOptions.headers);
 
 		options.headers = headers;
 

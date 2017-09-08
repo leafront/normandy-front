@@ -5,7 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>业务-申请借款</title>
-    <link rel="stylesheet" href="/styles/business/loan.css?v=20170907124648"/>
+    <link rel="stylesheet" href="/styles/business/loan.css?v=20170908112007"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -32,8 +32,8 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.borrower === '')}">
                                 <label>借款人</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select">请选择借款人</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 1}">
+                                    <span @click.stop="selectMenu(1)">{{borrowersName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in borrowersData" @click="selectBorrowers(item.id)">
                                             <a href="javascript:;">{{item.name}}({{item.mobile}})</a>
@@ -43,8 +43,8 @@
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.vehicle === '')}">
                                 <label>车辆</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select" id="vehicleName">请选择车辆</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 2}">
+                                    <span @click.stop="selectMenu(2)">{{vehicleName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in vehicleData"><a href="javascript:;" @click="checkValue('vehicle',item.id)">{{ item.brand + item.series + item.model }}</a></li>
                                     </ul>
@@ -55,10 +55,10 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.nation === '')}">
                                 <label>民族</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select">请选择民族</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 3}">
+                                    <span @click.stop="selectMenu(3)">{{nationName}}</span>
                                     <ul class="drop_menu_list">
-                                        <li v-for="item in nation" @click="checkValue('nation',item.title)">
+                                        <li v-for="item in nation" @click="checkValue('nation',item.value)">
                                             <a href="javascript:;">{{item.title}}</a>
                                         </li>
                                     </ul>
@@ -81,8 +81,8 @@
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.education === '')}">
                                 <label>教育程度</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select">请选择教育程度</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 4}">
+                                    <span @click.stop="selectMenu(4)">{{educationName}}</span>
                                     <ul class="drop_menu_list">
                                         <%education.forEach(function(item){%>
                                         <li @click="checkValue('education',<%-item.value%>)">
@@ -270,8 +270,8 @@
                         <div class="form-group clearfix" v-for="(item,index) in formData.property.houseProperties">
                             <div class="form-group-rows">
                                 <label :class="{'error_text':(!isValidate && formData.property.houseProperties[index].status === '')}">房产</label>
-                                <div class="drop_menu drop_menu_assets" :class="{'active':dropMenu.houseProperties[index].isOpen,'error_input':(!isValidate && formData.property.houseProperties[index].status === '')}">
-                                    <span @click.stop="showDropMenu('houseProperties',index,!dropMenu.houseProperties[index].isOpen)" :class="{'active':formData.property.houseProperties[index].status !== '' }">{{dropMenu.houseProperties[index].value}}</span>
+                                <div class="drop_menu drop_menu_assets" :class="{'active':dropMenuList.houseProperties[index].isOpen,'error_input':(!isValidate && formData.property.houseProperties[index].status === '')}">
+                                    <span @click.stop="showDropMenu('houseProperties',index,!dropMenuList.houseProperties[index].isOpen)" :class="{'active':formData.property.houseProperties[index].status !== '' }">{{dropMenuList.houseProperties[index].value}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="item in houseStatus" @click="selectValue('property','houseProperties','status',item.value,index,false,item.name)">
                                             <a href="javascript:;">{{item.name}}</a>
@@ -299,8 +299,8 @@
                             <div class="form-group-rows vehicle-ui-ico">
                                 <label :class="{'error_text':(!isValidate && formData.property.cars[index].status === '')}">车辆</label>
 
-                                <div class="drop_menu drop_menu_assets" :class="{'active':dropMenu.cars[index].isOpen,'error_input':(!isValidate && formData.property.cars[index].status === '')}">
-                                    <span @click.stop="showDropMenu('cars',index,!dropMenu.cars[index].isOpen)" :class="{'active':formData.property.cars[index].status !==''}">{{dropMenu.cars[index].value}}</span>
+                                <div class="drop_menu drop_menu_assets" :class="{'active':dropMenuList.cars[index].isOpen,'error_input':(!isValidate && formData.property.cars[index].status === '')}">
+                                    <span @click.stop="showDropMenu('cars',index,!dropMenuList.cars[index].isOpen)" :class="{'active':formData.property.cars[index].status !==''}">{{dropMenuList.cars[index].value}}</span>
                                     <ul class="drop_menu_list">
 
                                         <li v-for="item in vehicleStatus" @click="selectValue('property','cars','status',item.value,index,false,item.name)">
@@ -351,8 +351,8 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.purpose === '')}">
                                 <label data-value="">用途</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select">请选择用途</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 5}">
+                                    <span @click.stop="selectMenu(5)">{{purposeName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in purposeType" @click="checkValue('purpose',item.value)">
                                             <a href="javascript:;">{{item.name}}</a>
@@ -363,8 +363,8 @@
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.borrowing_type === '')}">
                                 <label data-value="">借款类型</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select" data-value="">未抵押过</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 6}">
+                                    <span @click.stop="selectMenu(6)">{{borrowingSeriesName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in borrowingSeriesType" @click="checkValue('borrowing_type',item.value)">
                                             <a href="javascript:;">{{item.name}}</a>
@@ -407,7 +407,7 @@
     </div>
 </div>
 <div class="ui-calendar" id="calendar"></div>
-<script type="text/javascript" src="/dist/scripts/business/loan.js?v=20170907124648"></script>
+<script type="text/javascript" src="/dist/scripts/business/loan.js?v=20170908112007"></script>
 </body>
 </html>
 

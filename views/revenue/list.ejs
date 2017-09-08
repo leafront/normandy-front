@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>计算收支--明细</title>
-    <link rel="stylesheet" href="/styles/revenue/list.css?v=20170907124648"/>
+    <link rel="stylesheet" href="/styles/revenue/list.css?v=20170908112007"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -21,7 +21,7 @@
                 <i></i>
                 <span>计算收支明细报表</span>
             </div>
-            <div class="list_container list_top">
+            <div class="list_container list_top" id="app">
                 <dl class="cont_list">
                     <dt>
                         <span class="revenue_money">借款金额</span>
@@ -42,8 +42,8 @@
                         <span class="revenue_loan_rate"><%-item.lend_rate%></span>
                         <span class="revenue_loan_way"><%-repaymentType[item.out_type].name%></span>
                         <span class="revenue_times"><%-item.created_at%></span>
-                        <a href="javascript:;" class="list_action">查看详情</a>
-                        <a href="javascript:;" @click="download" class="list_action"> / 下载</a>
+                        <a href="/revenue/<%-item.id%>" class="list_action">查看详情</a>
+                        <a href="javascript:;" @click="download('<%-item.id%>','<%-shopId%>')" class="list_action"> / 下载</a>
                     </dd>
                  <%})%>
                 </dl>
@@ -52,7 +52,7 @@
         <% include ../common/footer.ejs %>
     </div>
 </div>
-<script type="text/javascript" src="/dist/scripts/revenue/list.js?v=20170907124648"></script>
+<script type="text/javascript" src="/dist/scripts/revenue/list.js?v=20170908112007"></script>
 </body>
 </html>
 

@@ -32,6 +32,8 @@ module.exports = {
 
 		'borrowers/add':'./public/scripts/borrowers/add',
 
+		'borrowers/real/name':'./public/scripts/borrowers/real/name',
+
 		'borrowers/bind':'./public/scripts/borrowers/bind',
 
 		'borrowers/vehicle/list/index':'./public/scripts/borrowers/vehicle/list/index',
@@ -69,6 +71,8 @@ module.exports = {
 		'revenue/report':'./public/scripts/revenue/report',
 
 		'revenue/list':'./public/scripts/revenue/list',
+
+		'revenue/detail':'./public/scripts/revenue/detail',
 
 		'account/index':'./public/scripts/account/index'
 

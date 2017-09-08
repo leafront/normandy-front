@@ -7,8 +7,6 @@ var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
-var listTpl =  require('./templates/list');
-
 var paginationTpl = require('../templates/pagination');
 
 var pagination = require('../widget/pagination');
@@ -51,6 +49,7 @@ var vueConfig = new Vue({
 		gpsInfo: {},
 		gpsList:{},
 		vehicle_ids: [],
+		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'预警',value:2},{name:'未安装gps',value:3}],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
 
@@ -385,7 +384,16 @@ var vueConfig = new Vue({
 
 			formData = util.queryStringify(formData);
 
-			location.href = `/vehicles?${formData}`;
+			if (formData == "") {
+
+				location.href = `/vehicles`;
+
+			} else {
+
+				location.href = `/vehicles?${formData}`;
+
+			}
+
 		},
 
 		query () {

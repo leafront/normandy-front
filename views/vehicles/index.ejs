@@ -5,7 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>借款人列表</title>
-    <link rel="stylesheet" href="/styles/vehicles/index.css?v=20170907124648"/>
+    <link rel="stylesheet" href="/styles/vehicles/index.css?v=20170908112007"/>
 </head>
 <body>
 
@@ -53,7 +53,7 @@
                             <span @click.stop="selectValue(3)" v-cloak>{{loanStatus}}</span>
                             <ul class="drop_menu_list">
                                 <% for(var attr in borrowingStatus) {%>
-                                <li  @click="checkValue('ralated_borrowing_status',<%-attr%>)"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
+                                <li  @click="checkValue('ralated_borrowing_status','<%-attr%>')"><a href="javascript:;"><%-borrowingStatus[attr].title%></a></li>
                                 <%}%>
                             </ul>
                         </div>
@@ -141,7 +141,7 @@
                               </div>
                             </div>
                             <div class="vehicles_gpsStatus" v-if="gpsList['<%-item.id%>']">
-                                <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{deviceStatus[gpsList['<%-item.id%>'].status].name}}</span>
+                                <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{gpsText[gpsList['<%-item.id%>'].status].name}}</span>
                                 <div class="vehicles_tips" v-if="gpsList['<%-item.id%>'].status == 1">
                                     <p>{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].msg}}</p>
                                     <p>解决方案：{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].solve}}</p>
@@ -174,7 +174,7 @@
 <script type="text/javascript">
     var vehiclesList = <%-JSON.stringify(vehiclesList)%>;
 </script>
-<script type="text/javascript" src="/dist/scripts/vehicles/index.js?v=20170907124648"></script>
+<script type="text/javascript" src="/dist/scripts/vehicles/index.js?v=20170908112007"></script>
 </body>
 </html>
 

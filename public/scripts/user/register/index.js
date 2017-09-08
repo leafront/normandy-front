@@ -28,6 +28,14 @@ Page({
 			this.actionRegister()
 
 		})
+
+		$('#captcha_code').keydown((event) =>{
+
+			if (event.keyCode == 13)
+
+				this.actionRegister();
+
+		})
 	},
 
 	actionRegister (){ //开始注册

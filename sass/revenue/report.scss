@@ -6,13 +6,15 @@
 
 @import '../modules/confirm_button.scss';
 
+@import '../layui/index.scss';
+
 
 .cont_list{
 	width:115%;
 	dd,dt{
 		span{
 			text-align:center;
-			width:115rem/$rem;
+			width:150rem/$rem;
 		}
 	}
 }
@@ -21,8 +23,16 @@
 
 	display:flex;
 	justify-content: flex-end;
-}
 
+	color:#333;
+	font-size:14px;
+
+	padding-top:20px;
+
+	span{
+		padding:0 10px;
+	}
+}
 .revenue_submit{
 
 	padding-top:20px;

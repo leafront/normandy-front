@@ -142,7 +142,7 @@ var validate = {
 		return /^[\u4e00-\u9fa5][A-Z0-9]{6,7}$/.test(text);
 	},
 	/**
-	 * 发动机号，验证前，先调用{@link validate.toUpperCase}这个方法,矫正用户的输入
+	 * 发动机号
 	 * @param {string} text 发动机号码
 	 * @return {boolean}
 	 * @example

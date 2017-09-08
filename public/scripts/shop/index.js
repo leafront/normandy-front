@@ -46,26 +46,28 @@ var vueConfig = new Vue ({
 		},
 		deleteShop (id) {
 
-			Lizard.ajax({
-				type: 'DELETE',
-				url:`/api//admin/shops/${id}`
-			}).then((data) => {
+			Lizard.prompt({
+					tips:'确定要删除该角色吗?',
+					btn:['确定','取消']
+				},() => {
 
-				if (data) {
+					Lizard.ajax({
+						type: 'DELETE',
+						url:`/api/admin/shops/${id}`
+					}).then((data) => {
 
-					Lizard.showToast('删除成功');
+						if (data) {
 
-					setTimeout(() => {
+							Lizard.showToast('删除成功');
 
-						location.reload();
+							setTimeout(() => {
 
-					},500)
+								location.reload();
 
-				}
-			}).catch((err) => {
+							},500)
 
-				Lizard.showToast(err);
-
+						}
+					})
 			})
 
 		},

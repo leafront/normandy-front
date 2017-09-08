@@ -16,11 +16,11 @@ var centerPoint;
 
 var timer;     //定时器
 
+var historyList = [];
+
 var index = 0; //记录播放到第几个point
 
 var points = [];
-
-var historyList = [];
 
 var starTime = '';
 
@@ -101,17 +101,17 @@ Page({
 
 		if (!begin_time) {
 
-			//Lizard.showToast('请选择开始时间');
+			Lizard.showToast('请选择开始时间');
 
-			//return;
+			return;
 
 		}
 
 		if (!end_time) {
 
-			//Lizard.showToast('请选择结束时间');
+			Lizard.showToast('请选择结束时间');
 
-			//return;
+			return;
 
 		}
 
@@ -123,15 +123,15 @@ Page({
 
 		$.ajax({
 			type:'POST',
-			url:`/api/gps/history/868120125415197`,
+			url:`/api/gps/history/${deviceId}`,
 			async: false,
 			headers: {
 				"Authorization": 'Bearer ' + jwt,
 				"X-Org": org_id
 			},
 			data:{
-				begin_time: '2017-09-04 00:00:00',
-				end_time: '2017-09-04 17:00:00',
+				begin_time,
+				end_time,
 				limit: 1000
 			},
 			success: (data) => {
@@ -167,17 +167,6 @@ Page({
 		map.addControl(new BMap.ScaleControl());
 		map.addControl(new BMap.OverviewMapControl({isOpen: true}));
 
-		//通过DrivingRoute获取一条路线的point
-		//var driving = new BMap.DrivingRoute(map);
-		//driving.search(points[0], points[points.length - 1]);
-		//driving.setSearchCompleteCallback(function () {
-			//得到路线上的所有point
-
-			//points = driving.getResults().getPlan(0).getRoute(0).getPath();
-
-
-
-		//})
 
 
 		$('#play').prop('disabled',false);
@@ -230,6 +219,7 @@ Page({
 			$('#speed').text(historyItem.speed + '公里/小时');
 
 			starTime = historyItem.gps_time;
+
 
 			endTime = historyList[index + 1].gps_time + diffTime;
 
@@ -321,12 +311,24 @@ Page({
 			$('#stop').prop('disabled',true);
 
 			if(timer) {
+
 				window.clearTimeout(timer);
 			}
+			points = [];
 
 		})
 
 		$('#reset').click(function(){
+
+				starTime = '';
+
+				endTime = '';
+
+				diffTime = '';
+
+				distance = 0;
+
+				index = 0;
 
 				$('#play').prop('disabled',false);
 
@@ -335,13 +337,14 @@ Page({
 			  $('#reset').prop('disabled',true);
 
 				if(timer) {
+
 					window.clearTimeout(timer);
 				}
 
-				index = 0;
-
 				car.setPosition(points[0]);
-				//map.panTo(centerPoint);
+
+			  points = [];
+
 
 		})
 

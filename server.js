@@ -54,8 +54,6 @@ if (process.env.NODE_ENV == 'production') {
 
 }
 
-
-
 app.use(async (ctx, next) => {
 
 	try {
@@ -91,6 +89,7 @@ app.use(async (ctx, next) => {
 		}
 	}
 })
+
 router.use('/',index.routes());
 
 router.use('/error',error.routes());
