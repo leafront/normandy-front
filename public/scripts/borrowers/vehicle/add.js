@@ -41,8 +41,6 @@ var vueConfig = new Vue({
 
 			var type = this.formData.type;
 
-			console.log(this.carTypeObject)
-
 			if (type !== "") {
 
 				var value = this.carTypeObject[type];
