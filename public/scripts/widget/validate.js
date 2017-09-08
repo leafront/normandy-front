@@ -130,16 +130,14 @@ var validate = {
 	 * @param {boolean} [isStrict=false] 是否开启严格验证
 	 * @return {boolean}
 	 * @example
-	 * var carNumber = this.$('.js-carnumber').val().trim();
-	 * // 自动矫正用户的输入
-	 * carNumber = validate.toUpperCase(carNumber);
+
 	 * validate.isCarNumber(carNumber, true)
 	 *
-	 * validate.isCarNumber('沪A', true) // 返回false
-	 * validate.isCarNumber('沪A')  // 返回true
+	 * validate.isCarNumber('沪A') // 返回false
+	 * validate.isCarNumber('沪A123456')  // 返回true
 	 */
 	isCarNumber: function(text) {
-		return /^[\u4e00-\u9fa5][A-Z0-9]{6,7}$/.test(text);
+		return /^[\u4e00-\u9fa5][A-Za-z0-9]{6,7}$/.test(text);
 	},
 	/**
 	 * 发动机号
