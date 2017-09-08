@@ -5,9 +5,7 @@ var Lizard = require('../widget/lizard');
 
 var validate = require('../widget/validate');
 
-
 var Vue = require('../lib/vue');
-
 
 var vueConfig = new Vue({
 

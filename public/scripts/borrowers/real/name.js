@@ -86,11 +86,11 @@ var vueConfig = new Vue({
 			}).then((results) => {
 
 
-				Lizard.showToast('添加成功');
+				Lizard.showToast('实名认证成功, 跳转至绑定页面...');
 
 				setTimeout(() =>{
 
-					location.href = '/borrowers';
+					location.href = '/borrowers/bind';
 
 				},500)
 			})
