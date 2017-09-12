@@ -82,7 +82,7 @@ var pagination = {
 					iPage:iPage,
 					pathName:location.pathname,
 					isFirstPage:(totalPage - 1 ) == 0,
-					isLastPage:totalPage * pageSize > totalCount,
+					isLastPage:page * pageSize >= totalCount,
 					data
 				}
 
@@ -90,9 +90,6 @@ var pagination = {
 				var html = ejs.render(paginationTpl,pagination);
 
 				list = Object.assign({list},tplData);
-
-
-
 
 				var listHtml = ejs.render(listTpl,list);
 

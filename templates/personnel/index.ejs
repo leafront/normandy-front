@@ -40,7 +40,7 @@
                     <% if(list && list.length){%>
                     <% list.forEach(function(item){%>
                     <dd>
-                        <span class="personnel_name"><%-item.user.name%></span>
+                        <span class="personnel_name"><%-item.user.name || '&nbsp;'%></span>
                         <span class="personnel_phone"><%-item.user.mobile%></span>
                         <div class="personnel_auth">
                             <i class="ico1"></i>

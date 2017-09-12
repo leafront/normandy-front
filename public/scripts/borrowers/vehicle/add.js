@@ -145,7 +145,7 @@ var vueConfig = new Vue({
 
 			var isValidate = validateEle.every((item) =>{
 
-				if (!formData[item.name]) {
+				if (formData[item.name] === "") {
 
 					Lizard.showToast(item.message);
 

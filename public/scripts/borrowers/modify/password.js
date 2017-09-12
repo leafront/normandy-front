@@ -4,7 +4,6 @@ var Lizard = require('../../widget/lizard');
 
 var Vue = require('../../lib/vue');
 
-
 var vueConfig = new Vue({
 
 	el: '#app',

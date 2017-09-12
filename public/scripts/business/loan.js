@@ -1,5 +1,3 @@
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Vue = require('../lib/vue');
@@ -31,9 +29,10 @@ const {
 	salaryType,
 	nation,
 	purposeType,
+	termUnit,
 	education,
 	borrowingSeriesType,
-	termUnit
+	companyType
 
 	} = modelData;
 
@@ -46,6 +45,8 @@ var vueConfig = new Vue({
 
 	data:{
 		education,
+		termUnit,
+		companyType,
 
 		formData:{
 			borrower:'',
@@ -111,7 +112,6 @@ var vueConfig = new Vue({
 		nationObject,
 		nation,
 		purposeType,
-		termUnit,
 		borrowingSeriesType,
 		maritalStatusList,
 		vehicleStatus,
@@ -254,6 +254,38 @@ var vueConfig = new Vue({
 
 				return '请选择';
 			}
+		},
+		companyName () {
+
+			var company_type = this.formData.company_type;
+
+			if (company_type !== "") {
+
+				var value = this.companyType[company_type].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
+		},
+		termName () {
+
+			var term_unit = this.formData.term_unit;
+
+			if (term_unit !== "") {
+
+				var value = this.termUnit[term_unit].name;
+
+				return value;
+
+			} else {
+
+				return '请选择';
+			}
+
 		}
 	},
 	mounted(){

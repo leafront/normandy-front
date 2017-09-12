@@ -70,7 +70,7 @@ router.get('/:id', async (ctx,next) => {
 		listTpl,
 		isRead,
 		isFirstPage:(totalPage - 1 ) == 0,
-		isLastPage:totalPage * pageSize > totalCount
+		isLastPage:currentPage * pageSize >= totalCount
 	})
 })
 

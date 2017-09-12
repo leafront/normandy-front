@@ -450,10 +450,11 @@ var borrowingStatus = {
 	'3': {'title': '待复审', "stage": "复审", 'color': 'list_btn2'},
 	'-3': {'title': '财审拒绝', 'color': 'list_btn4'},
 	'null':{'title':'未上标','color':'list_btn4'},
-	'4': {'title': '还款中', 'color': 'list_btn'},
+	'4': {'title': '等待放款', 'color': 'list_btn'},
 	'-4': {'title': '复审拒绝', 'color': 'list_btn4'},
-	'5': {'title': '还款完成', 'color': 'list_btn'},
-	'-5': {'title': '坏账', 'color': 'list_btn4'}
+	'5': {'title': '还款中', 'color': 'list_btn'},
+	'6': {'title': '还款完成', 'color': 'list_btn'},
+	'-6': {'title': '坏账', 'color': 'list_btn4'}
 }
 var autoReviewStatus = {
 	0: {'title': '已创建机审', 'color': 'list_btn3'},

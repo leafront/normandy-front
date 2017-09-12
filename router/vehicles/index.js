@@ -62,7 +62,7 @@ router.get('/', async (ctx,next) => {
 		page:currentPage,
 		iPage,
 		isFirstPage:(totalPage - 1 ) == 0,
-		isLastPage:totalPage * pageSize > totalCount
+		isLastPage:currentPage * pageSize >= totalCount
 	})
 
 })
@@ -171,7 +171,7 @@ router.get('/history/:id', async (ctx,next) => {
 
 	const params = querystring.parse(ctx.req._parsedUrl.query);
 
-	const time = params.time;
+	const time = parseInt(params.time);
 
 	const endTime = time;
 

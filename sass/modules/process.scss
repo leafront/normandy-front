@@ -1,0 +1,96 @@
+@import './common.scss';
+
+.process_info{
+
+	padding-top:38rem/$rem;
+
+	padding-bottom:60rem/$rem;
+}
+
+.process_list{
+
+	height:71px;
+	display:flex;
+
+	justify-content: center;
+	li{
+
+		float:left;
+		padding-right:180rem/$rem;
+
+		position:relative;
+
+		margin-left:-60rem/$rem;
+
+		&:after{
+
+			position:absolute;
+
+			content:'';
+
+			top:16px;
+
+			width:215rem/$rem;
+
+			height:5px;
+
+			left:65px;
+
+			background:#e0e2e3;
+
+		}
+
+		i{
+
+			display: block;
+			width:36px;
+
+			height:36px;
+
+			border-radius:50%;
+
+			-webkit-border-radius:50%;
+
+			line-height:36px;
+
+			background:#e0e2e3;
+
+			color:#fff;
+
+			text-align:center;
+
+			margin:0 auto;
+
+			font-size:20px;
+
+		}
+
+		span{
+
+			display:block;
+
+			text-align:center;
+
+			width:100px;
+
+			padding-top:16px;
+
+			font-size:14px;
+
+			color:#53cac3;
+
+		}
+		&.active{
+
+			&:after{
+				background:#53cac3;
+			}
+
+			i{
+
+				background:#53cac3;
+			}
+		}
+	}
+
+}

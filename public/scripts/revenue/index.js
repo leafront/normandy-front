@@ -1,5 +1,3 @@
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
@@ -348,11 +346,10 @@ var vueConfig = new Vue({
 			})
 
 
-			console.log(JSON.stringify(validateEle,null,2))
 
 			var isValidateArray =  validateEle.every((item) => {
 
-				if (!item.isValidate) {
+				if (item.isValidate === "") {
 
 					Lizard.showToast(item.message);
 

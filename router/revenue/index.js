@@ -121,6 +121,8 @@ router.get('/:id', async (ctx,next) => {
 		listTit,
 		results,
 		totalPay,
+		detailId:id,
+		shopId:shop.id,
 		totalIncome
 	})
 

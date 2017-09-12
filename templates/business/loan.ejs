@@ -136,8 +136,8 @@
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.company_type === '')}">
                                 <label>单位性质</label>
-                                <div class="drop_menu drop_menu_loan">
-                                    <span class="js_select">请选择单位性质</span>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 5}">
+                                    <span @click.stop="selectMenu(5)">{{companyName}}</span>
                                     <ul class="drop_menu_list">
                                         <%companyType.forEach(function(item){%>
                                         <li @click="checkValue('company_type',<%-item.value%>)">
@@ -207,7 +207,7 @@
                                 <input type="tel" class="user-ui-input" v-model="formData.company_phone" placeholder="公司电话"/>
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.finance_phone === '')}">
-                                <label id="interior" data-value="">财务电话</label>
+                                <label id="interior">财务电话</label>
                                 <input type="tel" class="user-ui-input" v-model="formData.finance_phone" placeholder="财务电话"/>
                             </div>
 
@@ -350,9 +350,9 @@
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.purpose === '')}">
-                                <label data-value="">用途</label>
-                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 5}">
-                                    <span @click.stop="selectMenu(5)">{{purposeName}}</span>
+                                <label>用途</label>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 6}">
+                                    <span @click.stop="selectMenu(6)">{{purposeName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in purposeType" @click="checkValue('purpose',item.value)">
                                             <a href="javascript:;">{{item.name}}</a>
@@ -362,9 +362,9 @@
                                 </div>
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.borrowing_type === '')}">
-                                <label data-value="">借款类型</label>
-                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 6}">
-                                    <span @click.stop="selectMenu(6)">{{borrowingSeriesName}}</span>
+                                <label>借款类型</label>
+                                <div class="drop_menu drop_menu_loan" :class="{'active':dropMenu == 7}">
+                                    <span @click.stop="selectMenu(7)">{{borrowingSeriesName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in borrowingSeriesType" @click="checkValue('borrowing_type',item.value)">
                                             <a href="javascript:;">{{item.name}}</a>
@@ -376,7 +376,7 @@
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && formData.amount === '')}">
-                                <label data-value="">借款金额</label>
+                                <label>借款金额</label>
                                 <div class="user-ui-number">
                                     <input type="number" class="user-ui-input" v-model="formData.amount" placeholder="工作年限">
                                     <i class="user-ui-input-txt">元</i>
@@ -385,8 +385,8 @@
                             <div class="form-group-rows">
                                 <label :class="{'error_text':(!isValidate && formData.term_unit === '')}">借款期限</label>
                                 <input type="text" class="user-ui-input user-ui-salary" :class="{'error_input':(!isValidate && formData.term === '')}" v-model="formData.term" placeholder="工作年限">
-                                <div class="drop_menu drop_menu_times" :class="{'error_input':(!isValidate && formData.term_unit === '')}">
-                                    <span class="js_select">请选择</span>
+                                <div class="drop_menu drop_menu_times" :class="{'active':dropMenu == 8,'error_input':(!isValidate && formData.term_unit === '')}">
+                                    <span @click.stop="selectMenu(8)">{{termName}}</span>
                                     <ul class="drop_menu_list">
                                         <li v-for="(item,index) in termUnit" @click="checkValue('term_unit',item.value)">
                                             <a href="javascript:;">{{item.name}}</a>
