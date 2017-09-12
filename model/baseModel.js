@@ -29,6 +29,7 @@ module.exports = {
 
 		const org_id = getCookies.get('org_id');
 
+		console.log(url);
 
 		return new Promise((resolve,reject) => {
 			request({

@@ -35,6 +35,8 @@ router.get('/', async (ctx,next) => {
 
 	const currentPage = parseInt(params.page) || 1;
 
+	console.log(params)
+
 	params.page = currentPage;
 
 	const { results: vehiclesList,page, page_size:pageSize,total_page: totalPage,total_count:totalCount } = await baseModel.get(ctx,{
@@ -42,10 +44,12 @@ router.get('/', async (ctx,next) => {
 		data:params
 	})
 
+	console.log(totalCount)
 
 	const showPage = 5;
 
 	const iPage = getPage(currentPage,showPage);
+
 
 	await ctx.render('vehicles',{
 		pathName: ctx.path,

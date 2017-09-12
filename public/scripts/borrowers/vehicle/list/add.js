@@ -83,11 +83,8 @@ Page({
 
 			const isValidate = this.validateForm();
 
-			console.log(isValidate)
-
 			const data = this.getFormData();
 
-			console.log(data);
 
 			if (isValidate) {
 
@@ -445,7 +442,8 @@ Page({
 			value:loan_pending_terms
 		}]
 
-		if (purchase_type !== 0) {
+
+		if (purchase_type == "1") {
 
 			loanErrInfo.forEach(function(item){
 
