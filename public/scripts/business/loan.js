@@ -195,9 +195,9 @@ var vueConfig = new Vue({
 
 				var value = this.vehicleObject[vehicle];
 
-				if (value.length > 38) {
+				if (value.length > 35) {
 
-					value = value.slice(0,38);
+					value = value.slice(0,35);
 				}
 
 				return value;
@@ -506,7 +506,7 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type:'POST',
 				url:'/api/applications',
-				data:formData
+				data:submitData
 
 			}).then((data) => {
 

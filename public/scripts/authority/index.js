@@ -50,14 +50,14 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:`/api/users/${id}/activation`,
-				success:function(data){
+				url:`/api/users/${id}/activation`
+			}).then((data) => {
 
-					if (data && data.key) {
+				if (data && data.key) {
 
-						Lizard.showToast('发送成功');
-					}
+					Lizard.showToast('发送成功');
 				}
+
 			})
 
 		},

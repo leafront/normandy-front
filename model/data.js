@@ -245,27 +245,27 @@ var purchaseType = [{
 var colorList = [
 	{
 	  'name':'银色',
-		'value': 0,
-		color:'#c0c0c0'
+		'value': "0",
+	  color:'#c0c0c0'
 	},
 	{
 		'name':'黑色',
-		'value': 1,
+		'value': "1",
 		color:'#000000'
 	},
 	{
 		'name': '白色',
-		'value': 2,
+		'value': "2",
 		color:'#f5f5f5'
 	},
 	{
 		'name': '灰色',
-		'value': 3,
+		'value': "3",
 		 color:'#808080'
 	},
 	{
 		'name': '红色',
-		'value': 4,
+		'value': "4",
 		color:'#ff0000'
 	},
 	{
@@ -275,42 +275,42 @@ var colorList = [
 	},
 	{
 		'name': '黄色',
-		'value': 6,
+		'value': "6",
 		color:'#ffff00'
 	},
 	{
 		'name': '绿色',
-		'value': 7,
+		'value': "7",
 		color:'#22ac38'
 	},
 	{
 		'name': '紫色',
-		'value': 8,
+		'value': "8",
 		color:'#8957a1'
 	},
 	{
 		'name': '橙色',
-		'value': 9,
+		'value': "9",
 		color:'#ff9c00'
 	},
 	{
 		'name': '棕色',
-		'value': 10,
+		'value': "10",
 		color:'#7f2d00'
 	},
 	{
 		'name': '米色',
-		'value': 11,
+		'value': "11",
 		color:'#f5f5dc'
 	},
 	{
 		'name': '巧克力色',
-		'value': 12,
+		'value': "12",
 		color:'#d2691e'
 	},
 	{
 		'name': '香槟色',
-		'value': 13,
+		'value': "13",
 		color:'#dfb981'
 }];
 

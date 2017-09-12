@@ -81,7 +81,7 @@
                             <span @click.stop="selectMenu(2)">{{colorType}}</span>
                             <ul class="drop_menu_list">
                                 <% colorList.forEach(function(item){%>
-                                  <li @click="checkValue('color',<%-item.value%>)">
+                                  <li @click="checkValue('color','<%-item.value%>')">
                                       <a href="javascript:;"><%-item.name%></a>
                                       <span style="background:<%-item.color%>"></span>
                                   </li>
