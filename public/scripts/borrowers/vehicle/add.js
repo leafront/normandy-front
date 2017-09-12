@@ -196,21 +196,21 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type: 'POST',
 				url: `/api/borrowers/${detailId}/vehicles`,
-				data:formData,
-				success(data){
+				data:formData
+			}).then((data) => {
 
-					if (data){
+				if (data){
 
-						Lizard.showToast('添加成功, 跳转至借款人详情');
+					Lizard.showToast('添加成功, 跳转至借款人详情');
 
-						setTimeout(() => {
+					setTimeout(() => {
 
-							location.href = `/borrowers/${detailId}`;
+						location.href = `/borrowers/${detailId}`;
 
-						},500)
+					},500)
 
-					}
 				}
+
 			})
 		}
 	},
