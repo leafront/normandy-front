@@ -99,13 +99,13 @@
                   <div class="vehicle_item">
                      <label>变速</label>
                       <%shiftingType.forEach(function(item,index){%>
-                        <strong class="shiftingType" @click="checkValue('shifting',<%-item.value%>)" :class="{'active':formData.shifting == <%-item.value%>}">手动</strong>
+                        <strong class="shiftingType" @click="checkValue('shifting',<%-item.value%>)" :class="{'active':formData.shifting == <%-item.value%>}"><%-item.name%></strong>
                       <%})%>
                   </div>
                   <div class="vehicle_item">
                     <label>驱动类型</label>
                     <% driverType.forEach(function(item,index){%>
-                      <strong class="driverType" @click="checkValue('driver_type',<%-item.value%>)" :class="{'active':formData.driver_type == <%-item.value%>}">两驱</strong>
+                      <strong class="driverType" @click="checkValue('driver_type',<%-item.value%>)" :class="{'active':formData.driver_type == <%-item.value%>}"><%-item.name%></strong>
                     <%})%>
                   </div>
                 </div>
