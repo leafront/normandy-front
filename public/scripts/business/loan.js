@@ -191,13 +191,21 @@ var vueConfig = new Vue({
 
 			var vehicle = this.formData.vehicle;
 
-			if (vehicle !== "") {
+			if (vehicle && vehicle !== "") {
 
 				var value = this.vehicleObject[vehicle];
 
-				if (value.length > 35) {
+				if (value) {
 
-					value = value.slice(0,35);
+					if (value.length > 35) {
+
+						value = value.slice(0, 35);
+
+					}
+
+				} else {
+
+					return '请选择';
 				}
 
 				return value;

@@ -214,6 +214,8 @@ var vueConfig = new Vue({
 				to:''
 			}
 
+			history.pushState(null,null,'/business');
+
 			this.fetch(null);
 
 		}
