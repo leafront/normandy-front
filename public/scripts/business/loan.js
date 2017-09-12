@@ -292,6 +292,8 @@ var vueConfig = new Vue({
 
 		common.dropMenu.call(this);
 
+		common.headerMenu();
+
 		this.showCalendar();
 	},
 	methods:{
