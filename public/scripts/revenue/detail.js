@@ -43,30 +43,29 @@ var vueConfig = new Vue ({
 			})
 
 		},
-		saveCalc () {
-
-			var formData = local.get('revenue_formData');
+		download (id,shopId) {
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/api/calculator/calculation',
-				data:JSON.stringify(formData),
-				headers:{
-					'Content-type':'application/json'
-				}
-			}).then((data) => {
+				type: 'POST',
+				url:'/api/calculator/down',
+				data: {id:id}
+			}).then((data) =>{
 
-				if (data) {
+				const token = data.token;
 
-					Lizard.showToast('报表保存成功');
+				if (data && data.token) {
 
-					setTimeout(() => {
+					location.href = `/api/calculator/down?id=${id}&token=${token}`;
 
-						location.href = '/revenue/list';
+				} else {
 
-					},500)
+					this.download(id,shopId);
 
 				}
+
+			}).catch((err) => {
+
+				this.download(id,shopId);
 
 			})
 

@@ -121,8 +121,8 @@ var vueConfig = new Vue ({
 
 		var revenueLen = revenueList.length;
 
-		document.querySelector('.cont_list').style.width = ((40 + revenueLen * 150) / 100 ) + 'rem';
 
+		document.querySelector('.cont_list').style.width = (40 + revenueLen * 200) + 'px';
 
 		common.headerMenu();
 

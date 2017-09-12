@@ -10,18 +10,27 @@ var vueConfig = new Vue({
 
 		download (id,shopId) {
 
-			var jwt = Lizard.getCookie('jwt');
-
-			var org_id = Lizard.getCookie('org_id');
-
-
 			Lizard.ajax({
 				type: 'POST',
 				url:'/api/calculator/down',
 				data: {id:id}
 			}).then((data) =>{
 
-				console.log(data);
+				const token = data.token;
+
+				if (data && data.token) {
+
+					location.href = `/api/calculator/down?id=${id}&token=${token}`;
+
+				} else {
+
+					this.download(id,shopId);
+
+				}
+
+			}).catch((err) => {
+
+				this.download(id,shopId);
 
 			})
 

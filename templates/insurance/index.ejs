@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>车险投保 - 基本车辆信息</title>
+    <link rel="stylesheet" href="/styles/insurance/index.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr" id="app">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>车险投保 - 基本车辆信息</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>车辆列表</span>
+                <a href="/business/loan" class="title-btn1">发起借款</a>
+            </div>
+            <div class="process_info">
+               <ul class="process_list">
+                 <li class="active">
+                   <i>1</i>
+                   <span>基本车辆信息</span>
+                 </li>
+                 <li>
+                   <i>2</i>
+                   <span>&nbsp;</span>
+                 </li>
+                 <li>
+                   <i>3</i>
+                   <span>&nbsp;</span>
+                 </li>
+                 <li>
+                   <i>4</i>
+                   <span>&nbsp;</span>
+                 </li>
+                 <li>
+                   <i>5</i>
+                   <span>&nbsp;</span>
+                 </li>
+               </ul>
+            </div>
+            <div class="insurance_info">
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>行驶地区</label>
+                        <input type="text" placeholder="点击选择行驶地区" readonly="readonly" class="user-ui-input user-base-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>车牌号</label>
+                        <div class="drop_menu drop-menu-loan">
+                            <span>津</span>
+                            <ul class="drop_menu_list">
+                              <li><a href="javascript:;">津</a></li>
+                              <li><a href="javascript:;">津</a></li>
+                              <li><a href="javascript:;">津</a></li>
+                              <li><a href="javascript:;">津</a></li>
+                            </ul>
+                        </div>
+                        <input type="text" placeholder="车牌号码" class="user-ui-input">
+                        <strong class="vehicle_checkbox">异响</strong>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>车主姓名</label>
+                        <input type="text" placeholder="请输入车主姓名" class="user-ui-input user-base-input">
+                    </div>
+                </div>
+
+                <div class="insurance_submit">
+                   <button class="btn_confirm">立即获取报价</button>
+                   <button class="btn_cancel">清空</button>
+                </div>
+            </div>
+            <div class="cont-title">
+                <i></i>
+                <span>合作保险公司</span>
+            </div>
+            <div class="friend_link">
+               <ul class="link_list clearfix">
+                <%for (var i = 1; i <=8; i++){%>
+                 <li><img src="/images/link_0<%-i%>.png"></li>
+                <%}%>
+               </ul>
+            </div>
+         </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/insurance/index.js"></script>
+</body>
+</html>

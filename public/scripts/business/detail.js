@@ -96,9 +96,14 @@ Page({
 
 		var This = this;
 
+
 		$('#creditList').on('click','.btn_buy',function(){
 
-			var { index, interface_name } = $(this).data('query');
+			var query = JSON.parse($(this).data('query'));
+
+			console.log(query);
+
+			const { index, interface_name } = query;
 
 			if (credit[index].interface_name !== 'person_card_trans_record'){
 
@@ -106,7 +111,9 @@ Page({
 
 			}
 
-			This.purchaseAction(query);
+
+
+			This.purchaseAction(index,query,interface_name);
 		})
 
 		this.rotateImg();
@@ -146,7 +153,7 @@ Page({
 
 					var html = ejs.render(creditTpl,{list:credit,risks:data});
 
-					$('#vehicleList').html(html);
+					$('#creditList').html(html);
 				}
 			})
 
@@ -154,11 +161,11 @@ Page({
 
 	},
 
-	purchaseAction(query){
+	purchaseAction(index,query,interface_name){
 
 		Lizard.ajax({
 			type:'POST',
-			url:`/api/borrowings/${this.borrowingsId}/type`,
+			url:`/api/borrowings/${this.borrowingsId}/${interface_name}`,
 			error(){
 
 				credit[index].is_active = true;
@@ -192,7 +199,7 @@ Page({
 
 				var html = ejs.render(creditTpl,{list:credit,risks:data});
 
-				$('#creditList').html(html);
+				$('#vehicleList').html(html);
 			}
 
 		})

@@ -63,7 +63,7 @@
                     <dd>
                         <span class="borrowers_num"><%-item.model%></span>
                         <div class="borrowers_gps"><span class="borrowers_gps_action" @click="showPopup('#addPopup',<%-index%>,'<%-item.id%>')">添加/查看GPS设备</span></div>
-                        <span class="borrowers_color"><%-colorList[item.color].name%></span>
+                        <span class="borrowers_color"><%-(colorList[item.color] && colorList[item.color].name) || '&nbsp;'%></span>
                         <span class="borrowers_time"><%-item.created_at%></span>
                         <div class="borrowers_action">
                             <a href="/borrowers/vehicle/<%-item.id%>?id=<%-detailId%>" class="list_action">查看详情</a>

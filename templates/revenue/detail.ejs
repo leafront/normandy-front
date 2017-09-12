@@ -46,7 +46,7 @@
                 <span>¥<%-totalIncome%></span>
             </div>
             <div class="revenue_submit">
-                <button class="btn_confirm" @click="saveCalc">下载</button>
+                <button class="btn_confirm" @click="download('<%-detailId%>','<%-shopId%>')">下载</button>
             </div>
         </div>
         <% include ../common/footer.ejs %>

@@ -292,6 +292,10 @@
 			float: left;
 			margin-right: 8px;
 			cursor: pointer;
+			&[disabled]{
+
+				cursor:not-allowed;
+			}
 		}
 		.btn_buy{
 			background:#ed6b75;

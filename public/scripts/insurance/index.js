@@ -16,5 +16,10 @@ var vueConfig = new Vue ({
 	computed:{
 
 
+	},
+	mounted () {
+
+		common.headerMenu();
+
 	}
 })
