@@ -186,13 +186,19 @@
 }
 
 .popup_wraper{
-	width:1015rem/$rem;
+
+	width:1100rem/$rem;
+
 }
 .carPopup{
 
 	background:#fff;
 
 	overflow:hidden;
+
+	display:flex;
+
+	justify-content: center;
 }
 .carPopup_nav{
 
