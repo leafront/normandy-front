@@ -209,7 +209,8 @@ var Lizard = {
 		var options = {
 			isHeader:true,
 			async: true,
-			headers
+			headers,
+			timeout: 3000
 		}
 
 
@@ -239,20 +240,7 @@ var Lizard = {
 
 		var ajax = new Promise((resolve, reject) => {
 
-			util.ajax({
-
-				type:options.type,
-
-				url:options.url,
-
-				dataType:options.dataType,
-
-				async: options.async,
-
-				data: options.data,
-
-				headers: options.headers
-			}).then((results) => {
+			util.ajax(options).then((results) => {
 
 				resolve(results);
 

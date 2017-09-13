@@ -81,20 +81,18 @@
 
 	&:last-child{
 
-  	width:50%;
+  	width:55%;
 
 		margin-left:0;
 
-		p{
-			width:80%;
-		}
 	}
+	@include ellipsis;
 }
 
 
 .borrower_item{
 
-	width:45%;
+	width:40%;
 	float:left;
 	font-size:16px;
 	color:#248ad4;

@@ -12,37 +12,8 @@ var vueConfig = new Vue ({
 	data:{
 		list:[]
 	},
-
-	created () {
-
-		var formData = local.get('revenue_formData');
-
-		this.reportList(formData)
-
-
-	},
 	methods:{
 
-		reportList (formData) {
-
-			Lizard.ajax({
-				type:'POST',
-				url:'/api/calculator/cal_and_get_view',
-				data:JSON.stringify(formData),
-				headers:{
-					'Content-type':'application/json'
-				}
-			}).then((data) => {
-
-				if (data) {
-
-					this.list = data.display_view;
-
-				}
-
-			})
-
-		},
 		download (id,shopId) {
 
 			Lizard.ajax({

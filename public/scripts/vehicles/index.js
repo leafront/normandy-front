@@ -33,7 +33,7 @@ var queryParams = {
 	from: Lizard.query('from') || '',
 	to: Lizard.query('to') || '',
 	gps_status: Lizard.query('gps_status') || '',
-	ralated_borrowing_status: Lizard.query('ralated_borrowing_status') || ''
+	related_borrowing_status: Lizard.query('related_borrowing_status') || ''
 }
 
 
@@ -123,7 +123,7 @@ var vueConfig = new Vue({
 
 		loanStatus () {
 
-			var status = this.params.ralated_borrowing_status;
+			var status = this.params.related_borrowing_status;
 
 			if (status !== "") {
 
@@ -442,13 +442,7 @@ var vueConfig = new Vue({
 
 		reset () {
 
-			this.params = {
-				mobile:"",
-				name:"",
-				from:"",
-				to:"",
-				status:""
-			}
+			history.pushState(null,null,'/vehicles');
 
 			this.fetch(null);
 
