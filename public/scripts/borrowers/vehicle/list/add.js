@@ -447,7 +447,7 @@ Page({
 
 			loanErrInfo.forEach(function(item){
 
-				if (!item.value) {
+				if (!item.value && item.value === "") {
 
 					$(item.element).parent().addClass('form-group-error');
 

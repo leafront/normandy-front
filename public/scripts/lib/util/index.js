@@ -61,6 +61,12 @@ var util = {
 
 			xhr.timeout = options.timeout;
 
+			xhr.ontimeout = (event) => {
+
+				Lizard.showToast('请求超时！');
+
+			}
+
 			//设置请求头
 			for (var k in options.headers) {
 
@@ -68,11 +74,9 @@ var util = {
 			}
 
 
-			xhr.onprogress = options.onprogress;
+			xhr.onprogress = options.onprogress; //下载进度
 
-			xhr.upload.onprogress = options.onuploadprogress;
-
-			xhr.responseType = options.dataType;
+			xhr.upload.onprogress = options.onuploadProgress; //上传进度
 
 			xhr.onreadystatechange = () => {
 
@@ -80,11 +84,11 @@ var util = {
 
 					if((xhr.status >= 200 && xhr.status <=300)|| xhr.status == 304){
 
-						resolve(xhr.response);
+						resolve(JSON.parse(xhr.responseText));
 
 					} else {
 
-						reject(xhr.response);
+						reject(JSON.parse(xhr.responseText));
 
 					}
 				}

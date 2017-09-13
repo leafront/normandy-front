@@ -33,7 +33,7 @@ var queryParams = {
 	from: Lizard.query('from') || '',
 	to: Lizard.query('to') || '',
 	gps_status: Lizard.query('gps_status') || '',
-	ralated_borrowing_status: Lizard.query('ralated_borrowing_status') || ''
+	related_borrowing_status: Lizard.query('related_borrowing_status') || ''
 }
 
 
@@ -123,7 +123,7 @@ var vueConfig = new Vue({
 
 		loanStatus () {
 
-			var status = this.params.ralated_borrowing_status;
+			var status = this.params.related_borrowing_status;
 
 			if (status !== "") {
 
@@ -262,6 +262,10 @@ var vueConfig = new Vue({
 
 				}
 
+			}).catch((err) => {
+
+
+
 			})
 
 		},
@@ -277,6 +281,14 @@ var vueConfig = new Vue({
 		},
 
 		refreshGps () {
+
+			if (!this.vehicle_ids.length) {
+
+				Lizard.showToast('当前无GPS状态');
+
+				return;
+
+			}
 
 			this.fetchGps(this.vehicle_ids,function(){Lizard.showToast('刷新GPS状态成功')});
 
@@ -299,7 +311,11 @@ var vueConfig = new Vue({
 
 						this.gpsList.vehiclesId = data[vehiclesId];
 
-						Lizard.showToast('刷新GPS状态成功');
+						 if (data[vehiclesId].status == 3) {
+
+							Lizard.showToast('未安装gps');
+
+						 }
 
 					} else {
 
@@ -426,13 +442,7 @@ var vueConfig = new Vue({
 
 		reset () {
 
-			this.params = {
-				mobile:"",
-				name:"",
-				from:"",
-				to:"",
-				status:""
-			}
+			history.pushState(null,null,'/vehicles');
 
 			this.fetch(null);
 

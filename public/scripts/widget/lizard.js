@@ -52,7 +52,8 @@ var Lizard = {
 
 		var tpl=`
 		<div class="mask">
-		 </div> <div class="mask-ui">
+		 </div>
+		 <div class="mask-ui">
 		 <span>${value}</span>
 		</div>`;
 
@@ -74,6 +75,37 @@ var Lizard = {
 			mask.parentNode.removeChild(mask);
 
 		},2000)
+	},
+
+	showLoading () {
+
+		var tpl = `
+			<div class="loadingToast">
+				<div class="weui-mask_transparent"></div>
+				<div class="weui-toast">
+					<i class="weui-loading weui-icon_toast"></i>
+					<p class="weui-toast__content">正在加载中</p>
+				</div>
+		  </div>`;
+
+		if (document.querySelector('.loadingToast')) {
+			return;
+		}
+
+		Lizard.append(document.body,tpl);
+
+	},
+
+	hideLoading () {
+
+		var loading = document.querySelector('.loadingToast');
+
+		setTimeout(() =>{
+
+			loading.parentNode.removeChild(loading);
+
+		},500);
+
 	},
 
 	toggleClass (element,sClass) {
@@ -178,7 +210,7 @@ var Lizard = {
 			isHeader:true,
 			async: true,
 			headers,
-			dataType:'json'
+			timeout: 3000
 		}
 
 
@@ -208,20 +240,7 @@ var Lizard = {
 
 		var ajax = new Promise((resolve, reject) => {
 
-			util.ajax({
-
-				type:options.type,
-
-				url:options.url,
-
-				dataType:options.dataType,
-
-				async: options.async,
-
-				data: options.data,
-
-				headers: options.headers
-			}).then((results) => {
+			util.ajax(options).then((results) => {
 
 				resolve(results);
 

@@ -11,8 +11,6 @@ router.get('/login', async (ctx,next) => {
 		url:'/api/captcha'
 	})
 
-
-	console.log(captcha)
 	await ctx.render('user/login',{
 		captcha: captcha
 	})

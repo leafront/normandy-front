@@ -59,6 +59,8 @@ var vueConfig = new Vue({
 
 		fetch (data) {
 
+			Lizard.showLoading();
+
 			var page = Lizard.query('page') || 1;
 
 			var formData = Object.assign({ page }, data );
@@ -87,6 +89,7 @@ var vueConfig = new Vue({
 			}
 
 			data = common.deleteEmptyProperty(data);
+
 
 			this.fetch(data);
 
