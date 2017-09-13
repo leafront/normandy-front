@@ -39,7 +39,7 @@
                             <label>借款金额</label>
                             <input type="text" class="user-ui-input" v-model="params.amount" placeholder="请输入借款金额"/>
                         </div>
-                        <div class="search_item">
+                        <div class="search_item search_last_item">
                             <label>借款期限</label>
                             <input type="text" class="time-ui-input" v-model="params.term" placeholder="请输入借款期限"/>
                             <div class="drop_menu" :class="{'active':dropMenu == 1}">
@@ -77,7 +77,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="search_item">
+                        <div class="search_item search_time_item">
                             <label>注册时间</label>
                             <div class="user-ui-calendar">
                                 <input type="text" class="user-ui-input" readonly="readonly" v-model="params.from" id="fromTime" placeholder="请输入开始时间"/>

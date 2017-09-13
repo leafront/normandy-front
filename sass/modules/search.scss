@@ -3,9 +3,18 @@
 	padding-top:26rem/$rem;
 	padding-bottom:50rem/$rem;
 }
+
+
+.time-ui-input{
+	@extend .user-ui-input;
+	width:156rem/$rem;
+}
+
+
 .search_item{
-	float:left;
+
 	padding:0 25rem/$rem;
+
 	&:last-child{
 		padding-right:0;
 	}
@@ -17,6 +26,7 @@
 		text-align:right;
 	}
 }
+
 .search_submit{
 	width:280px;
 	margin:45rem/$rem auto 0;
