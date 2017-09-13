@@ -34,8 +34,7 @@ router.get('/', async (ctx,next) => {
 	const params = querystring.parse(ctx.req._parsedUrl.query);
 
 	const currentPage = parseInt(params.page) || 1;
-
-	console.log(params)
+	
 
 	params.page = currentPage;
 
@@ -44,7 +43,6 @@ router.get('/', async (ctx,next) => {
 		data:params
 	})
 
-	console.log(totalCount)
 
 	const showPage = 5;
 
