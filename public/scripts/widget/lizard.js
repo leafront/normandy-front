@@ -210,7 +210,8 @@ var Lizard = {
 			isHeader:true,
 			async: true,
 			headers,
-			timeout: 3000
+			timeout: 3000,
+			dataType:'json'
 		}
 
 

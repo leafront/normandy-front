@@ -142,11 +142,65 @@ var vueConfig = new Vue({
 
 			var isValidate = true;
 
-			var validateEle = ['self','rel','col','fri','emer'];
+			var self = Object.assign({},this.self);
+
+			var rel = Object.assign({},this.rel);
+
+			var col = Object.assign({},this.col);
+
+			var  fri = Object.assign({},this.fri);
+
+			var emer = Object.assign({},this.emer);
+
+
+			if (self.other_liabilities == 0) {
+
+				delete self.liabilities_amount;
+
+			}
+
+			if (!self.income.length) {
+
+				delete self.income_amount;
+
+				delete self.pending_amount;
+
+				delete self.pending_month;
+
+			}
+
+			if (self.income.length && self.income.indexOf('0') <= -1) {
+
+				delete self.income_amount;
+
+			}
+
+			if (self.income.length && self.income.indexOf('1') <= -1) {
+
+				delete self.pending_amount;
+
+				delete self.pending_month;
+
+			}
+
+
+			if (rel.other_liabilities == 0) {
+
+				delete rel.liabilities_amount;
+
+			}
+
+			if (col.know_job == 0) {
+
+				delete col.know_position;
+
+			}
+
+			var validateEle = [self,rel,col,fri,emer];
 
 			for (var i = 0,len = validateEle.length; i < len; i++) {
 
-				var formData = this[validateEle[i]];
+				var formData = validateEle[i];
 
 				for (var attr in formData ) {
 
@@ -156,7 +210,7 @@ var vueConfig = new Vue({
 
 						if (value === '') {
 
-							console.log(attr)
+							console.log(attr);
 
 							isValidate = false;
 
@@ -207,7 +261,8 @@ var vueConfig = new Vue({
 
 			var isValidate = this.validateForm();
 
-			this.isValidate = validateEle;
+
+			this.isValidate = isValidate;
 
 			if (!isValidate) {
 
