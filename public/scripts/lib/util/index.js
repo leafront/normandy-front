@@ -72,19 +72,17 @@ var util = {
 
 			xhr.upload.onprogress = options.onuploadprogress;
 
-			xhr.responseType = options.dataType;
-
 			xhr.onreadystatechange = () => {
 
 				if(xhr.readyState == 4){
 
 					if((xhr.status >= 200 && xhr.status <=300)|| xhr.status == 304){
 
-						resolve(xhr.response);
+						resolve(JSON.parse(xhr.responseText));
 
 					} else {
 
-						reject(xhr.response);
+						reject(JSON.parse(xhr.responseText));
 
 					}
 				}

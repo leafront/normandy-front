@@ -5,11 +5,11 @@ var querystring = require('querystring');
 
 //const userAPI = 'http://user.auto-techfin.com';
 //
-//const shopAPI = 'http://shop.auto-techfin.com';
+const shopAPI = 'http://shop.auto-techfin.com';
 
 const userAPI = 'http://user.qgqg.me';
 
-const shopAPI = 'http://shop.qgqg.me';
+//const shopAPI = 'http://shop.qgqg.me';
 
 module.exports = {
 
@@ -28,8 +28,6 @@ module.exports = {
 		const jwt = header ? header.authorization : 'Bearer ' + getCookies.get('jwt');
 
 		const org_id = getCookies.get('org_id');
-
-		console.log(url);
 
 		return new Promise((resolve,reject) => {
 			request({

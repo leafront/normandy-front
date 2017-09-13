@@ -262,6 +262,10 @@ var vueConfig = new Vue({
 
 				}
 
+			}).catch((err) => {
+
+
+
 			})
 
 		},
@@ -277,6 +281,14 @@ var vueConfig = new Vue({
 		},
 
 		refreshGps () {
+
+			if (!this.vehicle_ids.length) {
+
+				Lizard.showToast('当前无GPS状态');
+
+				return;
+
+			}
 
 			this.fetchGps(this.vehicle_ids,function(){Lizard.showToast('刷新GPS状态成功')});
 
@@ -299,7 +311,11 @@ var vueConfig = new Vue({
 
 						this.gpsList.vehiclesId = data[vehiclesId];
 
-						Lizard.showToast('刷新GPS状态成功');
+						 if (data[vehiclesId].status == 3) {
+
+							Lizard.showToast('未安装gps');
+
+						 }
 
 					} else {
 

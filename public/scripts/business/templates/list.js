@@ -1,9 +1,12 @@
 module.exports = `
  <dt>
-	<span class="borrowers_number">编号</span>
-	<span class="borrowers_name">姓名</span>
-	<span class="borrowers_phone">手机</span>
-	<span class="borrowers_regTime">注册时间</span>
+	<span class="business_num">借款编号</span>
+	<span class="business_name">借款人</span>
+	<span class="business_type">借款类型</span>
+	<span class="business_money">借款金额</span>
+	<span class="business_term">借款期限</span>
+	<span class="business_time">申请时间</span>
+	<span class="list_status">状态</span>
 	<span>操作</span>
 </dt>
 <%if(list && list.length){%>

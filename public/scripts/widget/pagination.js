@@ -15,6 +15,8 @@ var pagination = {
 
 			if(event.target && event.target.className == "js_page") {
 
+				Lizard.showLoading();
+
 				event.preventDefault();
 
 				pagination.getList(event,url, data, listTpl, tplData);
@@ -59,6 +61,8 @@ var pagination = {
 			url: url,
 			data: formData,
 		}).then((data) => {
+
+			Lizard.hideLoading();
 
 			if (data && data.results.length){
 
@@ -106,6 +110,10 @@ var pagination = {
 				document.querySelector('.cont_list').innerHTML = listEmpty
 
 			}
+
+		}).catch((err) => {
+
+			Lizard.hideLoading();
 
 		})
 	}
