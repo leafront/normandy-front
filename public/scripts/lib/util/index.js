@@ -73,6 +73,7 @@ var util = {
 				xhr.setRequestHeader(k, options.headers[k]);
 			}
 
+			xhr.responseType = options.dataType;
 
 			xhr.onprogress = options.onprogress; //下载进度
 
@@ -84,11 +85,11 @@ var util = {
 
 					if((xhr.status >= 200 && xhr.status <=300)|| xhr.status == 304){
 
-						resolve(JSON.parse(xhr.responseText));
+						resolve(xhr.response);
 
 					} else {
 
-						reject(JSON.parse(xhr.responseText));
+						reject(xhr.response);
 
 					}
 				}

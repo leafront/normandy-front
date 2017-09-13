@@ -318,6 +318,10 @@ var vueConfig = new Vue({
 					size: file.size,
 					rotate: 0
 				})
+			}).catch((err) => {
+
+				console.log(err);
+
 			})
 
 		},
