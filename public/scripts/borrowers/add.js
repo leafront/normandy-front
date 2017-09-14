@@ -84,11 +84,11 @@ var vueConfig = new Vue ({
 				data: data
 			}).then((data) => {
 
-				Lizard.showToast('新增成功, 跳转至绑定页面...');
+				Lizard.showToast('新增成功, 跳转至用户列表...');
 
 				setTimeout(() =>{
 
-					location.href = '/borrowers/bind';
+					location.href = '/borrowers';
 
 				},500)
 			})
