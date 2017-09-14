@@ -1,0 +1,22 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/form_list.scss';
+
+@import '../modules/dropMenu.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../modules/process.scss';
+
+
+.insurance_submit{
+
+	display:flex;
+
+	justify-content: center;
+
+	padding-bottom:50px;
+
+}

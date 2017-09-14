@@ -76,7 +76,9 @@ module.exports = {
 
 		'account/index':'./public/scripts/account/index',
 
-		'insurance/index': './public/scripts/insurance/index'
+		'insurance/index': './public/scripts/insurance/index',
+
+		'insurance/info': './public/scripts/insurance/info'
 
   },
   output: {
