@@ -22,4 +22,18 @@ router.get('/', async (ctx,next) => {
 
 })
 
+router.get('/info', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('insurance/info',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
+
+})
+
 module.exports = router;
