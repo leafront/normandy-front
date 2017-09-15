@@ -37,7 +37,7 @@ module.exports = {
 
 			}).catch((err) =>{
 
-				ctx.redirect('/user/login?returnurl=' + ctx.path);
+				ctx.redirect('/user/login?returnurl=' + ctx.url);
 
 				resolve ({ roleList:[], shop:{}, authority:{} })
 

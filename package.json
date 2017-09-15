@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev_pack": "node pack.js dev",
-    "production_pack":"node pack.js production",
+    "production_pack": "node pack.js production",
     "production": "NODE_ENV=production pm2 start server.js",
     "start": "./node_modules/.bin/nodemon server",
     "dev": "NODE_ENV=develop webpack -d -w --progress --colors",
@@ -38,6 +38,8 @@
     "es6-promise": "^4.1.1",
     "gulp": "3.9.1",
     "gulp-ejs": "^3.0.1",
+    "gulp-ejs-template": "^0.2.0",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-replace": "^0.6.1",
     "gulp-sass": "2.3.2",
     "gulp-sourcemaps": "^2.6.0",

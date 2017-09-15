@@ -2,7 +2,7 @@ var gulp = require('gulp');
 
 var sass = require('gulp-sass');
 
-var ejs = require("gulp-ejs");
+var htmlmin = require('gulp-htmlmin');
 
 var sourcemaps = require('gulp-sourcemaps');
 
@@ -35,6 +35,7 @@ var dataString=[
 
 gulp.task('ejs',function() {
 	return gulp.src('./templates/**/*.ejs')
+		.pipe(htmlmin({collapseWhitespace: true}))
 		.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
 		.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
 		.pipe(replace(/\.png\b/g, '.png?v=' + dataString))

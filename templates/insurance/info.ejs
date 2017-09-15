@@ -53,36 +53,104 @@
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label>借款类型</label>
-                                <strong class="active">抵押</strong>
-                                <strong class="">质押</strong>
+                                <label>车架号</label>
+                                <input type="text" placeholder="车架号" class="user-ui-input">
                             </div>
                             <div class="form-group-rows">
-                                <label>借款金额</label>
-                                <div class="user-ui-number">
-                                    <input type="text" placeholder="借款金额" class="user-ui-input edit-ui-input">
-                                    <i class="user-ui-input-txt">元</i>
-                                </div>
+                                <label>发动机号</label>
+                                <input type="text" placeholder="发动机号" class="user-ui-input">
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
-                                <label class="">借款期限</label>
-                                <input type="number" placeholder="借款期限" class="user-ui-input">
-                                <div class="drop_menu drop_menu_term">
-                                    <span>个月</span>
-                                    <ul class="drop_menu_list">
-                                        <li><a href="javascript:;">天</a></li>
-                                        <li><a href="javascript:;">个月</a></li>
-                                    </ul>
-                                </div>
+                                <label>品牌型号</label>
+                                <input type="text" readonly="readonly" placeholder="品牌型号" class="user-ui-input">
                             </div>
                             <div class="form-group-rows">
-                                <label>业务员 </label>
-                                <div class="drop_menu drop_menu_edit"><span>赵昌盛</span> <ul class="drop_menu_list"><li><a href="javascript:;">赵昌盛</a></li><li><a href="javascript:;">赵全能</a></li><li><a href="javascript:;">害虫</a></li></ul></div></div></div> <div class="form-group clearfix"><div class="form-group-rows"><label>还款类型</label> <div class="drop_menu drop_menu_edit"><span>等本等息</span> <ul class="drop_menu_list"><li><a href="javascript:;">先息后本</a></li><li><a href="javascript:;">等本等息</a></li><li><a href="javascript:;">等额本息</a></li><li><a href="javascript:;">等额本金</a></li></ul></div></div> <div class="form-group-rows "><label>综合服务费率</label> <div class="user-ui-number"><input type="text" placeholder="综合服务费率" class="user-ui-input user-ui-month"> <i class="user-ui-input-txt">% / 期</i></div><button class="edit_btn_custom">自定义</button></div></div></div></div>
+                                <label>登记日期</label>
+                                <input type="text" readonly="readonly" placeholder="登记日期" class="user-ui-input">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>是否一年内过户</label>
+                                <% booleanOptions.forEach(function(item){%>
+                                  <strong><%-item.name%></strong>
+                                <%})%>
+                            </div>
+                            <div class="form-group-rows ">
+                                <label>过户日期</label>
+                                <input type="text" readonly="readonly" placeholder="过户日期" class="user-ui-input">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>车主身份证</label>
+                                <input type="number" placeholder="请输入车主身份证号码" class="user-ui-input">
+                            </div>
+                            <div class="form-group-rows ">
+                                <label>车主手机号</label>
+                                <input type="text" readonly="readonly" placeholder="过户日期" class="user-ui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人信息</label>
+                                <strong class="vehicle_checkbox">同车主</strong>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人姓名</label>
+                                <input type="text" placeholder="请输入投保人姓名" class="user-ui-input">
+                            </div>
+                            <div class="form-group-rows">
+                                <label>投保人手机号</label>
+                                <input type="text" placeholder="请输入投保人手机号" class="user-ui-input">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人身份证号</label>
+                                <input type="text" placeholder="请输入投保人身份证号" class="user-ui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>被保人信息</label>
+                                <strong class="vehicle_checkbox">同车主</strong>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人姓名</label>
+                                <input type="text" placeholder="请输入投保人姓名" class="user-ui-input">
+                            </div>
+                            <div class="form-group-rows">
+                                <label>投保人手机号</label>
+                                <input type="text" placeholder="请输入投保人手机号" class="user-ui-input">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人身份证号</label>
+                                <input type="text" placeholder="请输入投保人身份证号" class="user-ui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="insurance_submit">
-                    <button class="btn_confirm">立即获取报价</button>
-                    <button class="btn_cancel">清空</button>
+                    <button class="btn_cancel">上一步</button>
+                    <button class="btn_confirm">确认消息</button>
                 </div>
             </div>
         </div>

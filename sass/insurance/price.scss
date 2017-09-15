@@ -1,0 +1,140 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/form_list.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/process.scss';
+
+.insurance_info{
+
+	padding-top:20px;
+
+}
+
+.vehicle_info_title{
+
+	padding-left:20px;
+	padding-top:28px;
+
+}
+
+.business_status {
+	height:40px;
+	border-bottom: 1px solid #ececec;
+	h4 {
+		font-size: 16px;
+		line-height: 40px;
+		color: #263238;
+		float: left;
+	}
+}
+
+.insurance_item{
+	padding-left:210rem/$rem;
+	padding-top:30px;
+	p{
+		float:left;
+		font-size:16px;
+		margin-right:135px;
+		color:#666;
+		span{
+			float:left;
+		}
+		strong{
+			font-weight:bold;
+			float:left;
+		}
+	}
+	.insurance_detail_btn{
+		padding:0 18rem/$rem;
+
+		cursor:pointer;
+		height:32px;
+		text-align:center;
+		float:right;
+		@include borderRadius(18);
+		color:#fefefe;
+		line-height:32px;
+		font-size:14px;
+		@include boxShadow(4);
+		background:#53cac3;
+		margin-right:20px;
+		&:hover{
+
+			background:#6adbcf;
+		}
+	}
+}
+.insurance_cate_wrapper{
+
+	width:760px;
+
+	float:left;
+}
+.insurance_cate{
+
+	p{
+
+		font-size:16px;
+		float:left;
+
+		color:#666;
+
+		margin-right:45rem/$rem;
+
+		&:last-child{
+			margin-right:0;
+		}
+
+	}
+
+}
+.cont_list{
+	.insurance_name{
+
+		width:505rem/$rem;
+	}
+	.insurance_logo{
+		width:64px;
+
+		height:36px;
+
+		float:left;
+
+		margin-right:34px;
+	}
+	dd{
+
+		padding:30px 0;
+
+		span{
+			font-size:16px;
+			color:#333;
+			line-height:34px;
+		}
+		.insurance_renewal{
+			margin-left:54px;
+			padding:0 18rem/$rem;
+			cursor:pointer;
+			height:32px;
+			text-align:center;
+			float:left;
+			@include borderRadius(18);
+			color:#fefefe;
+			line-height:32px;
+			font-size:14px;
+			@include boxShadow(4);
+			background:#84c0eb;
+			margin-right:20px;
+			&:hover{
+
+				background:#97c4ea;
+			}
+		}
+	}
+}

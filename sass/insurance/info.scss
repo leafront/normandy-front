@@ -19,4 +19,43 @@
 
 	padding-bottom:50px;
 
+	padding-top:50px;
+
+}
+.insurance_info{
+
+	padding-top:20px;
+}
+
+.vehicle_info_wraper{
+	padding:28px 0 25px 30rem/$rem;
+	border-bottom:1px solid #ececec;
+
+}
+.vehicle_item{
+	width:100%;
+}
+
+.form-group-rows:first-child{
+
+	width:800rem/$rem;
+
+}
+.user-ui-input {
+
+	width:520rem/$rem;
+
+}
+.form-group{
+
+	.vehicle_checkbox{
+
+		&:before{
+
+			border-radius:2px;
+
+			-webkit-box-radius:2px;
+		}
+	}
+
 }

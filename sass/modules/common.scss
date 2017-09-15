@@ -404,6 +404,7 @@ body{
 
 	}
 }
+
 .content{
 	background:#fff;
 	padding-left:15rem/$rem;
@@ -453,6 +454,29 @@ body{
 			left:15rem/$rem;
 			top:-2px;
 
+		}
+	}
+	.list_btn{
+
+		padding:0 18rem/$rem;
+
+		cursor:pointer;
+		height:32px;
+		text-align:center;
+		float:right;
+		@include borderRadius(6);
+		color:#fefefe;
+		position:relative;
+		line-height:32px;
+		font-size:14px;
+		@include boxShadow(4);
+
+		margin-right:20px;
+		background:#53cac3;
+
+		&:hover{
+
+			background:#6adbcf;
 		}
 	}
 	.title-btn1{

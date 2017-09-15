@@ -3,7 +3,7 @@ module.exports = `<%if (list && list.length){%>
     <div class="business_table">
         <dl class="business_table_list">
             <dt>
-                <span>审批信息</span>
+                <span>审核日期</span>
                 <span>审批人</span>
                 <span>阶段</span>
                 <span>结果</span>

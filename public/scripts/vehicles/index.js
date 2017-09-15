@@ -160,6 +160,12 @@ var vueConfig = new Vue({
 
 		var vehicle_ids = [];
 
+		if (!vehiclesList) {
+
+			vehiclesList = [];
+
+		}
+
 		vehiclesList.forEach( (item) =>{
 
 			if (item.gps_devices.length) {
