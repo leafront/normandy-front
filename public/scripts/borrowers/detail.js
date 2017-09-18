@@ -63,6 +63,12 @@ var vueConfig = new Vue({
 
 					popupConfig.gps_devices = results;
 
+				} else {
+
+					popupConfig.gps_devices = this.gps_devices;
+
+					popupConfig.dropMenu = this.dropMenu;
+
 				}
 
 			})
@@ -118,7 +124,7 @@ var popupConfig = new Vue({
 
 			if (this.gps_devices.length <= this.number) {
 
-				this.gps_devices.push(	{'supplier': '谷米', 'imei': '', 'type': 0,status:0});
+				this.gps_devices.push(	{'supplier': '谷米', 'imei': '', 'type': 0,status:1});
 
 				this.dropMenu.push({deviceOpen: false, statusOpen: false})
 
@@ -130,7 +136,24 @@ var popupConfig = new Vue({
 
 			var gps_devices = Object.assign([],this.gps_devices);
 
-			var vehiclesId = vueConfig.vehiclesId
+			for (var i = gps_devices.length -1;i >=0; i--) {
+
+				if ( gps_devices[i].imei === "") {
+
+					gps_devices.splice(i,1);
+
+				}
+			}
+
+			if (!gps_devices.length) {
+
+				Lizard.showToast('请输入添加/修改的设备信息');
+
+				return;
+
+			}
+
+			var vehiclesId = vueConfig.vehiclesId;
 
 			Lizard.ajax({
 				type: "PATCH",
