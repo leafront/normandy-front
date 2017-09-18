@@ -8,7 +8,7 @@ var enviroment = [
 	  name:'webpack'
   },
 	{
-	 gulp: {'dev': 'gulp',  'production': 'gulp ejs sass'},
+	 gulp: {'dev': 'gulp',  'production': 'NODE_ENV=production gulp ejs sass'},
 	 name:'gulp'
   },
 	{

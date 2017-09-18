@@ -58,4 +58,19 @@ router.get('/price', async (ctx,next) => {
 
 })
 
+router.get('/delivery', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('insurance/delivery',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		booleanOptions
+	})
+
+})
+
 module.exports = router;

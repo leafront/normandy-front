@@ -33,15 +33,18 @@ var dataString=[
 	seconds > 10 ? seconds : '0'+seconds
 ].join('');
 
-gulp.task('ejs',function() {
-	return gulp.src('./templates/**/*.ejs')
-		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
-		.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
-		.pipe(replace(/\.png\b/g, '.png?v=' + dataString))
-		.pipe(gulp.dest('./views/'))
+if (process.env.NODE_ENV == 'production') {
 
-})
+	gulp.task('ejs', function () {
+		return gulp.src('./templates/**/*.ejs')
+			.pipe(htmlmin({collapseWhitespace: true}))
+			.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
+			.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
+			.pipe(replace(/\.png\b/g, '.png?v=' + dataString))
+			.pipe(gulp.dest('./views/'))
+
+	})
+}
 
 gulp.task('sass', function () {
 	return gulp.src('./sass/**/*.scss')

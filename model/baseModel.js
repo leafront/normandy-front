@@ -4,11 +4,11 @@ var request = require('request-promise');
 var querystring = require('querystring');
 
 //const userAPI = 'http://user.auto-techfin.com';
-const shopAPI = 'http://shop.auto-techfin.com';
+//const shopAPI = 'http://shop.auto-techfin.com';
 
 const userAPI = 'http://user.qgqg.me';
-//
-//const shopAPI = 'http://shop.qgqg.me';
+
+const shopAPI = 'http://shop.qgqg.me';
 
 module.exports = {
 
