@@ -100,10 +100,7 @@
                             <span class="vehicles_status">
                                 <% if(borrowingStatus[item.borrowing_status]) {%>
                                   <%-borrowingStatus[item.borrowing_status] && borrowingStatus[item.borrowing_status].title%>
-                                <%} else {%>
-                                  <%-'未上标'%>
-                                <%}%>
-
+                                <%} %>
                             </span>
                             <div class="vehicles_gps">
                               <div class="drop_menu drop-menu-gps" :class="{'active':dropMenu == '<%-item.id%>'}">
