@@ -16,7 +16,7 @@ var vueConfig = new Vue ({
 		params: {
 			name: '',
 			mobile: '',
-			email: ''
+			id_no: ''
 		}
 
 	},
@@ -32,7 +32,7 @@ var vueConfig = new Vue ({
 
 			const formData = Object.assign({},this.params);
 
-			const { name, mobile, email } = formData;
+			const { name, mobile, id_no } = formData;
 
 			if (!name) {
 
@@ -55,9 +55,18 @@ var vueConfig = new Vue ({
 				return;
 			}
 
-			if (email && !validate.isEmail(email)){
 
-				Lizard.showToast('请输入正确的邮箱地址');
+			if (!id_no) {
+
+				Lizard.showToast('请输入身份证号');
+
+				return;
+
+			}
+
+			if (!validate.isIdCard(id_no)){
+
+				Lizard.showToast('请输入正确的身份证号');
 
 				return;
 
@@ -75,11 +84,11 @@ var vueConfig = new Vue ({
 				data: data
 			}).then((data) => {
 
-				Lizard.showToast('新增成功, 跳转至实名认证页面...');
+				Lizard.showToast('新增成功, 跳转至用户列表...');
 
 				setTimeout(() =>{
 
-					location.href = `/borrowers/real/name?mobile=${data.mobile}`;
+					location.href = '/borrowers';
 
 				},500)
 			})

@@ -204,8 +204,6 @@ var Lizard = {
 
 		var org_id = Lizard.getCookie('org_id');
 
-
-
 		var options = {
 			isHeader:true,
 			async: true,

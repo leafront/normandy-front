@@ -32,8 +32,6 @@ module.exports = {
 
 		'borrowers/add':'./public/scripts/borrowers/add',
 
-		'borrowers/real/name':'./public/scripts/borrowers/real/name',
-
 		'borrowers/bind':'./public/scripts/borrowers/bind',
 
 		'borrowers/vehicle/list/index':'./public/scripts/borrowers/vehicle/list/index',
@@ -76,7 +74,13 @@ module.exports = {
 
 		'account/index':'./public/scripts/account/index',
 
-		'insurance/index': './public/scripts/insurance/index'
+		'insurance/index': './public/scripts/insurance/index',
+
+		'insurance/info': './public/scripts/insurance/info',
+
+		'insurance/price': './public/scripts/insurance/price',
+
+		'insurance/delivery': './public/scripts/insurance/delivery'
 
   },
   output: {

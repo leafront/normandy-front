@@ -55,7 +55,7 @@ if (process.env.NODE_ENV == 'production') {
 
 			if (ctx.status == 404) {
 
-				ctx.redirect('/error/404?path='+ctx.path);
+				ctx.redirect('/error/404?path='+ctx.url);
 
 			}
 
@@ -66,19 +66,19 @@ if (process.env.NODE_ENV == 'production') {
 
 			if (err.statusCode == 401) {
 
-				ctx.redirect('/user/login?returnurl=' + ctx.path);
+				ctx.redirect('/user/login?returnurl=' + ctx.url);
 
 			} else if (err.statusCode == 403 || err.statusCode == 404) {
 
-				ctx.redirect('/error/404?path='+ctx.path);
+				ctx.redirect('/error/404?path='+ctx.url);
 
 			} else if (err.statusCode == 500) {
 
-				ctx.redirect('/error/500?path='+ctx.path);
+				ctx.redirect('/error/500?path='+ctx.url);
 
 			} else {
 
-				ctx.redirect('/error/500?path='+ctx.path);
+				ctx.redirect('/error/500?path='+ctx.url);
 			}
 		}
 	})
@@ -109,19 +109,19 @@ if (process.env.NODE_ENV == 'production') {
 
 			if (err.statusCode == 401) {
 
-				ctx.redirect('/user/login?returnurl=' + ctx.path);
+				ctx.redirect('/user/login?returnurl=' + ctx.url);
 
 			} else if (err.statusCode == 403 || err.statusCode == 404) {
 
-				ctx.redirect('/error/404?path='+ctx.path);
+				ctx.redirect('/error/404?path='+ctx.url);
 
 			} else if (err.statusCode == 500) {
 
-				ctx.redirect('/error/500?path='+ctx.path);
+				ctx.redirect('/error/500?path='+ctx.url);
 
 			} else {
 
-				ctx.redirect('/error/500?path='+ctx.path);
+				ctx.redirect('/error/500?path='+ctx.url);
 			}
 		}
 	})

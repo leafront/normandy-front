@@ -173,10 +173,6 @@
                  <%}%>
                  <div class="vehicle_tab_wraper clearfix">
                     <div id="approvals"></div>
-                     <div class="business_submit">
-                         <button class="btn_confirm">申请</button>
-                         <button class="btn_cancel">放弃</button>
-                     </div>
                  </div>
              </div>
              <div class="business_tab">
@@ -315,7 +311,7 @@
                          <div class="form-group clearfix">
                              <div class="form-group-rows">
                                  <label>购买时间：</label>
-                                 <span><%-condition && condition.buy_day%></span>
+                                 <span><%condition && condition.buy_day%></span>
                              </div>
                              <div class="form-group-rows">
                                  <label>过户时间：</label>

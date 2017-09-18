@@ -55,7 +55,12 @@
                         </ul>
                     </div>
                     <div class="form-group-tips">
-                      <p>注意：主审通过要求电核通过 !</p>
+                      <%if (pidStatus == 0){%>
+                        <p>注意: 初审通过要求机审通过!</p>
+                      <%}else{%>
+                        <p>注意: 主审通过要求电核通过!</p>
+                      <%}%>
+
                     </div>
                     <div class="form-group">
                         <label>备注</label>
@@ -73,7 +78,7 @@
                     <div class="business_table">
                         <dl class="business_table_list">
                             <dt>
-                                <span>审批信息</span>
+                                <span>审核日期</span>
                                 <span>审批人</span>
                                 <span>阶段</span>
                                 <span>结果</span>

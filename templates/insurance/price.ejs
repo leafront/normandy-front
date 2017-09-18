@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>车险投保 - 基本车辆信息</title>
+    <link rel="stylesheet" href="/styles/insurance/price.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr" id="app">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>车险投保 - 基本车辆信息</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>车辆列表</span>
+                <button class="list_btn">查看订单列表</button>
+                <button class="list_btn">查看险种</button>
+            </div>
+            <div class="process_info">
+                <ul class="process_list">
+                    <li class="active">
+                        <i>1</i>
+                        <span>基本车辆信息</span>
+                    </li>
+                    <li class="active">
+                        <i>2</i>
+                        <span>详细车辆信息</span>
+                    </li>
+                    <li class="active">
+                        <i>3</i>
+                        <span>车险报价</span>
+                    </li>
+                    <li>
+                        <i>4</i>
+                        <span>&nbsp;</span>
+                    </li>
+                    <li>
+                        <i>5</i>
+                        <span>&nbsp;</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="insurance_info">
+              <div class="vehicle_info_title">
+                  <div class="business_status">
+                    <h4>车辆信息</h4>
+                  </div>
+              </div>
+              <div class="insurance_item clearfix">
+                <p>
+                    <strong>车牌号：</strong>
+                    <span>川 A13S32</span>
+                </p>
+                <p>
+                  <strong>品牌型号：</strong>
+                  <span>东风雪铁龙DC7165LYCM轿车</span>
+                </p>
+                <button class="insurance_detail_btn">查看详情</button>
+              </div>
+              <div class="vehicle_info_title">
+                <div class="business_status">
+                    <h4>已选险种(3种)</h4>
+                </div>
+              </div>
+
+              <div class="insurance_item">
+                <div class="insurance_cate_wrapper">
+                  <div class="insurance_cate clearfix">
+                    <p>机动车损失保险（不计免赔）</p>
+                    <p>第三者责任险（50万、不计免赔）</p>
+                    <p>玻璃单独破碎险（进口玻璃）</p>
+                  </div>
+                </div>
+                <button class="insurance_detail_btn">调整险种</button>
+              </div>
+
+              <div class="vehicle_info_title">
+                <div class="business_status">
+                    <h4>车险报价</h4>
+                </div>
+              </div>
+              <div class="list_container list_top">
+                <dl class="cont_list">
+                  <dt>
+                    <span class="insurance_name">姓名</span>
+                    <span>是否查看报价</span>
+                  </dt>
+                  <dd>
+                    <img class="insurance_logo" src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png"/>
+                    <strong class="insurance_cate_name">平安</strong>
+                    <button class="insurance_renewal">续保</button>
+                    <div class="insurance_price">
+                        <div class="drop_menu drop-menu-price">
+                            <span>请选择</span>
+                            <ul class="drop_menu_list">
+                                <li><a href="javascript:;">正常</a></li>
+                                <li><a href="javascript:;">异常</a></li>
+                                <li><a href="javascript:;">预警</a></li>
+                                <li><a href="javascript:;">未安装</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="price_gpsStatus">
+                        <span class="gps_error">异常</span>
+                        <div class="price_tips">
+                            <p>不满足有线离线同时至少有一个正常</p>
+                            <p>解决方案：实地排查</p>
+                        </div>
+                    </div>
+                    <strong class="insurance_integral">返67488积分</strong>
+
+                    <button class="insure_btn">立即投保</button>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/insurance/price.js"></script>
+</body>
+</html>

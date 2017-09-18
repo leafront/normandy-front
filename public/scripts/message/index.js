@@ -106,11 +106,6 @@ function showRead(){
 
 		readMessage(id_list,fnClass);
 
-		var jwt = Lizard.getCookie('jwt');
-
-		var org_id = Lizard.getCookie('org_id');
-
-
 	})
 
 	$('.message_read').click(function(){
