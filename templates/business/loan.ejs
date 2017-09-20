@@ -110,16 +110,45 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows form-group-address">
                                 <label :class="{'error_text':!isValidate && (formData.birthplace_province === '' || formData.birthplace_city === '' ||  formData.birthplace_address === '' )}">户籍</label>
-                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.birthplace_province === '')}" v-model="formData.birthplace_province" placeholder="户籍省份">
-                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.birthplace_city === '')}" v-model="formData.birthplace_city" placeholder="户籍城市">
+                                <div class="drop_menu drop_menu_province" :class="{'active':dropMenu == 9}">
+                                    <span @click.stop="selectMenu(9)">{{formData.birthplace_province}}</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in province" @click.stop="selectProvince('birthplace_',item.province_id,item.province_name)">
+                                            <a href="javascript:;">{{item.province_name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="drop_menu drop_menu_province" :class="{'active':dropMenu == 10}">
+                                    <span @click.stop="selectMenu(10)">{{formData.birthplace_city}}</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="item in cityList" @click.stop="selectCity('birthplace_',item.city_name)">
+                                            <a href="javascript:;">{{item.city_name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <input type="text" class="user-ui-input user-ui-address" :class="{'error_input':(!isValidate && formData.birthplace_address === '')}" v-model="formData.birthplace_address" placeholder="详细地址">
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows form-group-address">
                                 <label :class="{'error_text':!isValidate && (formData.province === '' || formData.city === '' ||  formData.address === '' )}">现居住地</label>
-                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.province === '')}" v-model="formData.province" placeholder="现居住地省份">
-                                <input type="text" class="user-ui-input user-ui-province" :class="{'error_input':(!isValidate && formData.city === '')}" v-model="formData.city" placeholder="现居住地城市">
+                                <div class="drop_menu drop_menu_province" :class="{'active':dropMenu == 11}">
+                                    <span @click.stop="selectMenu(11)">{{formData.province}}</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="(item,index) in province" @click.stop="selectProvince('',item.province_id,item.province_name)">
+                                            <a href="javascript:;">{{item.province_name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="drop_menu drop_menu_province" :class="{'active':dropMenu == 12}">
+                                    <span @click.stop="selectMenu(12)">{{formData.city}}</span>
+                                    <ul class="drop_menu_list">
+                                        <li v-for="item in cityList" @click.stop="selectCity('',item.city_name)">
+                                            <a href="javascript:;">{{item.city_name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <input type="text" class="user-ui-input user-ui-address" :class="{'error_input':(!isValidate && formData.address === '')}" v-model="formData.address" placeholder="详细地址">
                             </div>
                         </div>

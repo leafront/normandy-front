@@ -140,7 +140,7 @@ var vueConfig = new Vue ({
 					this.getCityList(
 						area.province_id,
 						area.province_name
-					).then((data) => {
+					).then(() => {
 
 						this.cityName = area.city_name;
 

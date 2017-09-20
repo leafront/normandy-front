@@ -69,6 +69,22 @@ Page({
 			return;
 		}
 
+
+		if (!validate.isPass(password)) {
+
+			Lizard.showToast('请输入8到64位包含字母密码');
+
+			return;
+		}
+
+
+		if (!validate.isPass(password)) {
+
+			Lizard.showToast('请输入8到64位包含字母密码');
+
+			return;
+		}
+
 		if (!captcha_code) {
 
 			Lizard.showToast('请输入验证码');

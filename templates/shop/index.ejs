@@ -134,7 +134,7 @@
         <div class="drop_menu drop_menu_city" :class="{'active': dropMenu == 1}">
             <span @click.stop="selectMenu(1)">{{provinceName}}</span>
             <ul class="drop_menu_list">
-                <li v-for="(item,index) in province" @click.stop="selectProvince(item.province_id,item.province_name)">
+                <li v-for="(item,index) in province" @click.stop="selectProvince('',item.province_id,item.province_name)">
                     <a href="javascript:;">{{item.province_name}}</a>
                 </li>
             </ul>
@@ -142,7 +142,7 @@
         <div class="drop_menu drop_menu_city" :class="{'active':dropMenu == 2}">
             <span @click.stop="selectMenu(2)">{{cityName}}</span>
             <ul class="drop_menu_list">
-              <li v-for="item in cityList" @click.stop="selectCity(item.city_id,item.city_name)">
+              <li v-for="item in cityList" @click.stop="selectCity('',item.city_id,item.city_name)">
                 <a href="javascript:;">{{item.city_name}}</a>
               </li>
             </ul>

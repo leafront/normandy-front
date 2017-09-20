@@ -30,6 +30,8 @@ var diffTime = '';
 
 var distance = 0;
 
+var driveType = Lizard.query('driveType');
+
 
 function timeDifference (startTime,endTime) {
 
@@ -174,6 +176,7 @@ Page({
 
 		//画面移动到起点和终点的中间
 		centerPoint = new BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
+
 		map.panTo(centerPoint);
 
 
@@ -185,6 +188,7 @@ Page({
 		var carEnd = new BMap.Marker(points[points.length -1], {icon: new BMap.Icon("/images/map_end.png", new BMap.Size(51, 67))});
 
 		map.addOverlay(car);
+
 
 		map.addOverlay(carStart);
 
@@ -206,11 +210,23 @@ Page({
 		var historyItem = historyList[index];
 
 		if (index > 0) {
-			map.addOverlay(new BMap.Polyline([points[index - 1], point], {
-				strokeColor: "#3eb0fd",
-				strokeWeight: 8,
-				strokeOpacity: 1
-			}));
+
+			if (driveType == 0) {
+
+				map.addOverlay(new BMap.Polyline([points[index - 1], point], {
+					strokeColor: "#3eb0fd",
+					strokeWeight: 8,
+					strokeOpacity: 1
+				}))
+
+			} else {
+
+				var dottedLine = new BMap.Marker(points[index], {icon: new BMap.Icon("/images/map_start.png", new BMap.Size(51, 67))});
+
+				map.addOverlay(dottedLine);
+
+			}
+
 		}
 		car.setPosition(point);
 
@@ -219,7 +235,6 @@ Page({
 			$('#speed').text(historyItem.speed + '公里/小时');
 
 			starTime = historyItem.gps_time;
-
 
 			endTime = historyList[index + 1].gps_time + diffTime;
 
@@ -286,16 +301,15 @@ Page({
 						<span>${signalTime}</span>
 					</div>
 			 </div>`;
-
-			map.addOverlay(car);
-
 			var infoWindow = new BMap.InfoWindow(sContent);
 
 			car.openInfoWindow(infoWindow);
 
 			car.addEventListener("click", function () {
 				this.openInfoWindow(infoWindow);
-			});
+			})
+
+
 
 		}
 	},
@@ -363,7 +377,9 @@ Page({
 
 			This.map();
 
-			var sContent = `
+			if (driveType == 0) {
+
+				var sContent = `
 				<div class="map_popup">
 					<div class="map_item">
 						<label>速度：</label>
@@ -385,15 +401,17 @@ Page({
 			 </div>`;
 
 
-			map.addOverlay(car);
+				map.addOverlay(car);
 
-			var infoWindow = new BMap.InfoWindow(sContent);
+				var infoWindow = new BMap.InfoWindow(sContent);
 
-			car.openInfoWindow(infoWindow);
+				car.openInfoWindow(infoWindow);
 
-			car.addEventListener("click", function(){
-				this.openInfoWindow(infoWindow);
-			});
+				car.addEventListener("click", function(){
+					this.openInfoWindow(infoWindow);
+				});
+
+			}
 
 			This.play();
 

@@ -59,8 +59,14 @@ gulp.task('sass:watch', function () {
 	gulp.watch('./sass/**/*.scss', ['sass']);
 })
 
-gulp.task('ejs:watch', function () {
-	gulp.watch('./templates/**/*.ejs', ['ejs']);
-})
+if (process.env.NODE_ENV == 'production') {
+	gulp.task('ejs:watch', function () {
+		gulp.watch('./templates/**/*.ejs', ['ejs']);
+	})
+}
 
-gulp.task('default', ['sass:watch','ejs:watch']);
+if (process.env.NODE_ENV == 'production') {
+	gulp.task('default', ['sass:watch','ejs:watch']);
+}
+
+gulp.task('default', ['sass:watch']);

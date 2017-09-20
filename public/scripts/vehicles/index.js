@@ -276,11 +276,11 @@ var vueConfig = new Vue({
 
 		},
 
-		mapInfo (gpsStatus,imei) {
+		mapInfo (gpsStatus,imei,type) {
 
 			if (gpsStatus == 0 || gpsStatus == 3 || gpsStatus == 4 ) {
 
-				window.open(`/vehicles/map/${imei}`);
+				window.open(`/vehicles/map/${imei}?driveType=${type}`);
 
 			}
 

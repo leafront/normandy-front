@@ -83,40 +83,46 @@ Page({
 
 			const isValidate = this.validateForm();
 
-			const data = this.getFormData();
+			let data = this.getFormData();
 
 
-			if (isValidate) {
+			data = common.deleteEmptyProperty(data);
 
-				this.submitVehicle(data);
+
+			if (!isValidate) {
+
+				Lizard.showToast('请完善新增车况信息');
+
+				return;
 
 			}
+
+			this.submitVehicle(data);
 
 		})
 
 	},
-	submitCarCondition(formData){
+	submitVehicle(formData){
 
 		var vehicleId = $('#vehicleId').val();
 
 		var detailId = $('#detailId').val();
 
-		var submitData = {
-
-			data:formData,
-			id:vehicleId
-
-		}
-
 		Lizard.ajax({
 			type:'POST',
-			url:`/api/vehicles/${id}/conditions`,
-			data:submitData
+			url:`/api/vehicles/${vehicleId}/conditions`,
+			data:formData
 		}).then((data) => {
 
 			if (data) {
 
-				location.href = `/borrowers/vehicle/list/${vehicleId}?id=${detailId}`;
+				Lizard.showToast('添加车况成功, 跳转至借车况列表');
+
+				setTimeout(() => {
+
+					location.href = `/borrowers/vehicle/list/${vehicleId}?id=${detailId}`;
+
+				},500)
 
 			}
 
@@ -132,8 +138,6 @@ Page({
 		var sunroof =  $.trim($('#sunroof').data('value'));
 
 		var navigation =  $.trim($('#navigation').data('value'));
-
-		var kilowatt = $.trim($('#kilowatt').val());
 
 		var interior =  $.trim($('#interior').data('value'));
 
@@ -186,13 +190,11 @@ Page({
 
 		var electricalSystem = $.trim($('#electricalSystem').data('value'));
 
-
 		var electricalSystemDes = $.trim($('#electricalSystemDes').data('value'));
 
 		var chassis =  $.trim($('#chassis').data('value'));
 
 		var chassisDes = $.trim($('#chassisDes').data('value'));
-
 
 		var vehicleWork = $.trim($('#vehicleWork').data('value'));
 
@@ -213,10 +215,10 @@ Page({
 		}
 
 		var data = {
+			power_kw:100,
 			is_leather: leather,
 			has_sunroof: sunroof,
 			has_navigation: navigation,
-			power_kw: kilowatt,
 			interior_status:interior,
 			surface_status: paint,
 			plate_price: licensePrice,
@@ -304,7 +306,6 @@ Page({
 			is_leather,
 			has_sunroof,
 			has_navigation,
-			power_kw,
 			interior_status,
 			surface_status,
 			plate_price,
@@ -336,7 +337,8 @@ Page({
 			claims_amount,
 			electric_state,
 			chassis_state,
-			summary,
+			summary
+
 
 		} = this.getFormData();
 
@@ -350,9 +352,6 @@ Page({
 		},{
 			element:'#navigation',
 			value:has_navigation
-		},{
-			element:'#kilowatt',
-			value:power_kw
 		},{
 			element:'#interior',
 			value:interior_status

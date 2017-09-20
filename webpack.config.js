@@ -80,7 +80,11 @@ module.exports = {
 
 		'insurance/price': './public/scripts/insurance/price',
 
-		'insurance/delivery': './public/scripts/insurance/delivery'
+		'insurance/delivery': './public/scripts/insurance/delivery',
+
+		'insurance/confirm': './public/scripts/insurance/confirm',
+
+		'activate': './public/scripts/activate'
 
   },
   output: {
