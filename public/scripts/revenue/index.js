@@ -484,7 +484,7 @@ var popupConfig = new Vue({
 
 			this.iStage = 1;
 
-			this.repay_schema = [{"term": 1,"interest":"","capital":""}];
+			this.repay_schema = [{"term": 1,"amount":""}];
 
 		},
 
@@ -524,7 +524,7 @@ var popupConfig = new Vue({
 
 			if (this.repay_schema.length < this.stage ) {
 
-				this.repay_schema.push({"term": this.iStage,"interest":"","capital":""});
+				this.repay_schema.push({"term": this.iStage,"amount":""});
 
 				this.dropMenu.push({"isOpen": false,value:"请选择"})
 
