@@ -59,7 +59,7 @@
     </div>
     <div class="popup_input">
         <label>金额</label>
-        <input type="text" class="user-ui-input" v-model="rechargeAmount" placeholder="请输入金额"/>
+        <input type="text" class="user-ui-input" v-model.trim="rechargeAmount" placeholder="请输入金额"/>
     </div>
 
     <div class="popup_submit clearfix">
@@ -81,7 +81,7 @@
     </div>
     <div class="popup_input">
         <label>金额</label>
-        <input type="text" class="user-ui-input" v-model="withdrawalAmount" placeholder="请输入金额"/>
+        <input type="text" class="user-ui-input" v-model.trim="withdrawalAmount" placeholder="请输入金额"/>
     </div>
 
     <div class="popup_submit clearfix">

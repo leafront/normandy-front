@@ -76,11 +76,11 @@
     </div>
     <div class="popup_input">
         <label>名称</label>
-        <input type="text" class="user-ui-input" v-model="formData.name" placeholder="请输入门店名称" value=""/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.name" placeholder="请输入门店名称" value=""/>
     </div>
     <div class="popup_input">
         <label>简称</label>
-        <input type="text" class="user-ui-input" v-model="formData.short_name" placeholder="请输入门店简称"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.short_name" placeholder="请输入门店简称"/>
     </div>
     <div class="popup_input">
         <label>城市</label>
@@ -103,11 +103,11 @@
     </div>
     <div class="popup_input">
         <label>地址</label>
-        <input type="text" class="user-ui-input" v-model="formData.address" placeholder="请输入地址"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.address" placeholder="请输入地址"/>
     </div>
     <div class="popup_input">
         <label>电话</label>
-        <input type="text" class="user-ui-input" v-model="formData.phone" placeholder="请输入电话"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.phone" placeholder="请输入电话"/>
     </div>
 
     <div class="popup_submit clearfix">
@@ -123,18 +123,18 @@
     </div>
     <div class="popup_input">
         <label>名称</label>
-        <input type="text" class="user-ui-input" v-model="formData.name" placeholder="请输入门店名称"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.name" placeholder="请输入门店名称"/>
     </div>
     <div class="popup_input">
         <label>简称</label>
-        <input type="text" class="user-ui-input" v-model="formData.short_name" placeholder="请输入门店简称"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.short_name" placeholder="请输入门店简称"/>
     </div>
     <div class="popup_input">
         <label>城市</label>
         <div class="drop_menu drop_menu_city" :class="{'active': dropMenu == 1}">
             <span @click.stop="selectMenu(1)">{{provinceName}}</span>
             <ul class="drop_menu_list">
-                <li v-for="(item,index) in province" @click.stop="selectProvince(item.province_id,item.province_name)">
+                <li v-for="(item,index) in province" @click.stop="selectProvince('',item.province_id,item.province_name)">
                     <a href="javascript:;">{{item.province_name}}</a>
                 </li>
             </ul>
@@ -142,7 +142,7 @@
         <div class="drop_menu drop_menu_city" :class="{'active':dropMenu == 2}">
             <span @click.stop="selectMenu(2)">{{cityName}}</span>
             <ul class="drop_menu_list">
-              <li v-for="item in cityList" @click.stop="selectCity(item.city_id,item.city_name)">
+              <li v-for="item in cityList" @click.stop="selectCity('',item.city_id,item.city_name)">
                 <a href="javascript:;">{{item.city_name}}</a>
               </li>
             </ul>
@@ -150,19 +150,19 @@
     </div>
     <div class="popup_input">
         <label>地址</label>
-        <input type="text" class="user-ui-input" v-model="formData.address" placeholder="请输入地址"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.address" placeholder="请输入地址"/>
     </div>
     <div class="popup_input">
         <label>电话</label>
-        <input type="text" class="user-ui-input" v-model="formData.phone" placeholder="请输入电话"/>
+        <input type="text" class="user-ui-input" v-model.trim="formData.phone" placeholder="请输入电话"/>
     </div>
     <div class="popup_input">
     <label>管理员手机号</label>
-    <input type="text" class="user-ui-input" v-model="formData.admin_phone" placeholder="请输入管理员手机号"/>
+    <input type="text" class="user-ui-input" v-model.trim="formData.admin_phone" placeholder="请输入管理员手机号"/>
     </div>
     <div class="popup_input">
     <label>管理员姓名</label>
-    <input type="text" class="user-ui-input" v-model="formData.admin_name" placeholder="请输入管理员姓名"/>
+    <input type="text" class="user-ui-input" v-model.trim="formData.admin_name" placeholder="请输入管理员姓名"/>
     </div>
 
     <div class="popup_submit clearfix">

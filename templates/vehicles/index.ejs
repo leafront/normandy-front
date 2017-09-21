@@ -29,20 +29,20 @@
                   <div class="list_item">
                     <div class="search_item">
                         <label>车架号</label>
-                        <input type="text" class="user-ui-input" v-model="params.vin" placeholder="请输入车架号"/>
+                        <input type="text" class="user-ui-input" v-model.trim="params.vin" placeholder="请输入车架号"/>
                     </div>
                     <div class="search_item">
                         <label>姓名</label>
-                        <input type="text" class="user-ui-input" v-model="params.name" placeholder="请输入姓名"/>
+                        <input type="text" class="user-ui-input" v-model.trim="params.name" placeholder="请输入姓名"/>
                     </div>
                     <div class="search_item">
                       <label>注册时间</label>
                       <div class="user-ui-calendar">
-                        <input type="text" class="user-ui-input" readonly="readonly" v-model="params.from" id="fromTime" placeholder="请输入开始时间"/>
+                        <input type="text" class="user-ui-input" readonly="readonly" v-model.trim="params.from" id="fromTime" placeholder="请输入开始时间"/>
                           </div>
                         <em>至</em>
                       <div class="user-ui-calendar">
-                          <input type="text" class="user-ui-input" readonly="readonly" v-model="params.to" id="endTime" placeholder="请输入结束时间"/>
+                          <input type="text" class="user-ui-input" readonly="readonly" v-model.trim="params.to" id="endTime" placeholder="请输入结束时间"/>
                        </div>
                     </div>
                   </div>
@@ -100,10 +100,7 @@
                             <span class="vehicles_status">
                                 <% if(borrowingStatus[item.borrowing_status]) {%>
                                   <%-borrowingStatus[item.borrowing_status] && borrowingStatus[item.borrowing_status].title%>
-                                <%} else {%>
-                                  <%-'未上标'%>
-                                <%}%>
-
+                                <%} %>
                             </span>
                             <div class="vehicles_gps">
                               <div class="drop_menu drop-menu-gps" :class="{'active':dropMenu == '<%-item.id%>'}">
@@ -119,7 +116,7 @@
                                              <%} else{%>
                                               <% if (child.imei) {%>
                                                <template v-if= "gpsInfo[<%-child.imei%>]">
-                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info_new,<%-child.imei%>)" class="gps_info" v-if="gpsInfo[<%-child.imei%>].device_info == 0 && gpsInfo[<%-child.imei%>].device_info_new == 4">
+                                                 <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info_new,<%-child.imei%>,<%-child.type%>)" class="gps_info" v-if="gpsInfo[<%-child.imei%>].device_info == 0 && gpsInfo[<%-child.imei%>].device_info_new == 4">
                                                     监控（{{deviceStatus[gpsInfo[<%-child.imei%>].device_info_new].name}}）
                                                  </strong>
                                                  <strong @click="mapInfo(gpsInfo[<%-child.imei%>].device_info,<%-child.imei%>)" class="disabled" :class="{'gps_info':[0,3,4].indexOf(gpsInfo[<%-child.imei%>].device_info) > -1}" v-else>
@@ -142,9 +139,9 @@
                             </div>
                             <div class="vehicles_gpsStatus" v-if="gpsList['<%-item.id%>']">
                                 <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{gpsText[gpsList['<%-item.id%>'].status].name}}</span>
-                                <div class="vehicles_tips" v-if="gpsList['<%-item.id%>'].status == 1">
+                                <div class="vehicles_tips">
                                     <p>{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].msg}}</p>
-                                    <p>解决方案：{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].solve}}</p>
+                                    <p v-if="gpsList['<%-item.id%>'].status !== 0">风险等级：{{gpsList['<%-item.id%>'] && riskLevel[gpsList['<%-item.id%>'].risk]}}</p>
                                 </div>
                             </div>
                             <div class="vehicles_gpsStatus" v-else>

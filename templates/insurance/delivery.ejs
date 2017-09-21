@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
-    <title>车险投保 - 基本车辆信息</title>
+    <title>车险投保 - 配送信息</title>
     <link rel="stylesheet" href="/styles/insurance/delivery.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
@@ -16,12 +16,12 @@
         <div class="navigation">
             <a href="/" class="home_ico"></a>
             <em class="navigation_ico"></em>
-            <span>车险投保 - 基本车辆信息</span>
+            <span>配送信息</span>
         </div>
         <div class="content" id="app">
             <div class="cont-title">
                 <i></i>
-                <span>车辆列表</span>
+                <span>配送信息</span>
                 <button class="list_btn">查看订单列表</button>
             </div>
             <div class="process_info">
@@ -44,40 +44,73 @@
                     </li>
                     <li>
                         <i>5</i>
-                        <span>&nbsp;</span>
+                        <span>投保确认</span>
                     </li>
                 </ul>
             </div>
             <div class="insurance_info">
                 <div class="form-group">
                     <div class="form-group-rows">
-                        <label>行驶地区</label>
-                        <input type="text" placeholder="点击选择行驶地区" readonly="readonly" class="user-ui-input user-base-input">
+                      <label>保单配送信息</label>
+                      <strong class="vehicle_checkbox">同车主</strong>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-group-rows">
-                        <label>车牌号</label>
-                        <div class="drop_menu drop-menu-loan">
-                            <span>津</span>
-                            <ul class="drop_menu_list">
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                            </ul>
-                        </div>
-                        <input type="text" placeholder="车牌号码" class="user-ui-input">
-                        <strong class="vehicle_checkbox">异响</strong>
+                        <label>收件人姓名</label>
+                        <input type="text" placeholder="请输入收件人姓名" class="user-ui-input user-base-input">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-group-rows">
-                        <label>车主姓名</label>
-                        <input type="text" placeholder="请输入车主姓名" class="user-ui-input user-base-input">
+                        <label>收件人手机号</label>
+                        <input type="text" placeholder="请输入收件人手机号" class="user-ui-input user-base-input">
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>收件人电子邮箱</label>
+                        <input type="text" placeholder="请输入收件人电子邮箱" class="user-ui-input user-base-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                      <label>收件人地址</label>
+                      <div class="drop_menu drop_menu_area">
+                        <span>请选择省份</span>
+                        <ul class="drop_menu_list">
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                        </ul>
+                      </div>
+                      <div class="drop_menu drop_menu_area">
+                        <span>请选择城市</span>
+                        <ul class="drop_menu_list">
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                        </ul>
+                      </div>
+                      <div class="drop_menu drop_menu_area">
+                        <span>请选择区县</span>
+                        <ul class="drop_menu_list">
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                            <li><a href="javascript:;">津</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-group-rows">
+                    <label>收件人地址</label>
+                    <input type="text" placeholder="请输入收件人地址" class="user-ui-input user-base-input">
+                  </div>
+                </div>
                 <div class="insurance_submit">
                     <button class="btn_confirm">立即获取报价</button>
                     <button class="btn_cancel">清空</button>

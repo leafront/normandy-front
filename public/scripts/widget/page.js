@@ -1,6 +1,11 @@
+/**
+ * @param options
+ * @returns {Page.init}
+ * @constructor
+ */
+
 
 function Page(options){
-	//  执行某些函数，进行初始化
 
 	return new Page.prototype.init(options);
 }

@@ -268,13 +268,9 @@ router.post('/read',async (ctx,next) => {
 		url:`/api/${userId}/msgs`,
 		data
 	}).then((body) => {
-
-		console.log(body)
 		ctx.body = body;
 
 	}).catch((err) => {
-
-		console.log(err)
 
 		ctx.status =  err.response.statusCode;
 
@@ -283,6 +279,35 @@ router.post('/read',async (ctx,next) => {
 	})
 
 })
+
+
+router.post('/activate',async (ctx,next) => {
+
+	const { key,password } = ctx.request.body;
+
+	await baseModel.post(ctx,{
+		type:'POST',
+		url:`/api/activation/${key}`,
+		gateway:'gatewayExt',
+		data:{
+			password
+		}
+	}).then((body) => {
+
+		ctx.body = body;
+
+	}).catch((err) => {
+
+		console.log(err);
+
+		ctx.status =  err.response.statusCode;
+
+		ctx.body = err.response.body;
+
+	})
+
+})
+
 
 
 

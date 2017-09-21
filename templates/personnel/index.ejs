@@ -123,11 +123,11 @@
     </div>
     <div class="popup_input">
         <label>姓名</label>
-        <input type="text" class="user-ui-input" v-model="name" placeholder="请输入员工名称"/>
+        <input type="text" class="user-ui-input" v-model.trim="name" placeholder="请输入员工名称"/>
     </div>
     <div class="popup_input">
         <label>手机号</label>
-        <input type="text" class="user-ui-input" v-model="mobile" placeholder="请输入手机号"/>
+        <input type="text" class="user-ui-input" v-model.trim="mobile" placeholder="请输入手机号"/>
     </div>
     <div class="popup_cont clearfix">
         <span>特选权限</span>

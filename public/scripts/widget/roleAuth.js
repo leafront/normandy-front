@@ -10,7 +10,14 @@ var roleAuth = {
 
 	adminRole: [],
 
-	adminAuthority(url){ //获取所有角色
+	/**
+	 * 获取所有角色
+	 * @param {String} url
+	 * @return null
+	 *
+	 */
+
+	adminAuthority(url){
 
 		Lizard.ajax({
 			url: url,
@@ -26,7 +33,14 @@ var roleAuth = {
 		})
 	},
 
-	renderEditAuth (editRoleList){ //获取所有权限
+	/**
+	 * 获取所有权限
+	 * @param {Object} editRoleList
+	 * @return null
+	 *
+	 */
+
+	renderEditAuth (editRoleList){
 
 		var editRoleId = [];
 
@@ -58,7 +72,16 @@ var roleAuth = {
 
 		this.hasRole = hasRole;
 	},
-	editRole (roleId,url,type){ //获取当前编辑的权限
+
+	/**
+	 * 获取当前编辑的权限
+	 * @param {String} roleId
+	 * @param {String} url
+	 * @param {String} type
+	 * @return null
+	 *
+	 */
+	editRole (roleId,url,type){
 
 		Lizard.ajax({
 			url:url,
@@ -78,7 +101,18 @@ var roleAuth = {
 
 		})
 	},
-	submitRole (type,url,formData,submitType){ //提交角色修改
+
+	/**
+	 * 提交角色修改
+	 * @param {Boolean} type
+	 * @param {String} url
+	 * @param {Object} formData
+	 * @param {String} submitType
+	 * @return null
+	 *
+	 *
+	 */
+	submitRole (type,url,formData,submitType){
 
 		var tips = type == 1 ? '修改' : '添加';
 

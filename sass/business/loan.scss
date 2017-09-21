@@ -59,13 +59,18 @@
 .form-group {
 	.form-group-rows {
 		label {
-			width: 120rem/$rem;
+			width: 140rem/$rem;
 		}
 	}
 }
-.user-ui-province{
+.drop_menu_province{
 
 	width:290rem/$rem;
+
+	.drop_menu_list{
+
+		width:290rem/$rem;
+	}
 }
 
 .user-ui-address{
@@ -136,12 +141,13 @@
 
 .user-ui-des{
 
-	width:460rem/$rem;
+	width:450rem/$rem;
+
 
 }
 .user-ui-area{
 
-	width:320rem/$rem;
+	width:325rem/$rem;
 }
 .form-group{
 	.form-group-assets{
@@ -151,11 +157,11 @@
 
 .drop_menu_times{
 
-	width:265rem/$rem;
+	width:250rem/$rem;
 
 	.drop_menu_list{
 
-		width:265rem/$rem;
+		width:250rem/$rem;
 	}
 }
 

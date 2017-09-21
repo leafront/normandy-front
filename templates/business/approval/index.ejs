@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <label>备注</label>
-                        <textarea v-model="formData.remark" class="approval_description"></textarea>
+                        <textarea v-model.trim="formData.remark" class="approval_description"></textarea>
                     </div>
                     <div class="approval_submit">
                       <button class="btn_confirm" @click="submitAction"><%-borrowingStatus[pidStatus].stage%></button>

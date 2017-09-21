@@ -55,37 +55,29 @@
                                   <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
-                            <div class="form-group-rows vehicles-base-input">
-                                <label>总千瓦数</label>
-                                <div class="user-ui-number">
-                                  <input type="number" class="user-ui-input" id="kilowatt" placeholder="总千瓦数"/>
-                                  <i class="user-ui-input-txt">千瓦</i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label id="interior" data-value="">内饰状况</label>
                                 <% interiorStatus.forEach(function(item,index){%>
-                                   <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
+                                <strong class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
+                        </div>
+                        <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label id="paint" data-value="">漆面状况</label>
                                 <% surfaceStatus.forEach(function(item,index){%>
                                   <strong data-value="<%-item.value%>" class="js_checked" data-value="<%-item.value%>" class="<%if(index==0){%>active<%}%>"><%-item.name%></strong>
                                 <%})%>
                             </div>
-                        </div>
-                        <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>车牌价格</label>
                                 <div class="user-ui-number">
                                     <input type="number" class="user-ui-input" id="licensePrice" placeholder="车牌价格"/>
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
-
                             </div>
+                        </div>
+                        <div class="form-group clearfix">
                             <div class="form-group-rows vehicles-base-input">
                                 <label>行驶里程</label>
                                 <div class="user-ui-number">

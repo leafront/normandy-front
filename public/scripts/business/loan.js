@@ -4,6 +4,8 @@ var Vue = require('../lib/vue');
 
 var modelData = require('../../../model/data');
 
+var Promise = require('es6-promise').Promise;
+
 var Calendar = require('../widget/calendar');
 
 var Lizard = require('../widget/lizard');
@@ -57,11 +59,11 @@ var vueConfig = new Vue({
 			education:'',
 			is_native:'',
 			is_mate_native:'',
-			birthplace_province:'',
-			birthplace_city:'',
+			birthplace_province:'户籍省份',
+			birthplace_city:'户籍城市',
 			birthplace_address:'',
-			province:'',
-			city:'',
+			province:'现居住地省份',
+			city:'现居住地城市',
 			address:'',
 
 
@@ -119,8 +121,9 @@ var vueConfig = new Vue({
 		salaryType,
 		borrowersData:[],
 		vehicleData:[],
-		isValidate:true
-
+		isValidate:true,
+		province:[],
+		cityList:[]
 
 	},
 
@@ -140,6 +143,8 @@ var vueConfig = new Vue({
 
 			}
 		})
+
+		this.showProvinces();
 
 	},
 	watch: {
@@ -197,9 +202,9 @@ var vueConfig = new Vue({
 
 				if (value) {
 
-					if (value.length > 35) {
+					if (value.length > 25) {
 
-						value = value.slice(0, 35);
+						value = value.slice(0, 25);
 
 					}
 
@@ -305,6 +310,93 @@ var vueConfig = new Vue({
 		this.showCalendar();
 	},
 	methods:{
+		showProvinces () {
+
+			Lizard.ajax({
+				type:'GET',
+				url:'/api/provinces'
+			}).then((data) => {
+
+				var results = data.results;
+
+				if (results && results.length) {
+
+					this.province = results;
+
+					this.getCityList(results[0].province_id).then((res) => {
+
+						this.formData.birthplace_city = res[0].city_name;
+
+						this.formData.city = res[0].city_name;
+
+					})
+
+					this.formData.birthplace_province = results[0].province_name;
+
+					this.formData.province = results[0].province_name;
+
+				}
+
+			}).catch((err) => {
+
+				console.log(err);
+			})
+		},
+
+		selectProvince (property,province_id,province_name) {
+
+
+			var province = property + 'province';
+
+			this.formData[province] = province_name;
+
+			this.getCityList(province_id,province_name).then((res) => {
+
+				var city = property + 'city';
+
+				this.formData[city] = res[0].city_name;
+
+			})
+
+			this.dropMenu = -1;
+
+		},
+
+		selectCity (property,cityName) {
+
+
+			this.dropMenu = -1;
+
+			var city = property + 'city';
+
+			this.formData[city] = cityName;
+
+		},
+		getCityList(province_id){
+
+			var cityList = new Promise ((resolve,reject) => {
+
+				Lizard.ajax({
+					type: 'GET',
+					url: `/api/provinces/${province_id}/cities`
+				}).then((data) => {
+
+					var results = data.results;
+
+					if (results && results.length) {
+
+						this.cityList = results;
+
+						resolve(results);
+
+					}
+
+				})
+			})
+
+			return cityList;
+
+		},
 
 		selectMenu (value) {
 
@@ -520,7 +612,7 @@ var vueConfig = new Vue({
 
 				if (data) {
 
-					Lizard.showToast('申请成功, 跳转至借款列表...');
+					Lizard.showToast('申请成功, 跳转至完善借款信息...');
 
 					setTimeout(() =>{
 

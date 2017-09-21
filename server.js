@@ -1,7 +1,11 @@
 var koa = require('koa');
+
 var app = new koa();
+
 var server = require('koa-static');
+
 var render = require('koa-ejs');
+
 var Router = require('koa-router');
 
 var koaBody = require('koa-body');
@@ -35,6 +39,8 @@ var account = require('./router/account/index');
 var shop = require('./router/shop/index');
 
 var insurance = require('./router/insurance/index');
+
+var activate = require('./router/activate/index');
 
 app.use(server(__dirname + '/public'));
 
@@ -154,6 +160,8 @@ router.use('/authority',authority.routes());
 router.use('/shop',shop.routes());
 
 router.use('/insurance',insurance.routes());
+
+router.use('/activate',activate.routes());
 
 app.use(router.routes());
 

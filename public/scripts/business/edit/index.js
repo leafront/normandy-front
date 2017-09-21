@@ -13,6 +13,11 @@ const {
 
 } = dataModel;
 
+if (common.isEmptyObject(editBusiness.cover_pic)) {
+
+	editBusiness.cover_pic = [];
+
+}
 
 const business = Object.assign({},editBusiness);
 
@@ -284,6 +289,8 @@ var vueConfig = new Vue({
 
 		},
 		uploadImg (data,file,uploadType) {
+
+			console.log(data.uri);
 
 			var formData = new FormData();
 

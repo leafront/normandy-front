@@ -42,7 +42,29 @@
 
 }
 
+.drop_menu_area{
+
+	width:160rem/$rem;
+
+	min-width:150px;
+
+	.drop_menu_list{
+
+		min-width:150px;
+
+		width:160rem/$rem;
+
+	}
+}
+
+.form-group-rows:first-child{
+
+	width:700px;
+}
 .insurance_submit{
+	padding-bottom:50px;
+
+	padding-top:25px;
 
 	display:flex;
 

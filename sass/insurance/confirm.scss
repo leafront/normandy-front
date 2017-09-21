@@ -1,0 +1,463 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/form_list.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../modules/list.scss';
+
+@import '../modules/popup.scss';
+
+@import '../modules/process.scss';
+
+
+.insurance_submit{
+
+	display:flex;
+
+	justify-content: center;
+
+	padding-bottom:50px;
+
+	padding-top:50px;
+
+}
+.insurance_info{
+
+	padding-top:20px;
+}
+
+.vehicle_info_title{
+	padding-left:20px;
+	padding-top:28px;
+	p{
+		margin-top:20px;
+		font-size:14px;
+		color:#666;
+	}
+
+
+}
+
+
+.business_status{
+	overflow: hidden;
+	border-bottom:1px solid #ececec;
+	h4{
+		font-size:16px;
+		line-height:40px;
+
+		color:#263238;
+		float:left;
+	}
+
+}
+
+.vehicle_info_wraper{
+	padding:28px 0 0 30rem/$rem;
+
+}
+.vehicle_item{
+	width:100%;
+}
+
+.form-group-rows:first-child{
+
+	width:800rem/$rem;
+
+}
+
+.ensure{
+
+	padding-top:28px;
+
+	padding-left:25px;
+
+	.insurance_cate_name{
+
+		width:60rem/$rem;
+
+		text-align:center;
+
+		float:left;
+
+		font-size:16px;
+
+		color:#333;
+
+		line-height:36px;
+
+	}
+
+	.insurance_logo{
+		width:64rem/$rem;
+
+		height:36px;
+
+		float:left;
+
+		color:#d90000;
+
+		margin-right:34rem/$rem;
+	}
+
+}
+
+.ensure_info{
+
+	float:left;
+
+	padding-left:30px;
+
+	p{
+		color:#53cac3;
+		font-size:14px;
+
+		float:left;
+
+		line-height:36px;
+
+		margin-right:26px;
+	}
+}
+
+.ensure_total{
+
+	padding-top:20px;
+
+	border-bottom:1px solid #ececec;
+
+	margin-left:20px;
+
+	p{
+		font-size:16px;
+
+		line-height:40px;
+
+		color:#263238;
+
+		margin-right:60px;
+
+		float:left;
+	}
+}
+
+.cont_list{
+
+	dt,dd{
+		display:flex;
+		span{
+
+			flex:1;
+		}
+	}
+}
+
+.appointment{
+
+	padding-left:14px;
+
+	padding-top:25px;
+
+	h4{
+
+		font-size:14px;
+		color:#333;
+
+		font-weight:bold;
+
+		padding-bottom:10px;
+
+	}
+
+	p{
+
+		line-height:26px;
+
+		font-size:14px;
+
+		color:#333;
+
+	}
+
+}
+
+.insurance_agree{
+
+	padding-left:14px;
+
+	padding-top:38px;
+
+}
+
+.insurance_upload_open{
+
+	float:left;
+
+	position:relative;
+
+	.insurance_file{
+		opacity: 0;
+		width:200px;
+		height:32px;
+		filter:alpha(opacity=0);
+
+		position:relative;
+
+		z-index:10;
+
+
+	}
+
+	.insurance_data_btn{
+
+		position:absolute;
+
+		z-index:5;
+
+		padding:0 18rem/$rem;
+		cursor:pointer;
+		height:32px;
+		text-align:center;
+		@include borderRadius(6);
+		color:#fefefe;
+		left:0;
+		top:0;
+		line-height:32px;
+		font-size:14px;
+		@include boxShadow(4);
+
+		margin-right:20px;
+		background:#53cac3;
+
+		&:hover{
+
+			background:#6adbcf;
+		}
+
+	}
+}
+
+.insurance_agree_info{
+
+	float:left;
+
+	line-height:32px;
+
+	margin-left:370rem/$rem;
+
+	span{
+
+		font-size:16px;
+		color:#53cac3;
+
+		display:inline-block;
+
+		text-decoration: underline;
+
+		cursor: pointer;
+
+		padding-left:5px;
+	}
+
+	strong{
+		font-size:16px;
+		color:#333;
+
+		display:inline-block;
+
+		padding-left:40px;
+
+		position:relative;
+
+		cursor:pointer;
+
+		&.active{
+
+			&:before{
+
+				border:1px solid #53cac3;
+
+				background:url(/images/ico_sprite.png?v=20170919175629) no-repeat #53cac3 -179px -109px;
+
+			}
+
+		}
+
+		&:before{
+
+			width:15px;
+
+			height:15px;
+
+			content:'';
+
+			display:block;
+
+			border:1px solid #c1c1c1;
+
+			@include borderRadius(2);
+
+			position:absolute;
+
+			left:15rem/$rem;
+
+			top:7px;
+
+		}
+	}
+}
+
+.popup_cont{
+
+	padding:10px 20px;
+
+	height:632rem/$rem;
+
+	p{
+		line-height:28px;
+
+		font-size:14px;
+
+		color:#263238;
+
+	}
+
+}
+
+.popup_submit{
+
+	padding:30rem/$rem 0;
+
+	display:flex;
+
+	justify-content: flex-end;
+
+}
+
+.popup_wraper{
+
+	width:870rem/$rem;
+
+	background:#f9f9f9;
+
+}
+
+.popup_upload{
+
+	padding:50rem/$rem 0 0 50rem/$rem;
+
+}
+
+.popup_img_list{
+
+	float:left;
+
+  width:350rem/$rem;
+
+	height:350rem/$rem;
+
+	margin-right:70rem/$rem;
+
+	margin-bottom:50rem/$rem;
+
+	@include borderRadius(5);
+
+	overflow:hidden;
+
+	background:#fff;
+
+	position:relative;
+
+	.popup_delete_img{
+
+		width:22px;
+
+		height:22px;
+
+		display:block;
+
+		border-radius:50%;
+
+		position:absolute;
+
+		background:url(/images/ico_sprite.png) -226px -60px rgba(102,102,102,0.74) no-repeat;
+
+		right:15px;
+
+		top:15px;
+	}
+
+	&:nth-child(2n){
+
+		margin-right:0;
+
+	}
+}
+
+.upload_img{
+
+	width:100%;
+	height:100%;
+
+	vertical-align: top;
+
+}
+
+
+.insurance_upload_btn{
+
+	.insurance_upload_add{
+		width:40px;
+		height:40px;
+		line-height:20px;
+		border-radius:50%;
+		border:2px solid #53cac3;
+		font-size:30px;
+		color:#53cac3;
+	}
+	strong{
+		display:block;
+
+		font-size:16px;
+		color:#a2a2a2;
+		margin-top:12px;
+	}
+}
+
+.insurance_upload{
+	float:left;
+
+	width:350rem/$rem;
+
+	background:#fff;
+
+	padding-top:100rem/$rem;
+
+	text-align:center;
+
+	border:2px dashed #ccc;
+
+	@include borderRadius(5);
+
+	height:350rem/$rem;
+
+	margin-bottom:50rem/$rem;
+
+	position:relative;
+}
+
+
+.insurance_upload_file{
+	width:350rem/$rem;
+	height:350rem/$rem;
+	position:absolute;
+	left:0;
+	top:0;
+	opacity:0;
+	filter:alpha(opacity=0);
+
+}
+

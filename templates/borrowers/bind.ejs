@@ -19,12 +19,12 @@
             <em class="navigation_ico"></em>
             <a href="/borrowers" class="navigation_link">借款人列表</a>
             <em class="navigation_ico"></em>
-            <span>新增借款人信息</span>
+            <span>绑定借款人信息</span>
         </div>
         <div class="content" id="app">
             <div class="cont-title">
                 <i></i>
-                <span>新增借款人</span>
+                <span>绑定借款人</span>
                 <a href="/borrowers/add" class="title-btn1">新增借款人</a>
             </div>
 
@@ -32,7 +32,7 @@
                 <div class="modify-item">
                     <label>身份证号</label>
                     <div class="user-card">
-                      <input type="text" class="user-ui-input user-ui-card" v-model="params.id_no" placeholder="身份证号"/>
+                      <input type="text" class="user-ui-input user-ui-card" v-model.trim="params.id_no" placeholder="身份证号"/>
                     </div>
                 </div>
                 <div class="modify-button clearfix">

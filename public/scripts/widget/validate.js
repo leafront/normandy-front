@@ -1,11 +1,8 @@
 
 var validate = {
 	/**
-	 * 是否为手机号
-	 * @param {string} phone 手机号
+	 * @param {string} phone
 	 * @return {boolean}
-	 * @example
-	 * validate.isMobile('15821907685')
 	 */
 	isMobile (text) {
 
@@ -14,20 +11,53 @@ var validate = {
 		return pattern.test(text);
 
 	},
+
+	/**
+	 * @param {string} zipCode
+	 * @returns {boolean}
+	 * @example
+	 * Lizard.isZipCode('430406')
+	 */
 	isZipCode (text){
 
-		var pattern = /^[1-9][0-9]{5}$/;
+		var pattern = /^[0-9]{6}$/;
 
 		return pattern.test(text);
 	},
+
+	/**
+	 *
+	 * @param {string} text
+	 * @returns {boolean}
+	 */
 
 	isNumber (text) {
 
-		var pattern = /^[1-9]\d{0,6}$/;
+		var pattern = /^[0-9]\d{0,8}$/;
 
 		return pattern.test(text);
 
 	},
+
+	/**
+	 * @param {Number || String} text
+	 * @returns {boolean}
+	 */
+
+	checkNumber: function (text) {
+
+		var pattern = /^[0-9]+.?[0-9]*$/;
+
+		return pattern.test(text);
+
+	},
+
+	/**
+	 *
+	 * @param {string} text
+	 *
+	 * @returns {boolean}
+	 */
 
 	isPercent (text) {
 
@@ -38,10 +68,10 @@ var validate = {
 	},
 	/**
 	 * 邮箱验证
-	 * @param {string} email 邮箱
+	 * @param {string} email
 	 * @return {boolean}
 	 * @example
-	 * validate.isEmail('liaowei@lechebang.com')
+	 * validate.isEmail('leafront@126.com')
 	 */
 	isEmail: function (text) {
 
@@ -49,9 +79,15 @@ var validate = {
 
 		return pattern.test(text);
 	},
+
+	/**
+	 *
+	 * @param {string} password
+	 * @returns {boolean}
+	 */
 	isPass: function(text){
 
-		var pattern = /((?=.*[a-z])(?=.*\d)|(?=[a-z])(?=.*[#@!~%^&*])|(?=.*\d)(?=.*[#@!~%^&*]))[a-z\d#@!~%^&*]{8,20}/i;
+		var pattern = /((?=.*[a-z])(?=.*\d)|(?=[a-z])(?=.*[#@!~%^&*])|(?=.*\d)(?=.*[#@!~%^&*]))[a-z\d#@!~%^&*]{8,64}/i;
 
 		return pattern.test(text)
 
@@ -95,8 +131,7 @@ var validate = {
 	},
 
 	/**
-	 * 验证验证码
-	 * @param {string} text 验证码
+	 * @param {string} verifyCode
 	 * @return {boolean}
 	 * @example
 	 * validate.isVerify('4545')
@@ -127,11 +162,8 @@ var validate = {
 	 * 车牌号,这个字段比较特殊，可以宽松验证，也可以严格保证7位验证
 	 * 验证前，先调用{@link validate.toUpperCase}这个方法,矫正用户的输入
 	 * @param {string} carNumber 车牌号
-	 * @param {boolean} [isStrict=false] 是否开启严格验证
 	 * @return {boolean}
 	 * @example
-
-	 * validate.isCarNumber(carNumber, true)
 	 *
 	 * validate.isCarNumber('沪A') // 返回false
 	 * validate.isCarNumber('沪A123456')  // 返回true
@@ -154,7 +186,7 @@ var validate = {
 	},
 	/**
 	 * 车架号,验证前，先调用{@link validate.toUpperCase}这个方法,矫正用户的输入
-	 * @param {text} text 字符串
+	 * @param {string} text 字符串
 	 * @param {int} [length=17] 验证长度
 	 * @return {boolean}
 	 * @example
@@ -168,6 +200,13 @@ var validate = {
 
 		return pattern.test(text);
 	},
+
+	/**
+	 *
+	 * @param {string} text
+	 *
+	 * @returns {boolean}
+	 */
 	isDisplacement:function(text){
 
 		var pattern = /^([1-8]$)|(^[1-8]\.[0-9]$)/;

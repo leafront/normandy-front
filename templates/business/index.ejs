@@ -29,19 +29,19 @@
                     <div class="list_item">
                         <div class="search_item">
                             <label>借款编号</label>
-                            <input type="text" class="user-ui-input" v-model="params.no" placeholder="请输入借款编号"/>
+                            <input type="text" class="user-ui-input" v-model.trim="params.no" placeholder="请输入借款编号"/>
                         </div>
                         <div class="search_item">
                             <label>借款人</label>
-                            <input type="text" class="user-ui-input" v-model="params.name" placeholder="请输入借款人姓名"/>
+                            <input type="text" class="user-ui-input" v-model.trim="params.name" placeholder="请输入借款人姓名"/>
                         </div>
                         <div class="search_item">
                             <label>借款金额</label>
-                            <input type="text" class="user-ui-input" v-model="params.amount" placeholder="请输入借款金额"/>
+                            <input type="text" class="user-ui-input" v-model.trim="params.amount" placeholder="请输入借款金额"/>
                         </div>
                         <div class="search_item search_last_item">
                             <label>借款期限</label>
-                            <input type="text" class="time-ui-input" v-model="params.term" placeholder="请输入借款期限"/>
+                            <input type="text" class="time-ui-input" v-model.trim="params.term" placeholder="请输入借款期限"/>
                             <div class="drop_menu" :class="{'active':dropMenu == 1}">
                                 <span @click.stop="selectValue(1)" v-cloak>{{loanTerm}}</span>
                                 <ul class="drop_menu_list">
@@ -80,9 +80,9 @@
                         <div class="search_item search_time_item">
                             <label>注册时间</label>
                             <div class="user-ui-calendar">
-                                <input type="text" class="user-ui-input" readonly="readonly" v-model="params.from" id="fromTime" placeholder="请输入开始时间"/>
+                                <input type="text" class="user-ui-input" readonly="readonly" v-model.trim="params.from" id="fromTime" placeholder="请输入开始时间"/>
                                 <em>至</em>
-                                <input type="text" class="user-ui-input" readonly="readonly" v-model="params.to" id="endTime" placeholder="请输入开始时间"/>
+                                <input type="text" class="user-ui-input" readonly="readonly" v-model.trim="params.to" id="endTime" placeholder="请输入开始时间"/>
                             </div>
                         </div>
                     </div>

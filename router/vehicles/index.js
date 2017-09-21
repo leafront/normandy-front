@@ -101,6 +101,10 @@ router.get('/map/:id', async (ctx,next) => {
 
 	const deviceId = ctx.params.id;
 
+	const params = querystring.parse(ctx.req._parsedUrl.query);
+
+	const driveType = params.driveType;
+
 	const { data: monitor } = await baseModel.post(ctx,{
 		type: 'POST',
 		url: '/api/gps/tracking',
@@ -124,6 +128,7 @@ router.get('/map/:id', async (ctx,next) => {
 
 	await ctx.render('vehicles/map/index',{
 		monitor,
+		driveType,
 		location,
 		deviceId,
 		dateFormat,

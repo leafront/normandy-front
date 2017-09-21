@@ -36,7 +36,7 @@
                             <div class="form-group-rows">
                                 <label>借款金额<em class="text_require">*</em></label>
                                 <div class="user-ui-number">
-                                  <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.amount" placeholder="借款金额">
+                                  <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.amount" placeholder="借款金额">
                                    <i class="user-ui-input-txt">元</i>
                                 </div>
 
@@ -56,7 +56,7 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>借款期限<em class="text_require">*</em></label>
-                                <input type="number" class="user-ui-input" v-model="revenue.term" placeholder="借款期限"/>
+                                <input type="number" class="user-ui-input" v-model.trim="revenue.term" placeholder="借款期限"/>
                                 <div class="drop_menu drop_menu_term" :class="{'active':dropMenu == 2}">
                                     <span @click.stop="selectMenu(2)">{{termUnitType}}</span>
                                     <ul class="drop_menu_list">
@@ -69,7 +69,7 @@
                             <div class="form-group-rows vehicles-base-input">
                                 <label>综合服务费率<em class="text_require">*</em></label>
                                 <div class="user-ui-number">
-                                    <input type="text" class="user-ui-input user-ui-month" v-model="revenue.borrow_rate" placeholder="综合服务费率">
+                                    <input type="text" class="user-ui-input user-ui-month" v-model.trim="revenue.borrow_rate" placeholder="综合服务费率">
                                     <i class="user-ui-input-txt">% / 期</i>
                                 </div><button class="edit_btn_custom" @click="customStage">自定义</button>
                             </div>
@@ -89,14 +89,14 @@
                         <div class="form-group-rows">
                             <label>中介费(预收)</label>
                             <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.agency" placeholder="中介费">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.agency" placeholder="中介费">
                               <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
                         <div class="form-group-rows">
                             <label>评估费(预收)</label>
                             <div class="user-ui-number">
-                                <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.assessment" placeholder="评估费">
+                                <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.assessment" placeholder="评估费">
                                 <i class="user-ui-input-txt">元</i>
                             </div>
                         </div>
@@ -105,14 +105,14 @@
                       <div class="form-group-rows">
                           <label>违章押金(押金)</label>
                           <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.illegal_deposit" placeholder="违章押金">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.illegal_deposit" placeholder="违章押金">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                       </div>
                       <div class="form-group-rows">
                           <label>GPS押金(押金)</label>
                           <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.GPS_deposit" placeholder="GPS押金">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.GPS_deposit" placeholder="GPS押金">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                       </div>
@@ -121,14 +121,14 @@
                       <div class="form-group-rows">
                           <label>停车费用(每期收)</label>
                           <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.parking" placeholder="停车费用">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.parking" placeholder="停车费用">
                               <i class="user-ui-input-txt">元/月</i>
                           </div>
                       </div>
                       <div class="form-group-rows">
                           <label>GPS费用(每期收)</label>
                           <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.GPS_using" placeholder="GPS费用">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.GPS_using" placeholder="GPS费用">
                               <i class="user-ui-input-txt">元/月</i>
                           </div>
                       </div>
@@ -137,14 +137,14 @@
                       <div class="form-group-rows">
                           <label>风险押金(押金)</label>
                           <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.risk_deposit" placeholder="风险押金">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.risk_deposit" placeholder="风险押金">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                       </div>
                       <div class="form-group-rows">
                           <label>风险押金费率</label>
                           <div class="user-ui-number">
-                              <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.risk_deposit_rate" placeholder="留空使用综合服务费用">
+                              <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.risk_deposit_rate" placeholder="留空使用综合服务费用">
                               <i class="user-ui-input-txt">% / 期</i>
                           </div>
                       </div>
@@ -153,9 +153,9 @@
                     <div class="form-group clearfix" v-for="(item,index) in revenue.advanced_in_others">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
                           <label>其他费用(预收)</label>
-                          <input type="text" placeholder="收款原因" v-model="item.amount" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                          <input type="text" placeholder="收款原因" v-model.trim="item.amount" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                            <input type="number" placeholder="其他费用" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                            <input type="number" placeholder="其他费用" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                             <i class="user-ui-input-txt">元</i>
                           </div>
                           <button v-if="index == 0" class="form-group-btn" @click="addRecord('advanced_in_others')">+</button>
@@ -165,9 +165,9 @@
                     <div class="form-group clearfix" v-for="(item,index) in revenue.advanced_in_other_deposit ">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
                           <label>其他押金(预收)</label>
-                          <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                          <input type="text" placeholder="收款原因" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                              <input type="number" placeholder="其他押金" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                              <input type="number" placeholder="其他押金" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                           <button v-if="index == 0" class="form-group-btn" @click="addRecord('advanced_in_other_deposit')">+</button>
@@ -177,9 +177,9 @@
                     <div class="form-group clearfix" v-for="(item,index) in revenue.others_each_term">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
                           <label>其他费用(每期收)</label>
-                          <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                          <input type="text" placeholder="收款原因" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                              <input type="number" placeholder="其他费用" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                              <input type="number" placeholder="其他费用" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                               <i class="user-ui-input-txt">元</i>
                           </div>
                           <button v-if="index==0" class="form-group-btn" @click="addRecord('advanced_in_others')">+</button>
@@ -201,14 +201,14 @@
                             <div class="form-group-rows">
                                 <label>账户管理费用(预付)</label>
                                 <div class="user-ui-number">
-                                    <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.account_manage" placeholder="账户管理费用">
+                                    <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.account_manage" placeholder="账户管理费用">
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
                             </div>
                             <div class="form-group-rows">
                                 <label>保证金(押金)</label>
                                 <div class="user-ui-number">
-                                    <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.bond" placeholder="保证金">
+                                    <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.bond" placeholder="保证金">
                                     <i class="user-ui-input-txt">元/月</i>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                             <div class="form-group-rows">
                                 <label>资方费率<em class="text_require">*</em></label>
                                 <div class="user-ui-number">
-                                    <input type="number" class="user-ui-input edit-ui-input" v-model="revenue.lend_rate" placeholder="账户管理费用">
+                                    <input type="number" class="user-ui-input edit-ui-input" v-model.trim="revenue.lend_rate" placeholder="资方费率">
                                     <i class="user-ui-input-txt">%/期</i>
                                 </div>
                             </div>
@@ -236,9 +236,9 @@
                         <div class="form-group clearfix" v-for="(item,index) in revenue.out_others">
                             <div class="form-group-rows form-group-fee vehicles-base-input">
                                 <label>其他费用(预付)</label>
-                                <input type="text" placeholder="收款原因" v-model="item.amount" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                                <input type="text" placeholder="收款原因" v-model.trim="item.amount" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                                 <div class="user-ui-number">
-                                    <input type="number" placeholder="其他费用" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                                    <input type="number" placeholder="其他费用" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
                                 <button v-if="index == 0" class="form-group-btn" @click="addRecord('out_others')">+</button>
@@ -248,9 +248,9 @@
                         <div class="form-group clearfix" v-for="(item,index) in revenue.out_others_deposit ">
                             <div class="form-group-rows form-group-fee vehicles-base-input">
                                 <label>其他押金(预付)</label>
-                                <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                                <input type="text" placeholder="收款原因" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                                 <div class="user-ui-number">
-                                    <input type="number" placeholder="其他押金" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                                    <input type="number" placeholder="其他押金" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
                                 <button v-if="index == 0" class="form-group-btn" @click="addRecord('out_others_deposit')">+</button>
@@ -260,9 +260,9 @@
                         <div class="form-group clearfix" v-for="(item,index) in revenue.out_others_each_team">
                             <div class="form-group-rows form-group-fee vehicles-base-input">
                                 <label>其他费用(每期付)</label>
-                                <input type="text" placeholder="收款原因" v-model="item.remark" class="user-ui-input  edit-ui-input">
+                                <input type="text" placeholder="收款原因" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                                 <div class="user-ui-number">
-                                    <input type="number" placeholder="其他费用" v-model="item.amount" class="user-ui-input  edit-ui-input">
+                                    <input type="number" placeholder="其他费用" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
                                 <button v-if="index==0" class="form-group-btn" @click="addRecord('out_others_each_team')">+</button>
@@ -304,7 +304,7 @@
                 </div>
                 <div class="const_money">
                     <div class="user-ui-number">
-                        <input type="number" placeholder="综合管理费" v-model="item.amount" class="user-ui-input"/>
+                        <input type="number" placeholder="综合管理费" v-model.trim="item.amount" class="user-ui-input"/>
                         <i class="user-ui-input-txt">元</i>
                     </div>
                 </div>
