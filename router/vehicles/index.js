@@ -103,7 +103,7 @@ router.get('/map/:id', async (ctx,next) => {
 
 	const params = querystring.parse(ctx.req._parsedUrl.query);
 
-	const driveType = params.drivetype;
+	const driveType = params.driveType;
 
 	console.log(driveType)
 

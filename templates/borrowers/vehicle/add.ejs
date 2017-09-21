@@ -50,27 +50,27 @@
                   </div>
                    <div class="vehicle_item">
                        <label>品牌类型</label>
-                       <input type="text" class="user-ui-input vehicle-ui-input user-disable" readonly="readonly" v-model="formData.car_name" @click="showPopup" placeholder="点击选择品牌型号"/>
+                       <input type="text" class="user-ui-input vehicle-ui-input user-disable" readonly="readonly" v-model.trim="formData.car_name" @click="showPopup" placeholder="点击选择品牌型号"/>
                    </div>
                </div>
                 <div class="vehicle_wraper clearfix">
                     <div class="vehicle_item">
                         <label>车牌号</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" v-model="formData.plate_number" placeholder="沪A12345"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" v-model.trim="formData.plate_number" placeholder="沪A12345"/>
                     </div>
                     <div class="vehicle_item">
                         <label>车架号</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" v-model="formData.vin" placeholder="17位唯一车架号"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" v-model.trim="formData.vin" placeholder="17位唯一车架号"/>
                     </div>
                 </div>
                 <div class="vehicle_wraper clearfix">
                     <div class="vehicle_item">
                         <label>发动机号</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" v-model="formData.engine_number" placeholder="发动机号"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" v-model.trim="formData.engine_number" placeholder="发动机号"/>
                     </div>
                     <div class="vehicle_item vehicle-ui-ico">
                         <label>出厂日期</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" v-model="formData.production_day" readonly="readonly" id="madeTime" placeholder="出厂日期"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" v-model.trim="formData.production_day" readonly="readonly" id="madeTime" placeholder="出厂日期"/>
                         <i class="user-ui-input-txt"> &nbsp;</i>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="vehicle_item">
                         <label>排量</label>
-                        <input type="text" class="user-ui-input vehicle-ui-input" v-model="formData.displacement" placeholder="排量"/>
+                        <input type="text" class="user-ui-input vehicle-ui-input" v-model.trim="formData.displacement" placeholder="排量"/>
                         <i class="user-ui-input-txt">L</i>
                     </div>
                 </div>

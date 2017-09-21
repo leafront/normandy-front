@@ -221,7 +221,7 @@ Page({
 
 			} else {
 
-				var dottedLine = new BMap.Marker(points[index], {icon: new BMap.Icon("/images/map_start.png", new BMap.Size(51, 67))});
+				var dottedLine = new BMap.Marker(points[index], {icon: new BMap.Icon("/images/dotted_line.png", new BMap.Size(48, 64))});
 
 				map.addOverlay(dottedLine);
 

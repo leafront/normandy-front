@@ -101,7 +101,7 @@
                 <input type="text" :value="item.supplier" disabled="disabled" class="user-ui-input"/>
 
                 <div class="const_money">
-                    <input type="number" placeholder="请输入设备号" v-model="item.imei" class="user-ui-input"/>
+                    <input type="number" placeholder="请输入设备号" v-model.trim="item.imei" class="user-ui-input"/>
                 </div>
                 <div class="const_money">
                     <div class="drop_menu drop_menu_stage" :class="{'active':dropMenu[index].deviceOpen}">
