@@ -48,8 +48,9 @@ var vueConfig = new Vue({
 		gpsStatus,
 		gpsInfo: {},
 		gpsList:{},
+		riskLevel:{'low':'底','middle':'中','high':'高'},
 		vehicle_ids: [],
-		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'预警',value:2},{name:'未安装gps',value:3}],
+		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'未安装gps',value:3}],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
 
@@ -168,18 +169,17 @@ var vueConfig = new Vue({
 
 		vehiclesList.forEach( (item) =>{
 
-			if (item.gps_devices.length) {
-
-				vehicle_ids.push(item.id);
-			}
+			vehicle_ids.push(item.id);
 
 		})
 
 
 		this.vehicle_ids = vehicle_ids;
 
+		if (vehicle_ids.length){
 
-		this.fetchGps(vehicle_ids);
+			this.fetchGps(vehicle_ids);
+		}
 
 	},
 	methods: {
@@ -255,7 +255,7 @@ var vueConfig = new Vue({
 				type: 'POST',
 				url: '/api/vehicles/gps/tracking',
 				data:{
-					vehicle_ids: formData
+					vehicle_id: formData
 				}
 			}).then((data) => {
 
@@ -305,9 +305,8 @@ var vueConfig = new Vue({
 			Lizard.ajax({
 				type: 'POST',
 				url: '/api/vehicles/gps/tracking',
-				traditional: true,
 				data:{
-					vehicle_ids: [vehiclesId]
+					vehicle_id: [vehiclesId]
 				}
 			}).then((data) => {
 

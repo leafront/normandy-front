@@ -19,6 +19,7 @@ router.get('/', async (ctx,next) => {
 	const { roleList, shop, authority } = await common.authority(ctx,{
 		url:'/api/current-user'
 	})
+
 	await ctx.render('insurance/index',{
 		pathName: ctx.path,
 		authority,
@@ -86,5 +87,37 @@ router.get('/confirm', async (ctx,next) => {
 	})
 
 })
+
+
+
+router.get('/order', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('insurance/order/index',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
+
+})
+
+
+router.get('/order/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('insurance/order/detail',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
+	})
+
+})
+
 
 module.exports = router;

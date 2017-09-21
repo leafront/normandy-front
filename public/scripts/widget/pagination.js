@@ -9,6 +9,14 @@ var listEmpty = require('../templates/list_empty');
 
 var pagination = {
 
+	/**
+	 * @param {String} url
+	 * @param {Object} data
+	 * @param {String} listTpl
+	 * @param {Object} tplData
+	 * @return null
+	 */
+
 	showPage (url,data,listTpl,tplData) {
 
 		document.querySelector('.pagination_list').addEventListener("click",function(event) {
@@ -26,9 +34,17 @@ var pagination = {
 
 	},
 
+	/**
+	 *
+	 * @param {Object} event
+	 * @param {String} url
+	 * @param {Object} data
+	 * @param {String} listTpl
+	 * @param {Object} tplData
+	 * @return null
+	 */
+
 	getList(event,url,data,listTpl,tplData){
-
-
 
 		var href = event.target.getAttribute('href');
 
@@ -50,11 +66,18 @@ var pagination = {
 		this.pageList(url,formData,listTpl,tplData);
 
 	},
+
+	/**
+	 *
+	 * @param {String} url
+	 * @param {Object} formData
+	 * @param {String} listTpl
+	 * @param {Object} tplData
+	 *
+	 */
 	pageList(url,formData,listTpl,tplData) {
 
 		var showPage = 5;
-
-
 
 		Lizard.ajax({
 			type: 'GET',

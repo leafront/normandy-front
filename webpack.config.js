@@ -84,6 +84,10 @@ module.exports = {
 
 		'insurance/confirm': './public/scripts/insurance/confirm',
 
+		'insurance/order/index': './public/scripts/insurance/order/index',
+
+		'insurance/order/detail': './public/scripts/insurance/order/detail',
+
 		'activate': './public/scripts/activate'
 
   },

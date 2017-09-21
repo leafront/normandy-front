@@ -1,6 +1,14 @@
 
 var util = {
 
+	/**
+	 * @param {Object} obj
+	 * @returns {string}
+	 * @example
+	 * util.queryStringify({name:'leafront',age:23}) =>  'name=leafront&age=23'
+	 *
+	 */
+
 	queryStringify: function (obj) {
 
 		function toQueryPair(key, value) {
@@ -31,6 +39,22 @@ var util = {
 		return ret.join('&');
 
 	},
+
+	/**
+	 *
+	 * @param {Object} optionsAjax
+	 * arguments
+	 * type:'GET',
+	 * timeout: 3000,
+	 * headers:{
+	 *  Content-Type:'application/json'
+	 * },
+	 * data:{
+	 *  name:'leafront'
+	 * }
+	 *
+	 * @returns {Promise}
+	 */
 
 	ajax (optionsAjax){
 

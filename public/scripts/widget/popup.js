@@ -1,7 +1,12 @@
 
 var popup = {
 
-	showContent (ele){ //显示弹层
+	/**
+	 * @param {Object} ele
+	 * @return null
+	 */
+
+	showContent (ele){
 
 		document.querySelector('.popup_mask').classList.add('active');
 
@@ -11,7 +16,12 @@ var popup = {
 
  },
 
-	hideContent (ele){ //隐藏弹层
+	/**
+	 * @param {Object} ele
+	 * @return null
+	 */
+
+	hideContent (ele){
 
 		document.querySelector('.popup_mask').classList.remove('active');
 

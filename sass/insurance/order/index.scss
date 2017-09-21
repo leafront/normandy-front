@@ -1,0 +1,104 @@
+@import '../../modules/reset.scss';
+
+@import '../../modules/common.scss';
+
+@import '../../modules/list.scss';
+
+.insurance_cont{
+
+	padding-left:14px;
+
+	padding-top:16px;
+
+}
+
+.insurance_menu{
+	border-bottom:1px solid #ececec;
+
+	li{
+
+		line-height:36px;
+
+		float:left;
+
+		font-size:14px;
+
+		border-bottom:3px solid transparent;
+
+		margin-right:20px;
+		&.active{
+			border-bottom:3px solid #01d5c6;
+			span{
+				color:#333;
+			}
+		}
+		span{
+			cursor: pointer;
+			color:#666;
+			padding:0 8px;
+		}
+	}
+}
+
+.cont_list{
+	.insurance_order{
+
+		width:200rem/$rem;
+
+	}
+
+	.insurance_times{
+
+		width:200rem/$rem;
+
+	}
+	.insurance_company{
+
+		width:146rem/$rem;
+
+	}
+
+	.insurance_number{
+
+		width:142rem/$rem;
+
+	}
+
+	.insurance_name{
+
+		width:140rem/$rem;
+
+	}
+
+	.effective_times{
+
+		width:280rem/$rem;
+
+	}
+
+	.insurance_cost{
+
+		width:160rem/$rem;
+
+	}
+	.insurance_status{
+		width:160rem/$rem;
+	}
+	.list_status{
+
+		width:160rem/$rem;
+
+	}
+
+}
+
+.insurance_tab{
+
+	display:none;
+
+	&.active{
+
+		display:block;
+
+	}
+}

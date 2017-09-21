@@ -58,11 +58,6 @@ Page({
 			return;
 		}
 
-		if (!validate.isPass(repeat_password)){
-
-			Lizard.showToast('请输入8-20位包含字母的密码');
-		}
-
 		if (repeat_password !== password ) {
 
 			Lizard.showToast('两次输入密码不一致');

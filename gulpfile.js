@@ -41,6 +41,8 @@ if (process.env.NODE_ENV == 'production') {
 			.pipe(replace(/\.css\b/g, '.css?v=' + dataString))
 			.pipe(replace(/\.js\b/g, '.js?v=' + dataString))
 			.pipe(replace(/\.png\b/g, '.png?v=' + dataString))
+			.pipe(replace(/\.jpg\b/g, '.jpg?v=' + dataString))
+			.pipe(replace(/\.gif\b/g, '.gif?v=' + dataString))
 			.pipe(gulp.dest('./views/'))
 
 	})
@@ -52,6 +54,8 @@ gulp.task('sass', function () {
 	  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(sourcemaps.write('/'))
 		.pipe(replace(/\.png\b/g, '.png?v=' + dataString))
+		.pipe(replace(/\.jpg\b/g, '.jpg?v=' + dataString))
+		.pipe(replace(/\.gif\b/g, '.gif?v=' + dataString))
 		.pipe(gulp.dest('./public/styles'))
 })
 

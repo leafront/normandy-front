@@ -1,12 +1,26 @@
-
-
 var Promise = require('es6-promise').Promise;
 
 var util = require('../lib/util/index');
 
 var Lizard = {
 
-	prompt: function (obj,determine,cancel){
+	/**
+	 * @param {Object} obj
+	 * @param {String} success
+	 * @param {Function} cancel
+	 * @example
+	 * Lizard.prompt({
+				tips:'您确定要取消吗?',
+				btn:['确定','取消']
+			},() => {
+					success
+			},()=>{
+
+			  cancel
+			})
+	 */
+
+	prompt: function (obj,success,cancel){
 
 		var { tips, btn } = obj;
 
@@ -30,7 +44,7 @@ var Lizard = {
 
 		document.querySelector('.layui-layer-btn0').addEventListener('click',function(){
 
-			determine();
+			success();
 
 			layUiPopup.parentNode.removeChild(layUiPopup);
 
@@ -48,6 +62,15 @@ var Lizard = {
 
 		})
 	},
+
+	/**
+	 * @param {String} value
+	 *
+	 * @example
+	 *
+	 * Lizard.showToast('提交成功');
+	 *
+	 */
 	showToast:function(value){
 
 		var tpl=`
@@ -77,6 +100,10 @@ var Lizard = {
 		},2000)
 	},
 
+	/**
+	 * @param null
+	 */
+
 	showLoading () {
 
 		var tpl = `
@@ -96,6 +123,11 @@ var Lizard = {
 
 	},
 
+	/**
+	 * @param none
+	 */
+
+
 	hideLoading () {
 
 		var loading = document.querySelector('.loadingToast');
@@ -107,6 +139,13 @@ var Lizard = {
 		},500);
 
 	},
+
+	/**
+	 * @param {Object} element
+	 * @param {String} sClass
+	 *
+	 * Lizard.toggleClass(document.body,'overflow')
+	 */
 
 	toggleClass (element,sClass) {
 
@@ -120,6 +159,11 @@ var Lizard = {
 		}
 
 	},
+
+	/**
+	 * @param {Object} el
+	 * @param {String} html
+	 */
 
 	append (el, html) {
 
@@ -144,13 +188,13 @@ var Lizard = {
 		nodes = null;
 		fragment = null;
 	},
-	checkNumber: function (theObj) {
-		var reg = /^[0-9]+.?[0-9]*$/;
-		if (reg.test(theObj)) {
-			return true;
-		}
-		return false;
-	},
+
+	/**
+	 *
+	 * @param {String || null } text
+	 *
+	 * @return {Object}
+	 */
 
 	query: function(){
 
@@ -186,6 +230,12 @@ var Lizard = {
 		}
 	},
 
+	/**
+	 * @param {Array} arr1
+	 * @param {Array} arr2
+	 * @returns {Array}
+	 */
+
 	diffArray: function(arr1,arr2){
 
 		var arr  = arr1.filter(function(item) {
@@ -197,6 +247,29 @@ var Lizard = {
 		return arr;
 
 	},
+
+	/**
+	 * @param {Object} ajaxOptions
+	 *
+	 * @returns {Promise}
+	 *
+	 * @example
+	 *
+	 * Lizard.ajax({
+	 *   type:'POST',
+	 *   url:'/api/user/login',
+	 *   data:{
+	 *     name:'leafront'
+	 *   },
+	 *   error () {
+	 *
+	 *  }
+	 * }).then((data) => {
+	 *
+	 *
+	 * })
+	 *
+	 */
 
 	ajax (ajaxOptions) {
 
@@ -261,6 +334,12 @@ var Lizard = {
 		return ajax;
 
 	},
+
+	/***
+	 *
+	 * @param {String} dateTimeStamp
+	 * @returns {string}
+	 */
 	getDateDiff: function (dateTimeStamp){
 
 		dateTimeStamp = Date.parse(dateTimeStamp.replace(/-/gi,"/"));
@@ -297,6 +376,10 @@ var Lizard = {
 		result = "刚刚";
 		return result;
 	},
+
+	/**
+	 * @returns {string}
+	 */
 	getPathName:function(){
 
 		var strUrl = document.location.toString();
@@ -307,6 +390,11 @@ var Lizard = {
 
 		return arrObj[1].substring(start);
 	},
+
+	/**
+	 * @param {String || Boolean} times
+	 * @returns {String}
+	 */
 
 	timeComputed (times) {
 
@@ -327,10 +415,13 @@ var Lizard = {
 	},
 
 	/**
-	 * 对Date的扩展，将 Date 转化为指定格式的String
-	 * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q) 可以用 1-2 个占位符
-	 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
-	 * eg:
+	 * @params {String || Boolean} tiems
+	 *
+	 * @params {String} fmt
+	 *
+	 * @return {String}
+	 *
+	 * @example
 	 * (new Date().getTime(,"yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
 	 * (new Date().getTime(,"yyyy-MM-dd E HH:mm:ss") ==> 2009-03-10 二 20:09:04
 	 * (new Date().getTime(,"yyyy-MM-dd EE hh:mm:ss") ==> 2009-03-10 周二 08:09:04
@@ -373,13 +464,28 @@ var Lizard = {
 		}
 		return fmt;
 	},
-	//设置cookies
+
+	/**
+	 * @param {String} name
+	 * @param {String} value
+	 * @param {Number} times
+	 * @return {String}
+	 * @example
+	 * Lizard.setCookie('jwt','Bearer eyJhbGciOiJIUzI1NiIsI',60*60*24*10)
+	 */
 	setCookie:function (name,value,times) {
 		var exp = new Date();
 		exp.setTime(exp.getTime() +times);
 		document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString()+";path=/";
 	},
-	//读取cookies
+	/**
+	 *
+	 * @param {String} name
+	 * @returns {String || null}
+	 * @example
+	 * Lizard.setCookie('jwt');
+	 *
+	 */
 	getCookie: function (name){
 		var arr,reg = new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 		if(arr = document.cookie.match(reg)){
@@ -390,7 +496,13 @@ var Lizard = {
 		}
 	},
 
-	//删除cookies
+	/**
+	 *
+	 * @param {String} name
+	 * @return null
+	 * @example
+	 * Lizard.removeCookie('jwt');
+	 */
 	removeCookie:function (name){
 		var exp = new Date();
 		exp.setTime(exp.getTime() - 1);
@@ -398,6 +510,12 @@ var Lizard = {
 		if(cval!== null) document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path=/";
 	},
 
+	/**
+	 * @param null
+	 * @return null
+	 * @example
+	 * Lizard.clearCookie();
+	 */
 	clearCookie:function (){
 		var keys=document.cookie.match(/[^ =;]+(?=\=)/g);
 		if (keys) {
@@ -405,6 +523,14 @@ var Lizard = {
 				document.cookie=keys[i]+'=0;expires=' + new Date().toGMTString()+";path=/";
 		}
 	},
+
+	/**
+	 *
+	 * @param {Function} func
+	 * @param {Boolean} wait
+	 * @param {Boolean} mustRun
+	 * @returns {Function}
+	 */
 	throttle: function (func, wait, mustRun) {
 		var timeout,
 			startTime = new Date();

@@ -2,6 +2,13 @@ var $ = require('../lib/jquery');
 
 var ejs = require('../lib/ejs');
 
+/**
+ *
+ * @param options
+ *
+ * @constructor
+ */
+
 function Calendar(options){
 
 	this.date = new Date();

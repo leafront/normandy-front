@@ -76,13 +76,19 @@
 
 			font-size:14px;
 
-			color:#53cac3;
+			color:#e0e2e3;
 
 		}
 		&.active{
 
 			&:after{
 				background:#53cac3;
+			}
+
+			span{
+
+				color:#53cac3;
+
 			}
 
 			i{
