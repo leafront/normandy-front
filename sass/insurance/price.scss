@@ -10,6 +10,8 @@
 
 @import '../modules/dropMenu.scss';
 
+@import '../modules/popup.scss';
+
 @import '../modules/process.scss';
 
 .insurance_info{
@@ -253,7 +255,27 @@
 	float:left;
 }
 
+.popup_wraper{
 
+	width:1140rem/$rem;
+
+}
+.popup_submit{
+
+	padding:30rem/$rem 0;
+
+	display:flex;
+
+	justify-content: flex-end;
+
+}
+
+.popup_cont{
+
+	padding:10px 20px;
+
+	height:632rem/$rem;
+}
 .drop-menu-price{
 
 	margin-left:226rem/$rem;
