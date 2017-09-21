@@ -50,7 +50,7 @@ var vueConfig = new Vue({
 		gpsList:{},
 		riskLevel:{'low':'底','middle':'中','high':'高'},
 		vehicle_ids: [],
-		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'未安装gps',value:3}],
+		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'未安装gps',value:2}],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
 
@@ -173,6 +173,8 @@ var vueConfig = new Vue({
 
 		})
 
+		//vehicle_ids = vehicle_ids.splice(2,1);
+
 
 		this.vehicle_ids = vehicle_ids;
 
@@ -286,17 +288,23 @@ var vueConfig = new Vue({
 
 		},
 
-		refreshGps () {
+		refreshGps (shopId) {
 
-			if (!this.vehicle_ids.length) {
+			Lizard.ajax({
+				type: 'POST',
+				url: '/api/vehicles/gps/status',
+				data: {
+				  shop_id:shopId
+				}
+			}).then((data) =>{
 
-				Lizard.showToast('当前无GPS状态');
+				if (data) {
 
-				return;
+					Lizard.showToast('刷新GPS状态成功');
 
-			}
+				}
 
-			this.fetchGps(this.vehicle_ids,function(){Lizard.showToast('刷新GPS状态成功')});
+			})
 
 		},
 
@@ -314,13 +322,10 @@ var vueConfig = new Vue({
 
 					if (data[vehiclesId]) {
 
-						this.gpsList.vehiclesId = data[vehiclesId];
+						let gpsList =  Object.assign({},this.gpsList);
 
-						 if (data[vehiclesId].status == 3) {
+						this.gpsList = Object.assign(gpsList,data);
 
-							Lizard.showToast('未安装gps');
-
-						 }
 
 					} else {
 

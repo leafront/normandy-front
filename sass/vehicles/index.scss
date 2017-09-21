@@ -28,7 +28,7 @@
 	.vehicles_status{
 		width:114rem/$rem;
 	}
-	.vehicles_vin{
+	.vehicles_number{
 		width:260rem/$rem;
 		@include ellipsis;
 		float:left;
@@ -78,7 +78,7 @@
 		@include boxShadow(4);
 
 		display:none;
-
+		z-index:1000;
 		padding:10px;
 
 		&.active{

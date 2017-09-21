@@ -77,12 +77,12 @@
                 </div>
             </div>
             <div class="gps_btn">
-               <button @click="refreshGps">一键刷新GPS状态</button>
+               <button @click="refreshGps('<%-shop.id%>')">一键刷新GPS状态</button>
             </div>
             <div class="list_container">
                 <dl class="cont_list">
                     <dt>
-                        <span class="vehicles_vin">车架号</span>
+                        <span class="vehicles_number">车牌号</span>
                         <span class="vehicles_name">借款人</span>
                         <span class="vehicles_times">添加时间</span>
                         <span class="vehicles_status">标的状态</span>
@@ -94,7 +94,7 @@
                     <% if(vehiclesList && vehiclesList.length){%>
                         <%vehiclesList.forEach(function(item,index){%>
                         <dd>
-                            <a class="vehicles_vin list_action" href="/vehicles/<%-item.id%>"><%-item.vin%></a>
+                            <a class="vehicles_number list_action" href="/vehicles/<%-item.id%>"><%-item.plate_number%></a>
                             <span class="vehicles_name"><%-item.borrower.name%></span>
                             <span class="vehicles_times"><%-item.created_at.toString().slice(0,-9)%></span>
                             <span class="vehicles_status">
@@ -138,8 +138,10 @@
                               </div>
                             </div>
                             <div class="vehicles_gpsStatus" v-if="gpsList['<%-item.id%>']">
+
                                 <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{gpsText[gpsList['<%-item.id%>'].status].name}}</span>
                                 <div class="vehicles_tips">
+
                                     <p>{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].msg}}</p>
                                     <p v-if="gpsList['<%-item.id%>'].status !== 0">风险等级：{{gpsList['<%-item.id%>'] && riskLevel[gpsList['<%-item.id%>'].risk]}}</p>
                                 </div>
