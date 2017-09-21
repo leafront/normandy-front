@@ -61,7 +61,7 @@ var validate = {
 
 	isPercent (text) {
 
-		var pattern = /^([1-9]{1,2}\d$)|(^\d{1,2}\.\d{1,2}$)/;
+		var pattern = /^((\d+\.?\d*)|(\d*\.\d+))$/;
 
 		return pattern.test(text);
 
