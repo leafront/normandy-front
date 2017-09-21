@@ -20,7 +20,7 @@ var validate = {
 	 */
 	isZipCode (text){
 
-		var pattern = /^[1-9][0-9]{5}$/;
+		var pattern = /^[0-9]{6}$/;
 
 		return pattern.test(text);
 	},
