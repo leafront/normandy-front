@@ -101,7 +101,7 @@ var vueConfig = new Vue({
 	updated () {
 
 
-		$('.gps_error').hover(function(){
+		$('.vehicles_gpsStatus span').hover(function(){
 
 			setTimeout(() =>{
 
@@ -172,8 +172,6 @@ var vueConfig = new Vue({
 			vehicle_ids.push(item.id);
 
 		})
-
-		//vehicle_ids = vehicle_ids.splice(2,1);
 
 
 		this.vehicle_ids = vehicle_ids;
@@ -301,6 +299,8 @@ var vueConfig = new Vue({
 				if (data) {
 
 					Lizard.showToast('刷新GPS状态成功');
+
+					this.fetchGps(this.vehicle_ids);
 
 				}
 

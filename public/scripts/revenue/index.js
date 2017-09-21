@@ -165,9 +165,11 @@ var vueConfig = new Vue({
 				repay_schema = popupConfig.repay_schema;
 
 			}
+			let revenueData = Object.assign({},this.revenue);
 
+			revenueData = Object.assign({repay_schema, shop_id: shopId}, revenueData);
 
-			let formData = Object.assign({repay_schema, shop_id: shopId}, this.revenue);
+			let formData = Object.assign({},revenueData);
 
 			let {
 				amount, repay_type, term, term_unit, borrow_rate,
@@ -339,17 +341,9 @@ var vueConfig = new Vue({
 			}
 
 
-			validateEle.forEach((item) => {
-
-				common.deleteEmptyArray(validateEle,item.ele,'ele');
-
-			})
-
-
-
 			var isValidateArray =  validateEle.every((item) => {
 
-				if (item.isValidate === "") {
+				if (!item.isValidate) {
 
 					Lizard.showToast(item.message);
 
@@ -390,6 +384,12 @@ var vueConfig = new Vue({
 
 			}
 
+			validateEle.forEach((item) => {
+
+				common.deleteEmptyArray(validateEle,item.ele,'ele');
+
+			})
+
 
 			Lizard.ajax({
 				type:'POST',
@@ -404,7 +404,15 @@ var vueConfig = new Vue({
 
 					local.set('revenue_formData',formData);
 
-					location.href = '/revenue/report';
+					Lizard.showToast('提交成功,跳转至计算收支明细报表...');
+
+					setTimeout(() => {
+
+						location.href = '/revenue/report';
+
+					},500)
+
+
 
 				}
 

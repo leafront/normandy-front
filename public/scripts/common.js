@@ -228,20 +228,17 @@ var common = {
 			}
 		})
 
-		object.forEach((item,index) => {
+		object.forEach((item) => {
 
-			item[property].forEach((child) => {
+			item[property].forEach((child,index) => {
 
+				if (common.isEmptyObject(child)) {
 
-				if (child) {
-
-					object[index][property] = [];
+					item[property].splice(index,1);
 
 				}
 
 			})
-
-
 		})
 	}
 }
