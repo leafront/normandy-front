@@ -33,7 +33,7 @@ var validate = {
 
 	isNumber (text) {
 
-		var pattern = /^[1-9]\d{0,6}$/;
+		var pattern = /^[0-9]\d{0,8}$/;
 
 		return pattern.test(text);
 

@@ -105,8 +105,6 @@ router.get('/map/:id', async (ctx,next) => {
 
 	const driveType = params.driveType;
 
-	console.log(driveType)
-
 	const { data: monitor } = await baseModel.post(ctx,{
 		type: 'POST',
 		url: '/api/gps/tracking',
