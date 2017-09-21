@@ -989,13 +989,13 @@ var loanType = [{
 
 var gpsStatus = [{
 
-	name:'正常',
+	name:'全部',
 	value:0
 },{
 	name:'异常',
 	value:1
 },{
-	name:'预警',
+	name:'正常',
 	value:2
 },{
 	name:'未安装',
