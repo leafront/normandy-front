@@ -275,6 +275,18 @@
 	padding:10px 20px;
 
 	height:632rem/$rem;
+
+	overflow:auto;
+
+	p{
+
+		line-height:28px;
+
+		font-size:14px;
+
+		color:#666;
+
+	}
 }
 .drop-menu-price{
 
@@ -290,6 +302,8 @@
 }
 
 .popup_insurance_tit{
+	overflow:hidden;
+	padding-bottom:10px;
 	i{
 		width:4px;
 		height:16px;
@@ -300,9 +314,192 @@
 	span{
 		font-size:16px;
 		color:#263238;
-		font-weight:bold;
+		font-weight:500;
 		margin-left:15px;
 		margin-top:4px;
 		float:left;
 	}
+}
+
+.our_ratings{
+
+	overflow:hidden;
+	line-height:28px;
+
+	font-size:14px;
+
+	span{
+		float:left;
+		color:#666;
+
+	}
+
+	strong{
+
+		float:left;
+
+		color:#53cac3;
+
+		font-size:18px;
+	}
+}
+
+.popup_item{
+
+	margin-bottom:20px;
+
+	&:last-child{
+
+		margin-bottom:0;
+
+	}
+}
+
+.popup_title{
+
+	padding-right:30rem/$rem;
+
+	h4{
+		float:left;
+	}
+
+
+	span{
+		float:right;
+		font-size:14px;
+		color:#fff;
+		cursor:pointer;
+		&:hover{
+
+			text-decoration: underline;
+
+		}
+	}
+
+}
+
+.popup_sub_tit{
+
+	height:50px;
+
+	line-height:49px;
+
+	border-bottom:1px solid #ececec;
+
+	padding-left:25px;
+
+	margin-bottom:25px;
+
+	h6{
+		font-size:16px;
+		color:#333;
+	}
+
+}
+
+.insurance_cont{
+
+	padding-left:15px;
+}
+
+.insurance_group{
+
+	padding-left:25px;
+
+	.form-group-rows:first-child{
+
+		width:30%;
+	}
+}
+
+.form-group{
+
+	margin-bottom:20px;
+
+	.insurance_label{
+
+		font-size:14px;
+
+		color:#333;
+
+		display:inline-block;
+
+		line-height:34px;
+
+		cursor:pointer;
+
+		top:0;
+
+		&.active{
+
+			&:before{
+
+				border:1px solid #53cac3;
+
+				background:url(/images/ico_sprite.png?v=20170922132942) no-repeat #53cac3 -179px -109px;
+
+			}
+
+		}
+
+		&:after{
+
+			width:15px;
+
+			height:15px;
+
+			content:'';
+
+			display:block;
+
+			border:1px solid #c1c1c1;
+
+			border-radius:50%;
+
+			-webkit-border-radius:50%;
+
+			position:absolute;
+
+			left:54px;
+
+			top:8px;
+
+		}
+	}
+
+}
+
+
+.insurance_wraper{
+
+	width:1400rem/$rem;
+}
+
+.drop-menu-insurance{
+	width:200rem/$rem;
+
+	.drop_menu_list{
+		width:200rem/$rem;
+	}
+
+}
+
+.form-group-rows:first-child{
+
+	width:55%;
+
+}
+
+.form-group .form-group-rows label{
+
+	width:165px;
+
+}
+
+.form-group-ellipsis{
+	label{
+		float:left;
+		line-height:22px;
+	}
+
 }
