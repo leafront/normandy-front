@@ -100,22 +100,29 @@ var vueConfig = new Vue({
 
 	updated () {
 
+		var hoverTimer, outTimer;
 
-		$('.vehicles_gpsStatus span').hover(function(){
+		$('.gps_error,.gps_warning').hover(function(){
 
-			setTimeout(() =>{
+			clearTimeout(outTimer);
+
+			hoverTimer = setTimeout(() =>{
 
 				$(this).next('.vehicles_tips').addClass('active');
 
-			},200)
+			},500)
 
 		},function(){
 
-			setTimeout(() =>{
+			clearTimeout(hoverTimer);
+
+			outTimer = setTimeout(() =>{
+
+				console.log($(this).next('.vehicles_tips'))
 
 				$(this).next('.vehicles_tips').removeClass('active');
 
-			},200)
+			},500)
 
 		})
 

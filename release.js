@@ -1,5 +1,3 @@
-
-
 var Client = require('ssh2').Client;
 
 var conn = new Client();
