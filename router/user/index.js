@@ -206,7 +206,6 @@ router.post('/auth/jwt',async (ctx,next) => {
 
 	}).catch((err) => {
 
-
 		ctx.status =  err.response.statusCode;
 
 		ctx.body = err.response.body;
