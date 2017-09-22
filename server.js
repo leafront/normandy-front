@@ -112,7 +112,6 @@ if (process.env.NODE_ENV == 'production') {
 
 			console.log(err)
 
-
 			if (err.statusCode == 401) {
 
 				ctx.redirect('/user/login?returnurl=' + ctx.url);
