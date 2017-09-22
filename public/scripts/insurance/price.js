@@ -4,7 +4,10 @@ var $ = require('../lib/jquery');
 
 var common = require('../common');
 
+var popup = require('../widget/popup');
+
 var Vue = require('../lib/vue');
+
 
 var vueConfig = new Vue ({
 	el:'#app',
@@ -13,6 +16,11 @@ var vueConfig = new Vue ({
 	},
 	methods:{
 
+		showPopup (ele) {
+
+			popup.showContent(ele);
+
+		}
 
 	},
 	computed:{
@@ -23,7 +31,7 @@ var vueConfig = new Vue ({
 
 		common.headerMenu();
 
-		$('.gps_error').hover(function(){
+		$('.price_error').hover(function(){
 
 			setTimeout(() =>{
 
@@ -41,5 +49,32 @@ var vueConfig = new Vue ({
 
 		})
 
+	}
+})
+
+var seeInsurance = new Vue ({
+
+	el:'#seeInsurance',
+
+	methods:{
+
+		hidePopup (ele) {
+
+			popup.hideContent(ele);
+
+		}
+	}
+})
+
+var editInsurance = new Vue ({
+	el: '#editInsurance',
+
+	methods: {
+
+		hidePopup (ele) {
+
+			popup.hideContent(ele);
+
+		}
 	}
 })

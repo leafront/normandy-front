@@ -6,6 +6,8 @@
 
 }
 
+
+
 .process_list{
 
 	height:71px;
@@ -37,6 +39,17 @@
 
 			background:#e0e2e3;
 
+		}
+
+		&:last-child{
+
+			padding-right:0;
+
+			&:after{
+
+				display:none;
+
+			}
 		}
 
 		i{

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "release":"node release.js",
     "dev_pack": "node pack.js dev",
     "production_pack": "node pack.js production",
     "production": "NODE_ENV=production pm2 start server.js",

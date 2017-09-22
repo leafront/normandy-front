@@ -23,7 +23,7 @@
                 <i></i>
                 <span>车险报价</span>
                 <button class="list_btn">查看订单列表</button>
-                <button class="list_btn">查看险种</button>
+                <button class="list_btn" @click="showPopup('#seeInsurance')">查看险种</button>
             </div>
             <div class="process_info">
                 <ul class="process_list">
@@ -50,102 +50,380 @@
                 </ul>
             </div>
             <div class="insurance_info">
-              <div class="vehicle_info_title">
-                  <div class="business_status">
-                    <h4>车辆信息</h4>
-                  </div>
-              </div>
-              <div class="insurance_item clearfix">
-                <p>
-                    <strong>车牌号：</strong>
-                    <span>川 A13S32</span>
-                </p>
-                <p>
-                  <strong>品牌型号：</strong>
-                  <span>东风雪铁龙DC7165LYCM轿车</span>
-                </p>
-                <button class="insurance_detail_btn">返回查看车辆详情</button>
-              </div>
-              <div class="vehicle_info_title">
-                <div class="business_status">
-                    <h4>已选险种(3种)</h4>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>车辆信息</h4>
+                    </div>
                 </div>
-              </div>
+                <div class="insurance_item clearfix">
+                    <p>
+                        <strong>车牌号：</strong>
+                        <span>川 A13S32</span>
+                    </p>
+                    <p>
+                        <strong>品牌型号：</strong>
+                        <span>东风雪铁龙DC7165LYCM轿车</span>
+                    </p>
+                    <button class="insurance_detail_btn">返回查看车辆详情</button>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>已选险种(3种)</h4>
+                    </div>
+                </div>
 
-              <div class="insurance_item">
-                <div class="insurance_cate_wrapper">
-                  <div class="insurance_cate clearfix">
-                    <p>机动车损失保险（不计免赔）</p>
-                    <p>第三者责任险（50万、不计免赔）</p>
-                    <p>玻璃单独破碎险（进口玻璃）</p>
-                  </div>
-                </div>
-                <button class="insurance_detail_btn">调整险种</button>
-              </div>
-
-              <div class="vehicle_info_title">
-                <div class="business_status">
-                    <h4>车险报价</h4>
-                </div>
-              </div>
-              <div class="list_container list_top">
-                <dl class="cont_list">
-                  <dt>
-                    <span class="insurance_name">姓名</span>
-                    <span>是否查看报价</span>
-                  </dt>
-                  <dd>
-                    <img class="insurance_logo" src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png"/>
-                    <strong class="insurance_cate_name">平安</strong>
-                    <button class="insurance_renewal">续保</button>
-                    <div class="insurance_price">
-                        <div class="drop_menu drop-menu-price">
-                            <span>请选择</span>
-                            <ul class="drop_menu_list">
-                                <li><a href="javascript:;">正常</a></li>
-                                <li><a href="javascript:;">异常</a></li>
-                                <li><a href="javascript:;">预警</a></li>
-                                <li><a href="javascript:;">未安装</a></li>
-                            </ul>
+                <div class="insurance_item">
+                    <div class="insurance_cate_wrapper">
+                        <div class="insurance_cate clearfix">
+                            <p>机动车损失保险（不计免赔）</p>
+                            <p>第三者责任险（50万、不计免赔）</p>
+                            <p>玻璃单独破碎险（进口玻璃）</p>
                         </div>
                     </div>
-                    <div class="price_gpsStatus">
-                        <span class="gps_error">异常</span>
-                        <div class="price_tips">
-                            <p>不满足有线离线同时至少有一个正常</p>
-                            <p>解决方案：实地排查</p>
-                        </div>
-                    </div>
-                    <strong class="insurance_integral">返67488积分</strong>
+                    <button class="insurance_detail_btn" @click="showPopup('#editInsurance')">调整险种</button>
+                </div>
 
-                    <button class="insure_btn">立即投保</button>
-                  </dd>
-                </dl>
-              </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>车险报价</h4>
+                    </div>
+                </div>
+                <div class="list_container list_top">
+                    <dl class="cont_list">
+                        <dt>
+                            <span class="insurance_name">姓名</span>
+                            <span>是否查看报价</span>
+                        </dt>
+                        <dd>
+                            <img class="insurance_logo" src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png"/>
+                            <strong class="insurance_cate_name">平安</strong>
+                            <button class="insurance_renewal">续保</button>
+                            <div class="insurance_price">
+                                <div class="drop_menu drop-menu-price">
+                                    <span>请选择</span>
+                                    <ul class="drop_menu_list">
+                                        <li><a href="javascript:;">正常</a></li>
+                                        <li><a href="javascript:;">异常</a></li>
+                                        <li><a href="javascript:;">预警</a></li>
+                                        <li><a href="javascript:;">未安装</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="price_gpsStatus">
+                                <span class="price_error">异常</span>
+                                <div class="price_tips">
+                                    <p>不满足有线离线同时至少有一个正常</p>
+                                    <p>解决方案：实地排查</p>
+                                </div>
+                            </div>
+                            <strong class="insurance_integral">返67488积分</strong>
+
+                            <button class="insure_btn">立即投保</button>
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
         <% include ../common/footer.ejs %>
     </div>
 </div>
-<div class="popup_wraper active" id="popup">
+<div class="popup_wraper" id="seeInsurance">
     <div class="popup_title">
         <h4>查看险种</h4>
     </div>
     <div class="popup_cont">
-      <div class="popup_insurance_tit">
-        <i></i>
-        <span>交强险</span>
-      </div>
-      <p>交强险是由保险公司对被保险机动车发生道路交通事故造成受害人（不包括本车人员和被保险人 ）的人身伤亡、财产损失，在责任限额内予以赔偿的强制性责任保险。</p>
-      <div class="our_ratings">
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>交强险</span>
+            </div>
+            <p>交强险是由保险公司对被保险机动车发生道路交通事故造成受害人（不包括本车人员和被保险人 ）的人身伤亡、财产损失，在责任限额内予以赔偿的强制性责任保险。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★★</strong>
+            </div>
+            <p>推荐原因：国家强制购买，不购买交强险的车辆不允许上路。</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>第三者责任险</span>
+            </div>
+            <p>被保险人或其允许的驾驶人员在使用保险车辆过程中发生意外事故，致使第三者遭受人身伤亡或财产直接损毁，依法应当由被保险人承担的经济
+                责任，保险公司负责赔偿。同时，若经保险公司书面同意，被保险人因此发生仲裁或诉讼费用的，保险公司在责任限额以外赔偿，但最高不超过
+                责任限额的30%。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★★</strong>
+            </div>
+            <p>推荐原因：您的爱车对他人或他人的车辆造成伤害，不需要您自掏腰包赔偿，保险公司帮您赔偿。</p>
+        </div>
 
-      </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>车损险</span>
+            </div>
+            <p>被保险人或其允许的驾驶员在驾驶保险车辆时发生保险事故，造成保险车辆受损，保险公司在合理范围内予以赔偿。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★★</strong>
+            </div>
+            <p>推荐原因：性价比高，非常适合新手购买！90%以上的车主选择，不用自掏腰包修爱车</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>车上人员责任险</span>
+            </div>
+            <p>指保险车辆在使用过程中发生意外交通事故而导致驾驶人或者车上其他乘车人伤亡的。是专门保障保险车辆在使用时车上的驾驶员和乘客的险种，
+                保险公司会赔偿该意外事故所产生的驾驶人或车上人员的医疗费用或事故产生的赔偿金。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★</strong>
+            </div>
+            <p>推荐原因：您的车辆发生事故时，车上的人员（包括乘客和司机）造成的伤害损失保险公司赔偿。经常有亲人朋友搭车，建议购买。</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>全车盗抢险</span>
+            </div>
+            <p>指全车被盗窃、被抢劫、被抢夺造成的车辆损失以及在被盗窃、被抢劫、被抢夺期间受到损坏或车上零部件、附属设备丢失需要修复的合理费用
+                由保险公司赔偿</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★</strong>
+            </div>
+            <p>下列损失，保险人不负责赔偿：</p>
+            <p>1、非全车遭盗窃、抢劫、抢夺，仅车上零部件或附属设备被盗窃、抢劫、抢夺、损坏，不赔付；</p>
+            <p>2、新车车辆出厂时的原厂配置以外新增设备的损失，不赔付；</p>
+            <p>3、保险车辆全车被盗窃、抢劫、抢夺期间造成人身伤亡或本车以外的财产损失，不赔付；</p>
+            <p>4、遭受保险责任范围内的损失后，未经必要修理继续使用，致使损失扩大的部分，不赔付；</p>
+            <p>5、市场价格变动造成的贬值、修理后因价值降低引起的损失，不赔付；</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>不计免赔险</span>
+            </div>
+            <p>保险条款中约定事故发生后被保险人要自己承担一定比率的损失金额。不计免赔则将被保险人自己承担的部分也由保险公司承担。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★★</strong>
+            </div>
+            <p>推荐原因：该险种价格便宜，投保后能获得相对全面保障，避免风险。具体根据车主意愿投保。</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>自燃险</span>
+            </div>
+            <p>自燃损失险指负责赔偿因本车电器、线路、供油系统发生故障及运载货物自身原因起火造成车辆本身的损失。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★★</strong>
+            </div>
+            <p>推荐原因：该险种价格便宜，投保后能获得相对全面保障，避免风险。具体根据车主意愿投保。</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>涉水险</span>
+            </div>
+            <p>指车主为发动机购买的附加险。保险车险在积水路面涉水行驶或被水淹后致使发动机损坏可给予赔偿。保险公司在出险当时的保险车辆实际价
+                值范围内负责赔偿发动机的修复费用，但最高以车辆损失险的保险金额为限。本附加险每次赔偿均实行20%的绝对免赔率，可以通过购买不计
+                免赔特约险获得完善保障。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★</strong>
+            </div>
+            <p>推荐原因：发动机是汽车的心脏，也是车辆最昂贵的一个组成部分。经常暴雨、内涝地区，以及城市排水不好的地区，建议购买。</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>划痕险</span>
+            </div>
+            <p>指由于他人恶意行为造成的车身划痕损失，保险公司按实际损失进行赔偿。在保险金额内按实际修理费用赔偿；每次赔偿实行15%的免赔率，
+                可以通过购买不计免赔特约险获得完善保障。在保险期间内，累计赔款金额达到保险金额，本险种的保险责任终止。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★★</strong>
+            </div>
+            <p>推荐原因：新车及新手以及完美主义者酌情购买，老龄车、停车环境好的车主就不建议购买了。细小的划痕通常可以通过美容进行处理，若通
+                过划痕险进行索赔也算一次出险，会对第二年的保费产生影响。</p>
+        </div>
+        <div class="popup_item">
+            <div class="popup_insurance_tit">
+                <i></i>
+                <span>玻璃单独破碎险</span>
+            </div>
+            <p>保险车辆在保险期间内的使用过程中，如若发生本车风挡玻璃或车窗玻璃的单独破碎，保险公司按实际损失为投保人办理理赔。玻璃单独破碎险
+                是分按进口玻璃或国产玻璃进行投保的，投保人在与保险公司协商的基础上，自愿按进口或国产玻璃选择投保，保险公司根据投保人的选择，承
+                担相应的保险责任。</p>
+            <div class="our_ratings">
+                <span>推荐指数：</span><strong>★★</strong>
+            </div>
+            <p>被保车辆只有风挡玻璃和车窗玻璃（不包括车灯、车镜玻璃）单独出现破损才会赔偿。</p>
+        </div>
     </div>
     <div class="popup_submit clearfix">
-        <button class="btn_confirm">关闭</button>
+        <button class="btn_confirm" @click="hidePopup('#seeInsurance')">关闭</button>
     </div>
 </div>
-<div class="popup_mask active"></div>
+
+<div class="popup_wraper insurance_wraper" id="editInsurance">
+  <div class="popup_title">
+    <h4>调整险种</h4>
+    <span>查看险种</span>
+  </div>
+  <div class="insurance_cont">
+    <div class="popup_sub_tit">
+      <h6>交强险调整</h6>
+    </div>
+    <div class="form-group insurance_group clearfix">
+      <div class="form-group-rows">
+        <p class="insurance_label">交强险</p>
+      </div>
+      <div class="form-group-rows vehicle-ui-ico">
+        <label>交强险起保日期</label>
+        <div class="user-ui-number">
+          <input type="text" placeholder="交强险起保日期" class="user-ui-input">
+            <i class="user-ui-input-txt">&nbsp;</i>
+        </div>
+      </div>
+    </div>
+    <div class="popup_sub_tit">
+      <h6>商业险调整</h6>
+    </div>
+    <div class="form-group clearfix">
+      <div class="form-group-rows vehicle-ui-ico">
+          <label>商业险起保日期</label>
+          <div class="user-ui-number">
+              <input type="text" placeholder="商业险起保日期" class="user-ui-input base-ui-input">
+              <i class="user-ui-input-txt">&nbsp;</i>
+          </div>
+      </div>
+    </div>
+    <div class="form-group clearfix">
+      <div class="form-group-rows">
+          <label>机动车损失保险</label>
+          <div class="drop_menu drop-menu-insurance">
+              <span>请选择</span>
+              <ul class="drop_menu_list">
+                  <li><a href="javascript:;">投保</a></li>
+                  <li><a href="javascript:;">不投保</a></li>
+              </ul>
+          </div>
+          <strong>不计免赔</strong>
+      </div>
+      <div class="form-group-rows">
+        <label>商业第三方责任险</label>
+        <div class="drop_menu drop-menu-insurance">
+            <span>请选择</span>
+            <ul class="drop_menu_list">
+                <li><a href="javascript:;">投保</a></li>
+                <li><a href="javascript:;">不投保</a></li>
+            </ul>
+        </div>
+        <strong>不计免赔</strong>
+      </div>
+    </div>
+    <div class="form-group clearfix">
+      <div class="form-group-rows">
+          <label>车上人员责任保险(驾驶员)</label>
+          <div class="drop_menu drop-menu-insurance">
+              <span>请选择</span>
+              <ul class="drop_menu_list">
+                  <li><a href="javascript:;">投保</a></li>
+                  <li><a href="javascript:;">不投保</a></li>
+              </ul>
+          </div>
+          <strong>不计免赔</strong>
+      </div>
+      <div class="form-group-rows">
+        <label>车上人员责任保险(乘客)</label>
+        <div class="drop_menu drop-menu-insurance">
+            <span>请选择</span>
+            <ul class="drop_menu_list">
+                <li><a href="javascript:;">投保</a></li>
+                <li><a href="javascript:;">不投保</a></li>
+            </ul>
+        </div>
+        <strong>不计免赔</strong>
+      </div>
+    </div>
+    <div class="form-group clearfix">
+      <div class="form-group-rows">
+          <label>玻璃单独破碎险</label>
+          <div class="drop_menu drop-menu-insurance">
+              <span>请选择</span>
+              <ul class="drop_menu_list">
+                  <li><a href="javascript:;">投保</a></li>
+                  <li><a href="javascript:;">不投保</a></li>
+              </ul>
+          </div>
+          <strong>国产玻璃</strong>
+          <strong>进口玻璃</strong>
+      </div>
+        <div class="form-group-rows">
+            <label>全车盗抢险</label>
+            <div class="drop_menu drop-menu-insurance">
+                <span>请选择</span>
+                <ul class="drop_menu_list">
+                    <li><a href="javascript:;">投保</a></li>
+                    <li><a href="javascript:;">不投保</a></li>
+                </ul>
+            </div>
+            <strong>不计免赔</strong>
+        </div>
+    </div>
+    <div class="form-group clearfix">
+      <div class="form-group-rows">
+          <label>车身划痕个损失险</label>
+          <div class="drop_menu drop-menu-insurance">
+              <span>请选择</span>
+              <ul class="drop_menu_list">
+                  <li><a href="javascript:;">投保</a></li>
+                  <li><a href="javascript:;">不投保</a></li>
+              </ul>
+          </div>
+      </div>
+        <div class="form-group-rows">
+            <label>发动机涉水损失险</label>
+            <div class="drop_menu drop-menu-insurance">
+                <span>请选择</span>
+                <ul class="drop_menu_list">
+                    <li><a href="javascript:;">投保</a></li>
+                    <li><a href="javascript:;">不投保</a></li>
+                </ul>
+            </div>
+            <strong>不计免赔</strong>
+        </div>
+    </div>
+    <div class="form-group clearfix">
+      <div class="form-group-rows">
+          <label>自燃损失险</label>
+          <div class="drop_menu drop-menu-insurance">
+              <span>请选择</span>
+              <ul class="drop_menu_list">
+                  <li><a href="javascript:;">投保</a></li>
+                  <li><a href="javascript:;">不投保</a></li>
+              </ul>
+          </div>
+          <strong>不计免赔</strong>
+      </div>
+        <div class="form-group-rows form-group-ellipsis">
+            <label>机动车损失保险无法<br/>
+                找到第三方特约险</label>
+            <div class="drop_menu drop-menu-insurance">
+                <span>请选择</span>
+                <ul class="drop_menu_list">
+                    <li><a href="javascript:;">投保</a></li>
+                    <li><a href="javascript:;">不投保</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="popup_submit clearfix">
+    <button class="btn_confirm">确定并重新报价</button>
+    <button class="btn_cancel" @click="hidePopup('#editInsurance')">放弃调整</button>
+  </div>
+</div>
+<div class="popup_mask"></div>
 <script type="text/javascript" src="/dist/scripts/insurance/price.js"></script>
 </body>
 </html>
