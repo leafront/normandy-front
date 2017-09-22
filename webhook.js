@@ -14,7 +14,6 @@ handler.on('error', function (err) {
 })
 
 handler.on('push', function (event) {
-	console.log(11111)
 
 	console.log('Received a push event for %s to %s',
 		event.payload.repository.name,
