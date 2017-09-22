@@ -140,7 +140,7 @@
                             <div class="vehicles_gpsStatus" v-if="gpsList['<%-item.id%>']">
 
                                 <span :class="{'gps_error':gpsList['<%-item.id%>'].status == 1,'gps_warning':gpsList['<%-item.id%>'].status == 2}" >{{gpsText[gpsList['<%-item.id%>'].status].name}}</span>
-                                <div class="vehicles_tips">
+                                <div class="vehicles_tips" v-if="gpsList['<%-item.id%>'].status !== 0">
 
                                     <p>{{gpsList['<%-item.id%>'] && gpsList['<%-item.id%>'].msg}}</p>
                                     <p v-if="gpsList['<%-item.id%>'].status !== 0 && riskLevel[gpsList['<%-item.id%>'].risk]">风险等级：{{gpsList['<%-item.id%>'] && riskLevel[gpsList['<%-item.id%>'].risk]}}</p>
