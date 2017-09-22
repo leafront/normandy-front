@@ -36,6 +36,14 @@ var queryParams = {
 	related_borrowing_status: Lizard.query('related_borrowing_status') || ''
 }
 
+let gpsList = {};
+
+vehiclesList.forEach((item) =>{
+
+	gpsList[item.id] = item.gps_status_detail;
+
+})
+
 
 
 var vueConfig = new Vue({
@@ -47,10 +55,10 @@ var vueConfig = new Vue({
 		borrowingStatus,
 		gpsStatus,
 		gpsInfo: {},
-		gpsList:{},
+		gpsList:gpsList,
 		riskLevel:{'low':'底','middle':'中','high':'高'},
 		vehicle_ids: [],
-		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'未安装gps',value:2}],
+		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'未知',value:2}],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
 
@@ -59,6 +67,8 @@ var vueConfig = new Vue({
 		common.headerMenu();
 
 		this.showCalendar();
+
+		this.showTips();
 
 		var paginationList = document.querySelector('.pagination_list');
 
@@ -95,36 +105,6 @@ var vueConfig = new Vue({
 
 		})
 
-
-	},
-
-	updated () {
-
-		var hoverTimer, outTimer;
-
-		$('.gps_error,.gps_warning').hover(function(){
-
-			clearTimeout(outTimer);
-
-			hoverTimer = setTimeout(() =>{
-
-				$(this).next('.vehicles_tips').addClass('active');
-
-			},500)
-
-		},function(){
-
-			clearTimeout(hoverTimer);
-
-			outTimer = setTimeout(() =>{
-
-				console.log($(this).next('.vehicles_tips'))
-
-				$(this).next('.vehicles_tips').removeClass('active');
-
-			},500)
-
-		})
 
 	},
 	computed: {
@@ -164,32 +144,38 @@ var vueConfig = new Vue({
 		}
 	},
 
-	created () {
-
-		var vehicle_ids = [];
-
-		if (!vehiclesList) {
-
-			vehiclesList = [];
-
-		}
-
-		vehiclesList.forEach( (item) =>{
-
-			vehicle_ids.push(item.id);
-
-		})
-
-
-		this.vehicle_ids = vehicle_ids;
-
-		if (vehicle_ids.length){
-
-			this.fetchGps(vehicle_ids);
-		}
-
-	},
 	methods: {
+		showTips () {
+
+			var hoverTimer, outTimer;
+
+			$('.gps_error,.gps_warning').hover(function(){
+
+				clearTimeout(outTimer);
+
+				hoverTimer = setTimeout(() =>{
+
+					$('.vehicles_tips').removeClass('active');
+
+					$(this).next('.vehicles_tips').addClass('active');
+
+				},500)
+
+			},function(){
+
+				clearTimeout(hoverTimer);
+
+				outTimer = setTimeout(() =>{
+
+					$('.vehicles_tips').removeClass('active');
+
+					$(this).next('.vehicles_tips').removeClass('active');
+
+				},500)
+
+			})
+
+		},
 
 		deviceInfo (id,gps_device) {
 
@@ -255,34 +241,6 @@ var vueConfig = new Vue({
 			})
 
 		},
-
-		fetchGps (formData,fn) {
-
-			Lizard.ajax({
-				type: 'POST',
-				url: '/api/vehicles/gps/tracking',
-				data:{
-					vehicle_id: formData
-				}
-			}).then((data) => {
-
-				if (data) {
-
-
-					this.gpsList = data;
-
-					fn && fn();
-
-				}
-
-			}).catch((err) => {
-
-
-
-			})
-
-		},
-
 		mapInfo (gpsStatus,imei,type) {
 
 			if (gpsStatus == 0 || gpsStatus == 3 || gpsStatus == 4 ) {
@@ -307,7 +265,7 @@ var vueConfig = new Vue({
 
 					Lizard.showToast('刷新GPS状态成功');
 
-					this.fetchGps(this.vehicle_ids);
+					location.reload();
 
 				}
 
@@ -333,11 +291,17 @@ var vueConfig = new Vue({
 
 						this.gpsList = Object.assign(gpsList,data);
 
+						Lizard.showToast('刷新GPS状态成功');
+
 
 					} else {
 
 						Lizard.showToast('刷新GPS状态失败');
 					}
+
+				} else {
+
+					Lizard.showToast('刷新GPS状态失败');
 
 				}
 
