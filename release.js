@@ -12,7 +12,7 @@ function release () {
 		}
 
 		console.log(stdout);
-		
+
 
 	})
 
