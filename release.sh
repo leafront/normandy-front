@@ -18,4 +18,10 @@ git push origin dev
 
 git branch -D yeliang/front-develop
 
-npm run production_pack
+NODE_ENV=production gulp ejs sass
+
+npm run build
+
+pm2 kill
+
+npm run production
