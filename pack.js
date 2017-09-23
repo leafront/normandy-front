@@ -10,11 +10,7 @@ var enviroment = [
 	{
 	 gulp: {'dev': 'gulp',  'production': 'NODE_ENV=production gulp ejs sass'},
 	 name:'gulp'
-  },
-	{
-	 node: {'dev': 'pm2 kill && npm start', 'production': 'pm2 kill && npm run production'},
-	 name:'node'
- }
+  }
 ];
 
 

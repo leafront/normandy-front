@@ -4,6 +4,8 @@ var exec = require('child_process').exec;
 
 router.get('/', async (ctx,next) => {
 
+	console.log(JSON.stringify(ctx.request,null,2))
+
 	ctx.body = 'release success';
 
 	exec('/usr/share/nginx/normandy_front/front/release.sh',(err, stdout, stderr) =>{
