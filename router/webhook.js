@@ -27,10 +27,10 @@ router.post('/', async (ctx,next) => {
 			}
 
 			console.log(stdout);
-			
+
 		})
 
-		console.log('release success!!!!');
+		console.log('release success!');
 
 	}
 
