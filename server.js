@@ -47,7 +47,6 @@ var activate = require('./router/activate/index');
 app.use(server(__dirname + '/public'));
 
 app.use(koaBody());
-//set ejs default
 
 if (process.env.NODE_ENV == 'production') {
 
@@ -167,6 +166,5 @@ router.use('/activate',activate.routes());
 router.use('/webhook',webhook.routes());
 
 app.use(router.routes());
-
 
 app.listen(3000);

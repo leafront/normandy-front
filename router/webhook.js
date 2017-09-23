@@ -12,13 +12,14 @@ router.post('/', async (ctx,next) => {
 
 	const branchName = body.ref;
 
+
 	const token = header["x-gitlab-token"];
 
 	if (token == "leafront") {
 
 		ctx.body = 'release success';
 
-		exec('/usr/share/nginx/normandy_front/front/release.sh repository branchName',(err, stdout, stderr) =>{
+		exec(`/usr/share/nginx/normandy_front/front/release.sh ${repository} ${branchName}`,(err, stdout, stderr) =>{
 
 			if (err) {
 
@@ -28,13 +29,12 @@ router.post('/', async (ctx,next) => {
 
 			console.log(stdout);
 
-
 		})
 
-		console.log('release success!!!!');
+		console.log('release success!');
 
 	}
-	
+
 })
 
 module.exports = router;
