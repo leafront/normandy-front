@@ -18,55 +18,22 @@ var enviroment = [
 ];
 
 
-function pack () {
+enviroment.forEach((item) => {
 
-	var promise = new Promise((resolve,reject) => {
+	console.log(item[item.name][isEnviroment])
 
-		exec('git checkout dev && git pull',(err, stdout, stderr) =>{
+	exec(item[item.name][isEnviroment],(err, stdout, stderr) =>{
 
-			if (err) {
+		if (err) {
 
-				throw new Error(err);
+			throw new Error(err);
+		}
 
-			}
-
-			resolve(stdout);
-
-			console.log(stdout);
-
-		})
+		console.log(stdout);
 
 	})
-
-	return promise;
-
-}
-
-pack().then(() => {
-
-	enviroment.forEach((item) => {
-
-		console.log(item[item.name][isEnviroment])
-
-		exec(item[item.name][isEnviroment],(err, stdout, stderr) =>{
-
-			if (err) {
-
-				throw new Error(err);
-			}
-
-			console.log(stdout);
-
-		})
-
-	})
-
-}).catch((err) =>{
-
-	console.log(err);
 
 })
-
 
 
 
