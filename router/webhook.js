@@ -1,13 +1,12 @@
 var router = require('koa-router')();
 
+var release = require('../release');
 
 router.get('/', async (ctx,next) => {
 
-	ctx.body = ctx.request.body;
+	release();
 
-
-console.log(ctx.request.body);
-
+	ctx.status =  404;
 
 })
 

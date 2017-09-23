@@ -2,38 +2,46 @@ var Client = require('ssh2').Client;
 
 var conn = new Client();
 
-conn.on('ready', function() {
+function release () {
 
-	conn.exec('/usr/share/nginx/normandy_front/front/release.sh', function(err, stream) {
+	conn.on('ready', function() {
 
-		if (err) {
+		conn.exec('/usr/share/nginx/normandy_front/front/release.sh', function(err, stream) {
 
-			throw err;
-		}
+			if (err) {
 
-		stream.on('close', function (code, signal) {
+				throw err;
+			}
 
-			console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+			stream.on('close', function (code, signal) {
 
-			conn.end();
+				console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
 
-		}).on('data', function (data) {
+				conn.end();
 
-			console.log('STDOUT: ' + data);
+			}).on('data', function (data) {
 
-		}).stderr.on('data', function (data) {
+				console.log('STDOUT: ' + data);
 
-			console.log('STDERR: ' + data);
+			}).stderr.on('data', function (data) {
+
+				console.log('STDERR: ' + data);
+
+			})
 
 		})
 
+
+	}).connect({
+		host: '116.62.246.98',
+		port: 22,
+		username: 'root',
+		privateKey: require('fs').readFileSync('/Users/leafrontye/.ssh/id_rsa')
 	})
 
+}
 
-}).connect({
-	host: '116.62.246.98',
-	port: 22,
-	username: 'root',
-	privateKey: require('fs').readFileSync('/Users/leafrontye/.ssh/id_rsa')
-})
+module.exports = release;
+
+
 
