@@ -3,7 +3,6 @@ var router = require('koa-router')();
 var exec = require('child_process').exec;
 
 router.get('/', async (ctx,next) => {
-	
 
 	console.log(JSON.stringify(ctx.request,null,2));
 
