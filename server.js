@@ -48,6 +48,8 @@ app.use(server(__dirname + '/public'));
 
 app.use(koaBody());
 
+//set ejs
+
 if (process.env.NODE_ENV == 'production') {
 
 	app.use(views(__dirname + '/views',{
@@ -69,7 +71,6 @@ if (process.env.NODE_ENV == 'production') {
 		} catch (err) {
 
 			console.log(err)
-
 
 			if (err.statusCode == 401) {
 
