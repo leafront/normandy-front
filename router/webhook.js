@@ -3,25 +3,38 @@ var router = require('koa-router')();
 var exec = require('child_process').exec;
 
 router.post('/', async (ctx,next) => {
-	
-	console.log(JSON.stringify(ctx.request,null,2));
 
-	ctx.body = 'release success';
+	const header = ctx.request.header;
 
-	exec('/usr/share/nginx/normandy_front/front/release.sh',(err, stdout, stderr) =>{
+	const body = ctx.request.body;
 
-		if (err) {
+	const repository = body.repository.url;
 
-			throw new Error(err);
+	const branchName = body.ref;
 
-		}
+	const token = header["x-gitlab-token"];
 
-		console.log(stdout);
+	if (token == "leafront") {
+
+		ctx.body = 'release success';
+
+		exec('/usr/share/nginx/normandy_front/front/release.sh repository branchName',(err, stdout, stderr) =>{
+
+			if (err) {
+
+				throw new Error(err);
+
+			}
+
+			console.log(stdout);
 
 
-	})
+		})
 
- console.log('release success!!!!');
+		console.log('release success!!!!');
+
+	}
+
 
 })
 
