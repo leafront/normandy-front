@@ -18,6 +18,8 @@ var error = require('./router/error/index');
 
 var index = require('./router/index');
 
+var webhook = require('./router/webhook');
+
 var message = require('./router/message/index');
 
 var revenue = require('./router/revenue/index');
@@ -96,40 +98,40 @@ if (process.env.NODE_ENV == 'production') {
 		extension:'ejs'
 	}))
 
-	app.use(async (ctx, next) => {
-
-		try {
-
-			await next();
-
-			if (ctx.status == 404) {
-
-				ctx.redirect('/error/404?path='+ctx.path);
-
-			}
-
-		} catch (err) {
-
-			console.log(err)
-
-			if (err.statusCode == 401) {
-
-				ctx.redirect('/user/login?returnurl=' + ctx.url);
-
-			} else if (err.statusCode == 403 || err.statusCode == 404) {
-
-				ctx.redirect('/error/404?path='+ctx.url);
-
-			} else if (err.statusCode == 500) {
-
-				ctx.redirect('/error/500?path='+ctx.url);
-
-			} else {
-
-				ctx.redirect('/error/500?path='+ctx.url);
-			}
-		}
-	})
+	// app.use(async (ctx, next) => {
+	//
+	// 	try {
+	//
+	// 		await next();
+	//
+	// 		if (ctx.status == 404) {
+	//
+	// 			ctx.redirect('/error/404?path='+ctx.path);
+	//
+	// 		}
+	//
+	// 	} catch (err) {
+	//
+	// 		console.log(err)
+	//
+	// 		if (err.statusCode == 401) {
+	//
+	// 			ctx.redirect('/user/login?returnurl=' + ctx.url);
+	//
+	// 		} else if (err.statusCode == 403 || err.statusCode == 404) {
+	//
+	// 			ctx.redirect('/error/404?path='+ctx.url);
+	//
+	// 		} else if (err.statusCode == 500) {
+	//
+	// 			ctx.redirect('/error/500?path='+ctx.url);
+	//
+	// 		} else {
+	//
+	// 			ctx.redirect('/error/500?path='+ctx.url);
+	// 		}
+	// 	}
+	// })
 
 }
 
@@ -161,6 +163,8 @@ router.use('/shop',shop.routes());
 router.use('/insurance',insurance.routes());
 
 router.use('/activate',activate.routes());
+
+router.use('/webhook',webhook.routes());
 
 app.use(router.routes());
 
