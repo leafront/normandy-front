@@ -27,14 +27,13 @@ router.post('/', async (ctx,next) => {
 			}
 
 			console.log(stdout);
-
-
+			
 		})
 
 		console.log('release success!!!!');
 
 	}
-	
+
 })
 
 module.exports = router;
