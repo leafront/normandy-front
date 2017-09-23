@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "release": "node release.js",
-    "dev_pack": "node pack.js dev",
-    "production_pack": "node pack.js production",
+    "production_pack": "node pack.js",
     "production": "NODE_ENV=production pm2 start server.js",
     "start": "./node_modules/.bin/nodemon server",
     "dev": "NODE_ENV=develop webpack -d -w --progress --colors",
