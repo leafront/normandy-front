@@ -6,8 +6,6 @@ router.get('/', async (ctx,next) => {
 
 	release();
 
-	ctx.status =  404;
-	
 
 })
 
