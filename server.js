@@ -47,7 +47,6 @@ var activate = require('./router/activate/index');
 app.use(server(__dirname + '/public'));
 
 app.use(koaBody());
-//set ejs default
 
 if (process.env.NODE_ENV == 'production') {
 
