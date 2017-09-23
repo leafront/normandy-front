@@ -6,17 +6,17 @@ export PATH=$NODE_HOME/bin:$PATH
 
 cd /usr/share/nginx/normandy_front/front
 
-git fetch $1 develop
+git fetch git@git.autotechfin.com:yeliang/front.git develop
 
-git checkout -b $2 FETCH_HEAD
+git checkout -b yeliang/front-develop FETCH_HEAD
 
 git checkout dev
 
-git merge --no-ff $2
+git merge --no-ff yeliang/front-develop
 
 git push origin dev
 
-git branch -D $2
+git branch -D yeliang/front-develop
 
 NODE_ENV=production gulp ejs sass
 
