@@ -4,7 +4,7 @@ var exec = require('child_process').exec;
 
 router.get('/', async (ctx,next) => {
 
-	console.log(JSON.stringify(ctx.request,null,2))
+	console.log(JSON.stringify(ctx.request,null,2));
 
 	ctx.body = 'release success';
 
