@@ -19,7 +19,7 @@ router.get('/', async (ctx,next) => {
 
 	})
 
- console.log('release success');
+ console.log('release success!');
 
 })
 
