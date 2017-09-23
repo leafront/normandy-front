@@ -16,8 +16,6 @@ router.post('/', async (ctx,next) => {
 
 	if (token == "leafront") {
 
-		console.log(JSON.stringify(ctx.request,null,2));
-
 		ctx.body = 'release success';
 
 		exec('/usr/share/nginx/normandy_front/front/release.sh repository branchName',(err, stdout, stderr) =>{
