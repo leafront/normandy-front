@@ -6,7 +6,7 @@ router.get('/', async (ctx,next) => {
 
 	release();
 
-
+ console.log('release success')
 })
 
 module.exports = router;
