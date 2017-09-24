@@ -16,6 +16,8 @@ router.post('/', async (ctx,next) => {
 
 			if (err) {
 
+				console.log(err);
+
 				throw new Error(err);
 
 			}
