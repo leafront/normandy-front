@@ -20,4 +20,4 @@ git branch -D yeliang/front-develop
 
 NODE_ENV=production gulp ejs sass
 
-npm run build
+NODE_ENV=production BABEL_ENV=production webpack -p
