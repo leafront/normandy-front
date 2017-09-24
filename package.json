@@ -6,7 +6,7 @@
   "scripts": {
     "release": "node release.js",
     "production_pack": "node pack.js",
-    "production": "NODE_ENV=production pm2 start server.js",
+    "production": "NODE_ENV=production pm2 start server.js --watch",
     "start": "./node_modules/.bin/nodemon server",
     "dev": "NODE_ENV=develop webpack -d -w --progress --colors",
     "build": "NODE_ENV=production BABEL_ENV=production webpack -p",
