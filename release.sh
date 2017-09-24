@@ -4,8 +4,6 @@ export NODE_HOME=/usr/local/nodejs
 
 export PATH=$NODE_HOME/bin:$PATH
 
-export GULP_HOME=/usr/local/nodejs/bin/gulp
-
 cd /usr/share/nginx/normandy_front/front
 
 git fetch git@git.autotechfin.com:yeliang/front.git develop
