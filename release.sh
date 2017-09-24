@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export NODE_HOME=/usr/local/nodejs
 
