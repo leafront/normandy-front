@@ -23,7 +23,7 @@ function pack () {
 	})
 
 	return promise;
-	
+
 
 }
 
