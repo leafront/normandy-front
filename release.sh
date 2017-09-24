@@ -21,7 +21,3 @@ git branch -D yeliang/front-develop
 NODE_ENV=production gulp ejs sass
 
 npm run build
-
-pm2 kill
-
-npm run production
