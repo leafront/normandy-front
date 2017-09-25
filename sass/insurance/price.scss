@@ -472,7 +472,9 @@
 
 .insurance_wraper{
 
-	width:1400rem/$rem;
+	min-width:1000px;
+
+	width:1200rem/$rem;
 }
 
 .drop-menu-insurance{

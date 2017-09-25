@@ -2,6 +2,8 @@ var webpack = require('webpack');
 
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 var path = require('path');
 
 module.exports = {
@@ -114,6 +116,11 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
-    })
+    }),
+		new UglifyJSPlugin({
+			ie8: false,
+			ecma: 5,
+			warnings: false
+		})
   ]
 };
