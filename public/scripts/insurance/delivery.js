@@ -11,6 +11,11 @@ var vueConfig = new Vue ({
 	},
 	methods:{
 
+		orderAction (){
+
+			location.href = '/insurance/order';
+
+		}
 
 	},
 	computed:{

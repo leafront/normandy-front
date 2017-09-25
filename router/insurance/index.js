@@ -49,12 +49,25 @@ router.get('/price', async (ctx,next) => {
 	const { roleList, shop, authority } = await common.authority(ctx,{
 		url:'/api/current-user'
 	})
-	await ctx.render('insurance/price',{
+	await ctx.render('insurance/price/index',{
 		pathName: ctx.path,
 		authority,
 		shop,
-		roleList,
-		booleanOptions
+		roleList
+	})
+
+})
+
+router.get('/price/:id', async (ctx,next) => {
+
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
+	await ctx.render('insurance/price/detail',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList
 	})
 
 })
