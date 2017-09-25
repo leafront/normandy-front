@@ -17,13 +17,15 @@ var data = require('../../../model/data');
 
 var Vue = require('../lib/vue');
 
-const {
+let {
 	deviceType,
 	colorList,
 	borrowingStatus,
 	gpsStatus
 
 } = data;
+
+gpsStatus = common.changeObject(gpsStatus,'value','name');
 
 var queryParams = {
 
@@ -58,7 +60,6 @@ var vueConfig = new Vue({
 		gpsList:gpsList,
 		riskLevel:{'low':'底','middle':'中','high':'高'},
 		vehicle_ids: [],
-		gpsText: [{name:'正常',value:0},{name:'异常',value:1},{name:'未知',value:2}],
 		deviceStatus:[{name:'行驶',value:0},{name:'未上线',value:1},{name:'过期',value:2},{name:'离线',value:3},{name:'静止',value:4}]
 	},
 
@@ -132,7 +133,7 @@ var vueConfig = new Vue({
 
 			if (status !== "") {
 
-				var value = this.gpsStatus[status].name;
+				var value = this.gpsStatus[status];
 
 				return value;
 

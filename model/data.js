@@ -988,6 +988,9 @@ var loanType = [{
 }];
 
 var gpsStatus = [{
+	name:'全部',
+	value:3
+},{
 	name:'正常',
 	value:0
 },{
