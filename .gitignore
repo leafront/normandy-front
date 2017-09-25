@@ -4,3 +4,4 @@ public/dist/
 public/styles/
 views/
 npm-debug.log*
+public/scripts/lib/vue.js
