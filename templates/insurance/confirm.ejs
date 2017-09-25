@@ -252,12 +252,11 @@
                 </div>
                 <div class="insurance_agree clearfix">
                   <div class="insurance_upload_open">
-                    <input type="file" class="insurance_file"/>
-                    <button class="insurance_data_btn">图片资料上传(已上传)</button>
+                    <button class="insurance_data_btn" @click="showPopup('#uploadPopup')">图片资料上传(已上传)</button>
                   </div>
                   <div class="insurance_agree_info">
                      <strong>本人已认真阅读并同意</strong>
-                     <span>投保须知</span>
+                     <span @click="showPopup('#popup')">投保须知</span>
                   </div>
                 </div>
                 <div class="insurance_submit">
@@ -269,7 +268,7 @@
         <% include ../common/footer.ejs %>
     </div>
 </div>
-<div class="popup_wraper">
+<div class="popup_wraper" id="uploadPopup">
   <div class="popup_title">
     <h4>根据保险公司要求，请您上传以下图片：</h4>
   </div>
@@ -295,6 +294,10 @@
       <input type="file" multiple="multiple" class="insurance_upload_file">
     </div>
   </div>
+  <div class="popup_submit clearfix">
+    <button class="btn_confirm">提交</button>
+    <button class="btn_cancel" @click="hidePopup('#uploadPopup')">返回</button>
+  </div>
 </div>
 <div class="popup_wraper" id="popup">
     <div class="popup_title">
@@ -304,7 +307,7 @@
       <p>交强险是由保险公司对被保险机动车发生道路交通事故造成受害人（不包括本车人员和被保险人 ）的人身伤亡、财产损失，在责任限额内予以赔偿的强制性责任保险。</p>
     </div>
     <div class="popup_submit clearfix">
-        <button class="btn_confirm">关闭</button>
+        <button class="btn_confirm" @click="hidePopup('#popup')">关闭</button>
     </div>
 </div>
 <div class="popup_mask"></div>

@@ -5,13 +5,13 @@
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>车险投保 - 车险报价</title>
-    <link rel="stylesheet" href="/styles/insurance/price.css"/>
+    <link rel="stylesheet" href="/styles/insurance/price/index.css"/>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-<%include ../common/header.ejs%>
+<%include ../../common/header.ejs%>
 <div class="container clearfix">
-    <% include ../common/aside_menu.ejs %>
+    <% include ../../common/aside_menu.ejs %>
     <div class="right-container fr" id="app">
         <div class="navigation">
             <a href="/" class="home_ico"></a>
@@ -118,13 +118,13 @@
                             </div>
                             <strong class="insurance_integral">返67488积分</strong>
 
-                            <button class="insure_btn">立即投保</button>
+                            <a class="insure_btn" href="/insurance/price/34444">立即投保</a>
                         </dd>
                     </dl>
                 </div>
             </div>
         </div>
-        <% include ../common/footer.ejs %>
+        <% include ../../common/footer.ejs %>
     </div>
 </div>
 <div class="popup_wraper" id="seeInsurance">
@@ -424,6 +424,6 @@
   </div>
 </div>
 <div class="popup_mask"></div>
-<script type="text/javascript" src="/dist/scripts/insurance/price.js"></script>
+<script type="text/javascript" src="/dist/scripts/insurance/price/index.js"></script>
 </body>
 </html>

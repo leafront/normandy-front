@@ -1,12 +1,12 @@
-var lizard = require('../widget/lizard');
+var lizard = require('../../widget/lizard');
 
-var $ = require('../lib/jquery');
+var $ = require('../../lib/jquery');
 
-var common = require('../common');
+var common = require('../../common');
 
-var popup = require('../widget/popup');
+var popup = require('../../widget/popup');
 
-var Vue = require('../lib/vue');
+var Vue = require('../../lib/vue');
 
 var vueConfig = new Vue ({
 	el:'#app',
