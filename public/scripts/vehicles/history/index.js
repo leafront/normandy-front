@@ -103,7 +103,7 @@ Page({
 
 		if (!begin_time) {
 
-			Lizard.showToast('请选择开始时间');
+			Lizard.showToast('请$选择开始时间');
 
 			return;
 

@@ -153,9 +153,9 @@
                     <div class="form-group clearfix" v-for="(item,index) in revenue.advanced_in_others">
                       <div class="form-group-rows form-group-fee vehicles-base-input">
                           <label>其他费用(预收)</label>
-                          <input type="text" placeholder="收款原因" v-model.trim="item.amount" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
+                          <input type="text" placeholder="收款原因" v-model.trim="item.remark" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                           <div class="user-ui-number">
-                            <input type="number" placeholder="其他费用" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
+                            <input type="number" placeholder="其他费用" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                             <i class="user-ui-input-txt">元</i>
                           </div>
                           <button v-if="index == 0" class="form-group-btn" @click="addRecord('advanced_in_others')">+</button>
@@ -236,9 +236,9 @@
                         <div class="form-group clearfix" v-for="(item,index) in revenue.out_others">
                             <div class="form-group-rows form-group-fee vehicles-base-input">
                                 <label>其他费用(预付)</label>
-                                <input type="text" placeholder="收款原因" v-model.trim="item.amount" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
+                                <input type="text" placeholder="收款原因" v-model.trim="item.remark" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
                                 <div class="user-ui-number">
-                                    <input type="number" placeholder="其他费用" v-model.trim="item.remark" class="user-ui-input  edit-ui-input">
+                                    <input type="number" placeholder="其他费用" v-model.trim="item.amount" class="user-ui-input  edit-ui-input">
                                     <i class="user-ui-input-txt">元</i>
                                 </div>
                                 <button v-if="index == 0" class="form-group-btn" @click="addRecord('out_others')">+</button>
