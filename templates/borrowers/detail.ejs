@@ -57,12 +57,13 @@
                         <span class="borrowers_color">颜色</span>
                         <span class="borrowers_time">添加时间</span>
                         <span>操作</span>
+                        
                     </dt>
                     <%if(borrowersList && borrowersList.length){%>
                     <% borrowersList.forEach(function(item,index){%>
                     <dd>
                         <span class="borrowers_num"><%-item.model%></span>
-                        <div class="borrowers_gps"><span class="borrowers_gps_action" @click="showPopup('#addPopup',<%-index%>,'<%-item.id%>')">添加/查看GPS设备</span></div>
+                        <div class="borrowers_gps"><span class="borrowers_gps_action" @click="showPopup('#addPopup',<%-index%>,'<%-item.id%>')">添加/修改GPS设备</span></div>
                         <span class="borrowers_color"><%-(colorList[item.color] && colorList[item.color].name) || '&nbsp;'%></span>
                         <span class="borrowers_time"><%-item.created_at%></span>
                         <div class="borrowers_action">
