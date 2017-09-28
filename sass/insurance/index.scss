@@ -101,6 +101,15 @@
 
 }
 
+.form-group-ellipsis{
+
+	label{
+		position:relative;
+
+		top:-12px;
+	}
+}
+
 
 .drop-menu-city{
 
@@ -110,5 +119,8 @@
 
 		width:192rem/$rem;
 
+	}
+	span{
+		@include ellipsis;
 	}
 }

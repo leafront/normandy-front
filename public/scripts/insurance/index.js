@@ -6,19 +6,29 @@ var Promise = require('es6-promise').Promise;
 
 var Vue = require('../lib/vue');
 
+var validate = require('../widget/validate');
+
+const licensePlate = ["京","津","沪","渝","鲁","苏","黑","豫","粤","蒙", "辽","冀","琼","桂","湘","浙","贵","川","青","云", "陕","鄂","吉","新","浙","辽","甘","皖","赣","闽", "蒙","闽","宁","藏","晋"]
+
 var vueConfig = new Vue ({
 	el:'#app',
 	data:{
 
 		province: [],
-    cityList: []
+		licensePlate: licensePlate,
+		licenseNumber: '',
+    cityList: [],
+		dropMenu: -1,
+		licenseName: '请选择',
+		ownerName: '',
+		provinceCode: '',
+		provinceName: '请选择',
+		cityName: '请选择'
 	},
 
 	created (){
 
 		this.getProvince();
-
-		this.getCity('310000');
 
 	},
 	methods:{
@@ -28,34 +38,31 @@ var vueConfig = new Vue ({
 		 */
 
 		getProvince (){
+			Lizard.ajax({
+				type: 'POST',
+				url: '/api/mdata/provinces'
+			}).then((data) => {
 
-			new Promise ((resolve,reject) =>{
+				var results = data.data;
 
-				Lizard.ajax({
-					type: 'POST',
-					url: '/api/mdata/provinces'
-				}).then((data) => {
+				if (data.state == 1 && results.length) {
 
-					var results = data.data;
+					this.province = results;
 
-					if (data.status == 1 && results.length) {
+					this.provinceName = results[0].provinceName;
 
-						this.province = results;
+					this.provinceCode = results[0].provinceCode;
 
-						resolve(results)
+					return results;
 
-					}
+				}
 
-				})
+			}).then((data) => {
 
-			}).then((werer) => {
+				this.getCity(data[0].provinceCode);
 
-				console.log(werer);
 
 			})
-
-
-
 		},
 
 		/**
@@ -75,29 +82,147 @@ var vueConfig = new Vue ({
 
 				var results = data.data;
 
+				var cityList = [];
+
 				if (data.state == 1 && results.length) {
 
-					this.cityList = results;
+
+					results.forEach((item) => {
+
+						cityList.push({
+							cityCode:item.cityCode,
+							cityName: item.cityName,
+							cityPlate: item.cityPlate
+						})
+
+					})
+
+					this.cityList = cityList;
+
+					this.cityName = results[0].cityName;
+
+					this.licenseName = results[0].cityPlate.slice(0,1);
+
+					this.licenseNumber = results[0].cityPlate.slice(1);
 
 				}
 
 			})
 
 		},
+
+		/**
+		 * @param {Number} value
+		 *
+		 */
+
+		selectMenu (value) {
+
+			if (this.dropMenu == value) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+
+			}
+		},
+
+		/**
+		 * @pram {Object} item
+		 *
+		 */
+
+		selectProvince (item) {
+
+			this.provinceName = item.provinceName;
+
+			this.provinceCode = item.provinceCode;
+
+			this.getCity(item.provinceCode);
+
+		},
+
+		/**
+		 * @param {Object} item
+		 */
+		selectCity (item) {
+
+			this.cityName = item.cityName;
+
+			this.licenseNumber = item.cityPlate.slice(1);
+
+		},
+
+		/**
+		 * @param {String} item
+		 */
+
+		selectLicense (item) {
+
+			this.licenseName = item;
+
+		},
+
 		orderAction () {
 
 			location.href = '/insurance/order';
 
+		},
+		actionInfo () {
+
+			const licenseNumber = this.licenseNumber;
+
+			const licenseName = this.licenseName;
+
+			const ownerName = this.ownerName;
+
+			let license = licenseName + licenseNumber;
+
+			if (!licenseNumber) {
+
+				Lizard.showToast('请输入车牌号');
+
+				return;
+
+			}
+
+
+			if (!validate.isCarNumber(license)) {
+
+				Lizard.showToast('请输入正确的车牌号码');
+
+				return;
+
+			}
+
+			if (!ownerName) {
+
+				Lizard.showToast('请输入车主姓名');
+
+				return;
+
+			}
+
+			Lizard.showToast('获取立即报价成功,跳转至详细车辆信息...');
+
+			license =  window.btoa(encodeURIComponent(license));
+
+			setTimeout(() => {
+
+				location.href = `/insurance/info?licenseNo=${license}`;
+
+			},500)
+
 		}
-
-	},
-	computed:{
-
 
 	},
 	mounted () {
 
 		common.headerMenu();
+
+		common.dropMenu.call(this);
 
 	}
 })
