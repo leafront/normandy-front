@@ -202,7 +202,7 @@ var Lizard = {
 
 		var args = {};
 
-		var query = location.search.substring(1).toLowerCase(); // Get query string
+		var query = location.search.substring(1); // Get query string
 
 		var pairs = query.split("&"); // Break at ampersand
 
@@ -216,7 +216,7 @@ var Lizard = {
 
 			var value = pairs[i].substring(pos + 1); // Extract the value
 
-			value=decodeURIComponent(value); // Decode it, if needed
+			value = decodeURIComponent(value); // Decode it, if needed
 
 			args[argname] = value; // Store as a property
 		}
@@ -226,7 +226,7 @@ var Lizard = {
 
 		}else {
 
-			return args[strParame.toLowerCase()]; // Return the object
+			return args[strParame]; // Return the object
 		}
 	},
 

@@ -169,7 +169,7 @@ var validate = {
 	 * validate.isCarNumber('沪A123456')  // 返回true
 	 */
 	isCarNumber: function(text) {
-		return /^[\u4e00-\u9fa5][A-Za-z0-9]{6,7}$/.test(text);
+		return /^[\u4e00-\u9fa5][A-Za-z][A-Za-z0-9]{5,6}$/.test(text);
 	},
 	/**
 	 * 发动机号

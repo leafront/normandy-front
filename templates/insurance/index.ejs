@@ -50,24 +50,18 @@
             </div>
             <div class="insurance_info">
                 <div class="form-group">
-                    <div class="form-group-rows">
+                    <div class="form-group-rows form-group-ellipsis">
                         <label>行驶地区</label>
-                        <div class="drop_menu drop-menu-city">
-                            <span>请选择</span>
+                        <div class="drop_menu drop-menu-city" :class="{'active':dropMenu == 1}">
+                            <span @click.stop="selectMenu(1)">{{provinceName}}</span>
                             <ul class="drop_menu_list">
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
+                                <li @click="selectProvince(item)" v-for="(item,index) in province"><a href="javascript:;">{{item.provinceName}}</a></li>
                             </ul>
                         </div>
-                        <div class="drop_menu drop-menu-city">
-                            <span>请选择</span>
+                        <div class="drop_menu drop-menu-city" :class="{'active':dropMenu == 2}">
+                            <span @click.stop="selectMenu(2)">{{cityName}}</span>
                             <ul class="drop_menu_list">
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
-                                <li><a href="javascript:;">津</a></li>
+                                <li @click="selectCity(item)" v-for="(item,index) in cityList"><a href="javascript:;">{{item.cityName}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -75,28 +69,25 @@
                 <div class="form-group">
                     <div class="form-group-rows">
                         <label>车牌号</label>
-                        <div class="drop_menu drop-menu-loan">
-                            <span>津</span>
+                        <div class="drop_menu drop-menu-loan" :class="{'active': dropMenu == 3}">
+                            <span @click.stop="selectMenu(3)">{{licenseName}}</span>
                             <ul class="drop_menu_list">
-                              <li><a href="javascript:;">津</a></li>
-                              <li><a href="javascript:;">津</a></li>
-                              <li><a href="javascript:;">津</a></li>
-                              <li><a href="javascript:;">津</a></li>
+                              <li @click="selectLicense(item)" v-for="(item,index) in licensePlate"><a href="javascript:;">{{item}}</a></li>
                             </ul>
                         </div>
-                        <input type="text" placeholder="车牌号码" class="user-ui-input">
+                        <input type="text" placeholder="车牌号码" class="user-ui-input" v-model.trim="licenseNumber">
                         <strong class="vehicle_checkbox">异响</strong>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-group-rows">
                         <label>车主姓名</label>
-                        <input type="text" placeholder="请输入车主姓名" class="user-ui-input user-base-input">
+                        <input type="text" placeholder="请输入车主姓名" class="user-ui-input user-base-input" v-model.trim="ownerName">
                     </div>
                 </div>
 
                 <div class="insurance_submit">
-                   <button class="btn_confirm">立即获取报价</button>
+                   <button class="btn_confirm" @click="actionInfo">立即获取报价</button>
                    <button class="btn_cancel">清空</button>
                 </div>
             </div>

@@ -54,11 +54,11 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>车架号</label>
-                                <input type="text" placeholder="车架号" class="user-ui-input">
+                                <input type="text" placeholder="车架号" v-model.trim="formData.frameNo" class="user-ui-input">
                             </div>
                             <div class="form-group-rows">
                                 <label>发动机号</label>
-                                <input type="text" placeholder="发动机号" class="user-ui-input">
+                                <input type="text" placeholder="发动机号" v-model.trim="formData.engineNo" class="user-ui-input">
                             </div>
                         </div>
                         <div class="form-group clearfix">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="form-group-rows">
                                 <label>登记日期</label>
-                                <input type="text" readonly="readonly" placeholder="登记日期" class="user-ui-input">
+                                <input type="text" readonly="readonly" v-model.trim="formData.firstRegisterDate" placeholder="登记日期" class="user-ui-input">
                             </div>
                         </div>
                         <div class="form-group clearfix">
