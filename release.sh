@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export NODE_HOME=/usr/local/nodejs
+export NODE_HOME=/root/.nvm/versions/node/v8.6.0
 
-export PATH=$NODE_HOME/bin:$PATH
+expor PATH=$NODE_HOME/bin:$PATH
 
 cd /usr/share/nginx/normandy_front/front
 
