@@ -83,7 +83,7 @@ var vueConfig = new Vue ({
 				return;
 
 			}
-			
+
 
 		},
 
