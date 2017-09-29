@@ -17,6 +17,8 @@ var data = require('../../../model/data');
 
 var Vue = require('../lib/vue');
 
+const isEmptyObject = common.isEmptyObject;
+
 let {
 	deviceType,
 	colorList,
@@ -52,6 +54,7 @@ var vueConfig = new Vue({
 
 	el:'#app',
 	data:{
+		isEmptyObject,
 		params:queryParams,
 		dropMenu: -1,
 		borrowingStatus,
