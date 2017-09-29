@@ -24,6 +24,12 @@ var vueConfig = new Vue ({
 	},
 	methods:{
 
+		submitDelivery () {
+
+		
+
+		},
+
 		orderAction (){
 
 			location.href = '/insurance/order';
