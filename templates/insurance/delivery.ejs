@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <div class="form-group-rows">
                         <label>收件人电子邮箱</label>
-                        <input type="text" placeholder="请输入收件人电子邮箱" v-model.trim="formData.addresseeProvince" class="user-ui-input user-base-input">
+                        <input type="text" placeholder="请输入收件人电子邮箱" v-model.trim="formData.addresseeEmail" class="user-ui-input user-base-input">
                     </div>
                 </div>
                 <div class="form-group">
@@ -113,7 +113,7 @@
                 </div>
                 <div class="insurance_submit">
                     <button class="btn_cancel">上一步</button>
-                    <button class="btn_confirm">确定</button>
+                    <button class="btn_confirm" @click="submitDelivery">确定</button>
                 </div>
             </div>
         </div>
