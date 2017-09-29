@@ -54,109 +54,115 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>车架号</label>
-                                <input type="text" placeholder="车架号" v-model.trim="formData.frameNo" class="user-ui-input">
+                                <input type="text" placeholder="车架号" v-model.trim="formData.carInfo.frameNo" class="user-ui-input">
                             </div>
                             <div class="form-group-rows">
                                 <label>发动机号</label>
-                                <input type="text" placeholder="发动机号" v-model.trim="formData.engineNo" class="user-ui-input">
+                                <input type="text" placeholder="发动机号" v-model.trim="formData.carInfo.engineNo" class="user-ui-input">
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>品牌型号</label>
-                                <input type="text" readonly="readonly" placeholder="品牌型号" class="user-ui-input">
+                                <input type="text" placeholder="品牌型号" v-model.trim="formData.carInfo.brandName" class="user-ui-input">
                             </div>
                             <div class="form-group-rows">
                                 <label>登记日期</label>
-                                <input type="text" readonly="readonly" v-model.trim="formData.firstRegisterDate" placeholder="登记日期" class="user-ui-input">
+                                <input type="text" readonly="readonly" v-model.trim="formData.carInfo.firstRegisterDate" id="firstRegisterDate" placeholder="登记日期" class="user-ui-input">
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>是否一年内过户</label>
                                 <% booleanOptions.forEach(function(item){%>
-                                  <strong><%-item.name%></strong>
+                                  <strong @click="checkValue('carInfo','isTrans','<%-item.value%>')" :class="{'active':this.formData.carInfo.isTrans == '<%-item.value%>'}"><%-item.name%></strong>
                                 <%})%>
                             </div>
                             <div class="form-group-rows ">
                                 <label>过户日期</label>
-                                <input type="text" readonly="readonly" placeholder="过户日期" class="user-ui-input">
+                                <input type="text" readonly="readonly" v-model.trim="formData.carInfo.transDate" id="transDate" placeholder="过户日期" class="user-ui-input">
                             </div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>车主身份证</label>
-                                <input type="number" placeholder="请输入车主身份证号码" class="user-ui-input">
+                                <input type="number" v-model.trim="formData.personInfo.ownerID" placeholder="请输入车主身份证号码" class="user-ui-input">
                             </div>
                             <div class="form-group-rows ">
                                 <label>车主手机号</label>
-                                <input type="text" readonly="readonly" placeholder="车主手机号" class="user-ui-input">
+                                <input type="text" v-model.trim="formData.personInfo.ownerMobile" placeholder="车主手机号" class="user-ui-input">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="vehicle_info_wraper clearfix">
-                    <div class="vehicle_item">
-                        <div class="form-group clearfix">
-                            <div class="form-group-rows">
-                                <label>投保人信息</label>
-                                <strong class="vehicle_checkbox">同车主</strong>
+
+                    <div class="vehicle_info_wraper clearfix">
+                        <div class="vehicle_item">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>投保人信息</label>
+                                    <strong class="vehicle_checkbox" @click="insureSame" :class="{'active':isInsureSame}" >同车主</strong>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group clearfix">
-                            <div class="form-group-rows">
-                                <label>投保人姓名</label>
-                                <input type="text" placeholder="请输入投保人姓名" class="user-ui-input">
-                            </div>
-                            <div class="form-group-rows">
-                                <label>投保人手机号</label>
-                                <input type="text" placeholder="请输入投保人手机号" class="user-ui-input">
-                            </div>
-                        </div>
-                        <div class="form-group clearfix">
-                            <div class="form-group-rows">
-                                <label>投保人身份证号</label>
-                                <input type="text" placeholder="请输入投保人身份证号" class="user-ui-input">
-                            </div>
+                            <template v-if="!isInsureSame">
+                                <div class="form-group clearfix">
+                                    <div class="form-group-rows">
+                                        <label>投保人姓名</label>
+                                        <input type="text" v-model.trim="formData.personInfo.applicantName" placeholder="请输入投保人姓名" class="user-ui-input">
+                                    </div>
+                                    <div class="form-group-rows">
+                                        <label>投保人手机号</label>
+                                        <input type="text" v-model.trim="formData.personInfo.applicantMobile" placeholder="请输入投保人手机号" class="user-ui-input">
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <div class="form-group-rows">
+                                        <label>投保人身份证号</label>
+                                        <input type="text" v-model.trim="formData.personInfo.applicantID" placeholder="请输入投保人身份证号" class="user-ui-input">
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </div>
-                </div>
 
                 <div class="vehicle_info_wraper clearfix">
                     <div class="vehicle_item">
                         <div class="form-group clearfix">
                             <div class="form-group-rows">
                                 <label>被保人信息</label>
-                                <strong class="vehicle_checkbox">同车主</strong>
+                                <strong class="vehicle_checkbox" :class="{'active':isRecognizeeSame}" @click="recognizeeSame">同车主</strong>
                             </div>
                         </div>
-                        <div class="form-group clearfix">
-                            <div class="form-group-rows">
-                                <label>被保人姓名</label>
-                                <input type="text" placeholder="请输入被保人姓名" class="user-ui-input">
+                        <template v-if="!isRecognizeeSame">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>被保人姓名</label>
+                                    <input type="text" v-model.trim="formData.personInfo.insuredName" placeholder="请输入被保人姓名" class="user-ui-input">
+                                </div>
+                                <div class="form-group-rows">
+                                    <label>被保人手机号</label>
+                                    <input type="text" v-model.trim="formData.personInfo.insuredMobile" placeholder="请输入被保人手机号" class="user-ui-input">
+                                </div>
                             </div>
-                            <div class="form-group-rows">
-                                <label>被保人手机号</label>
-                                <input type="text" placeholder="请输入被保人手机号" class="user-ui-input">
+                            <div class="form-group clearfix">
+                                <div class="form-group-rows">
+                                    <label>被保人身份证号</label>
+                                    <input type="text" v-model.trim="formData.personInfo.insuredID" placeholder="请输入被保人身份证号" class="user-ui-input">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group clearfix">
-                            <div class="form-group-rows">
-                                <label>被保人身份证号</label>
-                                <input type="text" placeholder="请输入被保人身份证号" class="user-ui-input">
-                            </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
                 <div class="insurance_submit">
                     <button class="btn_cancel">上一步</button>
-                    <button class="btn_confirm">确认信息</button>
+                    <button class="btn_confirm" @click="submitInsurance">确认信息</button>
                 </div>
             </div>
         </div>
         <% include ../common/footer.ejs %>
     </div>
 </div>
+<div class="ui-calendar" id="calendar"></div>
 <script type="text/javascript" src="/dist/scripts/insurance/info.js"></script>
 </body>
 </html>

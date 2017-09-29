@@ -58,19 +58,19 @@
                 <div class="form-group">
                     <div class="form-group-rows">
                         <label>收件人姓名</label>
-                        <input type="text" placeholder="请输入收件人姓名" class="user-ui-input user-base-input">
+                        <input type="text" placeholder="请输入收件人姓名" v-model.trim="formData.addresseeName" class="user-ui-input user-base-input">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-group-rows">
                         <label>收件人手机号</label>
-                        <input type="text" placeholder="请输入收件人手机号" class="user-ui-input user-base-input">
+                        <input type="text" placeholder="请输入收件人手机号" v-model.trim="formData.addresseeMobile" class="user-ui-input user-base-input">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-group-rows">
                         <label>收件人电子邮箱</label>
-                        <input type="text" placeholder="请输入收件人电子邮箱" class="user-ui-input user-base-input">
+                        <input type="text" placeholder="请输入收件人电子邮箱" v-model.trim="formData.addresseeProvince" class="user-ui-input user-base-input">
                     </div>
                 </div>
                 <div class="form-group">
@@ -108,12 +108,12 @@
                 <div class="form-group">
                   <div class="form-group-rows">
                     <label>收件人地址</label>
-                    <input type="text" placeholder="请输入收件人地址" class="user-ui-input user-base-input">
+                    <input type="text" placeholder="请输入收件人地址" v-model.trim="formData.addresseeDetails" class="user-ui-input user-base-input">
                   </div>
                 </div>
                 <div class="insurance_submit">
-                    <button class="btn_confirm">立即获取报价</button>
-                    <button class="btn_cancel">清空</button>
+                    <button class="btn_cancel">上一步</button>
+                    <button class="btn_confirm">确定</button>
                 </div>
             </div>
         </div>

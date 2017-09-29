@@ -1,4 +1,4 @@
-var lizard = require('../../widget/lizard');
+var Lizard = require('../../widget/lizard');
 
 var $ = require('../../lib/jquery');
 
@@ -28,7 +28,7 @@ var vueConfig = new Vue ({
 		}
 
 	},
-	computed:{
+	created () {
 
 
 	},

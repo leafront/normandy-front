@@ -4,6 +4,8 @@ var common = require('../common');
 
 var Promise = require('es6-promise').Promise;
 
+var local = require('../widget/local');
+
 var Vue = require('../lib/vue');
 
 var validate = require('../widget/validate');
@@ -207,11 +209,34 @@ var vueConfig = new Vue ({
 
 			Lizard.showToast('获取立即报价成功,跳转至详细车辆信息...');
 
-			license =  window.btoa(encodeURIComponent(license));
+			local.set('INSURANCE', {
+				carInfo: {
+					licenseNo: license,
+					frameNo: "",
+					brandCode: "",
+					engineNo: "",
+					isTrans: "0",
+					transDate: "",
+					firstRegisterDate: "",
+					sourceCertificateNo: "",
+					seat: ""
+				},
+				personInfo: {
+					ownerName: ownerName,
+					ownerID: "",
+					ownerMobile: "",
+					insuredName: "",
+					insuredID: "",
+					insuredMobile: "",
+					applicantName: "",
+					applicantID: "",
+					applicantMobile: ""
+				}
+		  })
 
 			setTimeout(() => {
 
-				location.href = `/insurance/info?licenseNo=${license}`;
+				location.href = '/insurance/info';
 
 			},500)
 
