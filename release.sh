@@ -2,7 +2,7 @@
 
 export NODE_HOME=/root/.nvm/versions/node/v8.6.0
 
-expor PATH=$NODE_HOME/bin:$PATH
+export PATH=$NODE_HOME/bin:$PATH
 
 cd /usr/share/nginx/normandy_front/front
 
