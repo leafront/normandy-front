@@ -14,7 +14,7 @@ git checkout dev
 
 git merge --no-ff yeliang/front-develop
 
-git push origin dev
+git push
 
 git branch -D yeliang/front-develop
 
