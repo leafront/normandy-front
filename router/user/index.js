@@ -1,4 +1,3 @@
-
 var router = require('koa-router')();
 
 var baseModel = require('../../model/baseModel');
