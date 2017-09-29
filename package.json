@@ -16,16 +16,14 @@
   "license": "ISC",
   "dependencies": {
     "babel": "6.5.2",
-    "babel-core": "6.9.0",
-    "babel-loader": "6.2.4",
-    "babel-preset-es2015": "6.9.0",
-    "babel-preset-stage-3": "6.5.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-3": "^6.5.0",
     "koa": "^2.3.0",
     "koa-ejs": "^4.1.0",
     "koa-gzip": "^0.1.0",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.12.1",
     "webpack-dev-server": "1.14.1"
   },
   "devDependencies": {
@@ -36,21 +34,19 @@
     "browser-sync": "^2.18.13",
     "ejs-loader": "^0.3.0",
     "es6-promise": "^4.1.1",
-    "gulp": "3.9.1",
+    "gulp": "^3.9.1",
     "gulp-ejs": "^3.0.1",
     "gulp-ejs-template": "^0.2.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-replace": "^0.6.1",
-    "gulp-sass": "2.3.2",
-    "gulp-sourcemaps": "^2.6.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.6.1",
     "gulp-util": "^3.0.8",
-    "koa-body": "^2.3.0",
-    "koa-views": "^6.0.2",
-    "request-promise": "^4.2.1",
-    "ssh2": "^0.5.5",
+    "koa-body": "^2.4.0",
+    "koa-views": "^6.1.0",
+    "request-promise": "^4.2.2",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack": "^3.5.3",
-    "whatwg-fetch": "^2.0.3"
+    "webpack": "^3.6.0"
   },
   "babel": {
     "presets": [
