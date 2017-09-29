@@ -8,6 +8,19 @@ var vueConfig = new Vue ({
 	el:'#app',
 	data:{
 
+		formData: {
+
+			addresseeName: "",
+			addresseeMobile: "",
+			addresseeProvince: "",
+			addresseeCity: "",
+			addresseeCounty: "",
+			addresseeDetails: "",
+			expressNo: "",
+			deliveryType: "",
+
+		}
+
 	},
 	methods:{
 
