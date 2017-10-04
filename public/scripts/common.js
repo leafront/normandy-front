@@ -59,7 +59,7 @@ var common = {
 
 			event.stopPropagation();
 
-			notice.classList.add('active');
+			Lizard.toggleClass(notice,'active');
 
 		})
 
