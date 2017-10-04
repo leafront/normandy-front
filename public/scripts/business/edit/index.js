@@ -4,6 +4,8 @@ var Vue = require('../../lib/vue');
 
 var popup = require('../../widget/popup');
 
+var Lizard = require('../../widget/lizard');
+
 var dataModel = require('../../../../model/data');
 
 const {
@@ -269,7 +271,6 @@ var vueConfig = new Vue({
 		},
 
 		uploadKey (fileInfo,file,uploadType) {
-
 
 			Lizard.ajax({
 				type:'GET',
