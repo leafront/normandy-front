@@ -1,4 +1,3 @@
-
 var $ = require('../lib/jquery.min');
 
 var common = require('../common');
@@ -8,7 +7,6 @@ var Lizard = require('../widget/lizard');
 var popup = require('../widget/popup');
 
 var Vue = require('../lib/vue');
-
 
 var recharge = new Vue({
 
@@ -105,7 +103,6 @@ var cashPopup = new Vue({
 				}
 			}).then((data) => {
 
-						console.log(data);
 				var re = new RegExp(/<form [\s\S]*<\/form>/);
 
 				var formStr = data.match(re)[0];

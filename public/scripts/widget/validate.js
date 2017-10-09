@@ -180,7 +180,7 @@ var validate = {
 	 */
 	isEngineNumber: function(text) {
 
-		var pattern = /^[A-Z0-9]{4,17}$/;
+		var pattern = /^[A-Z0-9\*]{4,17}$/;
 
 		return pattern.test(text);
 	},

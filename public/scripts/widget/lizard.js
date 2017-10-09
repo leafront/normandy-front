@@ -44,7 +44,7 @@ var Lizard = {
 
 		document.querySelector('.layui-layer-btn0').addEventListener('click',function(){
 
-			success();
+			success && success();
 
 			layUiPopup.parentNode.removeChild(layUiPopup);
 
@@ -281,8 +281,13 @@ var Lizard = {
 			isHeader:true,
 			async: true,
 			headers,
-			timeout: 10000,
-			dataType:'json'
+			timeout: 6000,
+			dataType:'json',
+			onTimeout (){
+
+				Lizard.showToast('请求超时！');
+
+			}
 		}
 
 

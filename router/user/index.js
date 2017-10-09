@@ -306,10 +306,4 @@ router.post('/activate',async (ctx,next) => {
 
 })
 
-
-
-
-
-
-
 module.exports = router;

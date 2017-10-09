@@ -328,6 +328,8 @@ var vueConfig = new Vue ({
 
 		submitInsurance () {
 
+			this.validateForm();
+
 			if (this.isInsureSame) {
 
 				this.sameItemInsurance();
@@ -340,7 +342,6 @@ var vueConfig = new Vue ({
 
 			}
 
-			this.validateForm();
 
 			console.log(JSON.stringify(this.formData,null,2));
 
