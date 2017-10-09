@@ -573,8 +573,7 @@ var popupConfig = new Vue({
 				}
 
 			})
-
-
+			
 			if (isValidate) {
 
 				this.repay_schema[index].term = value;

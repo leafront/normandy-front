@@ -85,11 +85,7 @@ var util = {
 
 			xhr.timeout = options.timeout;
 
-			xhr.ontimeout = (event) => {
-
-				Lizard.showToast('请求超时！');
-
-			}
+			xhr.ontimeout = options.onTimeout;
 
 			//设置请求头
 			for (var k in options.headers) {
