@@ -19,8 +19,6 @@
      npm run production --> 启动node线上环境   pm2 kill --> 退出 线上环境
 
 
-
-
 ## 常规项目代码目录
 ```
   model --> 模型类
