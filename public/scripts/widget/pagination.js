@@ -3,6 +3,8 @@ var common = require('../common');
 
 var ejs = require('../lib/ejs');
 
+var Lizard = require('./lizard');
+
 var paginationTpl = require('../templates/pagination');
 
 var listEmpty = require('../templates/list_empty');
@@ -26,6 +28,8 @@ var pagination = {
 				Lizard.showLoading();
 
 				event.preventDefault();
+
+				window.scrollTo(0,0);
 
 				pagination.getList(event,url, data, listTpl, tplData);
 
@@ -108,7 +112,7 @@ var pagination = {
 					page,
 					iPage:iPage,
 					pathName:location.pathname,
-					isFirstPage:(totalPage - 1 ) == 0,
+					isFirstPage:(page - 1 ) == 0,
 					isLastPage:page * pageSize >= totalCount,
 					data
 				}

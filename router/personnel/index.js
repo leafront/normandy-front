@@ -47,7 +47,7 @@ router.get('/', async (ctx,next) => {
 		totalPage,
 		page:currentPage,
 		iPage,
-		isFirstPage:(totalPage - 1 ) == 0,
+		isFirstPage:(currentPage - 1 ) == 0,
 		isLastPage:currentPage * pageSize >= totalCount
 	})
 })
