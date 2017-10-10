@@ -408,7 +408,7 @@ var vueConfig = new Vue({
 
 					setTimeout(() => {
 
-						//location.href = '/revenue/report';
+						location.href = '/revenue/report';
 
 					},500)
 
