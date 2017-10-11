@@ -25,6 +25,7 @@
     "koa-static": "^4.0.1",
     "node-sass": "^4.5.3",
     "nodemon": "^1.12.1",
+    "ssh2": "^0.5.5",
     "webpack-dev-server": "1.14.1"
   },
   "devDependencies": {
