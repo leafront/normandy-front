@@ -97,7 +97,7 @@ Page({
 		var This = this;
 
 
-		$('#creditList').on('click','.btn_buy',function(){
+		$('#creditList,#vehicleList').on('click','.btn_buy',function(){
 
 			var query = JSON.parse($(this).data('query'));
 
