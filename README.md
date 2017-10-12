@@ -8,6 +8,8 @@
 
     部署环境
 
+     cd /usr/share/nginx/normandy-front/front 目录
+
      npm install  --> 安装package.json 里面的依赖模块
 
      启动环境
@@ -80,3 +82,51 @@
   webpack.config.js --> webpack 打包配置文件
 
 ```
+
+## Nginx server 配置
+
+```
+
+server{
+
+    listen       80;
+    server_name  www.autotechfin.com;
+
+    location ~ .*\.(gif|jpg|jpeg|png)$ {
+      root /Users/leafrontye/Desktop/normandy-front/public; //配置本地目录下静态资源缓存
+      if (-f $request_filename) {
+        expires 1d;
+        break;
+      }
+    }
+
+    location ~ .*\.(js|css)$ {
+      root  /Users/leafrontye/Desktop/normandy-front/public;  //配置本地目录下静态资源缓存
+      if (-f $request_filename) {
+        expires 1d;
+        break;
+      }
+    }
+
+    location / {
+
+       proxy_pass http://127.0.0.1:3000;  //代理NODE 300 端口
+    }
+
+
+
+   location /api {
+
+      rewrite ^~api/?(.*)$ /$1 break;
+      #rewrite ^.+api/?(.*)$ /$1 break;
+      proxy_pass http://shop.qgqg.me;  //代理 API 接口跨域请求
+
+   }
+
+}
+
+```
+
+
+
+
