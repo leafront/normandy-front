@@ -10,7 +10,7 @@
     "start": "./node_modules/.bin/nodemon server",
     "dev": "NODE_ENV=develop webpack -d -w --progress --colors",
     "build": "NODE_ENV=production BABEL_ENV=production webpack -p",
-    "watch":"browser-sync start --proxy '127.0.0.1' --files 'public, templates, views, routes,server.js'"
+    "watch": "browser-sync start --proxy '127.0.0.1' --files 'public, templates, views, routes,server.js'"
   },
   "author": "",
   "license": "ISC",
@@ -51,6 +51,9 @@
     "webpack": "^3.6.0"
   },
   "babel": {
-    "presets": ["es2015", "stage-3"]
+    "presets": [
+      "es2015",
+      "stage-3"
+    ]
   }
 }
