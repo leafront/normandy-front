@@ -1,0 +1,73 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/form_list.scss';
+
+@import '../modules/dropMenu.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../modules/process.scss';
+
+.form-group{
+
+	display:flex;
+
+	justify-content: center;
+}
+.insurance_info{
+
+	padding-top:60rem/$rem;
+
+}
+
+.user-base-input{
+
+	width:405rem/$rem;
+
+}
+
+.form-group{
+
+	.vehicle_checkbox{
+
+		&:before{
+
+			border-radius:2px;
+
+			-webkit-box-radius:2px;
+		}
+	}
+
+}
+
+.drop_menu_area{
+
+	width:160rem/$rem;
+
+	min-width:150px;
+
+	.drop_menu_list{
+
+		min-width:150px;
+
+		width:160rem/$rem;
+
+	}
+}
+
+.form-group-rows:first-child{
+
+	width:700px;
+}
+.insurance_submit{
+	padding-bottom:50px;
+
+	padding-top:25px;
+
+	display:flex;
+
+	justify-content: center;
+
+}

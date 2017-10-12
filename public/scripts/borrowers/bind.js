@@ -1,77 +1,82 @@
-var $ = require('../lib/jquery');
 
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
 
-var Page = require('../widget/page');
+var validate = require('../widget/validate');
 
+var Vue = require('../lib/vue');
 
-Page({
+var vueConfig = new Vue({
 
-	onShow(){
+	el: '#app',
+	data: {
+
+		params: {
+			id_no: ''
+		}
+	},
+
+	mounted () {
 
 		common.headerMenu();
 
 	},
-	bindEvents(){
+	methods: {
 
-		$('.js_submit').click(() =>{
+		bindBorrowers(){
 
-			this.bindBorrowers();
+			var id_no = this.params.id_no;
 
-		})
+			if (!id_no) {
 
-		$('.js_cancel').click(() =>{
+				Lizard.showToast('请输入身份证号');
+
+				return;
+
+			}
+
+			if (!validate.isIdCard(id_no)){
+
+				Lizard.showToast('请输入正确的身份证号');
+
+				return;
+
+			}
+
+			var data = {
+				id_no
+			}
+
+			this.borrowersSubmit(data);
+
+		},
+
+		cancelBorrowers () {
 
 			location.href = '/borrowers';
-		})
-	},
-	bindBorrowers(){
 
-		var id_no = $.trim($('#card').val());
+		},
+		borrowersSubmit(data){
+			Lizard.ajax({
+				type:'POST',
+				url:'/api/borrowers',
+				data:data
+			}).then((results) => {
 
-		if (!id_no) {
 
-			Lizard.showToast('请输入身份证号');
-
-			return;
-
-		}
-
-		if (!Lizard.isIdCard(id_no)){
-
-			Lizard.showToast('请输入正确的身份证号');
-
-			return;
-
-		}
-
-		var data = {
-			id_no
-		}
-
-		this.borrowersSubmit(data);
-
-	},
-	borrowersSubmit(data){
-		Lizard.ajax({
-			type:'POST',
-			url:'/borrowers/bind',
-			data:data,
-			success:function(){
-
-				Lizard.showToast('添加成功');
+				Lizard.showToast('绑定成功, 跳转至用户列表...');
 
 				setTimeout(() =>{
 
-					//location.href = '/borrowers';
+					location.href = '/borrowers';
 
 				},500)
-
-			}
-		})
+			})
+		}
 	}
 })
+
+
 
 

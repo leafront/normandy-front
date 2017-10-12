@@ -1,4 +1,10 @@
 node_modules
 .idea/*
-public/dist/*
-public/styles
+public/dist/
+public/styles/
+views/
+npm-debug.log*
+npm-debug.log
+public/scripts/lib/vue.js
+public/scripts/lib/vue.min.js
+release.js

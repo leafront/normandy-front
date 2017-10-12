@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>车险投保 - 配送信息</title>
+    <link rel="stylesheet" href="/styles/insurance/delivery.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr" id="app">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>配送信息</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>配送信息</span>
+                <button class="list_btn" @click="orderAction">查看订单列表</button>
+            </div>
+            <div class="process_info">
+                <ul class="process_list">
+                    <li class="active">
+                        <i>1</i>
+                        <span>基本车辆信息</span>
+                    </li>
+                    <li class="active">
+                        <i>2</i>
+                        <span>详细车辆信息</span>
+                    </li>
+                    <li class="active">
+                        <i>3</i>
+                        <span>车险报价</span>
+                    </li>
+                    <li class="active">
+                        <i>4</i>
+                        <span>配送信息</span>
+                    </li>
+                    <li>
+                        <i>5</i>
+                        <span>投保确认</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="insurance_info">
+                <div class="form-group">
+                    <div class="form-group-rows">
+                      <label>保单配送信息</label>
+                      <strong class="vehicle_checkbox">同车主</strong>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>收件人姓名</label>
+                        <input type="text" placeholder="请输入收件人姓名" v-model.trim="formData.addresseeName" class="user-ui-input user-base-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>收件人手机号</label>
+                        <input type="text" placeholder="请输入收件人手机号" v-model.trim="formData.addresseeMobile" class="user-ui-input user-base-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                        <label>收件人电子邮箱</label>
+                        <input type="text" placeholder="请输入收件人电子邮箱" v-model.trim="formData.addresseeEmail" class="user-ui-input user-base-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group-rows">
+                      <label>收件人地址</label>
+                      <div class="drop_menu drop_menu_area" :class="{'active': dropMenu == 1}">
+                          <span @click.stop="selectMenu(1)">{{formData.addresseeProvince}}</span>
+                          <ul class="drop_menu_list">
+                              <li @click="selectProvince(item)" v-for="(item,index) in province"><a href="javascript:;">{{item.provinceName}}</a></li>
+                          </ul>
+                      </div>
+                      <div class="drop_menu drop_menu_area" :class="{'active': dropMenu == 2}">
+                          <span @click.stop="selectMenu(2)">{{formData.addresseeCity}}</span>
+                          <ul class="drop_menu_list">
+                              <li @click="selectCity(item)" v-for="(item,index) in cityList"><a href="javascript:;">{{item.cityName}}</a></li>
+                          </ul>
+                      </div>
+                      <div class="drop_menu drop_menu_area" :class="{'active': dropMenu == 3}">
+                        <span @click.stop="selectMenu(3)">{{formData.addresseeCounty}}</span>
+                        <ul class="drop_menu_list">
+                          <li @click="selectCounty(item)" v-for="(item,index) in countyList"><a href="javascript:;">{{item.countyName}}</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-group-rows">
+                    <label>详细地址</label>
+                    <input type="text" placeholder="请输入详细地址" v-model.trim="formData.addresseeDetails" class="user-ui-input user-base-input">
+                  </div>
+                </div>
+                <div class="insurance_submit">
+                    <button class="btn_cancel">上一步</button>
+                    <button class="btn_confirm" @click="submitDelivery">确定</button>
+                </div>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/insurance/delivery.js"></script>
+</body>
+</html>

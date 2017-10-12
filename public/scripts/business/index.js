@@ -1,6 +1,4 @@
 
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
@@ -45,26 +43,20 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
-		$('.pagination_list').on('click','.js_page',(event) =>{
 
-			var data = this.params;
-
-			pagination.showPage(event,'/business/list',data,listTpl,{
-				termUnit,
-				borrowingStatus,
-				autoReviewStatus,
-				phoneReviewStatus,
-				borrowingType
-			})
-
+		pagination.showPage('/api/borrowings',this.params,listTpl,{
+			termUnit,
+			borrowingStatus,
+			autoReviewStatus,
+			phoneReviewStatus,
+			borrowingType
 		})
 
-
-		$(document).click(() =>{
+		document.documentElement.onclick = ()=>{
 
 			this.dropMenu = -1;
 
-		})
+		}
 
 	},
 
@@ -154,11 +146,13 @@ var vueConfig = new Vue({
 
 		fetch (data) {
 
-			var page = Lizard.query('page') || {};
+			Lizard.showLoading();
+
+			var page = Lizard.query('page') || 1;
 
 			var formData = Object.assign({ page }, data );
 
-			pagination.pageList('/business/list',formData,listTpl,{
+			pagination.pageList('/api/borrowings',formData,listTpl,{
 				termUnit,
 				borrowingStatus,
 				autoReviewStatus,
@@ -184,7 +178,23 @@ var vueConfig = new Vue({
 
 		query () {
 
-			var data = this.params;
+			var data = Object.assign({},this.params);
+
+			var startTime = data.from;
+
+			var endTime = data.to;
+
+			startTime =  startTime.replace('/\-/','/');
+
+			endTime =  endTime.replace('/\-/','/');
+
+			if ((startTime && endTime) && new Date(startTime).getTime() > new Date(endTime).getTime()) {
+
+				Lizard.showToast('开始时间不能大于结束时间');
+
+				return;
+
+			}
 
 			data = common.deleteEmptyProperty(data);
 
@@ -205,6 +215,8 @@ var vueConfig = new Vue({
 				from:'',
 				to:''
 			}
+
+			history.pushState(null,null,'/business');
 
 			this.fetch(null);
 

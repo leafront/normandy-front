@@ -1,28 +1,46 @@
-
-var $ = require('../lib/jquery');
-
 var popup = require('./popup');
 
 var ejs = require('../lib/ejs');
 
+var Lizard = require('../widget/lizard');
+
+var Vue = require('../lib/vue');
+
 var roleAuth = {
 
-	adminRole: null,
+	adminRole: [],
 
-	template(){
+	/**
+	 * 获取所有角色
+	 * @param {String} url
+	 * @return null
+	 *
+	 */
 
-		var tpl =`
-		<% list.forEach(function(item){%>
-			<li data-id="<%-item.id%>">
-		<a href="javascript:;"><%-item.name%></a>
-		</li>
-		<%})%>`;
+	adminAuthority(url){
 
-		return tpl;
+		Lizard.ajax({
+			url: url,
+			type: 'GET'
+		}).then((data) => {
 
+			if (data && data.results) {
+
+				this.adminRole = data.results;
+
+			}
+
+		})
 	},
 
-	renderEditAuth (editRoleList){ //获取所有权限
+	/**
+	 * 获取所有权限
+	 * @param {Object} editRoleList
+	 * @return null
+	 *
+	 */
+
+	renderEditAuth (editRoleList){
 
 		var editRoleId = [];
 
@@ -42,137 +60,77 @@ var roleAuth = {
 
 		var  diffRoleId = Lizard.diffArray(allRoleId,editRoleId);
 
-		var adminRoleData = this.adminRole.filter(function(item){
+
+		var hasRole = this.adminRole.filter(function(item){
 
 			return diffRoleId.indexOf(item.id) > -1;
 
 		})
 
-		var html = ejs.render(this.template(),{list:adminRoleData});
 
-		$('#popup_has_role').html(html);
+		this.editRole = editRoleList;
+
+		this.hasRole = hasRole;
 	},
-	getRoleIds(ele){ //获取权限id
 
-		var roleIds = [];
+	/**
+	 * 获取当前编辑的权限
+	 * @param {String} roleId
+	 * @param {String} url
+	 * @param {String} type
+	 * @return null
+	 *
+	 */
+	editRole (roleId,url,type){
 
-		$(ele + ' li').each(function(){
+		Lizard.ajax({
+			url:url,
+			type:'GET',
+			data:{
+				roleId:roleId
+			}
+		}).then((data) => {
 
-			var permissions = $(this).data('id');
+			var roleList = data[type];
 
-			roleIds.push(permissions);
+			if (data && roleList ) {
+
+				roleAuth.renderEditAuth.call(this,roleList);
+
+			}
 
 		})
-
-		return roleIds;
-
 	},
-	renderAddAuth (){
 
-		var html = ejs.render(this.template(),{list:this.adminRole});
-
-		$('#popup_all_role').html(html);
-
-		popup.showContent('#addPopup');
-	},
-	submitRole (type,url,roleIds){ //提交角色修改
+	/**
+	 * 提交角色修改
+	 * @param {Boolean} type
+	 * @param {String} url
+	 * @param {Object} formData
+	 * @param {String} submitType
+	 * @return null
+	 *
+	 *
+	 */
+	submitRole (type,url,formData,submitType){
 
 		var tips = type == 1 ? '修改' : '添加';
 
 		Lizard.ajax({
 			url: url,
-			type: 'POST',
-			data: roleIds,
-			success: function (data) {
+			type: submitType,
+			data: formData
+		}).then((data) => {
 
-				Lizard.showToast(tips + '成功');
+			Lizard.showToast(tips + '成功');
 
-				setTimeout(function(){
+			setTimeout(() =>{
 
-					location.reload();
+				location.reload();
 
-				},500)
-			}
-		})
-	},
-	adminAuthority({url}){ //获取所有角色
-
-		Lizard.ajax({
-			url: url,
-			type: 'POST',
-			async: false,
-			success: (data) =>{
-
-				if (data && data.results) {
-
-					this.adminRole = data.results;
-
-				}
-
-			}
-		})
-	},
-	editRole (roleId,url,type){ //获取当前编辑的权限
-
-		Lizard.ajax({
-			url:url,
-			type:'POST',
-			data:{
-				roleId:roleId
-			},
-			success:(data) =>{
-
-
-				var roleList = data[type];
-
-				if (data && roleList ) {
-
-					roleAuth.renderEditAuth(roleList);
-
-					var html = ejs.render(this.template(),{list:roleList});
-
-					$('#popup_edit_role').html(html);
-
-
-
-					popup.showContent('#editPopup');
-
-					$('.popup_container').show();
-
-				}
-			}
-		})
-	},
-	selectRole () { //角色选项选中
-
-		$('.popup_admin').each(function(index){
-
-			$(this).on('click', 'li', function () {
-
-				var html = $(this).prop('outerHTML');
-
-				$('.popup_role').eq(index).append(html);
-
-				$(this).remove();
-
-			})
-
-		})
-
-		$('.popup_role').each(function(index){
-
-			$(this).on('click', 'li', function () {
-
-				var html = $(this).prop('outerHTML');
-
-				$('.popup_admin').eq(index).append(html);
-
-				$(this).remove();
-
-			})
+			},500)
 		})
 	}
-
 }
 
 module.exports = roleAuth;

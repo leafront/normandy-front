@@ -5,11 +5,18 @@ html, body, address, dl, form, h1, h2, h3, h4, h5, h6, ol, p,table, ul, dd, dt, 
 	-webkit-box-sizing: border-box;
 }
 
+html{
+	height:100%;
+}
 body {
   font-family: 'Microsoft YaHei','Tahoma', 'Verdana', 'Arial', 'Helvetica', 'sans-serif';
   font-size: 12px;
   -webkit-text-size-adjust: none;
   color: #333;
+	height:100%;
+	-webkit-user-select: none;
+	user-select: none;
+
  }
 
 address, cite, dfn, em, var, i {
@@ -44,7 +51,7 @@ table {
 article, aside, details, figcaption, figure, footer, header menu, nav, section {
   display: block; }
 
-ul,dl, div, article, aside, footer, header, menu, nav, section {
+div, article, aside, footer, header, menu, nav, section {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -63,10 +70,6 @@ li {
 input[type=search] {
   -webkit-appearance: none;
   outline: none;
-}
-
-input {
-  outline: 0 none;
 }
 
 input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button {

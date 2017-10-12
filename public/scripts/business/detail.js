@@ -96,9 +96,14 @@ Page({
 
 		var This = this;
 
-		$('#creditList').on('click','.btn_buy',function(){
 
-			var { index, interface_name } = $(this).data('query');
+		$('#creditList,#vehicleList').on('click','.btn_buy',function(){
+
+			var query = JSON.parse($(this).data('query'));
+
+			console.log(query);
+
+			const { index, interface_name } = query;
 
 			if (credit[index].interface_name !== 'person_card_trans_record'){
 
@@ -106,7 +111,9 @@ Page({
 
 			}
 
-			This.purchaseAction(query);
+
+
+			This.purchaseAction(index,query,interface_name);
 		})
 
 		this.rotateImg();
@@ -138,20 +145,15 @@ Page({
 		if (roleList.indexOf('CREDIT_READ') > -1) {
 
 			Lizard.ajax({
-				type:'POST',
-				url:'/business/vehicles/risks',
-				data:{
-					id: this.borrowingsId
-				},
-				success:function(data){
+				type:'GET',
+				url:`/api/borrowings/${this.borrowingsId}/risks`
+			}).then((data) => {
 
-					if(data) {
+				if(data) {
 
-						var html = ejs.render(creditTpl,{list:credit,risks:data});
+					var html = ejs.render(creditTpl,{list:credit,risks:data});
 
-						$('#vehicleList').html(html);
-					}
-
+					$('#creditList').html(html);
 				}
 			})
 
@@ -159,30 +161,25 @@ Page({
 
 	},
 
-	purchaseAction(query){
+	purchaseAction(index,query,interface_name){
 
 		Lizard.ajax({
 			type:'POST',
-			url:'/business/purchase',
-			data:{
-				id: this.borrowingsId
-			},
-			success(data){
-
-				if(data) {
-
-					credit[index].is_active = true;
-
-					Lizard.showToast('提交成功');
-				}
-
-			},
+			url:`/api/borrowings/${this.borrowingsId}/${interface_name}`,
 			error(){
 
 				credit[index].is_active = true;
 
 			}
 
+		}).then((data) => {
+
+			if(data) {
+
+				credit[index].is_active = true;
+
+				Lizard.showToast('提交成功');
+			}
 		})
 
 	},
@@ -194,21 +191,17 @@ Page({
 	getRisks(){
 
 		Lizard.ajax({
-			type:'POST',
-			url:'/business/risks',
-			data:{
-				id: this.borrowingsId
-			},
-			success:function(data){
+			type:'GET',
+			url:`/api/borrowings/${this.borrowingsId}/vehicles/risks`
+		}).then((data) => {
 
-				if(data) {
+			if(data) {
 
-					var html = ejs.render(creditTpl,{list:credit,risks:data});
+				var html = ejs.render(creditTpl,{list:credit,risks:data});
 
-					$('#creditList').html(html);
-				}
-
+				$('#vehicleList').html(html);
 			}
+
 		})
 
 	},
@@ -216,23 +209,19 @@ Page({
 	getApprovals(){
 
 		Lizard.ajax({
-			type:'POST',
-			url:'/business/approvals',
-			data:{
-				id: this.borrowingsId
-			},
-			success:function(data){
+			type:'GET',
+			url:`/api/borrowings/${this.borrowingsId}/approvals`
+		}).then((data) => {
 
-				var results = data.results;
+			var results = data.results;
 
-				if (data && results.length){
+			if (data && results.length){
 
-					var html = ejs.render(approvalTpl,{list:results,borrowingStage,borrowingResult,borrowingRating,carType});
+				var html = ejs.render(approvalTpl,{list:results,borrowingStage,borrowingResult,borrowingRating,carType});
 
-					$('#approvals').html(html);
-				}
-
+				$('#approvals').html(html);
 			}
+
 		})
 	},
 	showTab(){

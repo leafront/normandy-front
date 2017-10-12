@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>审核</title>
     <link rel="stylesheet" href="/styles/business/approval/index.css"/>
@@ -53,11 +55,16 @@
                         </ul>
                     </div>
                     <div class="form-group-tips">
-                      <p>注意：主审通过要求电核通过 !</p>
+                      <%if (pidStatus == 0){%>
+                        <p>注意: 初审通过要求机审通过!</p>
+                      <%}else{%>
+                        <p>注意: 主审通过要求电核通过!</p>
+                      <%}%>
+
                     </div>
                     <div class="form-group">
                         <label>备注</label>
-                        <textarea v-model="formData.remark" class="approval_description"></textarea>
+                        <textarea v-model.trim="formData.remark" class="approval_description"></textarea>
                     </div>
                     <div class="approval_submit">
                       <button class="btn_confirm" @click="submitAction"><%-borrowingStatus[pidStatus].stage%></button>
@@ -71,7 +78,7 @@
                     <div class="business_table">
                         <dl class="business_table_list">
                             <dt>
-                                <span>审批信息</span>
+                                <span>审核日期</span>
                                 <span>审批人</span>
                                 <span>阶段</span>
                                 <span>结果</span>

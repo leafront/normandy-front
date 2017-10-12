@@ -11,29 +11,22 @@
 @import '../layui/index.scss';
 
 
-
-.cont-title{
-	.title-btn1{
-		width:122px;
-		padding-left:0;
-	}
-}
 .cont_list{
 	.personnel_name{
-		width:90rem/$rem;
-		height:58px;
+		width:140rem/$rem;
+		@include ellipsis;
 	}
 	.personnel_phone{
-		width:140rem/$rem;
+		width:180rem/$rem;
 	}
 	.personnel_auth{
 		width:125rem/$rem;
 		float:left;
-		height:58px;
+		height:37px;
 		i{
 			background:url(/images/ico_sprite.png) no-repeat;
 			float:left;
-			margin-top:24px;
+			margin-top:18px;
 			margin-right:7px;
 		}
 		.ico1{
@@ -44,13 +37,13 @@
 		.ico2{
 			width:17px;
 			height:12px;
-			margin-top:30px;
+			margin-top:25px;
 			background-position:-144px -116px;
 		}
 		.ico3{
 			width:14px;
 			height:16px;
-			margin-top:26px;
+			margin-top:21px;
 			background-position:-165px -114px;
 		}
 	}
@@ -58,7 +51,7 @@
 		width:200rem/$rem;
 	}
 	.personnel_role{
-		width:628rem/$rem;
+		width:500rem/$rem;
 		float:left;
 	}
 	.user_status{
@@ -67,7 +60,7 @@
 	}
 
 	.list_status{
-		width:625rem/$rem;
+		width:500rem/$rem;
 		@include borderRadius(5);
 		.list_btn{
 			margin-right:0;

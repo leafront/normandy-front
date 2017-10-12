@@ -12,6 +12,7 @@
 
 @import '../../widget/calendar.scss';
 
+
 .user-ui-input-txt{
 
 	display:inline-block;
@@ -36,6 +37,17 @@
 	text-align:center;
 
 
+}
+
+
+.vehicle-ui-ico{
+
+	.user-ui-input-txt{
+
+		width:35px;
+
+		background:url(/images/ico_sprite.png) no-repeat -218px -32px;
+	}
 }
 
 .modify-button{
@@ -139,7 +151,7 @@
 				display:inline-block;
 				width:60px;
 
-				text-align:right;
+
 
 				margin-right:10px;
 			}
@@ -152,6 +164,20 @@
 			}
 		}
 	}
+}
+
+.drop_menu_color{
+
+	.drop_menu_list{
+
+		li {
+
+			a{
+
+				text-align:right;
+			}
+		}
+	}
 
 }
 .vehicle_wraper{
@@ -160,13 +186,19 @@
 }
 
 .popup_wraper{
-	width:1015rem/$rem;
+
+	width:1100rem/$rem;
+
 }
 .carPopup{
 
 	background:#fff;
 
 	overflow:hidden;
+
+	display:flex;
+
+	justify-content: center;
 }
 .carPopup_nav{
 

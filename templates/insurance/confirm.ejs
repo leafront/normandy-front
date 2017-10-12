@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>车险投保 - 投保确认</title>
+    <link rel="stylesheet" href="/styles/insurance/confirm.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr" id="app">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>车险投保 - 投保确认</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>投保确认</span>
+                <button class="list_btn">查看订单列表</button>
+                <button class="list_btn">查看险种</button>
+            </div>
+            <div class="process_info">
+                <ul class="process_list">
+                    <li class="active">
+                        <i>1</i>
+                        <span>基本车辆信息</span>
+                    </li>
+                    <li class="active">
+                        <i>2</i>
+                        <span>详细车辆信息</span>
+                    </li>
+                    <li class="active">
+                        <i>3</i>
+                        <span>车险报价</span>
+                    </li>
+                    <li class="active">
+                        <i>4</i>
+                        <span>配送信息</span>
+                    </li>
+                    <li class="active">
+                        <i>5</i>
+                        <span>投保确认</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="insurance_info">
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>保单配送消息</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>姓名：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>手机号：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>配送地址：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>收件人邮箱：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>车主信息</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>姓名：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>证件号码：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>联系电话：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>投保人信息</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>证件号码：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>联系电话：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>被保人信息</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>投保人：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>证件号码：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>联系电话：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>车辆信息</h4>
+                    </div>
+                </div>
+                <div class="vehicle_info_wraper clearfix">
+                    <div class="vehicle_item">
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>车牌号码：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>品牌型号：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>车架号：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>发动机号码：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="form-group-rows">
+                                <label>登记日期：</label>
+                                <span>xxxx</span>
+                            </div>
+                            <div class="form-group-rows">
+                                <label>过户日期：</label>
+                                <span>xxxx</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vehicle_info_title">
+                    <div class="business_status">
+                        <h4>保障内容</h4>
+                    </div>
+                </div>
+                <div class="ensure clearfix">
+                  <img src="https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png" class="insurance_logo"/>
+                  <strong class="insurance_cate_name">平安</strong>
+                  <div class="ensure_info">
+                    <p>积分：67488</p>
+                    <p>总保费：4820.55</p>
+                  </div>
+                </div>
+                <div class="ensure_total clearfix">
+                  <p>交强险</p>
+                  <p>生效日期：2017-11-15</p>
+                  <p>合计保费：￥3175.44</p>
+                </div>
+                <div class="list_container list_top">
+                    <dl class="cont_list">
+                        <dt>
+                            <span>保障项目</span>
+                            <span>保额</span>
+                            <span>保费(元)</span>
+                        </dt>
+                        <dd>
+                            <span>交强险保费</span>
+                            <span>投保</span>
+                            <span>360.00</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="ensure_total clearfix">
+                    <p>交强险</p>
+                    <p>生效日期：2017-11-15</p>
+                    <p>合计保费：￥3175.44</p>
+                </div>
+                <div class="list_container list_top">
+                    <dl class="cont_list">
+                        <dt>
+                            <span>保障项目</span>
+                            <span>保额</span>
+                            <span>保费(元)</span>
+                        </dt>
+                        <dd>
+                            <span>机动车损失保险</span>
+                            <span>投保  不计免赔</span>
+                            <span>1007.72</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="appointment">
+                  <h4>特别约定:</h4>
+                  <p>1、收到本保单请立即核对，如无疑义，即视为同意合同条款及约定的全部内容。本保险适用机动车综合商业保险条款，并已附条款一份</p>
+                  <p>2、尊敬的客户：投保次日起，承保及理赔等信息您可通过保险人的网站www.pingan.com；客服热线95511；平安保险门店核实。若对查询结果有异议，请登陆网站留言或拨打服务热线。</p>
+                  <p>3、无其他特别约定。</p>
+                </div>
+                <div class="insurance_agree clearfix">
+                  <div class="insurance_upload_open">
+                    <button class="insurance_data_btn" @click="showPopup('#uploadPopup')">图片资料上传(已上传)</button>
+                  </div>
+                  <div class="insurance_agree_info">
+                     <strong>本人已认真阅读并同意</strong>
+                     <span @click="showPopup('#popup')">投保须知</span>
+                  </div>
+                </div>
+                <div class="insurance_submit">
+                    <button class="btn_cancel">上一步</button>
+                    <button class="btn_confirm">立即支付</button>
+                </div>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<div class="popup_wraper" id="uploadPopup">
+  <div class="popup_title">
+    <h4>根据保险公司要求，请您上传以下图片：</h4>
+  </div>
+  <div class="popup_upload clearfix">
+    <div class="popup_img_list">
+      <img class="upload_img" src="https://privatethisisdashcdn-qgqg-me.alikunlun.com/20170919/53b45f2015464dcd94a9538dc1a6777c.png@100w_100h_2e_90Q"/>
+      <i class="popup_delete_img"></i>
+    </div>
+    <div class="insurance_upload">
+        <div class="insurance_upload_btn">
+            <button class="insurance_upload_add">+</button>
+            <strong>点击上传</strong>
+            <strong>被保人身份证正面</strong>
+        </div>
+        <input type="file" multiple="multiple" class="insurance_upload_file">
+    </div>
+    <div class="insurance_upload">
+      <div class="insurance_upload_btn">
+          <button class="insurance_upload_add">+</button>
+          <strong>点击上传</strong>
+          <strong>被保人身份证反面</strong>
+      </div>
+      <input type="file" multiple="multiple" class="insurance_upload_file">
+    </div>
+  </div>
+  <div class="popup_submit clearfix">
+    <button class="btn_confirm">提交</button>
+    <button class="btn_cancel" @click="hidePopup('#uploadPopup')">返回</button>
+  </div>
+</div>
+<div class="popup_wraper" id="popup">
+    <div class="popup_title">
+        <h4>投保须知</h4>
+    </div>
+    <div class="popup_cont">
+      <p>交强险是由保险公司对被保险机动车发生道路交通事故造成受害人（不包括本车人员和被保险人 ）的人身伤亡、财产损失，在责任限额内予以赔偿的强制性责任保险。</p>
+    </div>
+    <div class="popup_submit clearfix">
+        <button class="btn_confirm" @click="hidePopup('#popup')">关闭</button>
+    </div>
+</div>
+<div class="popup_mask"></div>
+<script type="text/javascript" src="/dist/scripts/insurance/confirm.js"></script>
+</body>
+</html>

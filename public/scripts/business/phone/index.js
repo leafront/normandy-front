@@ -8,17 +8,48 @@ var local = require('../../widget/local');
 
 var social_net = local.get('social_net');
 
+function dropMenu () {
+
+	$('.js_select').click(function(e){
+
+		e.stopPropagation();
+
+
+		$(this).toggleClass('active');
+
+		$(this).parent('.drop_menu').toggleClass('active');
+
+	})
+
+	$('.drop_menu_list').on('click','li',function(e){
+
+		e.stopPropagation();
+
+		var value = $(this).data('value');
+
+		$(this).parent().prev('.js_select').text($(this).text()).data('value',value).addClass('active').parents('.drop_menu').removeClass('active');
+
+	})
+
+	$(document).click(function(){
+
+		$('.drop_menu').removeClass('active');
+
+	})
+}
+
+
 const {
 	emergencyContacts,
 	relatives,
 	friends,
-	colleagues
+	colleagues,
 } = social_net;
+
 
 var vueConfig = new Vue({
 
 	el:'#app',
-
 	data:  {
 		"self": {
 			"cohabitation": [],
@@ -87,6 +118,21 @@ var vueConfig = new Vue({
 	},
 	methods:{
 
+		selectMenu (index) {
+
+			var dropMenu  = this.dropMenu;
+
+			if (dropMenu == index) {
+
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = index;
+			}
+
+		},
+
 		checkValue (property,type,value) {
 
 			this[property][type] = value;
@@ -96,11 +142,65 @@ var vueConfig = new Vue({
 
 			var isValidate = true;
 
-			var validateEle = ['self','rel','col','fri','emer'];
+			var self = Object.assign({},this.self);
+
+			var rel = Object.assign({},this.rel);
+
+			var col = Object.assign({},this.col);
+
+			var  fri = Object.assign({},this.fri);
+
+			var emer = Object.assign({},this.emer);
+
+
+			if (self.other_liabilities == 0) {
+
+				delete self.liabilities_amount;
+
+			}
+
+			if (!self.income.length) {
+
+				delete self.income_amount;
+
+				delete self.pending_amount;
+
+				delete self.pending_month;
+
+			}
+
+			if (self.income.length && self.income.indexOf('0') <= -1) {
+
+				delete self.income_amount;
+
+			}
+
+			if (self.income.length && self.income.indexOf('1') <= -1) {
+
+				delete self.pending_amount;
+
+				delete self.pending_month;
+
+			}
+
+
+			if (rel.other_liabilities == 0) {
+
+				delete rel.liabilities_amount;
+
+			}
+
+			if (col.know_job == 0) {
+
+				delete col.know_position;
+
+			}
+
+			var validateEle = [self,rel,col,fri,emer];
 
 			for (var i = 0,len = validateEle.length; i < len; i++) {
 
-				var formData = this[validateEle[i]];
+				var formData = validateEle[i];
 
 				for (var attr in formData ) {
 
@@ -110,7 +210,7 @@ var vueConfig = new Vue({
 
 						if (value === '') {
 
-							console.log(attr)
+							console.log(attr);
 
 							isValidate = false;
 
@@ -161,15 +261,16 @@ var vueConfig = new Vue({
 
 			var isValidate = this.validateForm();
 
-			this.isValidate = validateEle;
 
-			//if (!isValidate) {
-			//
-			//	Lizard.showToast('请完善电核信息填写');
-			//
-			//	return;
-			//
-			//}
+			this.isValidate = isValidate;
+
+			if (!isValidate) {
+
+				Lizard.showToast('请完善电核信息填写');
+
+				return;
+
+			}
 
 			var validateEle = ['self','rel','col','fri','emer'];
 
@@ -183,7 +284,6 @@ var vueConfig = new Vue({
 
 			}
 
-			console.log(JSON.stringify(remark,null,2));
 
 			var formData = {
 
@@ -196,26 +296,21 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:'/business/phone/submit',
-				data:{
-					id:phoneId,
-					data:submitData
-				},
-				success: (data) =>{
+				url:`/api/applications/${phoneId}/phone-reviews`,
+				data:submitData
+			}).then((data) => {
+				if (data) {
 
-					if (data) {
+					Lizard.showToast('电核成功, 跳转至标的列表页...');
 
-						Lizard.showToast('电核成功, 跳转至标的列表页...');
+					setTimeout(() =>{
 
-						setTimeout(() =>{
+						location.href = '/business';
 
-							location.href = '/business';
-
-						},500)
-
-					}
+					},500)
 
 				}
+
 			})
 
 
@@ -232,6 +327,6 @@ var vueConfig = new Vue({
 
 		common.headerMenu();
 
-		common.dropMenu();
+		dropMenu();
 	}
 })

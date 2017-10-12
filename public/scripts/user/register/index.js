@@ -9,6 +9,7 @@ var validate = require('../../widget/validate');
 
 var local = require('../../widget/local');
 
+var verify = require('../widget/verify');
 
 var Page = require('../../widget/page');
 
@@ -16,7 +17,7 @@ Page({
 
 	onShow(){
 
-		common.getVerify();
+		verify.getVerify();
 
 	},
 
@@ -25,6 +26,14 @@ Page({
 		$('.login-submit').click(() =>{
 
 			this.actionRegister()
+
+		})
+
+		$('#captcha_code').keydown((event) =>{
+
+			if (event.keyCode == 13)
+
+				this.actionRegister();
 
 		})
 	},
@@ -60,6 +69,22 @@ Page({
 			return;
 		}
 
+
+		if (!validate.isPass(password)) {
+
+			Lizard.showToast('请输入8到64位包含字母密码');
+
+			return;
+		}
+
+
+		if (!validate.isPass(password)) {
+
+			Lizard.showToast('请输入8到64位包含字母密码');
+
+			return;
+		}
+
 		if (!captcha_code) {
 
 			Lizard.showToast('请输入验证码');
@@ -86,21 +111,21 @@ Page({
 				captcha_code: captcha_code,
 				captcha_key: captcha_key
 			},
-			success: function (data) {
+			error (){
 
-				local.set('userInfo',{
-					mobile:mobile,
-					password:password,
-					mobile_key:data.key
-				})
-				location.href = '/user/register/' + data.key;
-
-			},
-			error: function(){
-
-				common.updateVerify();
+				verify.updateVerify();
 
 			}
+		}).then((data) => {
+
+			local.set('userInfo',{
+				mobile:mobile,
+				password:password,
+				mobile_key:data.key
+			})
+
+			location.href = '/user/register/' + data.key;
+
 		})
 	}
 

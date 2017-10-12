@@ -15,6 +15,8 @@
 		height:32px;
 		line-height:32px;
 		margin-right:2px;
+		@include borderRadius(3);
+		overflow: hidden;
 		&.active{
 			background:#53cac3;
 			a{
@@ -25,7 +27,6 @@
 			display:block;
 			color:#6d7f84;
 			padding:0 14px;
-			@include borderRadius(3);
 			&:hover{
 				background:#53cac3;
 				color:#fff;

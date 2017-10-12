@@ -1,5 +1,3 @@
-var $ = require('../../lib/jquery');
-
 var common = require('../../common');
 
 var Lizard = require('../../widget/lizard');
@@ -10,263 +8,175 @@ var Calendar = require('../../widget/calendar');
 
 var validate = require('../../widget/validate');
 
-var Page = require('../../widget/page');
+var Vue = require('../../lib/vue');
 
+var dataModel = require('../../../../model/data');
 
-Page({
+const {
 
-	ajax(){
+	carType,
+	colorList
 
-		this.getBrandList();
+} = dataModel;
 
+var carTypeObject = common.changeObject(carType,'value','name');
+
+var vueConfig = new Vue({
+
+	el:'#app',
+	data:{
+		dropMenu: -1,
+		carTypeObject,
+		colorList,
+		formData: {
+			type:2, car_name:'', plate_number:'',
+			vin:'', engine_number:'', production_day:'',
+			color:'', displacement:'', shifting:0, driver_type:0
+		}
 	},
 
-	onShow(){
+	computed: {
 
-		common.headerMenu();
+		carTypeStatus () {
 
-		common.dropMenu();
+			var type = this.formData.type;
 
-		this.widgetCalendar();
+			if (type !== "") {
+
+				var value = this.carTypeObject[type];
+
+				return value;
+
+			} else {
+
+				return '请选择车辆类型';
+			}
+
+		},
+
+		colorType () {
+
+			var color = this.formData.color;
+
+			if (color !== "") {
+
+				var value = this.colorList[color].name;
+
+				return value;
+
+			} else {
+
+				return '请选择颜色';
+			}
+
+		}
 
 	},
-	widgetCalendar(){
+	methods: {
 
-		var calendar = new Calendar({
-			startYear: 2000,
-			yearNum:5,
-			ele:'#madeTime'
-		})
-
-		calendar.showCalendar();
-
-	},
-
-	bindEvents(){
-
-		this.selectType();
-
-		this.showCarPopup();
-
-		this.vehicleAction();
-
-	},
-
-	showCarPopup(){
-
-		var This  = this;
-
-		$('.carNav_list').on('click','li',function(){
-
-			var initial = $(this).data('initial');
-
-
-			document.getElementById('letter-' + initial).scrollIntoView();
-
-		})
-
-		$('#brandList').on('click','dd',function(){
-
-			var brandId = $(this).data('brandid');
-
-			$('#brandList dd').removeClass('active');
-
-			$(this).addClass('active');
-
-			var brandName = $(this).text();
-
-			$('#brandName').val(brandName);
-
-			This.getCarType(brandId);
-
-		})
-
-		$('#carType').on('click','dd',function(){
-
-			var typeId = $(this).data('typeid');
-
-			$('#carType dd').removeClass('active');
-
-			$(this).addClass('active');
-
-			var typeName = $(this).text();
-
-			$('#typeName').val(typeName);
-
-			This.getCarModel(typeId);
-
-		})
-
-
-		$('#carModel').on('click','dd',function() {
-
-			var modelName = $(this).text();
-
-			$('#carModel dd').removeClass('active');
-
-			$(this).addClass('active');
-
-			$('#modelName').val(modelName);
-
-		})
-
-		$('#js_brand').click(function(){
+		showPopup () {
 
 			popup.showContent('#carPopup');
 
-		})
+		},
 
+		checkValue (property,value) {
 
-		$('.js_cancel').click(function(){
+			this.formData[property] = value;
 
-			popup.hideContent('#carPopup')
+		},
 
-		})
+		selectMenu (value) {
 
-		$('.js_confirm').click(function(){
+			if (this.dropMenu == value) {
 
+				this.dropMenu = -1;
 
-			popup.hideContent('#carPopup');
+			} else {
 
-			$('#js_brand').val($('#brandName').val() + $('#typeName').val() + $('#modelName').val());
+				this.dropMenu = value;
 
-		})
+			}
+		},
 
-		$('.popup_mask').click(function(){
+		widgetCalendar(){
 
-			popup.hideContent('#carPopup');
+			var calendar = new Calendar({
+				startYear: 2000,
+				yearNum:5,
+				ele:'#madeTime',
+				callback:(date) =>{
 
-		})
+					this.formData.production_day = date;
 
-	},
-
-	selectType(){
-
-		$('.shiftingType').click(function(){
-
-			var value = $(this).data('value');
-
-			$('#shiftingType').data('value',value);
-
-			$(this).addClass('active').siblings().removeClass('active');
-
-		})
-
-		$('.driverType').click(function(){
-
-			var value = $(this).data('value');
-
-			$('#driverType').data('value',value);
-
-			$(this).addClass('active').siblings().removeClass('active');
-
-		})
-
-
-	},
-
-	getGroupArr(results,property){
-
-		var list = [];
-
-		results.forEach((item, i) => {
-
-			let index = -1;
-
-			let alreadyExists = list.some((newItem, j) => {
-				if (item[property] === newItem[property]) {
-					index = j;
-					return true;
 				}
 			})
-			if (!alreadyExists) {
-				list.push({
-					[property]: item[property],
-					results: [item]
-				})
-			} else {
-				list[index].results.push(item);
-			}
 
-		})
+			calendar.showCalendar();
 
-		return list;
+		},
+		cancelVehicles (detailId) {
 
-	},
+			location.href = `/borrowers/${detailId}`;
 
-	vehicleAction(){
+		},
+		submitVehicles(detailId){
 
-		$('.js_submit').click(() =>{
+			var formData = Object.assign(this.formData,popupConfig.formData);
 
-			var id = $('#detailId').val();
+			var validateEle  = [{
+				name:'type',
+				message:'请选择车辆类型'
+			},{
+				name:'car_name',
+				message:'请选择品牌类型'
+			},{
+				name:'plate_number',
+				message:'请输入车牌号'
+			},{
+				name:'vin',
+				message:'请输入车架号'
+			},{
+				name:'engine_number',
+				message:'请输入发动机号'
+			},{
+				name:'production_day',
+				message:'请选择出厂日期'
+			},{
+				name:'color',
+				message:'请选择颜色'
+			},{
+				name:'displacement',
+				message:'请输入排量'
+			}];
 
-			var vehicleType = $.trim($('#vehicleType').data('value'));
+			var isValidate = validateEle.every((item) =>{
 
-			var carName = $.trim($('#js_brand').val());
+				if (formData[item.name] === "") {
 
-			var license = $.trim($('#license').val());
+					Lizard.showToast(item.message);
 
-			var vin = $.trim($('#vin').val());
+					return false;
 
-			var engine = $.trim($('#engine').val());
+				}
 
-			var madeTime = $.trim($('#madeTime').val());
+				return true;
 
-			var vehicleColor = $.trim($('#vehicleColor').data('value'));
+			})
 
-			var volume = $.trim($('#volume').val());
-
-			var shiftingType = $.trim($('#shiftingType').data('value'));
-
-			var driverType = $.trim($('#driverType').data('value'));
-
-			var brand = $('#brandName').val();
-
-			var series = $('#typeName').val();
-
-			var model = $('#modelName').val();
-
-
-			if (!vehicleType){
-
-				Lizard.showToast('请选择车辆类型');
-
-				return;
-
-			}
-
-			if (!carName) {
-
-				Lizard.showToast('请选择品牌类型');
+			if (!isValidate) {
 
 				return;
 
 			}
 
-			if (!license) {
-
-				Lizard.showToast('请输入车牌号');
-
-				return;
-
-			}
-
-			if (!validate.isCarNumber(license)) {
+			if (!validate.isCarNumber(formData.plate_number)) {
 
 				Lizard.showToast('请输入正确的车牌号');
 
 				return;
 			}
-
-			if (!vin) {
-
-				Lizard.showToast('请输入车架号');
-
-				return;
-
-			}
-
-			if (!validate.isVin(vin)) {
+			if (!validate.isVin(formData.vin)) {
 
 				Lizard.showToast('请输入正确的17位唯一车架号');
 
@@ -274,15 +184,7 @@ Page({
 
 			}
 
-			if (!engine) {
-
-				Lizard.showToast('请输入发动机号');
-
-				return;
-
-			}
-
-			if (!validate.isEngineNumber(engine)) {
+			if (!validate.isEngineNumber(formData.engine_number)) {
 
 				Lizard.showToast('请输入正确的发动机号');
 
@@ -290,32 +192,7 @@ Page({
 
 			}
 
-			if (!madeTime) {
-
-				Lizard.showToast('请选择出厂日期');
-
-				return;
-
-			}
-
-
-			if (!vehicleColor) {
-
-				Lizard.showToast('请选择颜色');
-
-				return;
-
-			}
-
-			if (!volume) {
-
-				Lizard.showToast('请输入排量');
-
-				return;
-
-			}
-
-			if (!validate.isDisplacement(volume)){
+			if (!validate.isDisplacement(formData.displacement)){
 
 				Lizard.showToast('请输入正确的排量');
 
@@ -323,38 +200,11 @@ Page({
 
 			}
 
-			var data = {
-				id: id,
-				data:{
-					brand:brand,
-					series,series,
-					model,model,
-					type:vehicleType,
-					car_name:carName,
-					plate_number:license,
-					vin:vin,
-					engine_number:engine,
-					production_day:madeTime,
-					color:vehicleColor,
-					displacement:volume,
-					shifting:shiftingType,
-					driver_type:driverType
-				}
-			}
-
-			this.submitVehicles(data);
-
-		})
-
-	},
-
-	submitVehicles(formData){
-
-		Lizard.ajax({
-			type: 'POST',
-			url: '/borrowers/vehicles/add',
-			data:formData,
-			success(data){
+			Lizard.ajax({
+				type: 'POST',
+				url: `/api/borrowers/${detailId}/vehicles`,
+				data:formData
+			}).then((data) => {
 
 				if (data){
 
@@ -362,116 +212,151 @@ Page({
 
 					setTimeout(() => {
 
-						location.href = '/borrowers/' + formData.id;
+						location.href = `/borrowers/${detailId}`;
 
 					},500)
 
 				}
 
-			}
-		})
+			})
+		}
+	},
+	mounted () {
+
+		common.headerMenu();
+
+		this.widgetCalendar();
+
+		document.documentElement.onclick = () =>{
+
+			this.dropMenu = -1;
+
+		}
+	}
+})
+
+
+var popupConfig = new Vue({
+	el: '#carPopup',
+	data: {
+		letterNav: [],
+		brandList: [],
+		typeList: [],
+		modelList: [],
+		formData:{ brand:'', series:'', model:'' }
 
 	},
+	methods: {
 
-	getCarModel(typeId){
+		getGroupArr(results,property){
 
-		var carModelTpl = `
-		<% list.forEach(function(item,index){%>
-		  <dl class="carList">
-        <dt><a href="javascript:;"><%-item.year%> 款</a></dt>
-        <% item.results.forEach(function(child,cIndex){%>
-				  <dd data-modelid="<%-child.id%>" class="<%if(index==0 && cIndex==0){%>active<%}%>"><a href="javascript:;"><%-child.name%></a></dd>
-				<%})%>
-      </dl>
-    <%})%>`;
+			var list = [];
 
-		Lizard.ajax({
-			type:'POST',
-			url:'/borrowers/carModel',
-			data:{
-				typeId
-			},
-			success:(data) =>{
+			results.forEach((item, i) => {
 
-				var results = data.results;
+				let index = -1;
 
-				if (data && results.length) {
-
-					var list = this.getGroupArr(results,'year');
-
-
-					var carModelHtml = ejs.render(carModelTpl,{list});
-
-
-					$('#carModel').html(carModelHtml);
-
-					$('#modelName').val(list[0].results[0].name);
-
+				let alreadyExists = list.some((newItem, j) => {
+					if (item[property] === newItem[property]) {
+						index = j;
+						return true;
+					}
+				})
+				if (!alreadyExists) {
+					list.push({
+						[property]: item[property],
+						results: [item]
+					})
+				} else {
+					list[index].results.push(item);
 				}
-			}
-		})
-	},
 
-	getCarType(brandId){
+			})
 
-		var carTypeTpl = `
-		<% list.forEach(function(item,index){%>
-		  <dl class="carList">
-        <dt><a href="javascript:;"><%-item.group_name%></a></dt>
-        <% item.results.forEach(function(child,cIndex){%>
-				  <dd data-typeid="<%-child.id%>" class="<%if(index==0 && cIndex==0){%>active<%}%>"><a href="javascript:;"><%-child.name%></a></dd>
-				<%})%>
-      </dl>
-    <%})%>`;
+			return list;
 
-		Lizard.ajax({
-			type:'POST',
-			url:'/borrowers/carType',
-			data:{
-				brandId
-			},
-			success:(data) =>{
+		},
 
-				var results = data.results;
+		saveCar () {
+
+			vueConfig.formData.car_name = this.formData.brand + this.formData.series + this.formData.model;
+
+			popup.hideContent('#carPopup');
+
+		},
+
+		hidePopup () {
+
+			popup.hideContent('#carPopup');
+
+		},
+
+		showLetterNav (initial){
+
+			document.getElementById('letter-' + initial).scrollIntoView();
+
+		},
+
+		selectBrand (event,{id, name}) {
+
+			var ele = Array.prototype.slice.apply(document.querySelectorAll('#carBrand dd'));
+
+			ele.forEach((item) => {
+
+				item.classList.remove('active');
+
+			})
 
 
-				if (data && results.length) {
+			event.currentTarget.classList.add('active');
 
-					var list = this.getGroupArr(results,'group_name');
+			this.formData.brand = name;
 
-					var carTypeHtml = ejs.render(carTypeTpl,{list});
+			this.getCarType(id);
 
-					$('#carType').html(carTypeHtml);
+		},
 
-					$('#typeName').val(list[0].results[0].name);
+		selectType (event,{id, name}) {
 
-					this.getCarModel(results[0].id);
-				}
-			}
-		})
-	},
 
-	getBrandList(){
+			var ele = Array.prototype.slice.apply(document.querySelectorAll('#carType dd'));
 
-		var letterTpl = `
-			<% letterNav.forEach(function(item){%>
-				<li data-initial="<%-item%>"><a href="javascript:;"><%-item%></a></li>
-			<%})%>`;
+			ele.forEach((item) => {
 
-		var brandTpl = `
-		<% list.forEach(function(item,index){%>
-		  <dl class="carList" id="letter-<%-item.initial%>">
-        <dt><a href="javascript:;"><%-item.initial%></a></dt>
-        <% item.results.forEach(function(child,cIndex){%>
-				  <dd data-brandid="<%-child.id%>" class="<%if(index==0 && cIndex==0){%>active<%}%>"><a href="javascript:;"><%-child.name%></a></dd>
-				<%})%>
-      </dl>
-    <%})%>`;
+				item.classList.remove('active');
 
-		Lizard.ajax({
-			type:'POST',
-			url:'/borrowers/brand',
-			success:(data) =>{
+			})
+
+			event.currentTarget.classList.add('active');
+
+			this.formData.series = name;
+
+			this.getCarModel(id);
+
+		},
+
+		selectModel (event,{id, name}) {
+
+			var ele = Array.prototype.slice.apply(document.querySelectorAll('#carModel dd'));
+
+			ele.forEach((item) => {
+
+				item.classList.remove('active');
+
+			})
+
+			event.currentTarget.classList.add('active');
+
+			this.formData.model = name;
+
+		},
+
+		getBrandList() {
+
+			Lizard.ajax({
+				type:'GET',
+				url:'/api/brands'
+			}).then((data) => {
 
 				var results = data.results;
 
@@ -490,19 +375,71 @@ Page({
 
 					var list = this.getGroupArr(results,'initial');
 
-					var letterHtml = ejs.render(letterTpl, {letterNav});
+					this.letterNav = letterNav;
 
-					var brandHtml = ejs.render(brandTpl,{list});
+					this.brandList = list;
 
-					$('.carNav_list').html(letterHtml);
-
-					$('#brandList').html(brandHtml);
-
-					$('#brandName').val(list[0].results[0].name);
+					this.formData.brand = list[0].results[0].name;
 
 					this.getCarType(results[0].id);
 				}
-			}
-		})
+
+			})
+		},
+		getCarType(brandId){
+
+			Lizard.ajax({
+				type:'GET',
+				url:`/api/series`,
+				data: {
+					brand_id:brandId
+				}
+			}).then((data) => {
+
+				var results = data.results;
+
+				if (data && results.length) {
+
+					var list = this.getGroupArr(results, 'group_name');
+
+					this.typeList = list;
+
+					this.formData.series = list[0].results[0].name;
+
+					this.getCarModel(results[0].id);
+				}
+			})
+
+	  },
+		getCarModel(typeId){
+
+			Lizard.ajax({
+				type:'GET',
+				url:'/api/models',
+				data: {
+					series_id: typeId
+				}
+			}).then((data) => {
+
+				var results = data.results;
+
+				if (data && results.length) {
+
+					var list = this.getGroupArr(results,'year');
+
+					this.modelList = list;
+
+					this.formData.model = list[0].results[0].name;
+
+				}
+			})
+		}
+	},
+
+	created () {
+
+		this.getBrandList();
+
 	}
+
 })

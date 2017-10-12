@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>账户</title>
     <link rel="stylesheet" href="/styles/account/index.css"/>
@@ -20,7 +22,7 @@
             <div class="cont-title">
                 <i></i>
                 <span>帐户</span>
-                <a class="base_btn" @click="accountAction('/account/sina')">管理新浪帐户</a>
+                <a class="base_btn" @click="accountAction('/api/sina-account')">管理新浪帐户</a>
             </div>
             <div class="account_info">
                 <h4>帐户余额</h4>
@@ -37,7 +39,7 @@
 
             <div class="bank_card">
                <div class="bank_card_btn">
-                  <a class="bank_card_link" @click="accountAction('/account/card')">到新浪管理银行卡</a>
+                  <a class="bank_card_link" @click="accountAction('/api/sina-card')">到新浪管理银行卡</a>
                </div>
                <div class="bank_card_des">
                  <h4>绑定绑定说明：</h4>
@@ -57,7 +59,7 @@
     </div>
     <div class="popup_input">
         <label>金额</label>
-        <input type="text" class="user-ui-input" v-model="rechargeAmount" placeholder="请输入金额"/>
+        <input type="text" class="user-ui-input" v-model.trim="rechargeAmount" placeholder="请输入金额"/>
     </div>
 
     <div class="popup_submit clearfix">
@@ -79,17 +81,13 @@
     </div>
     <div class="popup_input">
         <label>金额</label>
-        <input type="text" class="user-ui-input" v-model="withdrawalAmount" placeholder="请输入金额"/>
+        <input type="text" class="user-ui-input" v-model.trim="withdrawalAmount" placeholder="请输入金额"/>
     </div>
 
     <div class="popup_submit clearfix">
         <button class="btn_confirm" :disabled="saveBtn" @click="saveRecharge">确认</button>
         <button class="btn_cancel" @click="hidePopup">取消</button>
     </div>
-    <form method="post" action="/account/cash" class="popup_form" id="cashForm">
-        <input type="hidden" name="amount" v-model="withdrawalAmount">
-        <button type="submit">网银支付</button>
-    </form>
 </div>
 <script type="text/javascript" src="/dist/scripts/account/index.js"></script>
 </body>

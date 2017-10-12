@@ -10,6 +10,8 @@
 
 @import '../modules/table_list.scss';
 
+@import '../layui/index.scss';
+
 
 .vehicle_item{
 	width:100%;
@@ -292,6 +294,10 @@
 			float: left;
 			margin-right: 8px;
 			cursor: pointer;
+			&[disabled]{
+
+				cursor:not-allowed;
+			}
 		}
 		.btn_buy{
 			background:#ed6b75;

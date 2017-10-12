@@ -29,13 +29,7 @@ var vueConfig = new Vue({
 
 		this.showCalendar();
 
-		$('.pagination_list').on('click','.js_page',(event) => {
-
-			var data = this.params;
-
-			pagination.showPage(event,'/borrowers/list', data, listTpl, null);
-
-		})
+		pagination.showPage('/api/borrowers', this.params, listTpl, null);
 
 	},
 	methods: {
@@ -61,24 +55,41 @@ var vueConfig = new Vue({
 				calendarItem.showCalendar();
 			})
 
-
 		},
-
 
 		fetch (data) {
 
-			var page = Lizard.query('page') || {};
+			Lizard.showLoading();
+
+			var page = Lizard.query('page') || 1;
 
 			var formData = Object.assign({ page }, data );
 
-			pagination.pageList('/borrowers/list',formData,listTpl,null)
+			pagination.pageList('/api/borrowers',formData,listTpl,null)
 		},
 
 		query () {
 
-			var data = this.params;
+			var data = Object.assign({},this.params);
+
+			var startTime = data.from;
+
+			var endTime = data.to;
+
+			startTime =  startTime.replace('/\-/','/');
+
+			endTime =  endTime.replace('/\-/','/');
+
+			if ((startTime && endTime) && new Date(startTime).getTime() > new Date(endTime).getTime()) {
+
+				Lizard.showToast('开始时间不能大于结束时间');
+
+				return;
+
+			}
 
 			data = common.deleteEmptyProperty(data);
+
 
 			this.fetch(data);
 

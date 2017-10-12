@@ -1,5 +1,4 @@
-
-var $ = require('../lib/jquery');
+var $ = require('../lib/jquery.min');
 
 var common = require('../common');
 
@@ -8,7 +7,6 @@ var Lizard = require('../widget/lizard');
 var popup = require('../widget/popup');
 
 var Vue = require('../lib/vue');
-
 
 var recharge = new Vue({
 
@@ -34,45 +32,43 @@ var recharge = new Vue({
 
 			Lizard.ajax({
 				type: "POST",
-				url: '/account/recharge',
+				url: '/api/recharge',
 				data:{
 					amount: this.rechargeAmount,
 					pay_method: '0'
-				},
-				success:(data) => {
-
-					this.rechargeAmount = '';
-
-					popup.hideContent('#rechargePopup');
-
-					var formData = {}
-
-					Object.keys(data).forEach((item) =>{
-
-						if (item !== 'sina_pay_online_pay_gate') {
-
-							formData[item] = data[item];
-
-						}
-
-					})
-
-					this.formData = formData;
-
-					this.sinaPayLink = data.sina_pay_online_pay_gate;
-
-					Vue.nextTick( ()=>{
-
-						$('#recharge').submit();
-
-					})
-
-
 				},
 				error: () =>{
 
 					this.saveBtn = false;
 				}
+			}).then((data) => {
+
+				this.rechargeAmount = '';
+
+				popup.hideContent('#rechargePopup');
+
+				var formData = {}
+
+				Object.keys(data).forEach((item) =>{
+
+					if (item !== 'sina_pay_online_pay_gate') {
+
+						formData[item] = data[item];
+
+					}
+
+				})
+
+				this.formData = formData;
+
+				this.sinaPayLink = data.sina_pay_online_pay_gate;
+
+				Vue.nextTick( ()=>{
+
+					$('#recharge').submit();
+
+				})
+
 			})
 		}
 
@@ -98,7 +94,27 @@ var cashPopup = new Vue({
 		},
 		saveRecharge(){
 
-			$('#cashForm').submit();
+			Lizard.ajax({
+				type:'POST',
+				url:'/api/withdrawal',
+				dataType:'text',
+				data:{
+					amount: this.withdrawalAmount
+				}
+			}).then((data) => {
+
+				var re = new RegExp(/<form [\s\S]*<\/form>/);
+
+				var formStr = data.match(re)[0];
+
+				$(formStr).insertAfter('#recharge');
+
+				this.saveBtn = false;
+
+				$('#form1').submit();
+
+			})
+
 		}
 
 	}
@@ -118,18 +134,15 @@ var vueConfig = new Vue({
 		accountAction (url) {
 
 			Lizard.ajax({
-				type: "POST",
-				url:url,
-				success(data) {
+				type: "GET",
+				url:url
+			}).then((data) => {
 
-					if (data) {
+				if (data) {
 
-						location.href = data.redirect_url;
-
-					}
+					location.href = data.redirect_url;
 
 				}
-
 			})
 		},
 		showPopup (ele) {

@@ -2,6 +2,8 @@ var webpack = require('webpack');
 
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 var path = require('path');
 
 module.exports = {
@@ -56,16 +58,41 @@ module.exports = {
 
 		'vehicles/detail':'./public/scripts/vehicles/detail',
 
-		'vehicles/map/index': './public/scripts/vehicles/map/index',
+		'vehicles/trace/index':'./public/scripts/vehicles/trace/index',
+
+		'vehicles/history/index':'./public/scripts/vehicles/history/index',
 
 		'personnel/index':'./public/scripts/personnel/index',
 
 		'message/index':'./public/scripts/message/index',
 
-		'account/index':'./public/scripts/account/index'
+		'revenue/index':'./public/scripts/revenue/index',
 
+		'revenue/report':'./public/scripts/revenue/report',
 
+		'revenue/list':'./public/scripts/revenue/list',
 
+		'revenue/detail':'./public/scripts/revenue/detail',
+
+		'account/index':'./public/scripts/account/index',
+
+		'insurance/index': './public/scripts/insurance/index',
+
+		'insurance/info': './public/scripts/insurance/info',
+
+		'insurance/price/index': './public/scripts/insurance/price/index',
+
+		'insurance/price/detail': './public/scripts/insurance/price/detail',
+
+		'insurance/delivery': './public/scripts/insurance/delivery',
+
+		'insurance/confirm': './public/scripts/insurance/confirm',
+
+		'insurance/order/index': './public/scripts/insurance/order/index',
+
+		'insurance/order/detail': './public/scripts/insurance/order/detail',
+
+		'activate': './public/scripts/activate'
 
   },
   output: {
@@ -91,6 +118,11 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
-    })
+    }),
+		new UglifyJSPlugin({
+			ie8: false,
+			ecma: 5,
+			warnings: false
+		})
   ]
 };

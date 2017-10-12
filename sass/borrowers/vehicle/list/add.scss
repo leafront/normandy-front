@@ -12,6 +12,8 @@
 
 @import '../../../modules/form_list.scss';
 
+@import '../../../layui/index.scss';
+
 .modify-button{
 	padding-top:15px;
 	padding-left:530rem/$rem;
@@ -23,16 +25,6 @@
 	width:440rem/$rem;
 
 
-}
-
-.vehicles-base-input{
-
-	.user-ui-input-txt{
-
-		width:54px;
-
-		left:-59px;
-	}
 }
 .user-ui-explain{
 

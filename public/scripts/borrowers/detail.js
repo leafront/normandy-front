@@ -1,5 +1,3 @@
-var $ = require('../lib/jquery');
-
 var common = require('../common');
 
 var Lizard = require('../widget/lizard');
@@ -11,13 +9,72 @@ var Vue =  require('../lib/vue');
 var vueConfig = new Vue({
 
 	el:'#app',
+
+	data: {
+
+		vehiclesId: '',
+		dropMenu: [
+			{deviceOpen:false,statusOpen:false},
+			{deviceOpen:false,statusOpen:false},
+			{deviceOpen:false,statusOpen:false},
+			{deviceOpen:false,statusOpen:false},
+			{deviceOpen:false,statusOpen:false}
+		],
+		gps_devices:[
+			{'supplier': '谷米', 'imei': '', 'type': '0',status:'1'},
+			{'supplier': '谷米', 'imei': '', 'type': '0',status:'1'},
+			{'supplier': '谷米', 'imei': '', 'type': '0',status:'1'},
+			{'supplier': '谷米', 'imei': '', 'type': '0',status:'1'},
+			{'supplier': '谷米', 'imei': '', 'type': '0',status:'1'}
+		]
+	},
 	methods: {
 
-		showPopup (ele){
+		showPopup (ele,index,vehiclesId){
 
 			popup.showContent(ele);
 
+			this.vehiclesId = vehiclesId;
+
+			this.getDevices(vehiclesId)
+
+		},
+		getDevices (vehiclesId) {
+
+			Lizard.ajax({
+				type:'GET',
+				url:`/api/vehicles/${vehiclesId}`
+			}).then((data) => {
+
+				var results = data.gps_devices;
+
+				if (data && results.length) {
+
+
+					var dropMenu = [];
+
+					results.forEach((item) => {
+
+						dropMenu.push({deviceOpen: false, statusOpen: false})
+
+					})
+
+					popupConfig.dropMenu = dropMenu;
+
+					popupConfig.gps_devices = results;
+
+				} else {
+
+					popupConfig.gps_devices = this.gps_devices;
+
+					popupConfig.dropMenu = this.dropMenu;
+
+				}
+
+			})
+
 		}
+
 	}
 
 })
@@ -28,17 +85,25 @@ var popupConfig = new Vue({
 
 	el:'#addPopup',
 	data:{
-		stage: 5,
+		number: 7,
 		isStage:false,
-		dropMenu:-1,
-		params: {type:""},
-		repay_schema:[
-			{"term":1,"interest":"","capital":""},
-			{"term":2,"interest":"","capital":""},
-			{"term":3,"interest":"","capital":""},
-			{"term":4,"interest":"","capital":""},
-			{"term":5,"interest":"","capital":""}
-		]
+		device_type: [{
+			name: '有线',
+			value: '0'
+		},{
+			name: '无线',
+			value: '1'
+		}],
+		gpsStatus:[{
+			name: '报废',
+			value: '0',
+		},{
+			name: '正常',
+			value: '1'
+		}],
+		dropMenu:vueConfig.dropMenu,
+		gps_devices: vueConfig.gps_devices
+
 	},
 	methods: {
 
@@ -48,23 +113,85 @@ var popupConfig = new Vue({
 
 		},
 
-		selectValue (value) {
+		selectValue (index,property) {
 
-			var dropMenu  = this.dropMenu;
+			this.dropMenu[index][property] = !this.dropMenu[index][property];
 
-			if (dropMenu == value) {
 
-				this.dropMenu = -1;
 
-			} else {
+		},
+		addRecord (value) {
 
-				this.dropMenu = value;
+			if (this.gps_devices.length <= this.number) {
+
+				this.gps_devices.push(	{'supplier': '谷米', 'imei': '', 'type': 0,status:1});
+
+				this.dropMenu.push({deviceOpen: false, statusOpen: false})
+
 			}
 
 		},
-		checkValue (property, value) {
 
-			this.params[property] = value;
+		addGps (ele) {
+
+			var gps_devices = Object.assign([],this.gps_devices);
+
+			for (var i = gps_devices.length -1;i >=0; i--) {
+
+				if ( gps_devices[i].imei === "") {
+
+					gps_devices.splice(i,1);
+
+				}
+			}
+
+			if (!gps_devices.length) {
+
+				Lizard.showToast('请输入添加/修改的设备信息');
+
+				return;
+
+			}
+
+			var vehiclesId = vueConfig.vehiclesId;
+
+			Lizard.ajax({
+				type: "PATCH",
+				url:`/api/vehicles/${vehiclesId}`,
+				data:	{
+					gps_devices: JSON.stringify(gps_devices)
+				}
+			}).then((data) => {
+
+				if (data) {
+
+					Lizard.showToast('添加/修改成功');
+
+					setTimeout(() =>{
+
+						popup.hideContent(ele);
+
+					},200)
+
+				}
+
+			})
+
+		},
+		removeRecord (index) {
+
+			this.gps_devices.splice(index,1);
+
+			this.dropMenu.splice(index,1);
+
+
+		},
+		checkValue (index, property,type,value) {
+
+			this.gps_devices[index][property] = value;
+
+
+			this.dropMenu[index][type] = false;
 
 		}
 
@@ -73,12 +200,6 @@ var popupConfig = new Vue({
 	mounted (){
 
 		common.headerMenu();
-
-		$(document).click(() =>{
-
-			this.dropMenu = -1;
-
-		})
 
 	}
 

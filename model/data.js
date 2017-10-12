@@ -79,6 +79,14 @@ var transmissionStatus = [
 	}
 ]
 
+var deviceType = [{
+	name: '有线',
+	value: '0'
+},{
+	name: '无线',
+	value: '1'
+}];
+
 var engineStatus =  [
 	{
 		"name": "正常",
@@ -237,27 +245,27 @@ var purchaseType = [{
 var colorList = [
 	{
 	  'name':'银色',
-		'value': 0,
-		color:'#c0c0c0'
+		'value': "0",
+	  color:'#c0c0c0'
 	},
 	{
 		'name':'黑色',
-		'value': 1,
+		'value': "1",
 		color:'#000000'
 	},
 	{
 		'name': '白色',
-		'value': 2,
+		'value': "2",
 		color:'#f5f5f5'
 	},
 	{
 		'name': '灰色',
-		'value': 3,
-		color:'#808080'
+		'value': "3",
+		 color:'#808080'
 	},
 	{
 		'name': '红色',
-		'value': 4,
+		'value': "4",
 		color:'#ff0000'
 	},
 	{
@@ -267,42 +275,42 @@ var colorList = [
 	},
 	{
 		'name': '黄色',
-		'value': 6,
+		'value': "6",
 		color:'#ffff00'
 	},
 	{
 		'name': '绿色',
-		'value': 7,
+		'value': "7",
 		color:'#22ac38'
 	},
 	{
 		'name': '紫色',
-		'value': 8,
+		'value': "8",
 		color:'#8957a1'
 	},
 	{
 		'name': '橙色',
-		'value': 9,
+		'value': "9",
 		color:'#ff9c00'
 	},
 	{
 		'name': '棕色',
-		'value': 10,
+		'value': "10",
 		color:'#7f2d00'
 	},
 	{
 		'name': '米色',
-		'value': 11,
+		'value': "11",
 		color:'#f5f5dc'
 	},
 	{
 		'name': '巧克力色',
-		'value': 12,
+		'value': "12",
 		color:'#d2691e'
 	},
 	{
 		'name': '香槟色',
-		'value': 13,
+		'value': "13",
 		color:'#dfb981'
 }];
 
@@ -441,10 +449,12 @@ var borrowingStatus = {
 	'-2': {'title': '主审拒绝', 'color': 'list_btn4'},
 	'3': {'title': '待复审', "stage": "复审", 'color': 'list_btn2'},
 	'-3': {'title': '财审拒绝', 'color': 'list_btn4'},
-	'4': {'title': '还款中', 'color': 'list_btn'},
+	'null':{'title':'未上标','color':'list_btn4'},
+	'4': {'title': '等待放款', 'color': 'list_btn'},
 	'-4': {'title': '复审拒绝', 'color': 'list_btn4'},
-	'5': {'title': '还款完成', 'color': 'list_btn'},
-	'-5': {'title': '坏账', 'color': 'list_btn4'}
+	'5': {'title': '还款中', 'color': 'list_btn'},
+	'6': {'title': '还款完成', 'color': 'list_btn'},
+	'-6': {'title': '坏账', 'color': 'list_btn4'}
 }
 var autoReviewStatus = {
 	0: {'title': '已创建机审', 'color': 'list_btn3'},
@@ -977,23 +987,23 @@ var loanType = [{
 	"value": 1
 }];
 
-var subjectStatus = [{
-
+var gpsStatus = [{
 	name:'全部',
+	value:3
+},{
+	name:'正常',
 	value:0
 },{
 	name:'异常',
 	value:1
 },{
-	name:'预警',
+	name:'未知',
 	value:2
-},{
-	name:'无异常',
-	value:3
 }];
 
 module.exports = {
-	subjectStatus,
+	deviceType,
+	gpsStatus,
 	loanType,
 	seniority,
 	companyScale,

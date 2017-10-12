@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
     <meta charset="utf-8">
     <title>业务--电核</title>
     <link rel="stylesheet" href="/styles/business/phone/index.css"/>
@@ -41,13 +43,13 @@
                                   <strong :class="{'active':<%-item.value%> === self.phone_auth}" @click="checkValue('self','phone_auth',<%-item.value%>)"><%-item.name%></strong>
                                 <%})%>
                             </div>
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && self.other_liabilities === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':!isValidate && (self.other_liabilities === 1 && self.liabilities_amount === '')}">
                                 <label>是否有其他负债/借款</label>
                                 <% booleanOptions.forEach(function(item){%>
                                   <strong :class="{'active':<%-item.value%> === self.other_liabilities}" @click="checkValue('self','other_liabilities',<%-item.value%>)"><%-item.name%></strong>
                                 <%})%>
                                 <div class="form-group-loan">
-                                    <input type="number" :disabled="self.other_liabilities != 1" :class="{'user-ui-disabled':self.other_liabilities != 1}" v-model="self.other_liabilities == 0?'':self.liabilities_amount" class="user-ui-input" placeholder="负债/借款金额元"/>
+                                    <input type="number" :disabled="self.other_liabilities != 1" :class="{'user-ui-disabled':self.other_liabilities != 1}" v-model.trim="self.other_liabilities == 0?'':self.liabilities_amount" class="user-ui-input" placeholder="负债/借款金额元"/>
                                 </div>
 
                             </div>
@@ -76,12 +78,12 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows vehicles-base-input" :class="{'form-group-error':(!isValidate && self.apply_amount === '')}">
                                 <label>申请金额</label>
-                                <input type="number" placeholder="金额" v-model="self.apply_amount" class="user-ui-input user-ui-salary">
+                                <input type="number" placeholder="金额" v-model.trim="self.apply_amount" class="user-ui-input user-ui-salary">
                                 <i class="user-ui-input-txt">万元</i>
                             </div>
                             <div class="form-group-rows" :class="{'form-group-error':(!isValidate && self.apply_duration === '')}">
                                 <label>申请期限</label>
-                                <input type="text" placeholder="期限" v-model="self.apply_duration" class="user-ui-input user-ui-salary">
+                                <input type="text" placeholder="期限" v-model.trim="self.apply_duration" class="user-ui-input user-ui-salary">
                                 <i class="user-ui-input-txt">月</i>
                             </div>
                         </div>
@@ -104,19 +106,19 @@
                             </div>
                         </div>
                         <div class="form-group clearfix">
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && self.income.length == 0)}">
+                            <div class="form-group-rows">
                               <label>收入情况</label>
                               <div class="form_income">
 
                                 <i @click="checkboxValue('self','income','0')" :class="{'active':self.income.indexOf('0') > -1}"></i>
-                                <input type="number" :class="{'user-ui-disabled':self.income.indexOf('0') <= -1}" :disabled="self.income.indexOf('0') <= -1" v-model="self.income.indexOf('0') <= -1 ? '': self.income_amount" placeholder="每月稳定收入" class="user-ui-input user-ui-salary">
+                                <input type="number" :class="{'error_input':!isValidate && (self.income.indexOf('0')> -1 && self.income_amount === ''),'user-ui-disabled':self.income.indexOf('0') <= -1}" :disabled="self.income.indexOf('0') <= -1" v-model.trim="self.income.indexOf('0') <= -1 ? '': self.income_amount" placeholder="每月稳定收入" class="user-ui-input user-ui-salary">
                               </div>
                             </div>
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && self.income.length == 0)}">
+                            <div class="form-group-rows" :class="{'form-group-error':!isValidate && (self.income.indexOf('1')> -1 && (self.pending_amount == '' || self.pending_month == ''))}">
                                 <div class="form_income">
                                     <i @click="checkboxValue('self','income','1')" :class="{'active':self.income.indexOf('1') > -1}"></i>
-                                    <input type="number" :class="{'user-ui-disabled':self.income.indexOf('1') <= -1}" :disabled="self.income.indexOf('1') <= -1" v-model="self.income.indexOf('1') <= -1 ? '': self.pending_amount" placeholder="有应收账款, 项目待结算金额" class="user-ui-input user-ui-salary">
-                                    <input type="number" :class="{'user-ui-disabled':self.income.indexOf('1') <= -1}" :disabled="self.income.indexOf('1') <= -1" v-model="self.income.indexOf('1') <= -1 ? '': self.pending_month" placeholder="预计结算周期" class="user-ui-input user-ui-salary">
+                                    <input type="number" :class="{'user-ui-disabled':self.income.indexOf('1') <= -1}" :disabled="self.income.indexOf('1') <= -1" v-model.trim="self.income.indexOf('1') <= -1 ? '': self.pending_amount" placeholder="有应收账款, 项目待结算金额" class="user-ui-input user-ui-salary">
+                                    <input type="number" :class="{'user-ui-disabled':self.income.indexOf('1') <= -1}" :disabled="self.income.indexOf('1') <= -1" v-model.trim="self.income.indexOf('1') <= -1 ? '': self.pending_month" placeholder="预计结算周期" class="user-ui-input user-ui-salary">
                                 </div>
                             </div>
                         </div>
@@ -131,11 +133,11 @@
                         <div class="form-group clearfix">
                             <div class="form-group-rows form-group-des" :class="{'form-group-error':(!isValidate && self.borrower_purpose === '')}">
                                <label>借款用途</label>
-                               <textarea class="phone_des" v-model="self.borrower_purpose"></textarea>
+                               <textarea class="phone_des" v-model.trim="self.borrower_purpose"></textarea>
                             </div>
                             <div class="form-group-rows form-group-des" :class="{'form-group-error':(!isValidate && self.payment_source === '')}">
                                 <label>还款来源</label>
-                                <textarea class="phone_des" v-model="self.payment_source"></textarea>
+                                <textarea class="phone_des" v-model.trim="self.payment_source"></textarea>
                             </div>
                         </div>
                     </div>
@@ -204,9 +206,9 @@
                               <strong :class="{'active':<%-item.value%> === rel.other_liabilities}" @click="checkValue('rel','other_liabilities',<%-item.value%>)"><%-item.name%></strong>
                               <%})%>
                           </div>
-                          <div class="form-group-rows" :class="{'form-group-error':(!isValidate && rel.other_liabilities === '')}">
+                          <div class="form-group-rows" :class="{'form-group-error':!isValidate && (rel.other_liabilities === 1 && rel.liabilities_amount === '')}">
                               <label>负债/借款金额</label>
-                              <input type="number" :disabled="rel.other_liabilities != 1" :class="{'user-ui-disabled':rel.other_liabilities != 1}" v-model="rel.liabilities_amount" class="user-ui-input" placeholder="负债/借款金额元"/>
+                              <input type="number" :disabled="rel.other_liabilities != 1" :class="{'user-ui-disabled':rel.other_liabilities != 1}" v-model.trim="rel.other_liabilities == 0 ? '':rel.liabilities_amount" class="user-ui-input" placeholder="负债/借款金额元"/>
                           </div>
                       </div>
                   </div>
@@ -400,9 +402,9 @@
                                 <strong :class="{'active':<%-item.value%> === col.know_job}" @click="checkValue('col','know_job',<%-item.value%>)"><%-item.name%></strong>
                                 <%})%>
                             </div>
-                            <div class="form-group-rows" :class="{'form-group-error':(!isValidate && col.know_job === '')}">
+                            <div class="form-group-rows" :class="{'form-group-error':!isValidate && (col.know_job === 1 && col.know_position === '')}">
                                 <label>借款人职位</label>
-                                <input type="number" :disabled="col.know_job != 1" v-model="col.know_job == 0 ? '' : col.know_position" :class="{'user-ui-disabled':col.know_job != 1}" placeholder="借款人职位" class="user-ui-input">
+                                <input type="text" :disabled="col.know_job != 1" v-model.trim="col.know_job == 0 ? '' : col.know_position" :class="{'user-ui-disabled':col.know_job != 1}" placeholder="借款人职位" class="user-ui-input">
                             </div>
                         </div>
                     </div>

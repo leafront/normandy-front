@@ -30,7 +30,7 @@ module.exports = `
 					<%}%>
 				</div>
 				<a class="list_action" href="/business/<%-item.id%>">详情</a>
-				<% if(item.status == 0) {%><a class="list_action" href="/business/edit?id=<%-item.id%>"> / 完善借款信息</a><%}%>
+				<% if(item.status == 0) {%><a class="list_action" href="/business/edit/<%-item.id%>"> / 完善借款信息</a><%}%>
 		</dd>
 	<%})%>
  <%}%>`;

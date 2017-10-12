@@ -7,8 +7,8 @@ module.exports =`
 	<%}%>
 
 	<% for(var i = 1; i <= showPage; i++) { %>
-
 	<% if (iPage + i <= totalPage){ %>
+
 	<li <%if(page == (iPage + i)){%>class="active"<%}%>><a class="js_page" href="<%-pathName%>?page=<%-iPage+i%>"><%-iPage + i%></a></li>
 	<%}%>
 	<%}%>

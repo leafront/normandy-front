@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>计算收支--明细</title>
+    <link rel="stylesheet" href="/styles/revenue/report.css"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<%include ../common/header.ejs%>
+<div class="container clearfix">
+    <% include ../common/aside_menu.ejs %>
+    <div class="right-container fr" id="app">
+        <div class="navigation">
+            <a href="/" class="home_ico"></a>
+            <em class="navigation_ico"></em>
+            <span>计算收支明细</span>
+        </div>
+        <div class="content" id="app">
+            <div class="cont-title">
+                <i></i>
+                <span>计算收支明细报表</span>
+            </div>
+            <div class="list_container list_top" id="wrapper">
+                <dl class="cont_list" id="scroller">
+                    <dt class="revenue_list">
+                        <span v-for="item in listTit">{{item}}</span>
+                    </dt>
+
+                    <dd v-for="item in list">
+                        <span v-for="child in item">{{child || '暂无数据'}}</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="revenue_total" v-cloak>
+                <span>总计</span>
+                <span>¥{{totalPay}}</span>
+                <span>¥{{totalIncome}}</span>
+            </div>
+            <div class="revenue_submit">
+                <button class="btn_confirm" @click="saveCalc">保存</button>
+            </div>
+        </div>
+        <% include ../common/footer.ejs %>
+    </div>
+</div>
+<script type="text/javascript" src="/dist/scripts/revenue/report.js"></script>
+</body>
+</html>
+

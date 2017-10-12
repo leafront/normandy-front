@@ -1,0 +1,126 @@
+@import '../modules/reset.scss';
+
+@import '../modules/common.scss';
+
+@import '../modules/form_list.scss';
+
+@import '../modules/dropMenu.scss';
+
+@import '../modules/confirm_button.scss';
+
+@import '../modules/process.scss';
+
+.form-group{
+
+	display:flex;
+
+	justify-content: center;
+}
+.insurance_info{
+
+	padding-top:60rem/$rem;
+
+}
+
+.user-base-input{
+
+	width:405rem/$rem;
+
+}
+
+.form-group{
+
+	.vehicle_checkbox{
+
+		&:before{
+
+			border-radius:2px;
+
+			-webkit-box-radius:2px;
+		}
+	}
+
+}
+
+.insurance_submit{
+
+	display:flex;
+
+	justify-content: center;
+
+}
+
+
+.friend_link{
+
+	display:flex;
+
+	justify-content: center;
+
+	padding-top:60px;
+
+	padding-bottom:30px;
+
+}
+
+.link_list{
+
+	display:flex;
+
+	flex-wrap: wrap;
+
+	width:1080px;
+
+	li{
+
+		width:222px;
+
+		height:98px;
+
+		margin-right:56px;
+
+		border:1px solid #e0e0e0;
+
+		display:flex;
+
+		justify-content: center;
+
+		align-items: center;
+
+		flex-direction: row;
+
+		margin-bottom:30px;
+
+		&:nth-child(4n){
+
+			margin-right:0;
+
+		}
+
+	}
+
+}
+
+.form-group-ellipsis{
+
+	label{
+		position:relative;
+
+		top:-12px;
+	}
+}
+
+
+.drop-menu-city{
+
+	width:192rem/$rem;
+
+	.drop_menu_list{
+
+		width:192rem/$rem;
+
+	}
+	span{
+		@include ellipsis;
+	}
+}

@@ -7,6 +7,7 @@ router.get('/', async (ctx,next) => {
 	const { roleList, shop, authority } = await common.authority(ctx,{
 		url:'/api/current-user'
 	})
+
 	await ctx.render('index',{
 		pathName: ctx.path,
 		authority,

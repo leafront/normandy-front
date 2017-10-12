@@ -70,58 +70,8 @@ router.get('/:id', async (ctx,next) => {
 		listTpl,
 		isRead,
 		isFirstPage:(currentPage - 1 ) == 0,
-		isLastPage:currentPage * pageSize > totalCount
+		isLastPage:currentPage * pageSize >= totalCount
 	})
-})
-
-
-router.post('/read',async (ctx,next) => {
-
-	const { userId, msg_ids } = ctx.request.body;
-
-	console.log(`/api/${userId}/msgs`)
-
-	await baseModel.post(ctx,{
-		type:'POST',
-		url:`/api/${userId}/msgs`,
-		data:{
-			msg_ids
-		}
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-router.post('/list',async (ctx,next) => {
-
-	const { userId, page } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/${userId}/msgs`,
-		data:{
-			page
-		}
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
 })
 
 

@@ -72,7 +72,7 @@ router.get('/', async (ctx,next) => {
 		page:currentPage,
 		iPage,
 		isFirstPage:(currentPage - 1 ) == 0,
-		isLastPage:currentPage * pageSize > totalCount
+		isLastPage:currentPage * pageSize >= totalCount
 	})
 
 })
@@ -216,6 +216,7 @@ router.get('/:id', async (ctx,next) => {
 		url:`/api/borrowers/${detailId}`
 	})
 
+
 	await ctx.render('borrowers/detail',{
 		pathName: ctx.path,
 		authority,
@@ -288,179 +289,27 @@ router.get('/vehicle/:id', async (ctx,next) => {
 })
 
 
+router.get('/real/name', async (ctx,next) => {
 
+	const detailId = ctx.params.id;
 
+	const { roleList, shop, authority } = await common.authority(ctx,{
+		url:'/api/current-user'
+	})
 
-router.post('/add',async (ctx,next) => {
+	const params = querystring.parse(ctx.req._parsedUrl.query);
 
-	const body = ctx.request.body;
+	const mobile = params.mobile;
 
-	await baseModel.post(ctx,{
-		type:'POST',
-		url:'/api/user-bind-borrower',
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
+	await ctx.render('borrowers/real/name',{
+		pathName: ctx.path,
+		authority,
+		shop,
+		roleList,
+		mobile
 	})
 
 })
-
-router.post('/bind',async (ctx,next) => {
-
-	const body = ctx.request.body;
-
-	await baseModel.post(ctx,{
-		type:'POST',
-		url:'/api/borrowers',
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-router.post('/list',async (ctx,next) => {
-
-	const body = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/borrowers`,
-		data:body
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-router.post('/brand',async (ctx,next) => {
-
-	const { id } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/brands`,
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-
-router.post('/carType',async (ctx,next) => {
-
-	const { brandId } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/series?brand_id=${brandId}`,
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-router.post('/carModel',async (ctx,next) => {
-
-	const { typeId } = ctx.request.body;
-
-	await baseModel.get(ctx,{
-		url:`/api/models?series_id=${typeId}`,
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-router.post('/vehicles/add',async (ctx,next) => {
-
-	const { id, data } = ctx.request.body;
-	await baseModel.post(ctx,{
-		type:'POST',
-		data:data,
-		url:`/api/borrowers/${id}/vehicles`
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
-router.post('/vehicles/conditions',async (ctx,next) => {
-
-	const { id, data } = ctx.request.body;
-	await baseModel.post(ctx,{
-		type:'POST',
-		data:data,
-		url:`/api/vehicles/${id}/conditions`
-	}).then((body) => {
-
-		ctx.body = body;
-
-	}).catch((err) => {
-
-		ctx.status =  err.response.statusCode;
-
-		ctx.body = err.response.body;
-
-	})
-
-})
-
 
 
 module.exports = router;

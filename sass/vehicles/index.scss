@@ -12,6 +12,8 @@
 
 @import '../modules/pagination.scss';
 
+@import '../layui/index.scss';
+
 .cont_list{
 	.vehicles_name{
 
@@ -21,20 +23,83 @@
 		width:260rem/$rem;
 	}
 	.vehicles_times{
-		width:160rem/$rem;
+		width:190rem/$rem;
 	}
 	.vehicles_status{
-		width:134rem/$rem;
+		width:114rem/$rem;
 	}
-	.vehicles_vin{
-		width:240rem/$rem;
+	.vehicles_number{
+		width:260rem/$rem;
+		@include ellipsis;
 		float:left;
 	}
 	.vehicles_subject{
-		width:164rem/$rem;
+		width:144rem/$rem;
 	}
 	.vehicles_gpsStatus{
-		width:150rem/$rem;
+
+		float:left;
+		width:250rem/$rem;
+		position:relative;
+
+		span{
+			width:250rem/$rem;
+			display:block;
+			height:58px;
+			cursor:default;
+		}
+		.gps_error{
+
+			color:#d90000;
+		}
+		.gps_warning{
+
+			color:#ffba00;
+		}
+	}
+	.gps_action{
+
+		cursor:pointer;
+
+		color:#248ad4;
+	}
+	.vehicles_tips{
+		position:absolute;
+
+		left:40px;
+
+		width:150px;
+		top:10px;
+
+		background-color:rgba(0,0,0,0.52);
+
+		@include borderRadius(3);
+
+		@include boxShadow(4);
+
+		display:none;
+		z-index:1000;
+		padding:10px;
+
+		&.active{
+
+			display:block;
+		}
+		&:after{
+			position:absolute;
+			content:" ";
+			width: 0;
+			height: 0;
+			left:-8px;
+			top:14px;
+			border-top: 4px solid transparent;
+			border-right: 8px solid  rgba(0,0,0,0.52);
+			border-bottom: 4px solid transparent;
+		}
+			p{
+			line-height:20px;
+			font-size:13px;
+		}
 	}
 
 	dd{
@@ -100,18 +165,16 @@
 	width: 400rem/$rem;
 	margin-top:12px;
 	margin-left:0;
-
-	.allowable{
-		a{
-			color:#248ad4;
-		}
-	}
 	.disabled{
-		a{
-			color:#999;
-		}
+		color:#999;
 	}
 
+	.gps_info{
+
+		cursor:pointer;
+
+		color:#248ad4;
+	}
 }
 .drop_menu_list{
 	width: 400rem/$rem;

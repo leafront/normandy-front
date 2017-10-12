@@ -1,4 +1,4 @@
-<div class="aside-menu fl">
+<div class="aside-menu fl" id="asideMenu">
     <% var menuList = [{
         name:'客户',
         link:'/borrowers',
@@ -11,10 +11,6 @@
         name:'业务',
         link:'/business',
         isValidate:'BORROWER_READ'
-    },{
-        name:'预约',
-        link:'/appointments',
-        isValidate:'APPOINTMENT_MANAGE'
     },{
         name:'员工',
         link:'/personnel',
@@ -33,10 +29,10 @@
         isValidate:'SUPER_ADMIN'
     }]%>
     <ul class="aside_list">
-        <li <%if('/' == pathName || pathName.indexOf('/message')>  -1){%>class="active"<%}%>>
+        <li <%if('/' == pathName || pathName.indexOf('/message')>  -1 || pathName.indexOf('/revenue') > -1){%>class="active"<%}%>>
             <a href="/">
                 <i class="ico1"></i>
-                <span class="js_nav_link">主页</span>
+                <span class="js_nav_link active">主页</span>
             </a>
         </li>
         <% menuList.forEach(function(item,index){%>
@@ -44,7 +40,7 @@
                 <li <%if(pathName.indexOf(item.link) > -1){%>class="active"<%}%>>
                     <a href="<%-item.link%>">
                         <i class="ico<%-index + 2 %>"></i>
-                        <span class="js_nav_link"><%-item.name%></span>
+                        <span class="js_nav_link active"><%-item.name%></span>
                     </a>
                 </li>
             <%}%>

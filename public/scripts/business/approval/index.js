@@ -53,28 +53,24 @@ var vueConfig = new Vue({
 
 			Lizard.ajax({
 				type:'POST',
-				url:'/business/approval/review',
-				data:{
-					id:window.borrowingsId,
-					data:this.formData
-				},
-				success (data){
+				url:`/api/borrowings/${borrowingsId}/approvals/master_review`,
+				data:this.formData
 
-					if (data) {
+			}).then((data) => {
 
-						Lizard.showToast('修改成功, 跳转至借款详情...');
+				if (data) {
 
-						setTimeout(function(){
+					Lizard.showToast('修改成功, 跳转至借款详情...');
 
-							//location.href = '/business/' + window.borrowingsId;
+					setTimeout(function(){
 
-						},500)
-					}
+						location.href = '/business/' + window.borrowingsId;
+
+					},500)
 				}
+
 			})
-
 		}
-
 	},
 
 	mounted () {
