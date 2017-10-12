@@ -18,8 +18,6 @@ var error = require('./router/error/index');
 
 var index = require('./router/index');
 
-var webhook = require('./router/webhook');
-
 var message = require('./router/message/index');
 
 var revenue = require('./router/revenue/index');
@@ -163,8 +161,6 @@ router.use('/shop',shop.routes());
 router.use('/insurance',insurance.routes());
 
 router.use('/activate',activate.routes());
-
-router.use('/webhook',webhook.routes());
 
 app.use(router.routes());
 
