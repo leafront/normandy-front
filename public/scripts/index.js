@@ -1,6 +1,7 @@
+var common = require("./common");
 
-var common = require('./common');
-
-var local = require('./widget/local');
+var local = require("./widget/local");
 
 common.headerMenu();
+
+console.log(1111);
