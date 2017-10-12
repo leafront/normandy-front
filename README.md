@@ -1,4 +1,4 @@
-##  nodejs 环境
+##  NODE 环境
 
     nodejs v 8.6.0
 
@@ -7,6 +7,8 @@
     说明: nodejs 代码涉及到ECMAScript 6、7 语法
 
     部署环境
+
+     cd /usr/share/nginx/normandy-front/front 目录
 
      npm install  --> 安装package.json 里面的依赖模块
 
@@ -44,6 +46,12 @@
 
                 laydate.js 日历第三方控价
 
+                vue.js 框架
+
+                util
+                    -->
+
+                      index.js  XMLHttpRequest 请求方法封装
 
 
 
@@ -53,6 +61,12 @@
             Lizard.js  封装常用JS 的方法
 
             calendar.js 日历控价
+
+            local.js  本地存储
+
+            validate.js 常用验证
+
+            page.js 页面base 调用
 
         common.js --> 公共的方法调用
 
@@ -80,3 +94,51 @@
   webpack.config.js --> webpack 打包配置文件
 
 ```
+
+## Nginx server 配置
+
+```
+
+server{
+
+    listen       80;
+    server_name  www.autotechfin.com;
+
+    location ~ .*\.(gif|jpg|jpeg|png)$ {
+      root /Users/leafrontye/Desktop/normandy-front/public; //配置本地目录下静态资源缓存
+      if (-f $request_filename) {
+        expires 1d;
+        break;
+      }
+    }
+
+    location ~ .*\.(js|css)$ {
+      root  /Users/leafrontye/Desktop/normandy-front/public;  //配置本地目录下静态资源缓存
+      if (-f $request_filename) {
+        expires 1d;
+        break;
+      }
+    }
+
+    location / {
+
+       proxy_pass http://127.0.0.1:3000;  //代理NODE 300 端口
+    }
+
+
+
+   location /api {
+
+      rewrite ^~api/?(.*)$ /$1 break;
+      #rewrite ^.+api/?(.*)$ /$1 break;
+      proxy_pass http://shop.qgqg.me;  //代理 API 接口跨域请求
+
+   }
+
+}
+
+```
+
+
+
+
