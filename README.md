@@ -1,4 +1,4 @@
-##  nodejs 环境
+##  NODE 环境
 
     nodejs v 8.6.0
 
@@ -46,6 +46,12 @@
 
                 laydate.js 日历第三方控价
 
+                vue.js 框架
+
+                util
+                    -->
+
+                      index.js  XMLHttpRequest 请求方法封装
 
 
 
@@ -55,6 +61,12 @@
             Lizard.js  封装常用JS 的方法
 
             calendar.js 日历控价
+
+            local.js  本地存储
+
+            validate.js 常用验证
+
+            page.js 页面base 调用
 
         common.js --> 公共的方法调用
 
