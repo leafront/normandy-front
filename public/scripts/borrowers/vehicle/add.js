@@ -29,7 +29,7 @@ var vueConfig = new Vue({
 		carTypeObject,
 		colorList,
 		formData: {
-			type:'', car_name:'', plate_number:'',
+			type:2, car_name:'', plate_number:'',
 			vin:'', engine_number:'', production_day:'',
 			color:'', displacement:'', shifting:0, driver_type:0
 		}
