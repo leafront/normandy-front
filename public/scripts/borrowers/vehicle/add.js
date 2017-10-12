@@ -88,8 +88,15 @@ var vueConfig = new Vue({
 
 		selectMenu (value) {
 
-			this.dropMenu = value;
+			if (this.dropMenu == value) {
 
+				this.dropMenu = -1;
+
+			} else {
+
+				this.dropMenu = value;
+
+			}
 		},
 
 		widgetCalendar(){
