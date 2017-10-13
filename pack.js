@@ -47,6 +47,22 @@ pack().then(() => {
 
 	console.log(err);
 
+}).then(() => {
+
+	exec('rm -rf templates public/scripts',(err, stdout, stderr) =>{
+
+		if (err) {
+
+			console.log(err);
+
+			throw new Error(err);
+
+		}
+
+		console.log(stdout);
+
+	})
+
 })
 
 
