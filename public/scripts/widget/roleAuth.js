@@ -126,7 +126,7 @@ var roleAuth = {
 
 			setTimeout(() =>{
 
-				location.reload();
+				//location.reload();
 
 			},500)
 		})

@@ -98,7 +98,7 @@ var vueConfig = new Vue({
 
 						Lizard.showToast(tipTxt + '成功');
 
-						location.reload();
+						//location.reload();
 					}
 
 				})
