@@ -280,7 +280,6 @@ var Lizard = {
 		var options = {
 			isHeader:true,
 			async: true,
-			headers,
 			timeout: 6000,
 			dataType:'json',
 			onTimeout (){
