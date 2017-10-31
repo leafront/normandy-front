@@ -510,9 +510,8 @@ var Lizard = {
 	 */
 	removeCookie:function (name){
 		var exp = new Date();
-		exp.setTime(exp.getTime() - 1);
-		var cval = this.getCookie(name);
-		if(cval!== null) document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path=/";
+		exp.setTime(-100);
+		if(cval!== null) document.cookie= name + "=null;expires="+exp.toGMTString()+";path=/";
 	},
 
 	/**
@@ -524,10 +523,75 @@ var Lizard = {
 	clearCookie:function (){
 		var keys=document.cookie.match(/[^ =;]+(?=\=)/g);
 		if (keys) {
-			for (var i = keys.length; i--;)
-				document.cookie=keys[i]+'=0;expires=' + new Date().toGMTString()+";path=/";
+			for (var i = 0, len = keys.length; i < len; i++) {
+				document.cookie = keys[i] + '= null;expires=' + new Date().toGMTString() + ";path=/";
+			}
 		}
 	},
+
+	/**
+	 * @param {Number} str
+	 * @param {Number} number
+	 * @returns {string}
+	 * toThousands(2343244.452,2)
+	 * =>"2,343,244.45"
+	 */
+
+	toThousands: function (str) {
+
+	var number = arguments[1] || 0;
+
+	var str = str.toString();
+
+	var decimal = '';
+
+	var pos = str.indexOf('.');
+
+	var result = '';
+
+	var decimalPos = '0';
+
+	if (pos > -1) {
+
+		decimal =  str.slice(pos,pos + 1 + number);
+
+		str = str.slice(0,pos);
+
+	}
+
+	while( str.length > 3) {
+
+		result = ',' + str.slice(-3) + result;
+
+		str = str.slice(0,str.length-3);
+
+	}
+
+	if (str) {
+
+		result = str + result;
+
+		if(decimal && number) {
+
+			result += decimal
+
+		} else {
+
+			if (number){
+
+				decimalPos = '.' + decimalPos.repeat(number)
+
+				result += decimalPos
+
+			}
+
+		}
+
+	}
+
+	return result;
+
+},
 
 	/**
 	 *
